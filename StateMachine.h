@@ -21,11 +21,14 @@
 class IStateController;
 class StateMachine {
 private:
+	//GameState gamestate;
 	static bool init;
     static StateMachine* statemachine;
 	StateMachine(GameState* gamestate);
 public:	
-	static std::vector<GameState*> state;
+	static GameState* bushcourtcontroller;
+	//static std::vector<GameState*> state;
+	GameState* state;
 	static StateMachine* getInstance();
 
 	static void setController(GameState* gamestate);

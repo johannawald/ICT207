@@ -8,6 +8,7 @@
 //--------------------------------------------------------------------------------------
 
 enum TransitionState { tsNone, tsVendingMachine, tsMouseBuyButton, tsNumberPad, tsHole, tsFallAnimation };
+enum ReachtTransition {PlaySound, Move};
 
 class Transition
 {
@@ -30,7 +31,9 @@ private:
 public:
 	Transition();
 	virtual ~Transition();
-	void Update();
+	ReachtTransition Update();
+	void CheckMouseInput();
+	void CheckMousePosition(int x, int y, int width, int height);
 };
 
 #endif

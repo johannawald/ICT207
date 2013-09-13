@@ -15,6 +15,7 @@
 class IStateController {
 public:	
 	virtual ~IStateController() {
+		int a;
 	};
 	virtual void Init() = 0;
 	virtual void Draw() = 0;

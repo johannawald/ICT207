@@ -1,5 +1,7 @@
 #include "BushCourtController.h"
 #include "texturedPolygons.h"
+#include "GameController.h"
+#include "StateMachine.h"
 //#include <iostream>
 
 //--------------------------------------------------------------------------------------
@@ -23,6 +25,11 @@ BushCourtController::BushCourtController(): movementSpeed(20.0), rotationSpeed(0
 	displayECL = true;
 	// Stores raw image file
 	image = nullptr;
+}
+
+BushCourtController::~BushCourtController() {
+	//destr
+	std::cout << "";
 }
 
 //--------------------------------------------------------------------------------------
@@ -70,7 +77,7 @@ void BushCourtController::Draw()
 	{
 		// check for movement
 		cam.CheckCamera();
-	
+		//ansition.CheckNumberpad();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// DISPLAY TEXTURES
@@ -101,22 +108,24 @@ void BushCourtController::Draw()
 	}
 }
 
-void BushCourtController::Update(int w, int h) {
-	if (loaded) {
-		width = w;
-		height = h;
-		// Prevent a divide by zero, when window is too short
-		// (you cant make a window of zero width).
-		if (h == 0) h = 1;
-		ratio = 1.0f * w / h;
+void BushCourtController::Update() {
+	Update(width, height);
+}
 
-		// Reset the coordinate system before modifying
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glViewport(0, 0, w, h);
-		gluPerspective(45,ratio,1,250000);	
-		glMatrixMode(GL_MODELVIEW);
-	}
+void BushCourtController::Update(int w, int h) {
+	width = w;		
+	height = h;
+	// Prevent a divide by zero, when window is too short		
+	// (you cant make a window of zero width).
+	if (h == 0) h = 1;
+	ratio = 1.0f * w / h;
+
+	// Reset the coordinate system before modifying
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glViewport(0, 0, w, h);
+	gluPerspective(45,ratio,1,250000);	
+	glMatrixMode(GL_MODELVIEW);
 }
 
 //--------------------------------------------------------------------------------------
@@ -170,6 +179,11 @@ void BushCourtController::Keyboard(unsigned char key, int x, int y)
 	switch (key)
 	{
 		// step left
+		case 'c':
+			//loaded = false;
+			StateMachine::setController(new GameController);
+		break;
+
 		case 'Z':
 		case 'z':
 			cam.DirectionLR(-1);
@@ -291,6 +305,7 @@ void BushCourtController::Mouse(int button, int state, int x, int y)
 	// exit tour if clicked on exit splash screen
 	if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_DOWN))
 	{
+		transition.CheckMouseInput();
 		if ((DisplayExit) && (x <= width/2.0 + 256.0) && (x >= width/2.0 - 256.0)
 			&& (y <= height/2.0 + 256.0) && (y >= height/2.0 - 256.0))
 		{
@@ -306,39 +321,41 @@ void BushCourtController::Mouse(int button, int state, int x, int y)
 //--------------------------------------------------------------------------------------
 void BushCourtController::PassiveMotion(int x, int y) //mouseMove
 {
-		if (x < 0)
-			cam.DirectionRotateLR(0);
-		else if (x > width)
-			cam.DirectionRotateLR(0);
-		else if (x > width/2.0)
-		{
-			cam.DirectionRotateLR(1);
-			Draw();
-			glutWarpPointer(width/2.0,height/2.0);
-		}
-		else if (x < width/2.0)
-		{
-			cam.DirectionRotateLR(-1);
-			Draw();
-			glutWarpPointer(width/2.0,height/2.0);
-		}
-		else
-			cam.DirectionRotateLR(0);
-		if (y < 0 || y > height)
-			cam.DirectionLookUD(0);
+	transition.CheckMousePosition(x,y, width, height);
 
-		else if (y > height/2.0) {
-			cam.DirectionLookUD(-1);
-			Draw();
-			glutWarpPointer(width/2.0,height/2.0);
-		}
-		else if (y < height/2.0) {
-			cam.DirectionLookUD(1);
-			Draw();
-			glutWarpPointer(width/2.0,height/2.0);
-		}
-		else
-			cam.DirectionLookUD(0);
+	if (x < 0)
+		cam.DirectionRotateLR(0);
+	else if (x > width)
+		cam.DirectionRotateLR(0);
+	else if (x > width/2.0)
+	{
+		cam.DirectionRotateLR(1);
+		Draw();
+		glutWarpPointer(width/2.0,height/2.0);
+	}
+	else if (x < width/2.0)
+	{
+		cam.DirectionRotateLR(-1);
+		Draw();
+		glutWarpPointer(width/2.0,height/2.0);
+	}
+	else
+		cam.DirectionRotateLR(0);
+	if (y < 0 || y > height)
+		cam.DirectionLookUD(0);
+
+	else if (y > height/2.0) {
+		cam.DirectionLookUD(-1);
+		Draw();
+		glutWarpPointer(width/2.0,height/2.0);
+	}
+	else if (y < height/2.0) {
+		cam.DirectionLookUD(1);
+		Draw();
+		glutWarpPointer(width/2.0,height/2.0);
+	}
+	else
+		cam.DirectionLookUD(0);
 }
 
 //--------------------------------------------------------------------------------------
@@ -390,6 +407,7 @@ void BushCourtController::CreateBoundingBoxes()
 
 	// drinks machine
 	cam.SetAABBMaxX(7, 35879.0);
+	cam.SetAABBMinX(7, 35004.0);
 	cam.SetAABBMinX(7, 34704.0);
 	cam.SetAABBMaxZ(7, 25344.0);
 	cam.SetAABBMinZ(7, 24996.0);
@@ -521,7 +539,7 @@ void BushCourtController::CreateTextures()
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	
 	// set texture count
-	tp.SetTextureCount(250);
+	tp.SetTextureCount(251);
 	unsigned char* image;
 	// load and create textures
 	image = tp.LoadTexture("data/abovechanctext.raw", 128, 1024);
@@ -1185,6 +1203,14 @@ void BushCourtController::CreateTextures()
 	tp.CreateTexture(WELCOME, image, 512, 512);
 	image = tp.LoadTexture("data/thanks.raw", 512, 512);
 	tp.CreateTexture(EXIT, image, 512, 512);
+
+	//*JW
+	image = tp.LoadTexture("data/numberpad.raw", 850, 525);
+	tp.CreateTexture(NUMBERPAD, image, 850, 525);
+
+	image = tp.LoadTexture("data/vending_machine.raw", 595, 356);
+	tp.CreateTexture(VENDING_MACHINE, image, 595, 356);
+	//e*JW 
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);

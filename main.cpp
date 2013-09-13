@@ -55,6 +55,7 @@ int main(int argc, char **argv)
 	StateMachine::getInstance();
 	StateMachine::getInstance()->Init();
 	
+	//glutFullScreen();
 	glutIgnoreKeyRepeat(1);
 	glutSpecialFunc(SpecialKey);
 	glutSpecialUpFunc(SpecialKeyUp);
@@ -103,9 +104,6 @@ void CheckNumberpad() { //*JW
 	}
 }
 
-//--------------------------------------------------------------------------------------
-//  Main Display Function
-//--------------------------------------------------------------------------------------
 void Display()
 {
 	// check for movement
@@ -154,237 +152,6 @@ void Display()
 	glutSwapBuffers();
 }
 
-//--------------------------------------------------------------------------------------
-void keys(unsigned char key, int x, int y)
-{
-	int i = 0;
-	switch (key)
-	{
-		
-		//*JW
-		case 8: {
-			transition.Number = ""; //debug setting 
-			break;
-		}
-		//e*JW
-		/* default: 
-		{
-			if (DisplayBuySweets && (key > 47) && (key < 58)) {
-				TelefonNumber += key;
-			}
-			break;
-		}
-	}
-}
-
-//--------------------------------------------------------------------------------------
-//  Mouse Buttons
-//--------------------------------------------------------------------------------------
-void Mouse(int button, int state, int x, int y)
-{
-	// exit tour if clicked on exit splash screenH
-	if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_DOWN))
-	{
-		//*JW
-		if (transition.MouseRightSideScreen) {
-			//transition.state = tsVendingMachine;
-			transition.DisplayVendingMachine = true;
-			transition.DisplayBuySweets = false;
-		}
-		//if ((transition.state == tsVendingMachine) && (transition.Char!=' ')) {
-		if (transition.DisplayVendingMachine && (transition.Char!=' ')) {
-			transition.Number = transition.Number + transition.Char;
-		}
-		//e*JW
-		if ((DisplayExit) && (x <= width/2.0 + 256.0) && (x >= width/2.0 - 256.0)
-			&& (y <= height/2.0 + 256.0) && (y >= height/2.0 - 256.0))
-		{
-			DeleteImageFromMemory(image);
-			exit(1);
-		}
-  	 }
-}
-
-//--------------------------------------------------------------------------------------
-//  Mouse Movements (NOT USED)
-//  Can be used to rotate around screen using mouse, but keyboard used instead
-//--------------------------------------------------------------------------------------
-void mouseMove(int x, int y)
-{
-		//*JW
-		// 
-		transition.MouseRightSideScreen = (x>(width * 0.7)) && (y<height*0.3);
-		//if (transition.state = tsVendingMachine) {
-		if (transition.DisplayBuySweets) {
-			if (transition.MouseRightSideScreen) // && (y>100) && (x<600) && (y<200))
-				glutSetCursor(GLUT_CURSOR_CYCLE); //GLUT_CURSOR_SPRAY);
-			else 
-				glutSetCursor(0);
-		}
-		//else if (transition.state == tsVendingMachine) {
-		else if (transition.DisplayVendingMachine) {
-			
-			//1st row:
-			if ((x>(width*0.64)) && (x<(width*0.67))) {
-				if ((y>height*0.08) && (y<height*0.16)) transition.Char = 'A';
-				else if ((y>height*0.19) && (y<height*0.27)) transition.Char = 'D';
-				else if ((y>height*0.31) && (y<height*0.38)) transition.Char = 'C';
-				else if ((y>height*0.42) && (y<height*0.49)) transition.Char = '1';
-				else if ((y>height*0.54) && (y<height*0.62)) transition.Char = '4';
-				else if ((y>height*0.65) && (y<height*0.73)) transition.Char = '7';
-				else if ((y>height*0.78) && (y<height*0.85)) transition.Char = '*';
-				else transition.Char = ' ';
-			}
-			//2nd row 
-			else if ((x>(width*0.70)) && (x<(width*0.73))) {
-				if ((y>height*0.08) && (y<height*0.16)) transition.Char = 'B';
-				else if ((y>height*0.19) && (y<height*0.27)) transition.Char = 'E';
-				else if ((y>height*0.31) && (y<height*0.39)) transition.Char = 'H';
-				else if ((y>height*0.44) && (y<height*0.52)) transition.Char = '2';
-				else if ((y>height*0.56) && (y<height*0.64)) transition.Char = '5';
-				else if ((y>height*0.69) && (y<height*0.77)) transition.Char = '8';
-				else if ((y>height*0.81) && (y<height*0.90)) transition.Char = '0';
-				else transition.Char = ' ';
-			}
-			//3rd row
-			else if ((x>(width*0.76)) && (x<(width*0.81))) {
-				if ((y>height*0.08) && (y<height*0.16)) transition.Char = 'C';
-				else if ((y>height*0.19) && (y<height*0.28)) transition.Char = 'F';
-				else if ((y>height*0.31) && (y<height*0.41)) transition.Char = 'J';
-				else if ((y>height*0.46) && (y<height*0.54)) transition.Char = '3';
-				else if ((y>height*0.59) && (y<height*0.69)) transition.Char = '6';
-				else if ((y>height*0.72) && (y<height*0.81)) transition.Char = '9';
-				else if ((y>height*0.84) && (y<height*0.95)) transition.Char = '#';
-				else transition.Char = ' ';
-			}
-			else transition.Char = ' ';
-
-			if (transition.Char!=' ') 
-				glutSetCursor(GLUT_CURSOR_CYCLE);
-			else 
-				glutSetCursor(0);
-		}
-
-	    //e*JW
-		/*if (x < 0)
-			cam.DirectionRotateLR(0);
-		else if (x > width)
-			cam.DirectionRotateLR(0);
-		else if (x > width/2.0)
-		{
-			cam.DirectionRotateLR(1);
-			Display();
-			glutWarpPointer(width/2.0,height/2.0);
-		}
-		else if (x < width/2.0)
-		{
-			cam.DirectionRotateLR(-1);
-			Display();
-			glutWarpPointer(width/2.0,height/2.0);
-		}
-		else
-			cam.DirectionRotateLR(0);
-		if (y < 0 || y > height)
-			cam.DirectionLookUD(0);
-
-		else if (y > height/2.0) {
-			cam.DirectionLookUD(-1);
-			Display();
-			glutWarpPointer(width/2.0,height/2.0);
-		}
-		else if (y < height/2.0) {
-			cam.DirectionLookUD(1);
-			Display();
-			glutWarpPointer(width/2.0,height/2.0);
-		}
-		else
-			cam.DirectionLookUD(0);*/
-/*}
-
-//--------------------------------------------------------------------------------------
-// Set up bounding boxes for collsion detection
-//--------------------------------------------------------------------------------------
-void CreateBoundingBoxes()
-{
-...
-
-	// phy sci block 3rd panel
-	cam.SetAABBMaxX(6, 35879.0);
-	cam.SetAABBMinX(6, 33808.0);
-	cam.SetAABBMaxZ(6, 41127.0);
-	cam.SetAABBMinZ(6, 37855.0);
-
-	// drinks machine
-	cam.SetAABBMaxX(7, 35879.0);
-	//*JW
-	//if (DisplaySecretStairs) 
-		cam.SetAABBMinX(7, 35004.0);
-	//else 
-	//	cam.SetAABBMinX(7, 34704.0);
-	//e*JW
-	cam.SetAABBMaxZ(7, 25344.0);
-	cam.SetAABBMinZ(7, 24996.0);
-	
-	// bottom of steps
-	cam.SetAABBMaxX(8, 33808.0);
-	cam.SetAABBMinX(8, 0.0);
-	cam.SetAABBMaxZ(8, 4688.0);
-	cam.SetAABBMinZ(8, 0.0);
-
-}
-
-//--------------------------------------------------------------------------------------
-// Load and Create Textures
-//--------------------------------------------------------------------------------------
-void CreateTextures()
-{
-	glEnable(GL_DEPTH_TEST);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	
-	// set texture count
-	tp.SetTextureCount(251); //*JW
-
-	// load and create textures
-	image = tp.LoadTexture("data/abovechanctext.raw", 128, 1024);
-	tp.CreateTexture(ABOVE_CHANC_TEXT, image, 128, 1024);
-
-	...
-
-	image = tp.LoadTexture("data/sweetMachine.raw", 256, 256);
-	tp.CreateTexture(SWEET_MACHINE, image, 256, 256);
-
-	//*JW
-	image = tp.LoadTexture("data/check.raw", 1280, 720);
-	tp.CreateTexture(BANNER, image, 1280, 720);
-	//e*JW
-
-	image = tp.LoadTexture("data/telephoneback.raw", 512, 512);
-	tp.CreateTexture(TELEPHONE_BACK, image, 512, 512);
-
-	...
-
-	image = tp.LoadTexture("data/thanks.raw", 512, 512);
-	tp.CreateTexture(EXIT, image, 512, 512);
-
-	//*JW
-	image = tp.LoadTexture("data/numberpad.raw", 850, 525);
-	tp.CreateTexture(NUMBERPAD, image, 850, 525); //letztes ist höhe, vorderes ist breite
-
-	image = tp.LoadTexture("data/vending_machine.raw", 595, 356);
-	tp.CreateTexture(VENDING_MACHINE, image, 595, 356); //letztes ist höhe, vorderes ist breite
-	//e*JW 
-
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);	
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-
-}
-	
-void DrawAboveWindowBlock ()
-{
-
-//--------------------------------------------------------------------------------------
-//  Display Pavement
-//--------------------------------------------------------------------------------------
 void DisplayPavement ()
 {
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PAVEMENT));
@@ -429,9 +196,6 @@ void DrawPavement ()
 	tp.CreateDisplayList (XZ, 86, 128.0, 64.0,  33744.0, 10000.0, 28624.0, 2.5, 13.5);	//phys sci toilet doorways
 }
 
-//--------------------------------------------------------------------------------------
-// Display Extras (signs etc)
-//--------------------------------------------------------------------------------------
 void DisplayExtras ()
 {
 	...
@@ -495,10 +259,6 @@ void DrawExtras ()
 
 }
 
-// --------------------------------------------------------------------------------------
-// Display larger textures such as windows and doors
-// --------------------------------------------------------------------------------------
-
 void DisplayLargerTextures ()
 {
 	...
@@ -515,9 +275,6 @@ void DisplayLargerTextures ()
 	glCallList(373);
 }
 
-//--------------------------------------------------------------------------------------
-//  Map and Welcome screens
-//--------------------------------------------------------------------------------------
 void DrawMapExit ()
 {
 	tp.CreateDisplayList (0, 448, 256.0, 256.0, 10.0, 10.0, 0.0, 0.855, 1.0); // map

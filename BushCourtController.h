@@ -32,7 +32,7 @@ class BushCourtController : public IStateController
 {
 private:
 	bool loaded; 
-	Transition transition; //*JW
+	Transition transition;
 
 	GLdouble movementSpeed;
 	GLdouble rotationSpeed;
@@ -64,11 +64,15 @@ private:
 
 	Camera cam;
 	TexturedPolygons tp;
+
+	void CheckNumberPad();
 public:
 	BushCourtController(void);
+	virtual ~BushCourtController(void);
 
 	void Init();
 	void Draw();
+	void Update();
 	void Update(int w, int h);
 	void SpecialKey(int key, int x, int y);
 	void SpecialKeyUp(int key, int x, int y);

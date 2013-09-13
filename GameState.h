@@ -22,7 +22,7 @@ class GameState {
 public:
 	GameState(IStateController* c, bool d = true, bool u = true, bool i = true, bool k = true): controller(c), draw(d), update(u), init(i), keydown(k) {};
 	GameState(): controller(nullptr), draw(false), update(false), init(false), keydown(false) {};
-	~GameState() {
+	virtual ~GameState() {
 		delete controller;
 		//std::cout << "~GameState" << std::endl;
 	};
