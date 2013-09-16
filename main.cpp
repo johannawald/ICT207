@@ -71,9 +71,12 @@ int main(int argc, char **argv)
 }
 
 /*
+
+//please ignore that part (it's the transition I have to implement in the Transition class)
+Will be done till Tuesday
+
 void CheckNumberpad() { //*JW
 	//*JW 24500
-	//cam.GetLR() ist groß desto weiter man links ist 34400 -> 34300 -> 34700 -> 34900 -> 35200 (näher an vending machine) -> 35400 -> 35500 -> 35300
 	transition.Update();
 	if (transition.Number == "000") { //42 4F 4D 42 = B O M B
 		if (transition.waited_frames==0) 

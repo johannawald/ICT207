@@ -1,15 +1,12 @@
-//  @ Project : QPT 1 - pacmet
 //  @ File Name : BasisView.h
-//  @ MultiMediaTechnology / FHS
-//  @ Date : SS/2013
+//  @ Unit : ICT207
 //  @ Author : Johanna Wald
 //
-//
+// not used yet
+
+//implement the stair class and some other "help"-functions here
 
 #pragma once
-
-// Allgemeine, abstrakte View-Klasse für das MVC-Pattern, hat einen Verweiß auf die Model des Controllers,
-// Außerdem wurd die Composition des DrawManager verwendet um allgemeine Funktionen zum Zeichnen von Grafiken und Text bereitzustellen
 
 #include "DrawManager.h"
 

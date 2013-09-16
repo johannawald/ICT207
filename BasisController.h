@@ -1,15 +1,14 @@
-//  @ Project : QPT 1 - pacmet
 //  @ File Name : BasisController.h
-//  @ MultiMediaTechnology / FHS
-//  @ Date : SS/2013
+//  @ Unit : ICT207
 //  @ Author : Johanna Wald
 //
-//
+// not used yet
 
-// Allgemeine, abstrakte Controller-Klasse für das MVC-Pattern
-// bietet die allgemeine / virtuelle Funktionen für das Setzten der Model und der View
-// alle abgeleiteten Klassen müssen diese implementieren und eine eigene view, 
-// sowie eine eigene model besitzen, die von BasisModel und BasisView abgeleitet ist
+
+
+// general, abstract Controller-class for the MVC
+// provides virtual functions to set the model and the view
+// all derived classes have to implement these (have their own view (derived from BasisView) and model (derived from BasisModel)) 
 
 #pragma once
 

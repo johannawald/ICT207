@@ -1,14 +1,13 @@
-//  @ Project : QPT 1 - pacmet
 //  @ File Name : BasisModel.h
-//  @ MultiMediaTechnology / FHS
-//  @ Date : SS/2013
+//  @ Unit : ICT207
 //  @ Author : Johanna Wald
 //
-//
+// not used yet
+
 
 #pragma once
 
-// Allgemeine, abstrakte Model-Klasse für das MVC-Pattern
+// general, abstract model-class for the MVC-Pattern
 
 class BasisModel {
 public:

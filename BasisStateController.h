@@ -1,13 +1,8 @@
-//  @ Project : QPT 1 - pacmet
 //  @ File Name : BasisStateController.h
-//  @ MultiMediaTechnology / FHS
-//  @ Date : SS/2013
+//  @ Unit : ICT207
 //  @ Author : Johanna Wald
 //
-//
-
-// Ist die ausimplementierte Klasse von IStateController und hält einen KeyBoardEventHandler,
-// der die allgemeinen, für alle States gültigen KeyDown-Events behandelt
+// not used yet
 
 #pragma once
 

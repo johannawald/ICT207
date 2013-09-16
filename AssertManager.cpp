@@ -1,7 +1,5 @@
-//  @ Project : QPT 1 - pacmet
+//  @ Unit : ICT207
 //  @ File Name : AssertManager.cpp
-//  @ MultiMediaTechnology / FHS
-//  @ Date : SS/2013
 //  @ Author : Johanna Wald
 //
 //

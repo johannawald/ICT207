@@ -35,7 +35,7 @@ public:
 	static void setController(IStateController* controller);
 
 	~StateMachine();
-	
+
 	void Init();
 	void Draw();
 	void Update(int w, int h);
