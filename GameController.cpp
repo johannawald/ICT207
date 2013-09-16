@@ -43,7 +43,12 @@ void GameController::Draw()
     glutSwapBuffers();
 }
 
-void GameController::Update(int w, int h) {
+void GameController::Update() {
+}
+
+void GameController::Reshape(int x, int y) 
+{
+		
 }
 
 void GameController::SpecialKey(int key, int x, int y)
@@ -71,7 +76,7 @@ void GameController::Keyboard(unsigned char key, int x, int y)
 		// step left
 		case 'e':
 			StateMachine::setController(StateMachine::bushcourtcontroller);
-			StateMachine::bushcourtcontroller->controller->Init();
+			StateMachine::bushcourtcontroller->Init();
 			break;
 	}
 }

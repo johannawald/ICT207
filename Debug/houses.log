@@ -1,301 +1,272 @@
-﻿Build started 16.09.2013 14:07:55.
+﻿Build started 16.09.2013 21:02:23.
      1>Project "C:\Users\Nana\Documents\GitHub\ICT207\houses.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _CONSOLE /D _VC80_UPGRADE=0x0600 /D _MBCS /Gm /EHsc /RTC1 /MD /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug\\" /Fd".\Debug\vc110.pdb" /FR".\Debug\\" /Gd /TP /analyze- /errorReport:prompt BushCourtController.cpp GameController.cpp StateMachine.cpp main.cpp
-         StateMachine.cpp
-     1>c:\users\nana\documents\github\ict207\istatecontroller.h(18): warning C4101: 'a' : unreferenced local variable
-         GameController.cpp
-     1>c:\users\nana\documents\github\ict207\istatecontroller.h(18): warning C4101: 'a' : unreferenced local variable
-     1>c:\users\nana\documents\github\ict207\gamecontroller.cpp(38): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\gamecontroller.cpp(39): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\gamecontroller.cpp(40): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\gamecontroller.cpp(54): warning C4060: switch statement contains no 'case' or 'default' labels
-     1>c:\users\nana\documents\github\ict207\gamecontroller.cpp(63): warning C4060: switch statement contains no 'case' or 'default' labels
-         Generating Code...
-         Compiling...
-         main.cpp
-     1>c:\users\nana\documents\github\ict207\istatecontroller.h(18): warning C4101: 'a' : unreferenced local variable
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _CONSOLE /D _VC80_UPGRADE=0x0600 /D _MBCS /Gm /EHsc /RTC1 /MD /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug\\" /Fd".\Debug\vc110.pdb" /FR".\Debug\\" /Gd /TP /analyze- /errorReport:prompt BushCourtController.cpp Transition.cpp
+         Transition.cpp
          BushCourtController.cpp
-     1>c:\users\nana\documents\github\ict207\istatecontroller.h(18): warning C4101: 'a' : unreferenced local variable
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(40): warning C4305: 'argument' : truncation from 'double' to 'GLclampf'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(334): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(340): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(350): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(355): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1256): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1282): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1299): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1537): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1625): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1637): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1703): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1704): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1705): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1706): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1707): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1709): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1716): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1717): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(37): warning C4305: 'argument' : truncation from 'double' to 'GLclampf'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1271): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1652): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1718): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1719): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1720): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1721): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1722): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1730): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1724): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1731): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1732): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1733): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1734): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1736): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1801): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1805): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1885): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1890): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1894): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1735): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1737): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1745): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1746): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1747): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1748): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1749): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1751): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1816): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1820): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1900): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1904): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1911): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1905): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1909): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1915): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1921): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1938): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1942): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1948): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1952): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1991): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1998): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2009): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2016): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2039): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2053): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2073): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2111): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2112): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2113): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2114): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2163): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2171): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1919): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1926): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1930): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1936): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1953): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1957): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1963): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(1967): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2006): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2013): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2024): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2178): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2191): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2199): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2265): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2266): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2267): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2268): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2277): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2278): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2279): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2186): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2193): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2206): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2214): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2280): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2569): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2770): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2281): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2282): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2283): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2292): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2293): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2294): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2295): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2584): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2785): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2801): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2821): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2844): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2848): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2867): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2871): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2891): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2895): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2915): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2919): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2980): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2981): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2982): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2983): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2985): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2992): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2993): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2994): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2800): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2816): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2836): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2859): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2863): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2882): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2886): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2906): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2910): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2930): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2934): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2995): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2996): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3005): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2997): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(2998): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3000): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3007): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3008): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3009): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3010): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3011): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3019): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3020): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3021): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3022): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3023): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3024): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3025): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3026): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3034): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3035): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3036): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3037): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3047): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3048): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3038): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3039): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3049): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3050): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3058): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3059): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3060): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3061): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3051): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3052): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3062): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3063): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3064): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3065): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3073): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3074): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3075): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3076): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3086): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3087): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3077): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3078): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3088): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3089): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3096): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3097): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3098): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3099): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3100): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3090): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3091): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3101): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3102): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3109): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3103): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3104): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3111): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3112): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3113): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3114): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3115): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3122): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3116): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3117): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3124): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3125): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3126): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3127): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3128): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3136): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3129): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3130): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3137): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3138): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3139): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3140): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3141): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3142): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3143): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3151): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3152): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3153): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3164): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3154): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3155): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3166): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3210): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3212): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3213): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3214): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3214): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3215): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3216): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3216): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3222): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3224): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3168): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3179): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3181): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3225): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3226): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3226): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3227): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3228): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3228): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3238): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3229): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3229): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3230): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3231): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3231): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3237): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3239): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3240): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3241): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3241): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3242): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3243): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3244): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3250): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3252): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3243): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3253): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3254): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3255): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3256): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3285): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3289): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3344): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3371): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3385): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3413): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3440): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3454): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3613): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3647): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3678): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3721): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3726): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3857): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3859): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3860): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3861): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3862): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3869): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3871): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3257): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3258): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3259): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3265): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3267): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3268): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3269): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3270): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3271): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3300): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3304): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3359): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3386): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3400): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3428): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3455): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3469): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3628): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3662): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3693): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3736): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3741): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3872): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3873): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3874): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3881): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3883): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3875): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3876): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3877): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3884): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3885): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3886): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3893): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3895): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3887): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3888): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3889): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3896): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3897): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3898): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3907): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3899): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3900): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3901): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3908): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3909): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3910): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3942): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3953): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3965): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3999): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4010): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4022): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4032): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4045): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4129): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4140): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4151): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4163): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4181): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4403): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4410): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4417): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4436): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4436): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4440): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4440): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4456): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4456): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4460): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4460): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4567): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4576): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4583): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4590): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4596): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4597): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3911): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3912): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3913): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3922): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3923): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3924): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3925): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3957): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3968): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(3980): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4014): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4025): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4037): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4047): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4060): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4144): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4155): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4166): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4178): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4196): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4418): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4425): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4432): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4451): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4451): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4455): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4455): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4471): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4471): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4475): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4475): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4582): warning C4244: 'argument' : conversion from 'GLdouble' to 'GLfloat', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4591): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4598): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4609): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4616): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4623): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4629): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4630): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4605): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4611): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4612): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4613): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4624): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4631): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4644): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4645): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4647): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4648): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4650): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4651): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4653): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4654): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4656): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4657): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4638): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4644): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4645): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4646): warning C4305: 'argument' : truncation from 'double' to 'GLfloat'
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4659): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4660): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4662): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4667): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4663): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4665): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4666): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4668): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4669): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4671): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4672): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4678): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4680): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4681): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4677): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4682): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4683): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4684): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4685): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4686): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
      1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4687): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4688): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4689): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
-     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4690): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4693): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4695): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4696): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4697): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4698): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4699): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4700): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4701): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4702): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4703): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4704): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
+     1>c:\users\nana\documents\github\ict207\bushcourtcontroller.cpp(4705): warning C4244: 'argument' : conversion from 'double' to 'const int', possible loss of data
          Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\houses.exe" /INCREMENTAL /NOLOGO odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:".\Debug\houses.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\houses.lib" /MACHINE:X86 /SAFESEH .\Debug\AABB.obj
@@ -316,15 +287,14 @@
          .\Debug\BushCourtController.obj
          .\Debug\Sound.obj
          .\Debug\SoundTime.obj
-         .\Debug\State.obj
          .\Debug\StateMachine.obj
          .\Debug\texturedPolygons.obj
          .\Debug\Transition.obj
          houses.vcxproj -> C:\Users\Nana\Documents\GitHub\ICT207\.\Debug\houses.exe
        BscMake:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\bscmake.exe /nologo /o".\Debug\houses.bsc" .\Debug\AABB.sbr .\Debug\AABBLinkedList.sbr .\Debug\AABBNode.sbr .\Debug\AssertManager.sbr .\Debug\BasisController.sbr .\Debug\BasisStateController.sbr .\Debug\camera.sbr .\Debug\cameraMap.sbr .\Debug\collision.sbr .\Debug\DrawManager.sbr .\Debug\EasySound.sbr .\Debug\GameController.sbr .\Debug\main.sbr .\Debug\PlainLinkedList.sbr .\Debug\PlainNode.sbr .\Debug\BushCourtController.sbr .\Debug\Sound.sbr .\Debug\SoundTime.sbr .\Debug\State.sbr .\Debug\StateMachine.sbr .\Debug\texturedPolygons.sbr .\Debug\Transition.sbr
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\bscmake.exe /nologo /o".\Debug\houses.bsc" .\Debug\AABB.sbr .\Debug\AABBLinkedList.sbr .\Debug\AABBNode.sbr .\Debug\AssertManager.sbr .\Debug\BasisController.sbr .\Debug\BasisStateController.sbr .\Debug\camera.sbr .\Debug\cameraMap.sbr .\Debug\collision.sbr .\Debug\DrawManager.sbr .\Debug\EasySound.sbr .\Debug\GameController.sbr .\Debug\main.sbr .\Debug\PlainLinkedList.sbr .\Debug\PlainNode.sbr .\Debug\BushCourtController.sbr .\Debug\Sound.sbr .\Debug\SoundTime.sbr .\Debug\StateMachine.sbr .\Debug\texturedPolygons.sbr .\Debug\Transition.sbr
      1>Done Building Project "C:\Users\Nana\Documents\GitHub\ICT207\houses.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:08.02
+Time Elapsed 00:00:06.91

@@ -85,24 +85,22 @@ void CameraMap::DisplayWelcomeScreen (const int & screenWidth, const int & scree
 	glPopMatrix();
 }
 
-void CameraMap::DisplayGameEntryScreen  (const int & screenWidth, const int & screenHeight, 
+void CameraMap::DisplayGameEntryScreen(const int & screenWidth, const int & screenHeight, 
 		                       const int & tempExit, const GLuint & tempImage)
 {
 	//screenWidth = screenWidth-200;
-
 	glPushMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
- 	gluOrtho2D(0, screenWidth, 0, screenHeight);
+ 	gluOrtho2D(0, 760, 0, 760);
 	glScalef(1, -1, 1);
 	
 	// move to centre of screen
-	glTranslatef(screenWidth/2 -398, -screenHeight/2 -243, 0);
+	glTranslatef(screenWidth*0.5-(screenWidth*0.5), -screenHeight*0.5-(screenHeight*0.5), 0);
 	//glTranslatef(10,10,0);
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity()
-		;	
+	glLoadIdentity();	
 	// display exit screen or welcome screen
 	if (tempImage>0) 
 		glBindTexture(GL_TEXTURE_2D, tempImage);
@@ -112,7 +110,7 @@ void CameraMap::DisplayGameEntryScreen  (const int & screenWidth, const int & sc
 		glColor3b(1,0,0);
 	}
 	// display image
-	glCallList(4000);
+	glCallList(450);
 	// Reset Perspective Projection
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();

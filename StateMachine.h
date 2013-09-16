@@ -1,44 +1,35 @@
-//  @ Project : QPT 1 - pacmet
-//  @ File Name : StateMachine.h
-//  @ MultiMediaTechnology / FHS
-//  @ Date : SS/2013
-//  @ Author : Johanna Wald
-//
-//
-
-// Dieses Singelton verwaltet die State des Games. 
-// Sie hält eine Liste von IStateControllern, die jeweils über die Statemachine aufgerufen werden. 
-// Sie ist so ausgelegt, dass mehrer Controller gleichzeitig aktiv sein können (z. B. GameControllerManager und PauseController)
-// Das wird über die states selbst gelöst, hier kann z. B. einfach die update()-Funktion deaktiviert werden
-// In ihrer init()-, update()-, draw()- und keydown()-Funktion ruft sie die jeweiligen Funktionen der Liste auf, 
-// falls da jeweilige Flag dazu im GameState aktiv sein
+/**
+ * @StateMachine.h
+ *
+ * @author Johanna Wald, StateMachine, 16/09/2013
+ * @version 01
+ * @date 16/09/2013 Johanna Wald
+ */
 
 #pragma once
 
-#include "GameState.h"
 #include <vector>
 
 class IStateController;
 class StateMachine {
 private:
-	//GameState gamestate;
 	static bool init;
     static StateMachine* statemachine;
-	StateMachine(GameState* gamestate);
+	//private constructor since the state machine is a singelton
+	StateMachine(IStateController* gamestate);
 public:	
-	static GameState* bushcourtcontroller;
-	//static std::vector<GameState*> state;
-	GameState* state;
+	//save the bushcourtcontroller in a member-variable, since it takes a long time to reaload it
+	static IStateController* bushcourtcontroller; 
+	IStateController* state;
 	static StateMachine* getInstance();
 
-	static void setController(GameState* gamestate);
 	static void setController(IStateController* controller);
 
 	~StateMachine();
-
+	//These functions are called by the glut-events
 	void Init();
 	void Draw();
-	void Update(int w, int h);
+	void Update();
 	void SpecialKey(int key, int x, int y);
 	void SpecialKeyUp(int key, int x, int y);
 	void KeyboardUp(unsigned char key, int x, int y);

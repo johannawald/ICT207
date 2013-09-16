@@ -4,22 +4,19 @@
 //
 //
 
-// Interface for GameState.controller. You have to have the following functions:
-//	•	void keydownevent(): handle key events (to change state)
-//	•	void init(): to init the controller
-//	•	void draw(): draw the state (normally view->draw())
-//	•	void update() : update data in the model
+// Interface for a gameState controller
+// Since the functions are abstract, you have to implement them in derived classes
+// The StateMachine has a member Variable based on this class and call them 
 
 #pragma once
 
 class IStateController {
 public:	
-	virtual ~IStateController() {
-		int a;
-	};
+	virtual ~IStateController() {};
+	//Initialization of your class
 	virtual void Init() = 0;
+	virtual void Update() = 0;
 	virtual void Draw() = 0;
-	virtual void Update(int w, int h) = 0;
 	virtual void SpecialKey(int key, int x, int y) = 0;
 	virtual void SpecialKeyUp(int key, int x, int y) = 0;
 	virtual void KeyboardUp(unsigned char key, int x, int y) = 0;

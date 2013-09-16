@@ -18,12 +18,12 @@
 #include <math.h>
 #include <GL/glut.h>
 #include <time.h>
-#include "GameState.h"
 
 #include <windows.h> // only used if mouse is required (not portable)
 #include "camera.h"
 #include "texturedPolygons.h"
 #include "Transition.h"
+#include "IStateController.h"
 
 enum TextureImgAxises { XY, XZ, YZ, YZ_FLIP, XY_FLIP };
 enum PlainTypes  { FLAT_PLAIN, XY_PLAIN, ZY_PLAIN };
@@ -72,15 +72,15 @@ public:
 
 	void Init();
 	void Draw();
+	void Reshape();
 	void Update();
-	void Update(int w, int h);
+	void Reshape(int w, int h);
 	void SpecialKey(int key, int x, int y);
 	void SpecialKeyUp(int key, int x, int y);
 	void KeyboardUp(unsigned char key, int x, int y);
 	void Keyboard(unsigned char key, int x, int y);
 	void Mouse(int button, int state, int x, int y);
 	void PassiveMotion(int x, int y);
-	void Reshape(int w, int h) {};
 
 	//Draw Functions
 	void DrawBackdrop();
@@ -107,7 +107,7 @@ public:
 	void DrawAngledRoofBeam (int listNo, GLdouble x, GLdouble y, GLdouble z, GLdouble beamSize);
 	void DrawAngledRoofBeam2 (int listNo, GLdouble x, GLdouble y, GLdouble z, GLdouble beamSize);
 	void DrawStepBricks ();
-	void DrawMapExit ();
+	void Draw2DImages (); //*JW
 	void DrawECL ();
 
 	//Display Functions

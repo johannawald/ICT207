@@ -11,7 +11,6 @@
 
 // Implements a lot of different draw functions like to draw text, staris ...
 
-class Element;
 class DrawManager {
 private:			
 

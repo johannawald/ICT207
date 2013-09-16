@@ -141,7 +141,6 @@
     <ClCompile Include="BushCourtController.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundTime.cpp" />
-    <ClCompile Include="State.cpp" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="texturedPolygons.cpp" />
     <ClCompile Include="Transition.cpp" />
@@ -161,14 +160,12 @@
     <ClInclude Include="DrawManager.h" />
     <ClInclude Include="EasySound.h" />
     <ClInclude Include="GameController.h" />
-    <ClInclude Include="GameState.h" />
     <ClInclude Include="IStateController.h" />
     <ClInclude Include="PlainLinkedList.h" />
     <ClInclude Include="PlainNode.h" />
     <ClInclude Include="BushCourtController.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundTime.h" />
-    <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="TextureCodes.h" />
     <ClInclude Include="texturedPolygons.h" />
