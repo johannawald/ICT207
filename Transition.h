@@ -15,23 +15,19 @@ class Transition
 //private:
 public:
 	TransitionState state; 
-
-	bool DisplayVendingMachine; 
-	bool DisplayBuySweets;
-	bool DisplaySecretStairs;
-	bool FallAnimation;
-	bool MouseRightSideScreen;
 	//number game entry:
-	std::string Number; //*JW
+	std::string InsertedCode; 
 
 	char Char;
-	int waited_frames;
+	int AnimationFrame;
 private:
 	const std::string Code;
 public:
 	Transition();
 	virtual ~Transition();
-	ReachtTransition Update();
+	void Update(TransitionState tstate);
+	bool IsRightCode();
+	bool IsPlayMechanicSound();
 	void CheckMouseInput();
 	void CheckMousePosition(int x, int y, int width, int height);
 };

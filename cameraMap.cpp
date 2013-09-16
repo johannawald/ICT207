@@ -93,12 +93,11 @@ void CameraMap::DisplayGameEntryScreen(const int & screenWidth, const int & scre
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
- 	gluOrtho2D(0, 760, 0, 760);
+ 	gluOrtho2D(0, 790, 0, 490);
 	glScalef(1, -1, 1);
-	
 	// move to centre of screen
-	glTranslatef(screenWidth*0.5-(screenWidth*0.5), -screenHeight*0.5-(screenHeight*0.5), 0);
-	//glTranslatef(10,10,0);
+	glTranslatef((screenWidth/2)-(screenWidth*0.5), -screenHeight*0.5-(screenHeight*0.5), 0); 
+	//the smaller this value the more you have to stretch the screen to fix it??? -> HELP! :D
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();	
 	// display exit screen or welcome screen
