@@ -474,8 +474,10 @@ void BushCourtController::CreateBoundingBoxes()
 
 	// Canteen block
 	cam.SetAABBMaxX(12, 2608.0);
-	cam.SetAABBMinX(12, 0.0);
-	cam.SetAABBMaxZ(12, 49046.0);
+	//*DM
+    cam.SetAABBMinX(12, -27500.0);
+    cam.SetAABBMaxZ(12, 40900.0);
+	//e*DM
 	cam.SetAABBMinZ(12, 0.0);
 
 	// Telephones
@@ -501,6 +503,17 @@ void BushCourtController::CreateBoundingBoxes()
 	cam.SetAABBMinX(16, 31444.0);
 	cam.SetAABBMaxZ(16, 10395.0);
 	cam.SetAABBMinZ(16, 4590.0);
+	
+	//*DM - New West Hallway
+	cam.SetAABBMaxX(17, 2608.0);
+	cam.SetAABBMinX(17, -30000.0);
+	cam.SetAABBMaxZ(17, 44000.0);
+	cam.SetAABBMinZ(17, 43340.0);
+	cam.SetAABBMaxX(18, -27500.0);
+	cam.SetAABBMinX(18, -28000.0);
+	cam.SetAABBMaxZ(18, 43340.0);
+	cam.SetAABBMinZ(18, 40090.0);
+	//e*DM
 }
 
 //--------------------------------------------------------------------------------------
@@ -1246,6 +1259,55 @@ void BushCourtController::CreateTextures()
 	image = tp.LoadTexture("data/vending_machine.raw", 800, 500);
 	tp.CreateTexture(VENDING_MACHINE, image, 800, 500);
 
+	//*DM North-West-Hallway
+	/*image = tp.LoadTexture("data/wooddoor.bmp", 86, 226);
+	tp.CreateTexture(WOODENDOOR, image, 86, 226);
+
+	image = tp.LoadTexture("data/FarExit.bmp", 512, 384);
+	tp.CreateTexture(FAR_EXIT, image, 512, 384);
+
+	image = tp.LoadTexture("data/hallway1.bmp", 512, 384);
+	tp.CreateTexture(HALLWAY1, image, 512, 384);
+
+	image = tp.LoadTexture("data/hallway2.bmp", 512, 384);
+	tp.CreateTexture(HALLWAY2, image, 512, 384);
+
+	image = tp.LoadTexture("data/hallway3.bmp", 512, 384);
+	tp.CreateTexture(HALLWAY3, image, 512, 384);
+
+	image = tp.LoadTexture("data/hallway4.bmp", 512, 384);
+	tp.CreateTexture(HALLWAY4, image, 512, 384);
+
+	image = tp.LoadTexture("data/hallway5.bmp", 512, 384);
+	tp.CreateTexture(HALLWAY5, image, 512, 384);
+
+    image = tp.LoadTexture("data/hallway6.bmp", 512, 384);
+    tp.CreateTexture(HALLWAY6, image, 512, 384);
+
+    image = tp.LoadTexture("data/hallway7.bmp", 512, 384);
+    tp.CreateTexture(HALLWAY7, image, 512, 384);
+
+    image = tp.LoadTexture("data/hallway8.bmp", 512, 384);
+    tp.CreateTexture(HALLWAY8, image, 512, 384);
+
+    image = tp.LoadTexture("data/hallway9.bmp", 512, 384);
+    tp.CreateTexture(HALLWAY9, image, 512, 384);
+
+    image = tp.LoadTexture("data/hallway10.bmp", 512, 384);
+    tp.CreateTexture(HALLWAY10, image, 512, 384);
+
+    image = tp.LoadTexture("data/hallway11.bmp", 512, 384);
+    tp.CreateTexture(HALLWAY11, image, 512, 384);
+
+    image = tp.LoadTexture("data/hallway12.bmp", 512, 384);
+    tp.CreateTexture(HALLWAY12, image, 512, 384);
+    image = tp.LoadTexture("data/hallway13.bmp", 512, 384);
+    tp.CreateTexture(HALLWAY13, image, 512, 384);
+ 
+    image = tp.LoadTexture("data/hallway14.bmp", 512, 384);
+    tp.CreateTexture(HALLWAY14, image, 512, 384);*/
+	//e*DM
+
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 }
@@ -1275,6 +1337,7 @@ void BushCourtController::DrawBackdrop()
 	DisplayRoof();
 	DisplayStepBricks ();
 	if (lightsOn) DisplayLights ();
+	//DisplayWestExit(); //*DM
 }
 
 //--------------------------------------------------------------------------------------
@@ -4539,6 +4602,796 @@ void BushCourtController::DisplayLights ()
 	
 }
 
+//--------------------------------------------------------------------------------------
+//  Displays the west hallway and everything in it
+//--------------------------------------------------------------------------------------
+void BushCourtController::DisplayWestExit()
+{
+  //Pavement
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PAVEMENT_TOP));
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 100.0);
+    glVertex3f(-27500.0, 10000.0, 40900.0);
+    glTexCoord2f(50.0, 100.0);
+    glVertex3f(-27500.0, 10000.0, 43840.0);
+    glTexCoord2f(50.0, 0.0);
+    glVertex3f(2100.0, 10000.0, 43840.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(2100.0, 10000.0, 40900.0);
+  glEnd();
+  glPopMatrix();
+   
+  //Walls
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(WALL_BRICK_YZ));
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(2100.0, 10000.0, 40900.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(2100.0, 10900.0, 40900.0);
+    glTexCoord2f(6.0, 3.0);
+    glVertex3f(2100.0, 10900.0, 41170.0);
+    glTexCoord2f(0.0, 3.0);
+    glVertex3f(2100.0, 10000.0, 41170.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(2100.0, 10000.0, 42960.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(2100.0, 10900.0, 42960.0);
+    glTexCoord2f(6.0, 3.0);
+    glVertex3f(2100.0, 10900.0, 43340.0);
+    glTexCoord2f(0.0, 3.0);
+    glVertex3f(2100.0, 10000.0, 43340.0);
+  glEnd();
+  glPopMatrix();
+  
+  //Near side
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(2500.0, 10000.0, 40900.0);
+    glTexCoord2f(8.0, 0.0);
+    glVertex3f(2500.0, 11200.0, 40900.0);
+    glTexCoord2f(8.0, 14.0);
+    glVertex3f(0.0, 11200.0, 40900.0);
+    glTexCoord2f(0.0, 14.0);
+    glVertex3f(0.0, 10000.0, 40900.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-27500.0, 10000.0, 40900.0);
+    glTexCoord2f(8.0, 0.0);
+    glVertex3f(-27500.0, 11200.0, 40900.0);
+    glTexCoord2f(8.0, 20.0);
+    glVertex3f(-24000.0, 11200.0, 40900.0);
+    glTexCoord2f(0.0, 20.0);
+    glVertex3f(-24000.0, 10000.0, 40900.0);
+  glEnd();
+  glPopMatrix();
+
+  //Farside
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(2100.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(2100.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 14.0);
+    glVertex3f(0.0, 10900.0, 43340.0);
+    glTexCoord2f(0.0, 14.0);
+    glVertex3f(0.0, 10000.0, 43340.0);
+  glEnd();
+  glPopMatrix();
+  
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-500.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-500.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 14.0);
+    glVertex3f(-2500.0, 10900.0, 43340.0);
+    glTexCoord2f(0.0, 14.0);
+    glVertex3f(-2500.0, 10000.0, 43340.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-2500.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-2500.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-3000.0, 10900.0, 43340.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-3000.0, 10000.0, 43340.0);
+  glEnd();
+  glPopMatrix();
+  
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-3500.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-3500.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-4000.0, 10900.0, 43340.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-4000.0, 10000.0, 43340.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-4500.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-4500.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 30.0);
+    glVertex3f(-9000.0, 10900.0, 43340.0);
+    glTexCoord2f(0.0, 30.0);
+    glVertex3f(-9000.0, 10000.0, 43340.0);
+  glEnd();
+  glPopMatrix();
+  
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-9000.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-9000.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-9500.0, 10900.0, 43340.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-9500.0, 10000.0, 43340.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-10000.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-10000.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-10500.0, 10900.0, 43340.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-10500.0, 10000.0, 43340.0);
+  glEnd();
+  glPopMatrix();
+  
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-11000.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-11000.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 50.0);
+    glVertex3f(-18000.0, 10900.0, 43340.0);
+    glTexCoord2f(0.0, 50.0);
+    glVertex3f(-18000.0, 10000.0, 43340.0);
+  glEnd();
+  glPopMatrix();
+  
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-18500.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-18500.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-19000.0, 10900.0, 43340.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-19000.0, 10000.0, 43340.0);
+  glEnd();
+  glPopMatrix();
+  
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-19500.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-19500.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-20000.0, 10900.0, 43340.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-20000.0, 10000.0, 43340.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-20000.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-20000.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 55.0);
+    glVertex3f(-27500.0, 10900.0, 43340.0);
+    glTexCoord2f(0.0, 55.0);
+    glVertex3f(-27500.0, 10000.0, 43340.0);
+  glEnd();
+  glPopMatrix();
+
+  //Door Alcove 1 0 - -500
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(0.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(0.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(0.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(0.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-500.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-500.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-500.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-500.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();  
+
+  //door alcove 2 -3000 - -3500
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-3000.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-3000.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-3000.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-3000.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-3500.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-3500.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-3500.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-3500.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  //door alcove 3 -4000 - -4500
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-4000.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-4000.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-4000.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-4000.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-4500.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-4500.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-4500.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-4500.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  //door alcove 4 -9500 - -10000
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-9500.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-9500.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-9500.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-9500.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-10000.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-10000.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-10000.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-10000.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  //door alcove 5 -10500 - 11000
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-10500.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-10500.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-10500.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-10500.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+  
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-11000.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-11000.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-11000.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-11000.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  //door alcove 6 -18000 - -185000
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-18000.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-18000.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-18000.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-18000.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-18500.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-18500.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-18500.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-18500.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  //door alcove 7 -19000 - -195000
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-19000.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-19000.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-19000.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-19000.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-19500.0, 10000.0, 43340.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(-19500.0, 10900.0, 43340.0);
+    glTexCoord2f(6.0, 4.0);
+    glVertex3f(-19500.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 4.0);
+    glVertex3f(-19500.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  //Alcove Doors
+  glBindTexture(GL_TEXTURE_2D, WOODENDOOR);
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-10500.0, 10000.0, 43840.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-10500.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-11000.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-11000.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-19000.0, 10000.0, 43840.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-19000.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-19500.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-19500.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-18000.0, 10000.0, 43840.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-18000.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-18500.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-18500.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-9500.0, 10000.0, 43840.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-9500.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-10000.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-10000.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+  
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-4000.0, 10000.0, 43840.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-4000.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-4500.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-4500.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-3000.0, 10000.0, 43840.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-3000.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-3500.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-3500.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(0.0, 10000.0, 43840.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(0.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-500.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-500.0, 10000.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  //Wall to ceiling gap
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MAIN_POST));
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(2100.0, 10900.0, 40900.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(2100.0, 11200.0, 40900.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(2100.0, 11200.0, 43340.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(2100.0, 10900.0, 43340.0);
+  glEnd();
+  glPopMatrix();
+
+  //Far side
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MAIN_POST));
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-27500.0, 10900.0, 43341.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-27500.0, 11200.0, 43341.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(2500.0, 11200.0, 43341.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(2500.0, 10900.0, 43341.0);
+  glEnd();
+  glPopMatrix();
+  
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-27500.0, 10900.0, 43341.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-27500.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(2500.0, 10900.0, 43840.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(2500.0, 10900.0, 43341.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-27500.0, 10900.0, 43840.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-27500.0, 11200.0, 43840.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(2500.0, 11200.0, 43840.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(2500.0, 10900.0, 43840.0);
+  glEnd();
+  glPopMatrix();
+
+  //Near side
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-27500.0, 10900.0, 40975.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-27500.0, 11200.0, 40975.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-1700.0, 11200.0, 40975.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-1700.0, 10900.0, 40975.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-27500.0, 10900.0, 40975.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-27500.0, 10900.0, 41100.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-1700.0, 10900.0, 41100.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-1700.0, 10900.0, 40975.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-27500.0, 10900.0, 41100.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-27500.0, 11200.0, 41100.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-1700.0, 11200.0, 41100.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-1700.0, 10900.0, 41100.0);
+  glEnd();
+  glPopMatrix();
+
+  //Ceiling
+  glPushMatrix();
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MAIN_POST_2));
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(2500.0, 10900.0, 40900.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(2500.0, 10900.0, 43340.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(2100.0, 10900.0, 43340.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(2100.0, 10900.0, 40900.0);
+  glEnd();
+  glPopMatrix();
+
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 10.0);
+    glVertex3f(-27500.0, 11200.0, 40900.0);
+    glTexCoord2f(5.0, 10.0);
+    glVertex3f(-27500.0, 11200.0, 43340.0);
+    glTexCoord2f(5.0, 0.0);
+    glVertex3f(2500.0, 11200.0, 43340.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(2500.0, 11200.0, 40900.0);
+  glEnd();
+  glPopMatrix();
+
+  //Ceiling Beams
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MAIN_POST_2));
+  step2 = 0;
+  for (int i = 0; i < 12; i++)
+  {
+    glPushMatrix();
+    glBegin(GL_POLYGON);
+      glTexCoord2f(0.0, 0.0);
+      glVertex3f(-1630.0 + step2, 10900.0, 40975.0);
+      glTexCoord2f(0.0, 1.0);
+      glVertex3f(-1630.0 + step2, 11200.0, 40975.0);
+      glTexCoord2f(1.0, 1.0);
+      glVertex3f(-1630.0 + step2, 11200.0, 43340.0);
+      glTexCoord2f(1.0, 0.0);
+      glVertex3f(-1630.0 + step2, 10900.0, 43340.0);
+    glEnd();
+    glPopMatrix();
+    glPushMatrix();
+    glBegin(GL_POLYGON);
+      glTexCoord2f(0.0, 0.0);
+      glVertex3f(-1630.0 + step2, 10900.0, 40975.0);
+      glTexCoord2f(0.0, 1.0);
+      glVertex3f(-1758.0 + step2, 10900.0, 40975.0);
+      glTexCoord2f(1.0, 1.0);
+      glVertex3f(-1758.0 + step2, 10900.0, 43340.0);
+      glTexCoord2f(1.0, 0.0);
+      glVertex3f(-1630.0 + step2, 10900.0, 43340.0);
+    glEnd();
+    glPopMatrix();
+    glPushMatrix();
+    glBegin(GL_POLYGON);
+      glTexCoord2f(0.0, 0.0);
+      glVertex3f(-1758.0 + step2, 10900.0, 40975.0);
+      glTexCoord2f(0.0, 1.0);
+      glVertex3f(-1758.0 + step2, 11200.0, 40975.0);
+      glTexCoord2f(1.0, 1.0);
+      glVertex3f(-1758.0 + step2, 11200.0, 43340.0);
+      glTexCoord2f(1.0, 0.0);
+      glVertex3f(-1758.0 + step2, 10900.0, 43340.0);
+    glEnd();
+    glPopMatrix();
+  step2 -= 1940.0;
+  }
+  
+  //Posts
+  step = -33500.0;
+  for (int i = 0; i < 12; i++)
+  {    
+    glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MAIN_POST));
+    glPushMatrix();  
+      glTranslatef(step, 0.0, 30880.0);
+      glCallList(18);
+    glPopMatrix();
+    glPushMatrix();
+      glTranslatef(step, 0.0, 31008.0);
+      glCallList(18);
+    glPopMatrix();
+    
+    glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MAIN_POST_2));
+    glPushMatrix();
+      glTranslatef(step, 0.0, 30880.0);
+      glCallList(19);
+    glPopMatrix();
+    glPushMatrix();
+      glTranslatef(step + 128.0, 0.0, 30880.0);
+      glCallList(19);
+    glPopMatrix();
+    step -= 1940.0;
+  }
+
+  //Near Images
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(HALLWAY1));
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(0.0, 10000.0, 40900.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(0.0, 11200.0, 40900.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-1700.0, 11200.0, 40900.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-1700.0, 10000.0, 40900.0);
+  glEnd();
+  glPopMatrix();
+
+  step = -1700.0;
+  for(int i = 0; i < 11; i++)
+  {
+	glBindTexture(GL_TEXTURE_2D, tp.GetTexture((TextureCodes)(228+i)));
+    glPushMatrix();
+    glBegin(GL_POLYGON);
+      glTexCoord2f(1.0, 0.0);
+      glVertex3f(step, 10000.0, 40900.0);
+      glTexCoord2f(1.0, 1.0);
+      glVertex3f(step, 11200.0, 40900.0);
+      glTexCoord2f(0.0, 1.0);
+      glVertex3f(step-1940.0, 11200.0, 40900.0);
+      glTexCoord2f(0.0, 0.0);
+      glVertex3f(step-1940.0, 10000.0, 40900.0);
+    glEnd();
+    glPopMatrix();
+    step -= 1940.0;
+  }
+
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(HALLWAY14));
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-23000.0, 10000.0, 40900.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-23000.0, 11200.0, 40900.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-24000.0, 11200.0, 40900.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-24000.0, 10000.0, 40900.0);
+  glEnd();
+  glPopMatrix();
+
+  //Far Exit
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(FAR_EXIT));
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(1.0, .0);
+    glVertex3f(-27500.0, 10000.0, 40900.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-27500.0, 11200.0, 40900.0);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-27500.0, 11200.0, 43340.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-27500.0, 10000.0, 43340.0);
+  glEnd();
+  glPopMatrix();
+
+
+  // DRINKS MACINE 
+  glTranslatef(-62000.0, 0.0, 16000.0);
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MACHINE_SIDES));
+  for (int i = 321; i < 323; i++) glCallList(i);
+  glCallList(320);
+  glPushMatrix();
+    glTranslatef(317.12, 0.0, 0.0);
+    glCallList(321);
+  glPopMatrix();
+  glCallList(320);
+  glPushMatrix();
+    glTranslatef(255.0, 0.0, 0.0);
+    glCallList(322);
+  glPopMatrix();
+
+  //blue machine
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MACHINE_SIDES_2));
+  glCallList(323);
+  glPushMatrix();
+    glTranslatef(350.0, 0.0, 0.0);
+    glCallList(323); 
+  glPopMatrix();
+
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(COKE_MACHINE));
+  glTranslatef(0.0, 0.0, 300.0);
+  glCallList(370);
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(COFFEE_MACHINE));
+  glCallList(371);
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(SWEET_MACHINE));
+  glCallList(372);
+}
 
 void BushCourtController::DrawLights ()
 {

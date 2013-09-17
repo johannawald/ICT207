@@ -238,5 +238,23 @@ enum TextureCodes { NONE,							//0
 					NO_EXIT,						//222
 					BANNER,							//223
 					NUMBERPAD,						//224
-					VENDING_MACHINE					//225
+					VENDING_MACHINE,				//225
+					//*DM
+					FAR_EXIT,						//226
+					HALLWAY1,						//227
+					HALLWAY2,						//228
+					HALLWAY3,						//229
+					HALLWAY4,						//230
+					HALLWAY5,						//231
+					HALLWAY6,						//232
+					HALLWAY7,						//233
+					HALLWAY8,						//234
+					HALLWAY9,						//235
+					HALLWAY10,						//236
+					HALLWAY11,						//237
+					HALLWAY12,						//238
+					HALLWAY13,						//239
+					HALLWAY14,						//240
+					WOODENDOOR						//241
+					//e*DM
 };
