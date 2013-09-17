@@ -2,6 +2,7 @@
 #include "texturedPolygons.h"
 #include "GameController.h"
 #include "StateMachine.h"
+#include "ModelLoader.h"
 
 //--------------------------------------------------------------------------------------
 //  Constructor
@@ -105,6 +106,7 @@ void BushCourtController::Draw()
 			// display no exit sign (position check should really be in an object, but didn't have time)
 			if ((cam.GetLR() > 35500.0) && (cam.GetFB() < 25344.0) || (cam.GetLR() > 34100.0) && (cam.GetFB() > 41127.0))
 				cam.DisplayNoExit(width, height,tp.GetTexture(NO_EXIT));
+			Draw3DModels(); //*JW
 			// set the movement and rotation speed according to frame count
 			IncrementFrameCount();
 			cam.SetMoveSpeed(stepIncrement);
@@ -5615,6 +5617,27 @@ void BushCourtController::DrawStepBricks()
 	tp.CreateDisplayList (XZ, 505.0, 64.0, 128.0, 31518.0, 9974.0, 9332.4, 1.0, 4.545);
 	tp.CreateDisplayList (XY,  506.0, 64.0, 32.0, 31518.0, 10134.0, 10095.84, 1.0, 1.0);
 	tp.CreateDisplayList (XY,  507.0, 64.0, 64.0, 31518.0, 9914.0, 10095.84, 1.0, 3.4376);
+}
+
+//--------------------------------------------------------------------------------------
+//  Draw the 3D Models
+//--------------------------------------------------------------------------------------
+void BushCourtController::Draw3DModels() //*JW
+{
+	DrawAdPosterModels();
+}
+
+//--------------------------------------------------------------------------------------
+//  Draw the 3D Models of the Advertisement / Poster
+//--------------------------------------------------------------------------------------
+void BushCourtController::DrawAdPosterModels()
+{
+	glPushMatrix();
+		glScalef(1000.0f, 1000.0f, 1000.0f);
+		ModelLoader cube;
+		cube.load("data/advertisement.obj");
+		cube.draw();
+	glPopMatrix();
 }
 
 //--------------------------------------------------------------------------------------

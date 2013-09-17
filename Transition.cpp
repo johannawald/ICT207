@@ -1,15 +1,12 @@
 //  Transition.cpp
 
 //Transition to-do / Johanna's:
-//-correct triggering 2D screen	
-//-collision detection for vending machine
-//-sound (crash)
-//-size fullscreen support
-//-3D-model advertisement modelling
+//-correct position 2D screen (top) -> size fullscreen support
+//-3D-model advertisement
 //-Buttons click lighting
 //-Edge of the Building - where is it?
 //-Show the inserted code -> + correct it?
-//-Fall down collision detection
+//-get rid of the encapsulating of the sound in the camera-class!
 
 #include "Transition.h"
 #include <GL/glut.h>

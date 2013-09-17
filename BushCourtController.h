@@ -107,8 +107,10 @@ public:
 	void DrawAngledRoofBeam (int listNo, GLdouble x, GLdouble y, GLdouble z, GLdouble beamSize);
 	void DrawAngledRoofBeam2 (int listNo, GLdouble x, GLdouble y, GLdouble z, GLdouble beamSize);
 	void DrawStepBricks ();
-	void Draw2DImages (); //*JW
+	void Draw2DImages(); //*JW
 	void DrawECL ();
+	void Draw3DModels(); //*JW
+	void DrawAdPosterModels(); //*JW
 
 	//Display Functions
 	void DisplayBench ();
