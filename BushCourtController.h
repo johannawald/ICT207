@@ -132,12 +132,7 @@ public:
 	void DisplayLights ();
 	void DisplayECL ();
 	void DisplayAboveWindowBlock ();
-<<<<<<< HEAD
 	void DisplayWestExit(); //*DM
-=======
-	void DisplayWestExit();
->>>>>>> 3d4bcc8998454749a16706eab7daace811ef3ce6
-
 	// calls functions to create display lists (below)
 	void CreateTextureList();	
 	void BindBridgeWall(GLint LR);
