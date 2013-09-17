@@ -132,6 +132,7 @@ public:
 	void DisplayLights ();
 	void DisplayECL ();
 	void DisplayAboveWindowBlock ();
+	void DisplayWestExit();
 
 	// calls functions to create display lists (below)
 	void CreateTextureList();	
