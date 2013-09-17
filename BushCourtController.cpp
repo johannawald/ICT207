@@ -130,7 +130,7 @@ void BushCourtController::Update() {
 		transition.Update(tsHole);
 	}
 	if (transition.state != tsHole) {
-		if ((cam.GetFB() > 24500) && (cam.GetFB() < 25300) && (cam.GetLR() < 35000))
+		if ((cam.GetFB() > 24500) && (cam.GetFB() < 25300) && (cam.GetLR() < 35000) && (cam.GetLR() > 34759))
 			transition.Update(tsVendingMachine);
 		else
 			transition.Update(tsNone);
