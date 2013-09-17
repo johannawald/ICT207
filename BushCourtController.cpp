@@ -129,7 +129,7 @@ void BushCourtController::Update() {
 		cam.DirectionFB(-1);
 		transition.Update(tsHole);
 	}
-	if (transition.state != tsHole) {
+	if ((transition.state != tsHole) && (transition.state != tsNumberPad)) {
 		if ((cam.GetFB() > 24500) && (cam.GetFB() < 25300) && (cam.GetLR() < 35000) && (cam.GetLR() > 34759))
 			transition.Update(tsVendingMachine);
 		else
@@ -337,7 +337,7 @@ void BushCourtController::KeyboardUp(unsigned char key, int x, int y)
 void BushCourtController::Mouse(int button, int state, int x, int y)
 {
 	// exit tour if clicked on exit splash screen
-	if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_DOWN))
+ 	if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_DOWN))
 	{
 		transition.CheckMouseInput();
 		if ((DisplayExit) && (x <= width/2.0 + 256.0) && (x >= width/2.0 - 256.0)

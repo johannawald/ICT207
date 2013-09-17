@@ -9,6 +9,8 @@
 //-Buttons click lighting
 //-Buttons click
 //-Edge of the Building - where is it?
+//-Show the inserted code -> correct it?
+//-Fall down collision detection
 
 #include "Transition.h"
 #include <GL/glut.h>
@@ -37,10 +39,10 @@ void Transition::Update(TransitionState tstate)
 
 void Transition::CheckMouseInput() 
 {
-	if (state==tsMouseBuyButton)
+	if (state == tsMouseBuyButton)
 		state = tsNumberPad;
 	if ((state == tsNumberPad) && (Char!=' '))
-		InsertedCode =+ Char;
+		InsertedCode += Char;
 }
 
 void Transition::CheckMousePosition(int x, int y, int width, int height)
