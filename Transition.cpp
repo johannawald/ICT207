@@ -7,9 +7,8 @@
 //-size fullscreen support
 //-3D-model advertisement modelling
 //-Buttons click lighting
-//-Buttons click
 //-Edge of the Building - where is it?
-//-Show the inserted code -> correct it?
+//-Show the inserted code -> + correct it?
 //-Fall down collision detection
 
 #include "Transition.h"

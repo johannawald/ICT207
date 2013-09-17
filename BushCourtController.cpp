@@ -129,7 +129,12 @@ void BushCourtController::Update() {
 		cam.DirectionFB(-1);
 		transition.Update(tsHole);
 	}
-	if ((transition.state != tsHole) && (transition.state != tsNumberPad)) {
+
+	if (transition.state == tsHole){
+		if ((cam.GetFB() > 24900) && (cam.GetFB() < 25200) && (cam.GetLR() < 35200))
+			transition.Update(tsFallAnimation);
+	}
+	else if (transition.state != tsNumberPad) {
 		if ((cam.GetFB() > 24500) && (cam.GetFB() < 25300) && (cam.GetLR() < 35000) && (cam.GetLR() > 34759))
 			transition.Update(tsVendingMachine);
 		else
@@ -139,7 +144,6 @@ void BushCourtController::Update() {
 		cam.DirectionUD(-1); 
 		cam.DirectionRotateLR(2); 
 	}
-
 }
 
 void BushCourtController::Reshape() {
@@ -443,8 +447,8 @@ void BushCourtController::CreateBoundingBoxes()
 
 	// drinks machine
 	cam.SetAABBMaxX(7, 35879.0);
+	//*JW: disable collision detection for the vending machine
 	cam.SetAABBMinX(7, 35004.0);
-	cam.SetAABBMinX(7, 34704.0);
 	cam.SetAABBMaxZ(7, 25344.0);
 	cam.SetAABBMinZ(7, 24996.0);
 		
