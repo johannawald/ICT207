@@ -238,6 +238,7 @@ enum TextureCodes { NONE,							//0
 					NO_EXIT,						//222
 					BANNER,							//223
 					NUMBERPAD,						//224
+<<<<<<< HEAD
 					VENDING_MACHINE,				//225
 					//*DM
 					FAR_EXIT,						//226
@@ -257,4 +258,27 @@ enum TextureCodes { NONE,							//0
 					HALLWAY14,						//240
 					WOODENDOOR						//241
 					//e*DM
+=======
+					VENDING_MACHINE					//225
+					
+					
+					#define FAR_EXIT					226
+					#define HALLWAY1					227
+					#define HALLWAY2					228
+					#define HALLWAY3					229
+					#define HALLWAY4					230
+					#define HALLWAY5					231
+					#define HALLWAY6					232
+					#define HALLWAY7					233
+					#define HALLWAY8					234
+					#define HALLWAY9					235
+					#define HALLWAY10					236
+					#define HALLWAY11					237
+					#define HALLWAY12					238
+					#define HALLWAY13					239
+					#define HALLWAY14					240
+					#define WOODENDOOR					241
+					
+					
+>>>>>>> 3d4bcc8998454749a16706eab7daace811ef3ce6
 };
