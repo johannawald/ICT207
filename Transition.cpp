@@ -5,9 +5,9 @@
 //-collision detection for vending machine
 //-sound (crash)
 //-size fullscreen support
-//-3D-model advertisement
+//-3D-model advertisement modelling
 //-Buttons click lighting
-//-Buttons click - why does it not work anymore? :(
+//-Buttons click
 //-Edge of the Building - where is it?
 
 #include "Transition.h"
@@ -45,13 +45,11 @@ void Transition::CheckMouseInput()
 
 void Transition::CheckMousePosition(int x, int y, int width, int height)
 {	
-	bool mouse = (x>(width * 0.07)) && (y<height*0.03);
-	if (mouse) 
-	{
-		state == tsMouseBuyButton;
-	}
+	if ((x>(width * 0.7)) && (y<height*0.3) && (state == tsVendingMachine)) 
+		state = tsMouseBuyButton;
  	if (state == tsMouseBuyButton)
-		glutSetCursor(GLUT_CURSOR_CYCLE);
+		//glutSetCursor(GLUT_CURSOR_CYCLE); //this doesn't work at my computer?
+		glutSetCursor(GLUT_CURSOR_INFO);
 	else 
 	{
 		bool mouse = (x>(width * 0.7)) && (y<height*0.3);
