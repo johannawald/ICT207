@@ -1317,6 +1317,9 @@ void BushCourtController::CreateTextures()
     tp.CreateTexture(HALLWAY14, image, 512, 384);*/
 	//e*DM
 
+	//image = tp.LoadTexture("data/hallway14.bmp", 512, 384);
+    //tp.CreateTexture(COCACOLA_POSTER, image, 512, 384);*/
+
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 }
@@ -5636,10 +5639,13 @@ void BushCourtController::Draw3DModels() //*JW
 void BushCourtController::DrawAdPosterModels()
 {
 	glPushMatrix();
-		glScalef(10000.0f, 10000.0f, 10000.0f);
+		glTranslatef(33100, 10150, 25000);
+		glScalef(50.0f, 50.0f, 50.0f);
 		ModelLoader cube;
+		glBindTexture(, tp.GetTexture(WINDOWPOST_CHANC_FRONT));
 		cube.load("data/advertisement.obj");
 		cube.draw();
+		glBindTexture(, tp.GetTexture(WINDOWPOST_CHANC_FRONT));
 	glPopMatrix();
 }
 

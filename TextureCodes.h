@@ -256,6 +256,7 @@ enum TextureCodes { NONE,							//0
 					HALLWAY13,						//239
 					HALLWAY14,						//240
 					WOODENDOOR,						//241
+					COCACOLA_POSTER,				//242
 					LAST
 					//e*DM
 };
