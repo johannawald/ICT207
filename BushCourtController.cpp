@@ -89,7 +89,7 @@ void BushCourtController::Draw()
 			if (DisplayWelcome) 
 				cam.DisplayWelcomeScreen(width, height, 1, tp.GetTexture(WELCOME));
 			// *JW: display the vending machine (with the "buy"-button on it)
-			if (transition.state == tsVendingMachine)
+			if ((transition.state == tsVendingMachine) || (transition.state == tsMouseBuyButton))
 				cam.DisplayGameEntryScreen(width, height, 1, tp.GetTexture(VENDING_MACHINE));
 			// display the numberpad of the vending machine (with that you can interact)
 			else if (transition.state == tsNumberPad) {
@@ -137,8 +137,10 @@ void BushCourtController::Update() {
 			transition.Update(tsFallAnimation);
 	}
 	else if (transition.state != tsNumberPad) {
-		if ((cam.GetFB() > 24500) && (cam.GetFB() < 25300) && (cam.GetLR() < 35000) && (cam.GetLR() > 34759))
-			transition.Update(tsVendingMachine);
+		if ((cam.GetFB() > 24500) && (cam.GetFB() < 25300) && (cam.GetLR() < 35000) && (cam.GetLR() > 34759))  {
+			if (transition.state < tsVendingMachine)
+				transition.Update(tsVendingMachine);
+		}
 		else
 			transition.Update(tsNone);
 	}

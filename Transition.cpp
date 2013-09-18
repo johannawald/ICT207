@@ -43,7 +43,7 @@ void Transition::CheckMouseInput()
 
 void Transition::CheckMousePosition(int x, int y, int width, int height)
 {	
-	if ((x>(width * 0.7)) && (y<height*0.3) && (state == tsVendingMachine)) 
+	if ((x>(width * 0.7)) && (y<height*0.3) && (state == tsVendingMachine))  
 		state = tsMouseBuyButton;
  	if (state == tsMouseBuyButton)
 		//glutSetCursor(GLUT_CURSOR_CYCLE); //this doesn't work at my computer?
