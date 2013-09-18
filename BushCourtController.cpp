@@ -1262,8 +1262,9 @@ void BushCourtController::CreateTextures()
 	image = tp.LoadTexture("data/thanks.raw", 512, 512);
 	tp.CreateTexture(EXIT, image, 512, 512);
 
-	image = tp.LoadTexture("data/numberpad.raw", 800, 500);
-	tp.CreateTexture(NUMBERPAD, image, 800, 500);
+	image = tp.LoadTexture("data/CocaCola.raw", 256, 256); //numberpad.raw", 800, 500);
+	//tp.CreateTexture(NUMBERPAD, image, 800, 500);
+	tp.CreateTexture(NUMBERPAD, image, 256, 256);
 
 	image = tp.LoadTexture("data/vending_machine.raw", 800, 500);
 	tp.CreateTexture(VENDING_MACHINE, image, 800, 500);
@@ -1272,8 +1273,8 @@ void BushCourtController::CreateTextures()
 	//tp.CreateTexture(COCACOLA_POSTER, 
 
 	//*DM North-West-Hallway
-	/*image = tp.LoadTexture("data/wooddoor.bmp", 86, 226);
-	tp.CreateTexture(WOODENDOOR, image, 86, 226);
+	image = tp.LoadTexture("data/woodendoor.bmp", 225, 225);
+	tp.CreateTexture(WOODENDOOR, image, 225, 225);
 
 	image = tp.LoadTexture("data/FarExit.bmp", 512, 384);
 	tp.CreateTexture(FAR_EXIT, image, 512, 384);
@@ -1317,7 +1318,7 @@ void BushCourtController::CreateTextures()
     tp.CreateTexture(HALLWAY13, image, 512, 384);
  
     image = tp.LoadTexture("data/hallway14.bmp", 512, 384);
-    tp.CreateTexture(HALLWAY14, image, 512, 384);*/
+    tp.CreateTexture(HALLWAY14, image, 512, 384);
 	//e*DM
 
 	//image = tp.LoadTexture("data/hallway14.bmp", 512, 384);
@@ -1352,7 +1353,7 @@ void BushCourtController::DrawBackdrop()
 	DisplayRoof();
 	DisplayStepBricks ();
 	if (lightsOn) DisplayLights ();
-	//DisplayWestExit(); //*DM
+	DisplayWestExit(); //*DM
 }
 
 //--------------------------------------------------------------------------------------
