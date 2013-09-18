@@ -130,6 +130,7 @@ void BushCourtController::Update() {
 			cam.PlayMechanicSound();
 		cam.DirectionFB(-1);
 		transition.Update(tsHole);
+		Reshape();
 	}
 
 	if (transition.state == tsHole){
@@ -5635,7 +5636,7 @@ void BushCourtController::Draw3DModels() //*JW
 void BushCourtController::DrawAdPosterModels()
 {
 	glPushMatrix();
-		glScalef(1000.0f, 1000.0f, 1000.0f);
+		glScalef(10000.0f, 10000.0f, 10000.0f);
 		ModelLoader cube;
 		cube.load("data/advertisement.obj");
 		cube.draw();
