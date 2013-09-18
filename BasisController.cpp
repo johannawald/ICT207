@@ -2,15 +2,19 @@
 //  @ Unit : ICT207
 //  @ Author : Johanna Wald
 //
-// not used yet
+// provides the basic functions a controller needs (game controller as well as shay's wourld)
 
 
 #include "BasisController.h"
+#include "DrawManager.h"
+//#include "BasisView.h"
+//#include "BasisModel.h"
 
-#include "BasisView.h"
-#include "BasisModel.h"
+BasisController::BasisController() {	
+	drawmanager = new DrawManager();
+}
 
-void BasisController::init() {
+/*void BasisController::init() {
 	setModel();
 	initModel();
 	setView();
@@ -23,3 +27,4 @@ void BasisController::initModel() {
 void BasisController::initView(BasisModel* model) {	
 	view->init();
 }
+*/

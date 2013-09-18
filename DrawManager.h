@@ -8,6 +8,7 @@
 #pragma once
 
 #include <string>
+#include <windows.h>
 
 // Implements a lot of different draw functions like to draw text, staris ...
 
@@ -17,4 +18,5 @@ private:
 public:		
 	DrawManager();	
 	~DrawManager();
+	void RenderString(float x, float y, void *font, const char* str);
 };

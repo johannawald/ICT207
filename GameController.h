@@ -7,7 +7,7 @@
 
 #pragma once
 
-class GameController : public IStateController	
+class GameController : public IStateController, BasisController
 {
 private:
 	public:
