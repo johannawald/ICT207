@@ -19,4 +19,6 @@ public:
 	DrawManager();	
 	~DrawManager();
 	void RenderString(float x, float y, void *font, const char* str);
+
+	void drawStairs(float stairWidth, float stairHeight, float stairDepth, float numSteps);
 };
