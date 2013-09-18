@@ -89,13 +89,13 @@ void BushCourtController::Draw()
 			if (DisplayWelcome) 
 				cam.DisplayWelcomeScreen(width, height, 1, tp.GetTexture(WELCOME));
 			// *JW: display the vending machine (with the "buy"-button on it)
-			if ((transition.state == tsVendingMachine) || (transition.state == tsMouseBuyButton))
+			if ((transition.getstate() == tsVendingMachine) || (transition.getstate() == tsMouseBuyButton))
 				cam.DisplayGameEntryScreen(width, height, 1, tp.GetTexture(VENDING_MACHINE), "");
 			// display the numberpad of the vending machine (with that you can interact)
-			else if (transition.state == tsNumberPad) {
+			else if (transition.getstate() == tsNumberPad) {
 				//this is for the animation - if the animation haven't started yet, draw the numberpad:
-				if (transition.AnimationFrame==0)
-					cam.DisplayGameEntryScreen(width, height, 1, tp.GetTexture(NUMBERPAD), transition.InsertedCode.c_str());
+				if (transition.getAnimationFrame()==0)
+					cam.DisplayGameEntryScreen(width, height, 1, tp.GetTexture(NUMBERPAD), transition.getInsertedCode().c_str());
 				//otherwise draw a black screen (there is a "vending-machine-disappear" sound in the background)
 				else cam.DisplayGameEntryScreen(width, height, 1, 0, "");
 			}
@@ -133,19 +133,19 @@ void BushCourtController::Update() {
 		Reshape();
 	}
 
-	if (transition.state == tsHole){
+	if (transition.getstate() == tsHole){
 		if ((cam.GetFB() > 24900) && (cam.GetFB() < 25200) && (cam.GetLR() < 35200))
 			transition.Update(tsFallAnimation);
 	}
-	else if (transition.state != tsNumberPad) {
+	else if (transition.getstate() != tsNumberPad) {
 		if ((cam.GetFB() > 24500) && (cam.GetFB() < 25300) && (cam.GetLR() < 35000) && (cam.GetLR() > 34759))  {
-			if (transition.state < tsVendingMachine)
+			if (transition.getstate() < tsVendingMachine)
 				transition.Update(tsVendingMachine);
 		}
 		else
 			transition.Update(tsNone);
 	}
-	if (transition.state == tsFallAnimation) { 
+	if (transition.getstate() == tsFallAnimation) { 
 		cam.DirectionUD(-1); 
 		cam.DirectionRotateLR(2); 
 	}
@@ -1267,6 +1267,9 @@ void BushCourtController::CreateTextures()
 
 	image = tp.LoadTexture("data/vending_machine.raw", 800, 500);
 	tp.CreateTexture(VENDING_MACHINE, image, 800, 500);
+
+	//image = tp.LoadTexture("data/CocaCola.bmp", 256, 256);
+	//tp.CreateTexture(COCACOLA_POSTER, 
 
 	//*DM North-West-Hallway
 	/*image = tp.LoadTexture("data/wooddoor.bmp", 86, 226);
@@ -3742,7 +3745,7 @@ void BushCourtController::DisplayExtras ()
 	glPopMatrix();
 	
 	//*JW - removed from the display list (it has to be redrawn)
-	if (transition.state != tsHole) {
+	if (transition.getstate() != tsHole) {
 		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(SWEET_MACHINE)); 
 		const GLdouble SweetMachine_zStart = 25016;
 		const GLdouble SweetMachine_xStart = 34778; 
@@ -5639,13 +5642,51 @@ void BushCourtController::Draw3DModels() //*JW
 void BushCourtController::DrawAdPosterModels()
 {
 	glPushMatrix();
-		glTranslatef(33100, 10150, 25000);
+		glTranslatef(32700, 10150, 21000);
+		glRotated(-20,0,1,0);
 		glScalef(50.0f, 50.0f, 50.0f);
 		ModelLoader cube;
-		glBindTexture(, tp.GetTexture(WINDOWPOST_CHANC_FRONT));
 		cube.load("data/advertisement.obj");
+		
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(VENDING_MACHINE));
 		cube.draw();
-		glBindTexture(, tp.GetTexture(WINDOWPOST_CHANC_FRONT));
+		
+		glTranslatef(25, 0, 0);
+		glRotatef(40, 0, 1, 0);
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(NUMBERPAD));
+		cube.draw();
+
+		glTranslatef(-30, 0, 20);
+		glRotatef(20, 0, 1, 0);
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(NUMBERPAD));
+		cube.draw();
+
+		glTranslatef(15, 0, 0);
+		glRotatef(-40, 0, 1, 0);
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(NUMBERPAD));
+		cube.draw();
+
+		glTranslatef(-30, 0, -10);
+		glRotatef(100, 0, 1, 0);
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(NUMBERPAD));
+		cube.draw();
+		
+		glTranslatef(-20, 0, 50);
+		glRotatef(20, 0, 1, 0);
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(NUMBERPAD));
+		cube.draw();
+
+		glTranslatef(-20, 0, -40);
+		glRotatef(90, 0, 1, 0);
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(NUMBERPAD));
+		cube.draw();
+
+		glTranslatef(0, 0, 0);
+		glRotatef(150, 0, 1, 0);
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(NUMBERPAD));
+		cube.draw();
+
+		glBindTexture(GL_TEXTURE_2D, -1);
 	glPopMatrix();
 }
 

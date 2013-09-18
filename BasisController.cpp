@@ -3,7 +3,7 @@
 //  @ Author : Johanna Wald
 //
 // provides the basic functions a controller needs (game controller as well as shay's wourld)
-
+// drawmanager is a composition 
 
 #include "BasisController.h"
 #include "DrawManager.h"

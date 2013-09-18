@@ -4,7 +4,8 @@
 //
 //
 
-// Interface for a gameState controller
+// Interface (abstract class) for a gameState controller
+// The programm is just dealing with this class
 // Since the functions are abstract, you have to implement them in derived classes
 // The StateMachine has a member Variable based on this class and call them 
 

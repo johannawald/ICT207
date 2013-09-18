@@ -3,14 +3,27 @@
 //Transition to-do / Johanna's:
 //-correct position 2D screen (top) -> size fullscreen support
 //-3D-model advertisement
+//-cursor is wrong
 //-Buttons click lighting
-//-Edge of the Building - where is it?
-//-Show the inserted code -> + correct it?
+//-Auto correction -> code
 //-get rid of the encapsulating of the sound in the camera-class!
 //-rotate the text
-//-scale it
-//-Code Correction
-//-Transition in general
+//-Transition in general -> enter the level, correctly
+//-don't load the pictures again!
+//-after entering shays world again resize, why?
+//-set and get method - no public members at all!
+
+//-1. Level - Design and Load (GameController.cpp)
+//-corridor crashing -> why?
+//-stairs class
+//-implement / use stairs
+//-Doxygen documentation -> see ModelLoader.h
+//-Esc-Screen with our Faces
+//-First Level with Camera Movement
+//-Create video using Fraps
+//-Game Design Document
+//-Team Charter
+//-UML Diagramm
 
 #include "Transition.h"
 #include <GL/glut.h>
@@ -24,6 +37,18 @@ Transition::Transition(): Code("123"), InsertedCode(""), state(tsVendingMachine)
 Transition::~Transition()
 {
 	
+}
+
+TransitionState Transition::getstate() {
+	return state;
+}
+
+std::string Transition::getInsertedCode() {
+	return InsertedCode;
+}
+
+int Transition::getAnimationFrame() {
+	return AnimationFrame;
 }
 
 void Transition::Update(TransitionState tstate) 
