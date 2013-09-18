@@ -7,6 +7,9 @@
 //-Edge of the Building - where is it?
 //-Show the inserted code -> + correct it?
 //-get rid of the encapsulating of the sound in the camera-class!
+//-rotate the text
+//-scale it
+//-Position Button
 
 #include "Transition.h"
 #include <GL/glut.h>

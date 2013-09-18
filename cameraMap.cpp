@@ -69,9 +69,13 @@ void CameraMap::DisplayWelcomeScreen (const int & screenWidth, const int & scree
 	glTranslatef(screenWidth/2 -256.0, -screenHeight/2 -256.0, 0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();	
+	
 	glBindTexture(GL_TEXTURE_2D, tempImage);
 	// display image
 	glCallList(449);
+	
+	DrawManager dm;
+	dm.RenderString(50,50,GLUT_BITMAP_TIMES_ROMAN_24, (const char*) "00000000000000000000000000");
 
 	// Reset Perspective Projection
 	glMatrixMode(GL_PROJECTION);
@@ -94,11 +98,16 @@ void CameraMap::DisplayGameEntryScreen(const int & screenWidth, const int & scre
 	glTranslatef((screenWidth/2)-(screenWidth*0.5), -screenHeight*0.5-(screenHeight*0.5), 0); 
 	//the smaller this value the more you have to stretch the screen to fix it??? -> HELP! :D
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();	
+	glLoadIdentity();
+	
+	//Draw-Text:
+	glPushMatrix();
+		DrawManager dm;
+		//glRotatef(10.0f,0,0,0); 
+		dm.RenderString(510,50,GLUT_BITMAP_HELVETICA_18, (const char*) str);
+	glPopMatrix();
+	
 	// display black screen / no texture (for the "crash") or the texture
-	glColor3f(0,0,0);
-	glRasterPos2f(50, 50);
-	glutBitmapString(GLUT_BITMAP_8_BY_13, (const unsigned char*) str);
 	if (tempImage>0) 
 		glBindTexture(GL_TEXTURE_2D, tempImage);
 	else
@@ -108,10 +117,11 @@ void CameraMap::DisplayGameEntryScreen(const int & screenWidth, const int & scre
 	}
 	// display image
 	glCallList(450);
+	
 	// Reset Perspective Projection
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 }
 

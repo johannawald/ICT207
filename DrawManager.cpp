@@ -18,7 +18,11 @@ DrawManager::~DrawManager() {
 
 void DrawManager::RenderString(float x, float y, void *font, const char* str)
 { 
-	glColor3f(0,0,0);
-	glRasterPos2f(x, y);
-	glutBitmapString(font, (const unsigned char*) str);
+	glPushAttrib(GL_CURRENT_BIT);
+		glDisable(GL_LIGHTING);
+		glColor3f(1,0,0);
+		glRasterPos2f(x, y);
+		glutBitmapString(font, (const unsigned char*) str);
+		glEnable(GL_LIGHTING);
+	glPopAttrib();
 }
