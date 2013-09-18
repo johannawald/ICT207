@@ -8,6 +8,7 @@
 
 #include "cameraMap.h"
 #include "DrawManager.h" //*JW
+#include <GL/freeglut.h> //*JW
 
 //--------------------------------------------------------------------------------------
 //  Display a map with a cursor on it, which moves with the camera
@@ -68,7 +69,6 @@ void CameraMap::DisplayWelcomeScreen (const int & screenWidth, const int & scree
 	glTranslatef(screenWidth/2 -256.0, -screenHeight/2 -256.0, 0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();	
-	
 	glBindTexture(GL_TEXTURE_2D, tempImage);
 	// display image
 	glCallList(449);
@@ -81,7 +81,7 @@ void CameraMap::DisplayWelcomeScreen (const int & screenWidth, const int & scree
 }
 
 void CameraMap::DisplayGameEntryScreen(const int & screenWidth, const int & screenHeight, 
-		                       const int & tempExit, const GLuint & tempImage)
+		                       const int & tempExit, const GLuint & tempImage, const char* str)
 {
 	//screenWidth = screenWidth-200;
 	glPushMatrix();
@@ -95,7 +95,10 @@ void CameraMap::DisplayGameEntryScreen(const int & screenWidth, const int & scre
 	//the smaller this value the more you have to stretch the screen to fix it??? -> HELP! :D
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();	
-	// display exit screen or welcome screen
+	// display black screen / no texture (for the "crash") or the texture
+	glColor3f(0,0,0);
+	glRasterPos2f(50, 50);
+	glutBitmapString(GLUT_BITMAP_8_BY_13, (const unsigned char*) str);
 	if (tempImage>0) 
 		glBindTexture(GL_TEXTURE_2D, tempImage);
 	else

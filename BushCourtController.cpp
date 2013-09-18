@@ -90,14 +90,14 @@ void BushCourtController::Draw()
 				cam.DisplayWelcomeScreen(width, height, 1, tp.GetTexture(WELCOME));
 			// *JW: display the vending machine (with the "buy"-button on it)
 			if ((transition.state == tsVendingMachine) || (transition.state == tsMouseBuyButton))
-				cam.DisplayGameEntryScreen(width, height, 1, tp.GetTexture(VENDING_MACHINE));
+				cam.DisplayGameEntryScreen(width, height, 1, tp.GetTexture(VENDING_MACHINE), "");
 			// display the numberpad of the vending machine (with that you can interact)
 			else if (transition.state == tsNumberPad) {
 				//this is for the animation - if the animation haven't started yet, draw the numberpad:
 				if (transition.AnimationFrame==0)
-					cam.DisplayGameEntryScreen(width, height, 1, tp.GetTexture(NUMBERPAD));
+					cam.DisplayGameEntryScreen(width, height, 1, tp.GetTexture(NUMBERPAD), transition.InsertedCode.c_str());
 				//otherwise draw a black screen (there is a "vending-machine-disappear" sound in the background)
-				else cam.DisplayGameEntryScreen(width, height, 1, 0);
+				else cam.DisplayGameEntryScreen(width, height, 1, 0, "");
 			}
 			// displays the exit screen
 			if (DisplayExit) cam.DisplayWelcomeScreen (width, height, 0, tp.GetTexture(EXIT));

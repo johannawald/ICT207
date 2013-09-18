@@ -30,7 +30,7 @@ public:
 		                       const int & tempExit, const GLuint & tempImage);
 
 	void DisplayGameEntryScreen (const int & screenWidth, const int & screenHeight, 
-		                       const int & tempExit, const GLuint & tempImage); //*JW
+		                       const int & tempExit, const GLuint & tempImage, const char* str); //*JW
 
 	void DisplayNoExit (const int & screenWidth, const int & screenHeight, 
 						const GLuint & tempImage);
