@@ -74,8 +74,6 @@ void CameraMap::DisplayWelcomeScreen (const int & screenWidth, const int & scree
 	// display image
 	glCallList(449);
 	
-	DrawManager dm;
-	dm.RenderString(50,50,GLUT_BITMAP_TIMES_ROMAN_24, (const char*) "00000000000000000000000000");
 
 	// Reset Perspective Projection
 	glMatrixMode(GL_PROJECTION);
@@ -103,7 +101,6 @@ void CameraMap::DisplayGameEntryScreen(const int & screenWidth, const int & scre
 	//Draw-Text:
 	glPushMatrix();
 		DrawManager dm;
-		//glRotatef(10.0f,0,0,0); 
 		dm.RenderString(510,50,GLUT_BITMAP_HELVETICA_18, (const char*) str);
 	glPopMatrix();
 	

@@ -8,7 +8,8 @@
 #pragma once
 
 #include <string>
-#include <windows.h>
+#include <Windows.h>
+#include <GL/GL.h>
 
 // Implements a lot of different draw functions like to draw text, staris ...
 
@@ -18,7 +19,7 @@ private:
 public:		
 	DrawManager();	
 	~DrawManager();
-	void RenderString(float x, float y, void *font, const char* str);
+	void RenderString(float x, float y, void *font, const char* str, unsigned r = 0, unsigned g = 0, unsigned b = 0);
 
 	void drawStairs(float stairWidth, float stairHeight, float stairDepth, float numSteps);
 };

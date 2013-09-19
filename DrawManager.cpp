@@ -15,14 +15,15 @@ DrawManager::DrawManager() {
 DrawManager::~DrawManager() {
 }
 
-void DrawManager::RenderString(float x, float y, void *font, const char* str)
+void DrawManager::RenderString(float x, float y, void *font, const char* str, unsigned r, unsigned g, unsigned b)
 {
 	glPushAttrib(GL_CURRENT_BIT);
+		glBindTexture(GL_TEXTURE_2D, -1);
 		glDisable(GL_LIGHTING);
-		glColor3f(0,0,0);
+		glColor3f(r,g,b);
 		glRasterPos2f(x, y);
 		glutBitmapString(font, (const unsigned char*) str);
-		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHTING); 
 	glPopAttrib();
 }
 

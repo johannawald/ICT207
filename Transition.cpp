@@ -4,15 +4,9 @@
 //-correct position 2D screen (top) -> size fullscreen support
 //-3D-model advertisement
 //-cursor is wrong
-//-Buttons click lighting
-//-set color of the code / text in general
-//-rotate the text
-//-Transition in general -> enter the level, correctly
-//-set and get method - no public members at all!
-//-!!! BaseController as a base class? 
-//-!!! corridor
+//-Bug: Vending Machine step back - blue sky?
 //-quadratic images
-//-"clean" code
+//-"clean" code (BaseController as a base class / Public members )
 
 //-1. Level - Design and Load (GameController.cpp)
 //-corridor crashing -> why?
@@ -34,7 +28,7 @@
 #include "GameController.h"
 
 //42 4F 4D 42 = B O M B
-Transition::Transition(): Code("123"), InsertedCode(""), state(tsVendingMachine), Char(' '), AnimationFrame(0)
+Transition::Transition(): Code("000"), InsertedCode(""), state(tsVendingMachine), Char(' '), AnimationFrame(0)
 {
 
 }
@@ -79,7 +73,7 @@ void Transition::CheckMouseInput()
 
 void Transition::CheckMousePosition(int x, int y, int width, int height)
 {	
-	if ((x>(width * 0.7)) && (y<height*0.3) && (state == tsVendingMachine))  
+	if (x>(width * 0.65) && (state == tsVendingMachine))  
 		state = tsNumberPad;
  	if (state == tsNumberPad)
 	{

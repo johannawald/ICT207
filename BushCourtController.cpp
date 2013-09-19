@@ -238,6 +238,7 @@ void BushCourtController::Keyboard(unsigned char key, int x, int y)
 		// step left
 		case 'c':
 			//loaded = false;
+			//transition.Update(tsNone);
 			StateMachine::setController(new GameController);
 		break;
 		case 'Z':
