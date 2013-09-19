@@ -1,5 +1,5 @@
 //  @ Unit : ICT207
-//  @ File Name : IAssertManager.h
+//  @ File Name : IAssetManager.h
 //  @ Author : Johanna Wald
 //
 //
@@ -8,7 +8,7 @@
 
 #pragma once
 
-class IAssertManager {
+class IAssetManager {
 public:			
 	virtual void init() = 0;
 	virtual void reaload() = 0;

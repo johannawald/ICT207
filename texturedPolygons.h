@@ -29,8 +29,7 @@ public:
 
 	// returns texture
 	GLuint GetTexture (const TextureCodes & tempIndex) {
-		GLuint a = m_texture[tempIndex];
-		return a;
+		return m_texture[tempIndex];
 	}
 
 	// loads a raw image file into memory

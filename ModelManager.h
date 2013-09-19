@@ -6,20 +6,20 @@
 
 #pragma once
 
-#include "IAssertManager.h"
+#include "IAssetManager.h"
 #include <GL/freeglut.h>
 
 enum eModels { mAdvertisement,
 			 MODELS_SIZE };
 
 class ModelLoader;
-class ModelManager: public IAssertManager {
+class ModelManager: public IAssetManager {
 private:
 	ModelLoader* Models[MODELS_SIZE]; 	
 public:		
 	ModelManager();
 	~ModelManager();		
 	void init();
-	void reaload();
+	void reload();
 	void drawModel(eModels model, GLuint texture = 0);
 };

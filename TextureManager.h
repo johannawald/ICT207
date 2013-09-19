@@ -6,14 +6,14 @@
 
 #pragma once
 
-#include "IAssertManager.h"
+#include "IAssetManager.h"
 #include <GL/freeglut.h>
 #include "TexturedPolygons.h"
 
 enum eTextures { tCocaCola,
 				 TEXTURE_SIZE };
 
-class TextureManager: public IAssertManager {
+class TextureManager: public IAssetManager {
 private:
 	//change that later to a better image loader!!
 	TexturedPolygons tp;
@@ -22,6 +22,6 @@ public:
 	TextureManager();
 	~TextureManager();		
 	void init();
-	void reaload();
+	void reload();
 	GLuint getTexture(eTextures texture);
 };

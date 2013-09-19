@@ -22,7 +22,7 @@ void ModelManager::init()
 	Models[0]->load("data/test.obj"); //advertisement
 }
 
-void ModelManager::reaload()
+void ModelManager::reload()
 {
 	//do we really need that function?
 }

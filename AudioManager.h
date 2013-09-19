@@ -6,14 +6,14 @@
 
 #pragma once
 
-#include "IAssertManager.h"
+#include "IAssetManager.h"
 
 enum eSounds { asStep, asMetalicCrash, asIncorrectCode, 
 				   AUDIOSOUNDS_SIZE };
 
 class CSound;
 class CEasySound;
-class AudioManager: public IAssertManager {
+class AudioManager: public IAssetManager {
 private:
 	CEasySound* es;
 	CSound* Sounds[AUDIOSOUNDS_SIZE]; 	

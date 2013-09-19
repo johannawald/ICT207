@@ -167,9 +167,6 @@
     <ClInclude Include="AudioManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IAssertManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ModelManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -178,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="LevelOneController.h">
       <Filter>Header Files</Filter>
-    </ClInclude>	
+    </ClInclude>
+    <ClInclude Include="IAssetManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

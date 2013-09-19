@@ -20,7 +20,7 @@ void TextureManager::init()
 
 }
 
-void TextureManager::reaload()
+void TextureManager::reload()
 {
 	//do we really need that function?
 }
