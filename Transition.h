@@ -27,7 +27,9 @@ public:
 	int getAnimationFrame();
 	
 	void Update(TransitionState tstate);
-	bool IsRightCode();
+	void AutoCorrection();
+	bool IsCorrectCode();
+	bool IsCodeStartedCorrect();
 	bool IsPlayMechanicSound();
 	void CheckMouseInput();
 	void CheckMousePosition(int x, int y, int width, int height);

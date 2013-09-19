@@ -8,14 +8,15 @@
 
 #include "IAssertManager.h"
 
-enum AudioSounds { asStep, asMetalicCrash };
+enum AudioSounds { asStep, asMetalicCrash, asIncorrectCode, 
+				   AUDIOSOUNDS_SIZE };
 
 class CSound;
 class CEasySound;
 class AudioManager: public IAssertManager {
 private:
 	CEasySound* es;
-	CSound* Sounds[1]; 	
+	CSound* Sounds[AUDIOSOUNDS_SIZE]; 	
 public:		
 	AudioManager();
 	~AudioManager();		

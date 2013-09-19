@@ -125,14 +125,17 @@ void BushCourtController::Update() {
 	//there should be a difference between update (all the data) and draw (the objects)
 	//this method  has to be defined since it's an abstract-function; our game-state will make a differnece between update and draw
 	//*JW: trigger the transistion:
-	if (transition.IsRightCode()) {
+	if (transition.IsCorrectCode()) {
 		if (transition.IsPlayMechanicSound()) 
 			audio->playSound(asMetalicCrash);
 		cam.DirectionFB(-1);
 		transition.Update(tsHole);
 		Reshape();
 	}
-
+	else if (!transition.IsCodeStartedCorrect()) {
+		transition.AutoCorrection();
+		audio->playSound(asIncorrectCode);		
+	}
 	if (transition.getstate() == tsHole){
 		if ((cam.GetFB() > 24900) && (cam.GetFB() < 25200) && (cam.GetLR() < 35200))
 			transition.Update(tsFallAnimation);

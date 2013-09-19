@@ -28,6 +28,8 @@
 //-Game Design Document
 //-Team Charter
 //-UML Diagramm
+//-Code struktur
+//-credits?
 
 #include "Transition.h"
 #include <GL/glut.h>
@@ -131,10 +133,21 @@ void Transition::CheckMousePosition(int x, int y, int width, int height)
 	}	  
 }
 
-bool Transition::IsRightCode() { 
+bool Transition::IsCorrectCode() { 
 	return InsertedCode == Code;
-} 
+}
+
+bool Transition::IsCodeStartedCorrect() { 
+	if (InsertedCode.length() > Code.length())
+		return false;
+	else 
+		return Code.substr(0,InsertedCode.length()) == InsertedCode; 
+}
 
 bool Transition::IsPlayMechanicSound() { 
 	return AnimationFrame==0;
+} 
+
+void Transition::AutoCorrection()  { 
+	InsertedCode = "";
 } 
