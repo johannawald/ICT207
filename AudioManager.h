@@ -21,6 +21,6 @@ public:
 	AudioManager();
 	~AudioManager();		
 	void init();
-	void reaload();
+	void reload();
 	void playSound(eSounds audio);
 };

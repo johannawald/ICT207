@@ -74,6 +74,7 @@ public:
 	void PassiveMotion(int x, int y);
 
 	//Draw Functions
+	void DrawOuterWalls();
 	void DrawArchitecture();
 	void Draw3DModels();
 
