@@ -1,6 +1,7 @@
 #include "BushCourtController.h"
 #include "texturedPolygons.h"
 #include "GameController.h"
+#include "LevelOneController.h"
 #include "StateMachine.h"
 #include "ModelLoader.h"
 
@@ -161,7 +162,7 @@ void BushCourtController::Update() {
 		cam.DirectionUD(-1);
 		cam.DirectionRotateLR(2);
 		if (cam.GetUD()<3000)
-			StateMachine::setController(new GameController);
+			StateMachine::setController(new LevelOneController);
 	}
 }
 
@@ -239,7 +240,7 @@ void BushCourtController::Keyboard(unsigned char key, int x, int y)
 		case 'c':
 			//loaded = false;
 			//transition.Update(tsNone);
-			StateMachine::setController(new GameController);
+			StateMachine::setController(new LevelOneController);
 		break;
 		case 'Z':
 		case 'z':
