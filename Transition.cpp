@@ -6,11 +6,9 @@
 //-cursor is wrong
 //-Buttons click lighting
 //-set color of the code / text in general
-//-Auto correction -> code
 //-get rid of the encapsulating of the sound in the camera-class!
 //-rotate the text
 //-Transition in general -> enter the level, correctly
-//-don't load the pictures again!
 //-after entering shays world again resize, why?
 //-set and get method - no public members at all!
 //-!!! BaseController as a base class? 

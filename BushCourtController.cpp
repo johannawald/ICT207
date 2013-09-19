@@ -25,9 +25,27 @@ BushCourtController::BushCourtController(): movementSpeed(20.0), rotationSpeed(0
 	displayECL = true;
 	// Stores raw image file
 	image = nullptr;
+
+	Init();
+
+	
+
+	CreatePlains();	
+	
+	// creates bounding boxes and places in array
+	CreateBoundingBoxes();
+	// copies bounding boxes from array to linked lists (one fopr each quadrant)
+	cam.InitiateBoundingBoxes();
+	
+	// load texture images and create display lists
+	CreateTextureList();
+	CreateTextures();
+	loaded = true;	
+
 }
 
 BushCourtController::~BushCourtController() {
+	int i;
 }
 
 //--------------------------------------------------------------------------------------
@@ -50,23 +68,12 @@ void BushCourtController::Init() {
 	cam.SetWorldCoordinates(36000.0, 43200.0);
 	// turn collision detection on
 	cam.SetCollisionDetectionOn(true);
+
 	// set number of bounding boxes required
 	cam.SetNoBoundingBoxes(19);
 	// set starting position of user
-	cam.Position(32720.0, 10536.0,	
-				 22800.0, 180.0);
-	
-	CreatePlains();	
-	
-	// creates bounding boxes and places in array
-	CreateBoundingBoxes();
-	// copies bounding boxes from array to linked lists (one fopr each quadrant)
-	cam.InitiateBoundingBoxes();
-	
-	// load texture images and create display lists
-	CreateTextureList();
-	CreateTextures();
-	loaded = true;
+	cam.Position(32720.0, 10536.0, 22800.0, 180.0);
+	Reshape();
 }
 
 //--------------------------------------------------------------------------------------

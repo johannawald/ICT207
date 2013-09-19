@@ -15,7 +15,7 @@ AudioManager::~AudioManager()
 
 void AudioManager::init()
 {
-	// sound objects - later we should not work with easysound 
+	// sound objects - later we should not work 
 	es = CEasySound::Instance();
 	Sounds[0] = es->GetSound(es->Load("sounds/step.wav"));
 	Sounds[1] = es->GetSound(es->Load("sounds/Mechanical.wav")); 
