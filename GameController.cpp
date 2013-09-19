@@ -12,6 +12,7 @@ GameController::GameController()
 }
 
 void GameController::Init() {
+	int a;
 }
 
 void GameController::Draw() 

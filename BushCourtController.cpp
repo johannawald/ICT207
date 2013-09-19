@@ -44,7 +44,6 @@ BushCourtController::BushCourtController(): movementSpeed(20.0), rotationSpeed(0
 }
 
 BushCourtController::~BushCourtController() {
-	int i;
 }
 
 //--------------------------------------------------------------------------------------
@@ -238,8 +237,6 @@ void BushCourtController::Keyboard(unsigned char key, int x, int y)
 	{
 		// step left
 		case 'c':
-			//loaded = false;
-			//transition.Update(tsNone);
 			StateMachine::setController(new LevelOneController);
 		break;
 		case 'Z':
@@ -1279,6 +1276,8 @@ void BushCourtController::CreateTextures()
 
 	image = tp.LoadTexture("data/numberpad.raw", 800, 500);
 	tp.CreateTexture(NUMBERPAD, image, 800, 500);
+	//image = tp.LoadTexture("data/CocaCola2.raw", 1018, 1018);
+	//tp.CreateTexture(NUMBERPAD, image, 1018, 1018);
 
 	image = tp.LoadTexture("data/vending_machine.raw", 800, 500);
 	tp.CreateTexture(VENDING_MACHINE, image, 800, 500);
@@ -5660,48 +5659,35 @@ void BushCourtController::DrawAdPosterModels()
 		glTranslatef(32700, 10150, 21000);
 		glRotated(-20,0,1,0);
 		glScalef(50.0f, 50.0f, 50.0f);
-		ModelLoader cube;
-		cube.load("data/advertisement.obj");
-		
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(VENDING_MACHINE));
-		cube.draw();
-		
+		model->drawModel(mAdvertisement, tp.GetTexture(VENDING_MACHINE));
+
 		glTranslatef(25, 0, 0);
 		glRotatef(40, 0, 1, 0);
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(NUMBERPAD));
-		cube.draw();
+		model->drawModel(mAdvertisement, tp.GetTexture(NUMBERPAD));
 
 		glTranslatef(-30, 0, 20);
 		glRotatef(20, 0, 1, 0);
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(NUMBERPAD));
-		cube.draw();
+		model->drawModel(mAdvertisement, tp.GetTexture(NUMBERPAD));
 
 		glTranslatef(15, 0, 0);
 		glRotatef(-40, 0, 1, 0);
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(NUMBERPAD));
-		cube.draw();
+		model->drawModel(mAdvertisement, tp.GetTexture(NUMBERPAD));
 
 		glTranslatef(-30, 0, -10);
 		glRotatef(100, 0, 1, 0);
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(NUMBERPAD));
-		cube.draw();
-		
+		model->drawModel(mAdvertisement, tp.GetTexture(NUMBERPAD));
+
 		glTranslatef(-20, 0, 50);
 		glRotatef(20, 0, 1, 0);
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(NUMBERPAD));
-		cube.draw();
+		model->drawModel(mAdvertisement, tp.GetTexture(NUMBERPAD));
 
 		glTranslatef(-20, 0, -40);
 		glRotatef(90, 0, 1, 0);
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(NUMBERPAD));
-		cube.draw();
+		model->drawModel(mAdvertisement, tp.GetTexture(NUMBERPAD));
 
 		glTranslatef(0, 0, 0);
 		glRotatef(150, 0, 1, 0);
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(NUMBERPAD));
-		cube.draw();
-
-		glBindTexture(GL_TEXTURE_2D, -1);
+		model->drawModel(mAdvertisement, tp.GetTexture(NUMBERPAD));
 	glPopMatrix();
 }
 

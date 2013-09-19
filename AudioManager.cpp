@@ -27,7 +27,7 @@ void AudioManager::reaload()
 	//do we really need that function?
 }
 
-void AudioManager::playSound(AudioSounds audio)
+void AudioManager::playSound(eSounds audio)
 {
 	Sounds[audio]->Play();
 }

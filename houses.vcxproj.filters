@@ -81,6 +81,12 @@
     <ClCompile Include="AudioManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ModelManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="LevelOneController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -164,8 +170,14 @@
     <ClInclude Include="IAssertManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LevelOneController.h">
+    <ClInclude Include="ModelManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelOneController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>	
   </ItemGroup>
 </Project>

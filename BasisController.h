@@ -5,35 +5,23 @@
 // not used yet -> later every state should have a view and maybe a model
 
 
-
-// general, abstract Controller-class for the MVC
+// (general, abstract Controller-class for the MVC)
 // provides virtual functions to set the model and the view
 // all derived classes have to implement these (have their own view (derived from BasisView) and model (derived from BasisModel)) 
 
 #pragma once
 
+#include "ModelManager.h"
+
 class DrawManager;
 class AudioManager;
-//class BasisView;
-//class BasisModel;
 class BasisController {
 private:
 	
-protected:
+protected: //Is protected ok? Or should that be changed to privte? propably yes with a get function (just readable)
 	DrawManager* drawmanager;
 	AudioManager* audio;
-
-
-	/*BasisModel* model;
-	BasisView* view;
-	
-	virtual void setModel() = 0;
-	virtual void setView() = 0;
-	virtual void initModel();	
-	virtual void initView(BasisModel* model);*/
+	ModelManager* model;
 public:	
 	BasisController();
-	/*virtual void init();
-	virtual void draw() = 0;
-	virtual void update() = 0;*/
 };

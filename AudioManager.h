@@ -8,7 +8,7 @@
 
 #include "IAssertManager.h"
 
-enum AudioSounds { asStep, asMetalicCrash, asIncorrectCode, 
+enum eSounds { asStep, asMetalicCrash, asIncorrectCode, 
 				   AUDIOSOUNDS_SIZE };
 
 class CSound;
@@ -22,5 +22,5 @@ public:
 	~AudioManager();		
 	void init();
 	void reaload();
-	void playSound(AudioSounds audio);
+	void playSound(eSounds audio);
 };
