@@ -135,6 +135,7 @@
     <ClCompile Include="DrawManager.cpp" />
     <ClCompile Include="EasySound.cpp" />
     <ClCompile Include="GameController.cpp" />
+    <ClCompile Include="LevelOneController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="PlainLinkedList.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="EasySound.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="IStateController.h" />
+    <ClInclude Include="LevelOneController.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="PlainLinkedList.h" />
     <ClInclude Include="PlainNode.h" />
