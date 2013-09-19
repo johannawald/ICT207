@@ -6,7 +6,6 @@
 
 
 #include "DrawManager.h"
-#include "AssertManager.h"
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 

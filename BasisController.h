@@ -13,6 +13,7 @@
 #pragma once
 
 class DrawManager;
+class AudioManager;
 //class BasisView;
 //class BasisModel;
 class BasisController {
@@ -20,6 +21,8 @@ private:
 	
 protected:
 	DrawManager* drawmanager;
+	AudioManager* audio;
+
 
 	/*BasisModel* model;
 	BasisView* view;

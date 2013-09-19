@@ -89,7 +89,7 @@ void BushCourtController::Draw()
 			if (DisplayWelcome) 
 				cam.DisplayWelcomeScreen(width, height, 1, tp.GetTexture(WELCOME));
 			// *JW: display the vending machine (with the "buy"-button on it)
-			if ((transition.getstate() == tsVendingMachine) || (transition.getstate() == tsMouseBuyButton))
+			if (transition.getstate() == tsVendingMachine)
 				cam.DisplayGameEntryScreen(width, height, 1, tp.GetTexture(VENDING_MACHINE), "");
 			// display the numberpad of the vending machine (with that you can interact)
 			else if (transition.getstate() == tsNumberPad) {
@@ -127,7 +127,7 @@ void BushCourtController::Update() {
 	//*JW: trigger the transistion:
 	if (transition.IsRightCode()) {
 		if (transition.IsPlayMechanicSound()) 
-			cam.PlayMechanicSound();
+			audio->playSound(asMetalicCrash);
 		cam.DirectionFB(-1);
 		transition.Update(tsHole);
 		Reshape();
@@ -1262,9 +1262,8 @@ void BushCourtController::CreateTextures()
 	image = tp.LoadTexture("data/thanks.raw", 512, 512);
 	tp.CreateTexture(EXIT, image, 512, 512);
 
-	image = tp.LoadTexture("data/CocaCola.raw", 256, 256); //numberpad.raw", 800, 500);
-	//tp.CreateTexture(NUMBERPAD, image, 800, 500);
-	tp.CreateTexture(NUMBERPAD, image, 256, 256);
+	image = tp.LoadTexture("data/numberpad.raw", 800, 500);
+	tp.CreateTexture(NUMBERPAD, image, 800, 500);
 
 	image = tp.LoadTexture("data/vending_machine.raw", 800, 500);
 	tp.CreateTexture(VENDING_MACHINE, image, 800, 500);

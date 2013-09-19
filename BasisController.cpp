@@ -7,11 +7,13 @@
 
 #include "BasisController.h"
 #include "DrawManager.h"
+#include "AudioManager.h"
 //#include "BasisView.h"
 //#include "BasisModel.h"
 
 BasisController::BasisController() {	
 	drawmanager = new DrawManager();
+	audio = new AudioManager();
 }
 
 /*void BasisController::init() {

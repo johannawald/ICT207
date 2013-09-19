@@ -7,7 +7,7 @@
 
 //--------------------------------------------------------------------------------------
 
-enum TransitionState { tsNone, tsVendingMachine, tsMouseBuyButton, tsNumberPad, tsHole, tsFallAnimation };
+enum TransitionState { tsNone, tsVendingMachine, tsNumberPad, tsHole, tsFallAnimation };
 enum ReachtTransition {PlaySound, Move};
 
 class Transition

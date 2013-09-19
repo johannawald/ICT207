@@ -5,6 +5,7 @@
 //-3D-model advertisement
 //-cursor is wrong
 //-Buttons click lighting
+//-set color of the code / text in general
 //-Auto correction -> code
 //-get rid of the encapsulating of the sound in the camera-class!
 //-rotate the text
@@ -12,6 +13,9 @@
 //-don't load the pictures again!
 //-after entering shays world again resize, why?
 //-set and get method - no public members at all!
+//-!!! BaseController as a base class? 
+//-!!! corridor
+//-quadratic images
 
 //-1. Level - Design and Load (GameController.cpp)
 //-corridor crashing -> why?
@@ -64,8 +68,6 @@ void Transition::Update(TransitionState tstate)
 
 void Transition::CheckMouseInput() 
 {
-	if (state == tsMouseBuyButton)
-		state = tsNumberPad;
 	if ((state == tsNumberPad) && (Char!=' ')) {
 		if (Char=='*') 
 			InsertedCode = "";
@@ -77,11 +79,8 @@ void Transition::CheckMouseInput()
 void Transition::CheckMousePosition(int x, int y, int width, int height)
 {	
 	if ((x>(width * 0.7)) && (y<height*0.3) && (state == tsVendingMachine))  
-		state = tsMouseBuyButton;
- 	if (state == tsMouseBuyButton)
-		//glutSetCursor(GLUT_CURSOR_CYCLE); //this doesn't work at my computer?
-		glutSetCursor(GLUT_CURSOR_INFO);
-	else 
+		state = tsNumberPad;
+ 	if (state == tsNumberPad)
 	{
 		if (state == tsNumberPad)
 		{
