@@ -28,8 +28,6 @@ BushCourtController::BushCourtController(): movementSpeed(20.0), rotationSpeed(0
 
 	Init();
 
-	
-
 	CreatePlains();	
 	
 	// creates bounding boxes and places in array
@@ -53,6 +51,10 @@ BushCourtController::~BushCourtController() {
 //--------------------------------------------------------------------------------------
 void BushCourtController::Init() {
 	// set background (sky colour)
+	transition.Update(tsNone);
+	cam.DirectionUD(0);
+	cam.DirectionRotateLR(0);
+
 	glClearColor(97.0/255.0, 140.0/255.0, 185.0/255.0, 1.0);
 	
 	// set perpsective
@@ -156,8 +158,10 @@ void BushCourtController::Update() {
 			transition.Update(tsNone);
 	}
 	if (transition.getstate() == tsFallAnimation) { 
-		cam.DirectionUD(-1); 
-		cam.DirectionRotateLR(2); 
+		cam.DirectionUD(-1);
+		cam.DirectionRotateLR(2);
+		if (cam.GetUD()<3000)
+			StateMachine::setController(new GameController);
 	}
 }
 
@@ -236,7 +240,6 @@ void BushCourtController::Keyboard(unsigned char key, int x, int y)
 			//loaded = false;
 			StateMachine::setController(new GameController);
 		break;
-
 		case 'Z':
 		case 'z':
 			cam.DirectionLR(-1);

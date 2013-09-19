@@ -6,14 +6,13 @@
 //-cursor is wrong
 //-Buttons click lighting
 //-set color of the code / text in general
-//-get rid of the encapsulating of the sound in the camera-class!
 //-rotate the text
 //-Transition in general -> enter the level, correctly
-//-after entering shays world again resize, why?
 //-set and get method - no public members at all!
 //-!!! BaseController as a base class? 
 //-!!! corridor
 //-quadratic images
+//-"clean" code
 
 //-1. Level - Design and Load (GameController.cpp)
 //-corridor crashing -> why?
@@ -31,6 +30,8 @@
 
 #include "Transition.h"
 #include <GL/glut.h>
+#include "StateMachine.h"
+#include "GameController.h"
 
 //42 4F 4D 42 = B O M B
 Transition::Transition(): Code("123"), InsertedCode(""), state(tsVendingMachine), Char(' '), AnimationFrame(0)
