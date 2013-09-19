@@ -126,7 +126,7 @@
     <ClCompile Include="AABB.CPP" />
     <ClCompile Include="AABBLinkedList.cpp" />
     <ClCompile Include="AABBNode.cpp" />
-    <ClCompile Include="AssertManager.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="BasisController.cpp" />
     <ClCompile Include="BasisStateController.cpp" />
     <ClCompile Include="camera.cpp" />
@@ -136,6 +136,7 @@
     <ClCompile Include="EasySound.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="PlainLinkedList.cpp" />
     <ClCompile Include="PlainNode.cpp" />
     <ClCompile Include="BushCourtController.cpp" />
@@ -149,7 +150,8 @@
     <ClInclude Include="AABB.H" />
     <ClInclude Include="AABBLinkedList.h" />
     <ClInclude Include="AABBNode.h" />
-    <ClInclude Include="AssertManager.h" />
+    <ClInclude Include="IAssertManager.h" />
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="BasisController.h" />
     <ClInclude Include="BasisModel.h" />
     <ClInclude Include="BasisStateController.h" />
@@ -161,6 +163,7 @@
     <ClInclude Include="EasySound.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="IStateController.h" />
+    <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="PlainLinkedList.h" />
     <ClInclude Include="PlainNode.h" />
     <ClInclude Include="BushCourtController.h" />

@@ -57,9 +57,6 @@
     <ClCompile Include="Transition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AssertManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BasisController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -76,6 +73,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,9 +122,6 @@
     <ClInclude Include="Transition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AssertManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BasisController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -150,6 +150,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IAssertManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
