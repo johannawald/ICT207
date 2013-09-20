@@ -82,8 +82,7 @@ void CameraMap::DisplayWelcomeScreen (const int & screenWidth, const int & scree
 	glPopMatrix();
 }
 
-void CameraMap::DisplayGameEntryScreen(const int & screenWidth, const int & screenHeight, 
-		                       const int & tempExit, const GLuint & tempImage, const char* str)
+void CameraMap::DisplayGameEntryScreen(const int & tempExit, const GLuint & tempImage, const char* str)
 {
 	glPushMatrix();
 	glMatrixMode(GL_PROJECTION);

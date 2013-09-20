@@ -4,7 +4,6 @@
 //-3D-model advertisement
 //-cursor is wrong
 //-Bug: Vending Machine step back - blue sky?
-//-quadratic images
 //-"clean" code (BaseController as a base class / Public members )
 //-raymond / loading texture -> processing
 

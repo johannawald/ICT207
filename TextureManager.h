@@ -25,5 +25,5 @@ public:
 	void init();
 	void reload();
 	void clearMemory();
-	GLuint getTextureID(eTextures texture);
+	GLuint getTextureID(const eTextures texture) const;
 };

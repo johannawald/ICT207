@@ -6,7 +6,7 @@
 //--------------------------------------------------------------------------------------
 //  Constructor
 //--------------------------------------------------------------------------------------
-GameController::GameController()
+GameController::GameController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm)
 {
 
 }

@@ -26,7 +26,7 @@ void AudioManager::reload()
 	init();
 }
 
-void AudioManager::playSound(eSounds audio)
+void AudioManager::playSound(const eSounds audio) const
 {
 	Sounds[audio]->Play();
 }

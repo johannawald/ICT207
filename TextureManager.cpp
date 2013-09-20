@@ -34,7 +34,7 @@ void TextureManager::reload()
 	init();
 }
 
-GLuint TextureManager::getTextureID(eTextures texture)
+GLuint TextureManager::getTextureID(const eTextures texture) const
 {
 	return Textures[texture].TextureID;
 }

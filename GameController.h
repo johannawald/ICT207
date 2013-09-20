@@ -5,13 +5,16 @@
 
 #include "IStateController.h"
 #include "BasisController.h"
+#include "AudioManager.h"
+#include "ModelManager.h"
+#include "TextureManager.h"
 
 #pragma once
 
 class GameController : public IStateController, BasisController
 {
 	public:
-	GameController(void);
+	GameController(AudioManager* am, ModelManager* mm, TextureManager* tm);
 
 	void Init(const ModelManager* mm, const AudioManager* am, const TextureManager* tm);
 	void Draw();

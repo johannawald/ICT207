@@ -77,7 +77,6 @@ public:
 	void DrawOuterWalls();
 	void DrawArchitecture();
 	void Draw3DModels();
-	void DrawObjects();
 
 	void IncrementFrameCount();	
 	// loads images and creates texture

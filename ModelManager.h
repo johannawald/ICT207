@@ -22,5 +22,5 @@ public:
 	void init();
 	void reload();
 	void clearMemory();
-	void drawModel(eModels model, GLuint texture = 0);
+	void drawModel(const eModels model, const GLuint texture = 0) const;
 };

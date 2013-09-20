@@ -47,5 +47,5 @@ public:
         * @param eSounds audio - the enum of the sound that should be played it represents the position of the file in the list the class stores
 		* @return void
 	*/
-	void playSound(eSounds audio);
+	void playSound(const eSounds audio) const;
 };

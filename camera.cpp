@@ -433,10 +433,9 @@ void Camera::DisplayWelcomeScreen(const int & screenWidth, const int & screenHei
 
 //
 
-void Camera::DisplayGameEntryScreen(const int & screenWidth, const int & screenHeight,  //*JW
-									 const int & tempExit, const GLuint & tempImage, const char* str) 
+void Camera::DisplayGameEntryScreen(const int & tempExit, const GLuint & tempImage, const char* str) 
 {
-	m_map.DisplayGameEntryScreen(screenWidth, screenHeight, tempExit, tempImage, str);
+	m_map.DisplayGameEntryScreen(tempExit, tempImage, str);
 }
 
 //--------------------------------------------------------------------------------------

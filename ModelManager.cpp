@@ -30,7 +30,7 @@ void ModelManager::reload()
 	init();
 }
 
-void ModelManager::drawModel(eModels model, GLuint texture)
+void ModelManager::drawModel(const eModels model, const GLuint texture) const
 {
 	glPushMatrix();
 		if (texture>0)
