@@ -11,5 +11,5 @@
 class IAssetManager {
 public:			
 	virtual void init() = 0;
-	virtual void reaload() = 0;
+	virtual void reload() = 0;
 };

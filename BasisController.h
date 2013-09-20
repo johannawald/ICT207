@@ -12,6 +12,7 @@
 #pragma once
 
 #include "ModelManager.h"
+#include "TextureManager.h"
 
 class DrawManager;
 class AudioManager;
@@ -22,6 +23,7 @@ protected: //Is protected ok? Or should that be changed to privte? propably yes 
 	DrawManager* drawmanager;
 	AudioManager* audio;
 	ModelManager* model;
+	TextureManager* texture;
 public:	
 	BasisController();
 };

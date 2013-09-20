@@ -8,20 +8,21 @@
 
 #include "IAssetManager.h"
 #include <GL/freeglut.h>
-#include "TexturedPolygons.h"
+#include "TextureLoader.h"
 
-enum eTextures { tCocaCola,
+enum eTextures { tAdOreo, taAdOreo_Text,
 				 TEXTURE_SIZE };
 
 class TextureManager: public IAssetManager {
 private:
 	//change that later to a better image loader!!
-	TexturedPolygons tp;
-	GLubyte* Textures[TEXTURE_SIZE]; 	
+	//TexturedPolygons tp;
+	TextureLoader* tl;
+	glTexture Textures[TEXTURE_SIZE]; 	
 public:		
 	TextureManager();
 	~TextureManager();		
 	void init();
 	void reload();
-	GLuint getTexture(eTextures texture);
+	GLuint getTextureID(eTextures texture);
 };

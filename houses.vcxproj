@@ -146,6 +146,7 @@
     <ClCompile Include="SoundTime.cpp" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="texturedPolygons.cpp" />
+    <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Transition.cpp" />
   </ItemGroup>
@@ -177,6 +178,7 @@
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="TextureCodes.h" />
     <ClInclude Include="texturedPolygons.h" />
+    <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Transition.h" />
   </ItemGroup>

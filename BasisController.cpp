@@ -13,4 +13,5 @@ BasisController::BasisController() {
 	drawmanager = new DrawManager();
 	audio = new AudioManager();
 	model = new ModelManager();
+	texture = new TextureManager();
 }
