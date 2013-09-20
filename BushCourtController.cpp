@@ -4661,6 +4661,33 @@ void BushCourtController::DisplayWestExit()
    
   //Walls
   glBindTexture(GL_TEXTURE_2D, tp.GetTexture(WALL_BRICK_YZ));
+  
+  glPushMatrix();
+glBegin(GL_POLYGON);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(2090.0, 10000.0, 41168.0);
+	glTexCoord2f(6.0, 0.0);
+	glVertex3f(2090.0, 10900.0, 41168.0);
+	glTexCoord2f(6.0, 3.0);
+	glVertex3f(2610.0, 10900.0, 41168.0);
+	glTexCoord2f(0.0, 3.0);
+	glVertex3f(2610.0, 10000.0, 41168.0);
+glEnd();
+glPopMatrix();
+
+glPushMatrix();
+glBegin(GL_POLYGON);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(2090.0, 10000.0, 42960.0);
+	glTexCoord2f(6.0, 0.0);
+	glVertex3f(2090.0, 10900.0, 42960.0);
+	glTexCoord2f(6.0, 3.0);
+	glVertex3f(2610.0, 10900.0, 42960.0);
+	glTexCoord2f(0.0, 3.0);
+	glVertex3f(2610.0, 10000.0, 42960.0);
+glEnd();
+glPopMatrix();
+  
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -5241,9 +5268,9 @@ void BushCourtController::DisplayWestExit()
   glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MAIN_POST_2));
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 1.0);
-    glVertex3f(2500.0, 10900.0, 40900.0);
+    glVertex3f(2610.0, 10900.0, 40900.0);
     glTexCoord2f(1.0, 1.0);
-    glVertex3f(2500.0, 10900.0, 43340.0);
+    glVertex3f(2610.0, 10900.0, 43340.0);
     glTexCoord2f(1.0, 0.0);
     glVertex3f(2100.0, 10900.0, 43340.0);
     glTexCoord2f(0.0, 0.0);
