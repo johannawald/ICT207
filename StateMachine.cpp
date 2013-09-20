@@ -47,6 +47,8 @@ StateMachine* StateMachine::getInstance()
 void StateMachine::setBushCourtController() {	
 	setController(bushcourtcontroller);
 	bushcourtcontroller->Init();
+	//sorry for that:
+	dynamic_cast<BushCourtController*>(bushcourtcontroller)->SetCamPosition(-27000, 10450, 41400, 180);
 }
 
 void StateMachine::setController(IStateController* controller) {	

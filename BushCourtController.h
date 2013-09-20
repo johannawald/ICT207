@@ -70,6 +70,10 @@ private:
 public:
 	BushCourtController(AudioManager* am, ModelManager* mm, TextureManager* tm);
 	virtual ~BushCourtController(void);
+	void SetCamPosition(GLdouble const & tempX,
+				   GLdouble const & tempY,
+				   GLdouble const & tempZ,
+				   GLdouble const & tempAngle);
 
 	void Init();
 	void Draw();

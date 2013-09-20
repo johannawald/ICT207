@@ -29,6 +29,7 @@
 class LevelOneController : public IStateController, BasisController
 {
 private:
+	bool insertedLevel;
 	bool loaded; 
 	Transition transition;
 

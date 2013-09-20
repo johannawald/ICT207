@@ -12,6 +12,7 @@
 //--------------------------------------------------------------------------------------
 LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), movementSpeed(15.0), rotationSpeed(0.005), loaded(false)
 {
+	insertedLevel = false;
 	// USE THESE STTEINGS TO CHANGE SPEED (on different spec computers)
 	// Set speed (steps)
 	frameCount = 0;
@@ -95,20 +96,19 @@ void LevelOneController::Draw()
 			cam.SetRotateSpeed(angleIncrement);
 		glPopMatrix();
 		glDisable (GL_TEXTURE_2D); 
-
-
-
-
 		// clear buffers
 		glFlush();
 		glutSwapBuffers();
-
 	}
 }
 
 void LevelOneController::Update() { 
-	//there should be a difference between update (all the data) and draw (the objects)
-	//this method  has to be defined since it's an abstract-function; our game-state will make a differnece between update and draw
+	if ((cam.GetLR() > 400) && (cam.GetLR() < 700) && (cam.GetFB() < -4300) && (cam.GetFB() > -4500)) 
+		StateMachine::setBushCourtController();
+	else if ((cam.GetFB() > -2000) && (!insertedLevel)) {
+		cam.Position(2500.0, 1500.0, 550.0, 180.0);
+		insertedLevel = true;
+	}
 }
 
 void LevelOneController::Reshape() {
@@ -185,17 +185,18 @@ void LevelOneController::Keyboard(unsigned char key, int x, int y)
 			//can only be used within these bounds - next to console - adjust size
 			if (((cam.GetLR() > 0) && (cam.GetLR() < 1000)) && ((cam.GetFB() < -1000) || (cam.GetFB() > -2000)))
 			{
+				//change that later to a seperate controller
 				cam.Position(2500.0, 1500.0, 550.0, 180.0);
 			}
 			break;
 		case '0':
-			StateMachine::setController(new BushCourtController(GetAudio(), GetModel(), GetTexture()));
+			StateMachine::setBushCourtController();
 			break;
 		case 'e':
 			//next to ladder out
 			if (((cam.GetLR() > 250) && (cam.GetLR() < 750)) && ((cam.GetFB() < -2000) || (cam.GetFB() > -3000)))
 			{
-				StateMachine::setController(new BushCourtController(GetAudio(), GetModel(), GetTexture()));
+				StateMachine::setBushCourtController();
 			}
 		case 'Z':
 		case 'z':
@@ -868,6 +869,14 @@ void LevelOneController::DrawControlRoom()
 		glTexCoord2f(0.0, 0.0);			glVertex3f(700, 1000, -4500);
 		glTexCoord2f(1.0, 0.0);			glVertex3f(700, 1000, -4000);
 	glEnd();
+	
+	DrawManager drawMan;
+	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
+	glPushMatrix();
+		glTranslatef(700, 0, -4000);
+		glRotatef(180, 0, 1, 0);
+		drawMan.drawStairs(400, 250, 500, 5);
+	glPopMatrix();
 }
 
 
