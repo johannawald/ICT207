@@ -3,9 +3,6 @@
 #include "StateMachine.h"
 #include "BushCourtController.h"
 
-//--------------------------------------------------------------------------------------
-//  Constructor
-//--------------------------------------------------------------------------------------
 GameController::GameController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm)
 {
 
@@ -76,7 +73,7 @@ void GameController::Keyboard(unsigned char key, int x, int y)
 	{
 		// step left
 		case 'e':
-			StateMachine::setBushCourtController();
+			StateMachine::setBushCourtController(); //test debug functionality
 			break;
 	}
 }

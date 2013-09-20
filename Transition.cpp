@@ -1,20 +1,3 @@
-//  Transition.cpp
-
-//Transition to-do / Johanna's:
-//-3D-model advertisement
-//-cursor is wrong
-//-Bug: Vending Machine step back - blue sky?
-//-"clean" code (BaseController as a base class / Public members )
-//-raymond / loading texture -> processing
-
-//-implement / use stairs
-//-Doxygen documentation -> see ModelLoader.h
-//-Create video using Fraps
-//-Game Design Document
-//-Team Charter
-//-UML Diagramm
-//-Code struktur
-
 #include "Transition.h"
 #include <GL/glut.h>
 #include "StateMachine.h"

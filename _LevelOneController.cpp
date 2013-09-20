@@ -62,7 +62,8 @@ void LevelOneController::Init() {
 	// set number of bounding boxes required
 	cam.SetNoBoundingBoxes(19);
 	// set starting position of user
-	cam.Position(500, 500, -4000, 180.0);
+	//cam.Position(2500.0, 350.0, 500.0, 180.0);
+	cam.Position(2500.0, 1500.0, 550.0, 180.0); //temp view for checking level layout
 	Reshape();
 }
 
@@ -84,11 +85,9 @@ void LevelOneController::Draw()
 		glPushMatrix();
 			// displays the exit screen
 			if (DisplayExit) cam.DisplayWelcomeScreen (width, height, 0, tp.GetTexture(EXIT));
-			DrawControlRoom();
 			DrawOuterWalls();
 			DrawArchitecture();
 			Draw3DModels();
-			DrawObjects();
 			// set the movement and rotation speed according to frame count
 			IncrementFrameCount();
 			cam.SetMoveSpeed(stepIncrement);
@@ -96,13 +95,9 @@ void LevelOneController::Draw()
 		glPopMatrix();
 		glDisable (GL_TEXTURE_2D); 
 
-
-
-
 		// clear buffers
 		glFlush();
 		glutSwapBuffers();
-
 	}
 }
 
@@ -181,22 +176,12 @@ void LevelOneController::Keyboard(unsigned char key, int x, int y)
 	int i = 0;
 	switch (key)
 	{
-		case '1':
-			//can only be used within these bounds - next to console - adjust size
-			if (((cam.GetLR() > 0) && (cam.GetLR() < 1000)) && ((cam.GetFB() < -1000) || (cam.GetFB() > -2000)))
-			{
-				cam.Position(2500.0, 1500.0, 550.0, 180.0);
-			}
-			break;
-		case '0':
-			StateMachine::setController(new BushCourtController(GetAudio(), GetModel(), GetTexture()));
-			break;
-		case 'e':
-			//next to ladder out
-			if (((cam.GetLR() > 250) && (cam.GetLR() < 750)) && ((cam.GetFB() < -2000) || (cam.GetFB() > -3000)))
-			{
-				StateMachine::setController(new BushCourtController(GetAudio(), GetModel(), GetTexture()));
-			}
+		// step left
+		case 'c':
+			//loaded = false;
+			//transition.Update(tsNone);
+			//StateMachine::setController(new BushCourtController);
+		break;
 		case 'Z':
 		case 'z':
 			cam.DirectionLR(-1);
@@ -233,7 +218,9 @@ void LevelOneController::Keyboard(unsigned char key, int x, int y)
 		// exit tour (escape key)
 		case 27:
 			{
-				cam.Position(500, 500, -4000, 180.0);
+				cam.SetRotateSpeed (0.0f);
+				cam.SetMoveSpeed (0.0f);
+				DisplayExit = true;
 			}
 		break;
 		// display welcome page (space key)
@@ -352,20 +339,21 @@ void LevelOneController::CreateBoundingBoxes()
 	cam.SetAABBMinZ(0, 0);
 	cam.SetAABBMaxZ(0, 5000);
 
-	cam.SetAABBMinX(1, 5000);
-	cam.SetAABBMaxX(1, 5100);
+	cam.SetAABBMinX(1, 5100);
+	cam.SetAABBMaxX(1, 5000);
 	cam.SetAABBMinZ(1, 0);
 	cam.SetAABBMaxZ(1, 5000);
 
-	cam.SetAABBMinX(2, 0);
-	cam.SetAABBMaxX(2, 5000);
 	cam.SetAABBMinZ(2, -100);
 	cam.SetAABBMaxZ(2, 0);
+	cam.SetAABBMinX(2, 0);
+	cam.SetAABBMaxX(2, 5000);
 
+	cam.SetAABBMinZ(3, 5100);
+	cam.SetAABBMaxZ(3, 5000);
 	cam.SetAABBMinX(3, 0);
-	cam.SetAABBMaxX(3, 5000);
-	cam.SetAABBMinZ(3, 5000);
-	cam.SetAABBMaxZ(3, 5100);
+	cam.SetAABBMaxX(3, 5000.0);
+
 }
 
 //--------------------------------------------------------------------------------------
@@ -389,7 +377,7 @@ void LevelOneController::CreateTextures()
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	
 	// set texture count
-	tp.SetTextureCount(260); //NEEDS TO BE THE SAME ACROSS ALL CONTROLLERS!!! (else textures assigned randomly)
+	tp.SetTextureCount(250); //NEEDS TO BE THE SAME ACROSS ALL CONTROLLERS!!! (else textures assigned randomly)
 	unsigned char* image;
 	// load and create textures
 
@@ -405,127 +393,26 @@ void LevelOneController::CreateTextures()
 	image = tp.LoadTexture("data/concwall.raw", 512, 512);
 	tp.CreateTexture(CONCWALL, image, 512, 512);
 
-	image = tp.LoadTexture("data/rustywall.raw", 512, 256);
-	tp.CreateTexture(RUSTYWALL, image, 512, 256);
-
 	image = tp.LoadTexture("data/tilewall.raw", 512, 512);
 	tp.CreateTexture(TILEWALL, image, 512, 512);
-
-	image = tp.LoadTexture("data/4x1platform.raw", 512, 512);
-	tp.CreateTexture(PLATFORM4X1, image, 512, 512);
-
-	image = tp.LoadTexture("data/button.raw", 512, 512);
-	tp.CreateTexture(BUTTON, image, 512, 512);
-
-	image = tp.LoadTexture("data/bomb.raw", 512, 512);
-	tp.CreateTexture(BOMB, image, 512, 512);
-
-	image = tp.LoadTexture("data/console.raw", 512, 512);
-	tp.CreateTexture(CONSOLE, image, 512, 512);
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 }
 
 //--------------------------------------------------------------------------------------
-//  Draw the Objects
-//--------------------------------------------------------------------------------------
-void LevelOneController::DrawObjects()
-{
-
-	ModelLoader box;
-	box.load("data/box.obj");
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOX));
-
-
-
-	glPushMatrix();
-		glTranslatef(2000, 0, 3500);
-		glScalef(0.75, 1.0, 0.75);
-		box.draw();
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(4250, 500, 750);
-		glScalef(0.75, 1.0, 0.75);
-		box.draw();
-	glPopMatrix();
-
-	ModelLoader button;
-	button.load("data/button.obj");
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BUTTON));
-
-	glPushMatrix();
-		glTranslatef(750, 500, 750);
-		button.draw();
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(4250, 500, 1250);
-		button.draw();
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(4250, 500, 4250);
-		button.draw();
-	glPopMatrix();
-
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOMB));
-		glPushMatrix();
-		glTranslatef(750, 500, 4250);
-		button.draw();
-	glPopMatrix();
-}
-
-
-//--------------------------------------------------------------------------------------
 //  Draw the 3D Models
 //--------------------------------------------------------------------------------------
 void LevelOneController::Draw3DModels()
 {
-	ModelLoader platform4x1;
-	platform4x1.load("data/4x1platform.obj");
-
-	ModelLoader console;
-	console.load("data/console.obj");
-
-	ModelLoader ladder;
-	ladder.load("data/ladder.obj");
-
 	glPushMatrix();
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PLATFORM4X1));
-		glTranslatef(4250, 0, 2500);
-		glRotatef(90, 0, 1, 0);
-		platform4x1.draw();
+		ModelLoader box;
+		box.load("data/box.obj");
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOX));
+		glScalef(0.5, 0.75, 0.5);
+		glTranslatef(1000, 0, 1000);
+		box.draw();
 	glPopMatrix();
-
-	glPushMatrix();
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PLATFORM4X1));
-		glTranslatef(2500, 0, 4250);
-		platform4x1.draw();
-	glPopMatrix();
-
-	glPushMatrix();
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PLATFORM4X1));
-		glTranslatef(2250, 450, 1500);
-		glRotatef(90, 0, 1, 0);
-		platform4x1.draw();
-	glPopMatrix();
-
-	glPushMatrix();
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONSOLE));
-		glTranslatef(500, 0, -1250);
-		glRotatef(180, 0, 1, 0);
-		console.draw();
-	glPopMatrix();
-
-	glPushMatrix();
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(RUSTYWALL));
-		glTranslatef(500, 0, -4450);
-		glScalef(0.5, 1, 1);
-		ladder.draw();
-	glPopMatrix();
-
 }
 
 //--------------------------------------------------------------------------------------
@@ -536,19 +423,19 @@ void LevelOneController::DrawOuterWalls()
 		//floor
 		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
 		glBegin(GL_QUADS);
-			glTexCoord2f (5.0, 5.0);		glVertex3f(0, 0, 0);
-			glTexCoord2f (0.0, 5.0);		glVertex3f(0, 0, 5000);
+			glTexCoord2f (2.0, 2.0);		glVertex3f(0, 0, 0);
+			glTexCoord2f (0.0, 2.0);		glVertex3f(0, 0, 5000);
 			glTexCoord2f (0.0, 0.0);		glVertex3f(5000, 0,	5000);
-			glTexCoord2f (5.0, 0.0);		glVertex3f(5000, 0, 0);
+			glTexCoord2f (2.0, 0.0);		glVertex3f(5000, 0, 0);
 		glEnd();
 
 		//ceiling
 		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
 		glBegin(GL_QUADS);
-			glTexCoord2f (5.0, 5.0);		glVertex3f(0, 2000,	0);
-			glTexCoord2f (0.0, 5.0);		glVertex3f(0, 2000, 5000);
+			glTexCoord2f (2.0, 2.0);		glVertex3f(0, 2000,	0);
+			glTexCoord2f (0.0, 2.0);		glVertex3f(0, 2000, 5000);
 			glTexCoord2f (0.0, 0.0);		glVertex3f(5000, 2000, 5000);
-			glTexCoord2f (5.0, 0.0);		glVertex3f(5000, 2000, 0);
+			glTexCoord2f (2.0, 0.0);		glVertex3f(5000, 2000, 0);
 		glEnd();
 
 		//walls
@@ -617,7 +504,8 @@ void LevelOneController::DrawOuterWalls()
 //--------------------------------------------------------------------------------------
 void LevelOneController::DrawArchitecture()
 {
-
+	glPushMatrix();
+		glTranslatef(-1, 0, -1);
 		//solid platform tops
 		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
 		glBegin(GL_QUADS);
@@ -627,14 +515,14 @@ void LevelOneController::DrawArchitecture()
 			glTexCoord2f (1.5, 0.0);		glVertex3f(1500, 500, 0);
 		glEnd();
 		glBegin(GL_QUADS);
-			glTexCoord2f (0.5, 1.5);		glVertex3f(2000, 500, 0);
-			glTexCoord2f (0.0, 1.5);		glVertex3f(2000, 500, 500);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(3500, 500, 500);
-			glTexCoord2f (0.5, 0.0);		glVertex3f(3500, 500, 0);
+			glTexCoord2f (0.5, 2.0);		glVertex3f(2000, 500, 0);
+			glTexCoord2f (0.0, 2.0);		glVertex3f(2000, 500, 500);
+			glTexCoord2f (0.0, 0.0);		glVertex3f(4000, 500, 500);
+			glTexCoord2f (0.5, 0.0);		glVertex3f(4000, 500, 0);
 		glEnd();
 		glBegin(GL_QUADS);
-			glTexCoord2f (1.5, 1.5);		glVertex3f(3500, 500, 0);
-			glTexCoord2f (0.0, 1.5);		glVertex3f(3500, 500, 1500);
+			glTexCoord2f (1.5, 1.0);		glVertex3f(4000, 500, 0);
+			glTexCoord2f (0.0, 1.0);		glVertex3f(4000, 500, 1500);
 			glTexCoord2f (0.0, 0.0);		glVertex3f(5000, 500, 1500);
 			glTexCoord2f (1.5, 0.0);		glVertex3f(5000, 500, 0);
 		glEnd();
@@ -654,31 +542,28 @@ void LevelOneController::DrawArchitecture()
 		//platform sides
 		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
-			glTexCoord2f (4.0, 0.25);		glVertex3f(1500, 0, 500);
-			glTexCoord2f (0.0, 0.25);		glVertex3f(3500, 0, 500);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(3500, 500, 500);
-			glTexCoord2f (4.0, 0.0);		glVertex3f(1500, 500, 500);
+			glTexCoord2f (4.0, 0.25);		glVertex3f(2000, 0, 500);
+			glTexCoord2f (0.0, 0.25);		glVertex3f(4000, 0, 500);
+			glTexCoord2f (0.0, 0.0);		glVertex3f(4000, 500, 500);
+			glTexCoord2f (4.0, 0.0);		glVertex3f(2000, 500, 500);
 		glEnd();
 
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
-			glTexCoord2f (3.0, 0.25);		glVertex3f(3500, 0, 1500);
+			glTexCoord2f (2.0, 0.25);		glVertex3f(4000, 0, 1500);
 			glTexCoord2f (0.0, 0.25);		glVertex3f(5000, 0, 1500);
 			glTexCoord2f (0.0, 0.0);		glVertex3f(5000, 500, 1500);
-			glTexCoord2f (3.0, 0.0);		glVertex3f(3500, 500, 1500);
+			glTexCoord2f (2.0, 0.0);		glVertex3f(4000, 500, 1500);
 		glEnd();
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
-			glTexCoord2f (3.0, 0.25);		glVertex3f(3500, 0, 500);
-			glTexCoord2f (0.0, 0.25);		glVertex3f(3500, 0, 1500);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(3500, 500, 1500);
-			glTexCoord2f (3.0, 0.0);		glVertex3f(3500, 500, 500);
-		glEnd();
-		glBegin(GL_QUADS);
-			glTexCoord2f (1.0, 4.0);		glVertex3f(1500, 0, 500);
-			glTexCoord2f (0.0, 4.0);		glVertex3f(1500, 500, 500);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(1500, 500, 1000);
-			glTexCoord2f (1.0, 0.0);		glVertex3f(1500, 0, 1000);
+			glTexCoord2f (2.0, 0.25);		glVertex3f(4000, 0, 500);
+			glTexCoord2f (0.0, 0.25);		glVertex3f(4000, 0, 1500);
+			glTexCoord2f (0.0, 0.0);		glVertex3f(4000, 500, 1500);
+			glTexCoord2f (2.0, 0.0);		glVertex3f(4000, 500, 500);
 		glEnd();
 
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
 			glTexCoord2f (3.0, 0.25);		glVertex3f(3500, 0, 3500);
 			glTexCoord2f (0.0, 0.25);		glVertex3f(5000, 0, 3500);
@@ -686,6 +571,7 @@ void LevelOneController::DrawArchitecture()
 			glTexCoord2f (3.0, 0.0);		glVertex3f(3500, 500, 3500);
 		glEnd();
 
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
 			glTexCoord2f (3.0, 0.25);		glVertex3f(3500, 0, 3500);
 			glTexCoord2f (0.0, 0.25);		glVertex3f(3500, 0, 5000);
@@ -693,6 +579,7 @@ void LevelOneController::DrawArchitecture()
 			glTexCoord2f (3.0, 0.0);		glVertex3f(3500, 500, 3500);
 		glEnd();
 
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
 			glTexCoord2f (3.0, 0.25);		glVertex3f(0, 0, 3500);
 			glTexCoord2f (0.0, 0.25);		glVertex3f(1500, 0, 3500);
@@ -700,6 +587,7 @@ void LevelOneController::DrawArchitecture()
 			glTexCoord2f (3.0, 0.0);		glVertex3f(0, 500, 3500);
 		glEnd();
 
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
 			glTexCoord2f (3.0, 0.25);		glVertex3f(1500, 0, 3500);
 			glTexCoord2f (0.0, 0.25);		glVertex3f(1500, 0, 5000);
@@ -707,167 +595,12 @@ void LevelOneController::DrawArchitecture()
 			glTexCoord2f (3.0, 0.0);		glVertex3f(1500, 500, 3500);
 		glEnd();
 
-		//high inside walls - lowersection
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
-		glBegin(GL_QUADS);
-			glTexCoord2f (1.0, 4.0);		glVertex3f(1500, 500, 0);
-			glTexCoord2f (0.0, 4.0);		glVertex3f(1500, 500, 500);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(1500, 2000, 500);
-			glTexCoord2f (1.0, 0.0);		glVertex3f(1500, 2000, 0);
-		glEnd();
-		glBegin(GL_QUADS);
-			glTexCoord2f (1.0, 4.0);		glVertex3f(2000, 500, 500);
-			glTexCoord2f (0.0, 4.0);		glVertex3f(1500, 500, 500);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(1500, 2000, 500);
-			glTexCoord2f (1.0, 0.0);		glVertex3f(2000, 2000, 500);
-		glEnd();
-		glBegin(GL_QUADS);
-			glTexCoord2f (1.0, 4.0);		glVertex3f(2000, 500, 0);
-			glTexCoord2f (0.0, 4.0);		glVertex3f(2000, 500, 500);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(2000, 2000, 500);
-			glTexCoord2f (1.0, 0.0);		glVertex3f(2000, 2000, 0);
-		glEnd();
-
-		//high inside walls - uppersection
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
-		glBegin(GL_QUADS);
-			glTexCoord2f (1.0, 4.0);		glVertex3f(1500, 0, 1000);
-			glTexCoord2f (0.0, 4.0);		glVertex3f(1500, 0, 2000);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(1500, 2000, 2000);
-			glTexCoord2f (1.0, 0.0);		glVertex3f(1500, 2000, 1000);
-		glEnd();
-		glBegin(GL_QUADS);
-			glTexCoord2f (1.0, 4.0);		glVertex3f(2000, 0, 2000);
-			glTexCoord2f (0.0, 4.0);		glVertex3f(1500, 0, 2000);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(1500, 2000, 2000);
-			glTexCoord2f (1.0, 0.0);		glVertex3f(2000, 2000, 2000);
-		glEnd();
-		glBegin(GL_QUADS);
-			glTexCoord2f (1.0, 4.0);		glVertex3f(2000, 0, 1000);
-			glTexCoord2f (0.0, 4.0);		glVertex3f(2000, 0, 2000);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(2000, 2000, 2000);
-			glTexCoord2f (1.0, 0.0);		glVertex3f(2000, 2000, 1000);
-		glEnd();
-		glBegin(GL_QUADS);
-			glTexCoord2f (1.0, 4.0);		glVertex3f(1500, 0, 1000);
-			glTexCoord2f (0.0, 4.0);		glVertex3f(2000, 0, 1000);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(2000, 2000, 1000);
-			glTexCoord2f (1.0, 0.0);		glVertex3f(1500, 2000, 1000);
-		glEnd();
-
-	 //stairs
-	DrawManager drawMan;
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
-
-	glPushMatrix();
+		//stairs!
+		DrawManager drawMan;
 		glTranslatef(0, 0, 2000);
-		drawMan.drawStairs(500, 500, -500, 5);
-		glTranslatef(500, 0, 0);
-		drawMan.drawStairs(500, 500, -500, 5);
-		glTranslatef(500, 0, 0);
-		drawMan.drawStairs(500, 500, -500, 5);
+		drawMan.drawStairs(1500, 500, -500, 5);
+
 	glPopMatrix();
-
-	
-	glPushMatrix(); //more stairs!
-		glTranslatef(1500, 0, 2000);
-		glRotatef(270, 0, 1, 0);
-		drawMan.drawStairs(500, 500, -500, 5);
-	glPopMatrix();
-
-	/*
-	Stairs stairs;
-	glPushMatrix();
-		stairs.SetStairDimensions(500, 500, 500, 5);
-		stairs.DrawStairs(1550, 0, 2000, 0, 270, 0, 1, CONCWALL, CONCWALL);
-	glPopMatrix();*/
-}
-
-
-//--------------------------------------------------------------------------------------
-//  Draw the Level Architecture
-//--------------------------------------------------------------------------------------
-void LevelOneController::DrawControlRoom()
-{
-
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
-	//floor
-	glBegin(GL_QUADS);
-		glTexCoord2f (1.0, 1.0);		glVertex3f(0, 0, -4000);
-		glTexCoord2f (0.0, 1.0);		glVertex3f(0, 0, -1000);
-		glTexCoord2f (0.0, 0.0);		glVertex3f(1000, 0, -1000);
-		glTexCoord2f (1.0, 0.0);		glVertex3f(1000, 0, -4000);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f (0.25, 0.25);		glVertex3f(300, 0, -4500);
-		glTexCoord2f (0.0, 0.25);		glVertex3f(300, 0, -4000);
-		glTexCoord2f (0.0, 0.0);		glVertex3f(700, 0, -4000);
-		glTexCoord2f (0.25, 0.0);		glVertex3f(700, 0, -4500);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f (1.0, 1.0);		glVertex3f(0, 1000, -4000);
-		glTexCoord2f (0.0, 1.0);		glVertex3f(0, 1000, -1000);
-		glTexCoord2f (0.0, 0.0);		glVertex3f(1000, 1000, -1000);
-		glTexCoord2f (1.0, 0.0);		glVertex3f(1000, 1000, -4000);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f (0.25, 0.25);		glVertex3f(300, 1000, -4000);
-		glTexCoord2f (0.0, 0.25);		glVertex3f(300, 1000, -4500);
-		glTexCoord2f (0.0, 0.0);		glVertex3f(700, 1000, -4500);
-		glTexCoord2f (0.25, 0.0);		glVertex3f(700, 1000, -4000);
-	glEnd();
-
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(0, 0, -4000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(0, 0, -1000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(0, 1000, -1000);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(0, 1000, -4000);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(0, 0, -1000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(1000, 0, -1000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(1000, 1000, -1000);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(0, 1000, -1000);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(1000, 0, -1000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(1000, 0, -4000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(1000, 1000, -4000);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(1000, 1000, -1000);
-	glEnd();
-
-	glBegin(GL_QUADS);
-		glTexCoord2f(0.5, 1.0);			glVertex3f(0, 0, -4000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(300, 0, -4000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(300, 1000, -4000);
-		glTexCoord2f(0.5, 0.0);			glVertex3f(0, 1000, -4000);
-	glEnd();	
-	glBegin(GL_QUADS);
-		glTexCoord2f(0.5, 1.0);			glVertex3f(700, 0, -4000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(1000, 0, -4000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(1000, 1000, -4000);
-		glTexCoord2f(0.5, 0.0);			glVertex3f(700, 1000, -4000);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f(0.5, 1.0);			glVertex3f(300, 0, -4500);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(700, 0, -4500);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(700, 1000, -4500);
-		glTexCoord2f(0.5, 0.0);			glVertex3f(300, 1000, -4500);
-	glEnd();
-
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(300, 0, -4500);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(300, 0, -4000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(300, 1000, -4000);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(300, 1000, -4500);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(700, 0, -4000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(700, 0, -4500);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(700, 1000, -4500);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(700, 1000, -4000);
-	glEnd();
 }
 
 

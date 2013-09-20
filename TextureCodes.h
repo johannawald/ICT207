@@ -255,7 +255,7 @@ enum TextureCodes { NONE,							//0
 					HALLWAY13,						//239
 					HALLWAY14,						//240
 					WOODENDOOR,						//241
-					COCACOLA_POSTER,				//242
+					POSTER,							//242
 					BOARD1,							//243
 					BOARD2,							//244
 					BOARD3,							//245
@@ -269,5 +269,16 @@ enum TextureCodes { NONE,							//0
 					BOX,							//252
 					BUTTON,							//253
 					BOMB,							//254
+					COCACOLA_POSTER,				//255	
+					DORITOS_POSTER,					//256
+					KITKAT_POSTER,					//257
+					MILKCHOC_POSTER,				//258
+					MM_POSTER,						//259
+					MM2_POSTER,						//260
+					SNICKERS_POSTER,				//261
+					TWIX_POSTER,					//262
+					WRIGLEYS_POSTER,				//263
+					CONSOLE,						//264
+					LADDER,							//265
 					LAST
 };

@@ -17,11 +17,10 @@
 #include "AudioManager.h"
 
 StateMachine* StateMachine::statemachine = nullptr;
-IStateController* StateMachine::bushcourtcontroller = nullptr; //maybe private
+IStateController* StateMachine::bushcourtcontroller = nullptr;
 bool StateMachine::init = false;
 
 StateMachine::StateMachine(IStateController* controller) {
-	//Stores the Manager to control the assets
 	if (bushcourtcontroller==nullptr) {
 		modelmanager = new ModelManager();
 		texturemanager = new TextureManager();
@@ -57,7 +56,7 @@ void StateMachine::setController(IStateController* controller) {
 }
 
 void StateMachine::Init() {
-	StateMachine::state->Init(); //member variable as a const reference
+	StateMachine::state->Init();
 }
 
 void StateMachine::Draw() {

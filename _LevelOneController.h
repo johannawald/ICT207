@@ -1,14 +1,15 @@
 /**
- * @class LevelOneController
- * @brief Encapsulated class containing all of Level One's objects.
+ * @class BushCourtController
+ * @brief Encapsulates Shay's World (Campus Tour)
  *
- * Contains draw and configuration methods for the initialization,
- * operation and drawing of the first level. Based upon the
- * encapsulated version of Shay's World.
+ * Encapsulates Shays World (Campus Tour) turning it into its
+ * own class.
  *
- * @author Jon Mace
+ * @author Shay Leary - Original, March 2005
+ * @author Raymond Forster - Encapsulation as Class, September 2013
  * @version 01
- * @date 20/09/2013 Jon Mace - Version1
+ * @date 01/03/2005 Shay Leary - Original
+ * @date 06/09/2013 Raymond Forster - started
  */
 
 #pragma once
@@ -23,7 +24,7 @@
 #include "texturedPolygons.h"
 #include "Transition.h"
 #include "IStateController.h"
-#include "BasisController.h"
+#include "BasisController.h";
 
 
 class LevelOneController : public IStateController, BasisController
@@ -57,19 +58,9 @@ private:
 
 	void CheckNumberPad();
 public:
-			/**
-             * @brief Default constructor creates a new LevelOneController object.
-             *
-             * @param none
-             */
 	LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm);
-	/**
-             * @brief Destructor destroys LevelOneController object when it goes out of scope.
-             * @param none
-    */
 	virtual ~LevelOneController(void);
 
-	//shays code lol
 	void Init();
 	void Draw();
 	void Reshape();
@@ -82,45 +73,10 @@ public:
 	void Mouse(int button, int state, int x, int y);
 	void PassiveMotion(int x, int y);
 
-			/**
-             * @brief Draws the containing walls of the level
-             *
-             * @param none
-			 * @return void
-             */
+	//Draw Functions
 	void DrawOuterWalls();
-
-			/**
-             * @brief Draws the world geometry of the level
-             *
-             * @param none
-			 * @return void
-             */
 	void DrawArchitecture();
-
-			/**
-             * @brief Initializes and draws the 3d models (.obj) in the level
-             *
-             * @param none
-			 * @return void
-             */
 	void Draw3DModels();
-
-			/**
-             * @brief Draws the objects (things that can change) in the level
-             *
-             * @param none
-			 * @return void
-             */
-	void DrawObjects();
-
-			/**
-             * @brief Geometry for the control room
-             *
-             * @param none
-			 * @return void
-             */
-	void DrawControlRoom();
 
 	void IncrementFrameCount();	
 	// loads images and creates texture

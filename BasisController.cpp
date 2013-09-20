@@ -1,16 +1,8 @@
-//  @ File Name : BasisController.cpp
-//  @ Unit : ICT207
-//  @ Author : Johanna Wald
-//
-// provides the basic functions a controller needs (game controller as well as shay's wourld)
-// drawmanager is a composition 
-
 #include "BasisController.h"
 #include "DrawManager.h"
 #include "AudioManager.h"
 
-BasisController::BasisController(AudioManager* audiomanager, ModelManager* modelmanager, TextureManager* texturemanager): 
-	audio(audiomanager), model(modelmanager), texture(texturemanager)
+BasisController::BasisController(AudioManager* audiomanager, ModelManager* modelmanager, TextureManager* texturemanager): audio(audiomanager), model(modelmanager), texture(texturemanager)
 {	
 	drawmanager = new DrawManager();
 }

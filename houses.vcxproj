@@ -128,7 +128,6 @@
     <ClCompile Include="AABBNode.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="BasisController.cpp" />
-    <ClCompile Include="BasisStateController.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cameraMap.cpp" />
     <ClCompile Include="collision.cpp" />
@@ -158,7 +157,6 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="BasisController.h" />
     <ClInclude Include="BasisModel.h" />
-    <ClInclude Include="BasisStateController.h" />
     <ClInclude Include="BasisView.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="cameraMap.h" />

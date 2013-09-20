@@ -8,7 +8,6 @@
 //--------------------------------------------------------------------------------------
 //  Constructor
 //--------------------------------------------------------------------------------------
-//BushCourtController::BushCourtController(AudioManager* am, ModelManager* mm, TextureManager* tm): movementSpeed(20.0), rotationSpeed(0.005), lightsOn(true), displayECL(true), loaded(false)
 BushCourtController::BushCourtController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am, mm, tm), movementSpeed(20.0), rotationSpeed(0.005), lightsOn(true), displayECL(true), loaded(false)
 {
 	// USE THESE STTEINGS TO CHANGE SPEED (on different spec computers)
@@ -27,11 +26,8 @@ BushCourtController::BushCourtController(AudioManager* am, ModelManager* mm, Tex
 	displayECL = true;
 	// Stores raw image file
 	image = nullptr;
-
 	Init();
-
 	CreatePlains();	
-	
 	// creates bounding boxes and places in array
 	CreateBoundingBoxes();
 	// copies bounding boxes from array to linked lists (one fopr each quadrant)
@@ -41,7 +37,6 @@ BushCourtController::BushCourtController(AudioManager* am, ModelManager* mm, Tex
 	CreateTextureList();
 	CreateTextures();
 	loaded = true;	
-
 }
 
 BushCourtController::~BushCourtController() {
@@ -134,7 +129,7 @@ void BushCourtController::Draw()
 void BushCourtController::Update() { 
 	//there should be a difference between update (all the data) and draw (the objects)
 	//this method  has to be defined since it's an abstract-function; our game-state will make a differnece between update and draw
-	//*JW: trigger the transistion:
+	//trigger the transistion:
 	if (transition.IsCorrectCode()) {
 		if (transition.IsPlayMechanicSound()) 
 			GetAudio()->playSound(asMetalicCrash);
@@ -160,10 +155,10 @@ void BushCourtController::Update() {
 	}
 	if (transition.getstate() == tsFallAnimation) { 
 		cam.DirectionUD(-1);
-		cam.DirectionRotateLR(2);
-		if (cam.GetUD()<3000)
-			StateMachine::setController(new LevelOneController(GetAudio(), GetModel(), GetTexture()));
+		//cam.DirectionRotateLR(2);
 	}
+	if (cam.GetUD()<6000)
+		StateMachine::setController(new LevelOneController(GetAudio(), GetModel(), GetTexture()));
 }
 
 void BushCourtController::Reshape() {
@@ -237,9 +232,6 @@ void BushCourtController::Keyboard(unsigned char key, int x, int y)
 	switch (key)
 	{
 		// step left
-		case 'c':
-			StateMachine::setController(new LevelOneController(GetAudio(), GetModel(), GetTexture()));
-		break;
 		case 'Z':
 		case 'z':
 			cam.DirectionLR(-1);
@@ -496,10 +488,8 @@ void BushCourtController::CreateBoundingBoxes()
 
 	// Canteen block
 	cam.SetAABBMaxX(12, 2608.0);
-	//*DM
     cam.SetAABBMinX(12, -27500.0);
     cam.SetAABBMaxZ(12, 40900.0);
-	//e*DM
 	cam.SetAABBMinZ(12, 0.0);
 
 	// Telephones
@@ -526,7 +516,7 @@ void BushCourtController::CreateBoundingBoxes()
 	cam.SetAABBMaxZ(16, 10395.0);
 	cam.SetAABBMinZ(16, 4590.0);
 	
-	//*DM - New West Hallway
+	//- New West Hallway
 	cam.SetAABBMaxX(17, 2608.0);
 	cam.SetAABBMinX(17, -30000.0);
 	cam.SetAABBMaxZ(17, 44000.0);
@@ -535,7 +525,6 @@ void BushCourtController::CreateBoundingBoxes()
 	cam.SetAABBMinX(18, -28000.0);
 	cam.SetAABBMaxZ(18, 43340.0);
 	cam.SetAABBMinZ(18, 40090.0);
-	//e*DM
 }
 
 //--------------------------------------------------------------------------------------
@@ -610,7 +599,7 @@ void BushCourtController::CreateTextures()
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	
 	// set texture count
-	tp.SetTextureCount(251);
+	tp.SetTextureCount(LAST);
 	unsigned char* image;
 	// load and create textures
 	image = tp.LoadTexture("data/abovechanctext.raw", 128, 1024);
@@ -1278,10 +1267,9 @@ void BushCourtController::CreateTextures()
 	image = tp.LoadTexture("data/numberpad.raw", 800, 500);
 	tp.CreateTexture(NUMBERPAD, image, 800, 500);
 
-	image = tp.LoadTexture("data/AdDoritos.raw", 1018, 1018); //vending_machine.raw", 800, 500);
-	tp.CreateTexture(VENDING_MACHINE, image, 1018, 1018); // 800, 500);
+	image = tp.LoadTexture("data/vending_machine.raw", 1018, 1018);
+	tp.CreateTexture(VENDING_MACHINE, image, 1018, 1018);
 
-	//*DM North-West-Hallway
 	image = tp.LoadTexture("data/woodendoor.bmp", 225, 225);
 	tp.CreateTexture(WOODENDOOR, image, 225, 225);
 
@@ -1328,10 +1316,50 @@ void BushCourtController::CreateTextures()
  
     image = tp.LoadTexture("data/hallway14.bmp", 512, 384);
     tp.CreateTexture(HALLWAY14, image, 512, 384);
-	//e*DM
 
-	//image = tp.LoadTexture("data/hallway14.bmp", 512, 384);
-    //tp.CreateTexture(COCACOLA_POSTER, image, 512, 384);*/
+    image = tp.LoadTexture("data/PosterCocacola.raw", 1018, 1018);
+    tp.CreateTexture(COCACOLA_POSTER, image, 1018, 1018);
+
+    image = tp.LoadTexture("data/PosterDoritos.raw", 1018, 1018);
+    tp.CreateTexture(DORITOS_POSTER, image, 1018, 1018);
+
+    image = tp.LoadTexture("data/Posterkitkat.raw", 1018, 1018);
+    tp.CreateTexture(KITKAT_POSTER, image, 1018, 1018);
+
+    image = tp.LoadTexture("data/PosterMilkchoco.raw", 1018, 1018);
+    tp.CreateTexture(MILKCHOC_POSTER, image, 1018, 1018);
+
+    image = tp.LoadTexture("data/PosterMm.raw", 1018, 1018);
+    tp.CreateTexture(MM_POSTER, image, 1018, 1018);
+
+    image = tp.LoadTexture("data/PosterMm2.raw", 1018, 1018);
+    tp.CreateTexture(MM2_POSTER, image, 1018, 1018);
+
+    image = tp.LoadTexture("data/PosterSnickers.raw", 1018, 1018);
+    tp.CreateTexture(SNICKERS_POSTER, image, 1018, 1018);
+
+    image = tp.LoadTexture("data/PosterTwix.raw", 1018, 1018);
+    tp.CreateTexture(TWIX_POSTER, image, 1018, 1018);
+
+    image = tp.LoadTexture("data/PosterWrigleys.raw", 1018, 1018);
+    tp.CreateTexture(WRIGLEYS_POSTER, image, 1018, 1018);
+
+	image = tp.LoadTexture("data/board1.bmp", 347, 208);
+    tp.CreateTexture(BOARD1, image, 347, 208);
+ 
+    image = tp.LoadTexture("data/board2.bmp", 353, 215);
+    tp.CreateTexture(BOARD2, image, 353, 215);
+ 
+    image = tp.LoadTexture("data/board3.bmp", 306, 185);
+    tp.CreateTexture(BOARD3, image, 306, 185);
+ 
+    image = tp.LoadTexture("data/board4.bmp", 381, 252);
+    tp.CreateTexture(BOARD4, image, 381, 252);
+	
+	image = tp.LoadTexture("data/concwall.raw", 512, 512);
+    tp.CreateTexture(CONCWALL, image, 512, 512);
+
+	//This function should not be used if the TextureManager works
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
@@ -1362,7 +1390,7 @@ void BushCourtController::DrawBackdrop()
 	DisplayRoof();
 	DisplayStepBricks ();
 	if (lightsOn) DisplayLights ();
-	DisplayWestExit(); //*DM
+	DisplayWestExit(); 
 }
 
 //--------------------------------------------------------------------------------------
@@ -1481,12 +1509,6 @@ void BushCourtController::DisplayChancPosts ()
 		glTranslatef(0.0, 0.0, -9600.0);
 		glCallList(237);
 	glPopMatrix();
-
-	//glPushMatrix();
-		//glTranslatef(0.0, 320.0, -9600.0);
-		//glCallList(237);
-//	glPopMatrix();
-
 	// angled corner of window ledges
 	glPushMatrix();
 		glTranslatef(0.0, 1024.0, 0.0);
@@ -2429,12 +2451,12 @@ void BushCourtController::DisplayPavement ()
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PAVEMENT));
 	for (int i = 72; i < 74; i ++) glCallList(i);
 	glCallList(28);
-	//*JW draw the ground / hole under the vending mechine
+	//draw the ground / hole under the vending mechine
 	//the ground left of the vending machine
 	glCallList(455); 
 	//the ground right of the vending machine
 	glCallList(456);
-	//e*JW
+	//
 	for (int i = 81; i < 89; i ++) glCallList(i);
 	glPushMatrix();
 		glTranslatef(0.0, 0.0, 1920.0);
@@ -2595,7 +2617,7 @@ void BushCourtController::DrawPavement ()
 	// PAVEMENTSIDE_TOP
 	tp.CreateDisplayList (XZ, 77,  64.0, 64.0, 4848.0, 10000.0, 40816.0, 417.5, 1.0);
 	// PAVEMENT_STEPS_CORNER
-	//*JW: drwa the hole (the ground) under the sweets machine to enter the game
+	//*JW: draw the hole (the ground) under the sweets machine to enter the game
 	tp.CreateDisplayList (XZ, 78, 128.0, 64.0, 32568, 10000.0, 10000.0, 1.0, 1.5);   // corner above chanc steps
 	tp.CreateDisplayList (XZ, 80, 32.0, 64.0, 31568.0, 10000.0, 9950.0, 70.0, 0.797);  // strip along top of chanc steps
 	tp.CreateDisplayList (XZ, 28, 128.0, 64.0, 33744.0, 10000.0, 21696.0, 17.2, 52.0); // between chanc and phy sci
@@ -2604,7 +2626,6 @@ void BushCourtController::DrawPavement ()
 	//e*JW
 	tp.CreateDisplayList (XZ, 78,  128.0, 64.0, 31568.0, 10000.0, 10000.0, 1.0, 1.5);   // corner above chanc steps
 	tp.CreateDisplayList (XZ, 80,  32.0, 64.0, 31568.0, 10000.0, 9950.0, 70.0, 0.797);  // strip along top of chanc steps
-	//tp.CreateDisplayList (XZ, 28, 128.0, 64.0,  33744.0, 10000.0, 22096.0, 17.2, 52.0); // between chanc and phy sci
 	tp.CreateDisplayList (XZ, 248, 128.0, 64.0,  33744.0, 10000.0, 10449.0, 1.5, 16.0); // doorway to chanc
 	tp.CreateDisplayList (XZ, 247, 128.0, 64.0,  33744.0, 10000.0, 39185.0, 1.5, 23.0); // doorway to red posts
 	tp.CreateDisplayList (XZ, 249, 128.0, 64.0, 31632.0, 9086.0, 3408.0, 18.0, 45.0);	//entry (bottom of steps)
@@ -4240,10 +4261,6 @@ void BushCourtController::DisplayLargerTextures ()
 	glCallList(370);
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(COFFEE_MACHINE));
 	glCallList(371);
-	//*JW removed from the display list (it has to be redrawn / it changes if you entry the game)
-	//glBindTexture(GL_TEXTURE_2D, tp.GetTexture(SWEET_MACHINE));
-	//glCallList(372);
-
 	// Phys sci door 1
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(WINDOW_13));
 	glCallList(373);
@@ -4649,6 +4666,33 @@ void BushCourtController::DisplayWestExit()
    
   //Walls
   glBindTexture(GL_TEXTURE_2D, tp.GetTexture(WALL_BRICK_YZ));
+  
+  glPushMatrix();
+glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(2090.0, 10000.0, 41168.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(2090.0, 10900.0, 41168.0);
+    glTexCoord2f(6.0, 3.0);
+    glVertex3f(2610.0, 10900.0, 41168.0);
+    glTexCoord2f(0.0, 3.0);
+    glVertex3f(2610.0, 10000.0, 41168.0);
+glEnd();
+glPopMatrix();
+ 
+glPushMatrix();
+glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(2090.0, 10000.0, 42960.0);
+    glTexCoord2f(6.0, 0.0);
+    glVertex3f(2090.0, 10900.0, 42960.0);
+    glTexCoord2f(6.0, 3.0);
+    glVertex3f(2610.0, 10900.0, 42960.0);
+    glTexCoord2f(0.0, 3.0);
+    glVertex3f(2610.0, 10000.0, 42960.0);
+glEnd();
+glPopMatrix();
+  
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -4661,7 +4705,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(2100.0, 10000.0, 41170.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -4688,7 +4732,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(0.0, 10000.0, 40900.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -4701,7 +4745,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-24000.0, 10000.0, 40900.0);
   glEnd();
   glPopMatrix();
-
+ 
   //Farside
   glPushMatrix();
   glBegin(GL_POLYGON);
@@ -4728,7 +4772,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-2500.0, 10000.0, 43340.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -4754,7 +4798,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-4000.0, 10000.0, 43340.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -4780,7 +4824,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-9500.0, 10000.0, 43340.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -4832,7 +4876,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-20000.0, 10000.0, 43340.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -4845,7 +4889,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-27500.0, 10000.0, 43340.0);
   glEnd();
   glPopMatrix();
-
+ 
   //Door Alcove 1 0 - -500
   glPushMatrix();
   glBegin(GL_POLYGON);
@@ -4859,7 +4903,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(0.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -4872,7 +4916,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-500.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();  
-
+ 
   //door alcove 2 -3000 - -3500
   glPushMatrix();
   glBegin(GL_POLYGON);
@@ -4886,7 +4930,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-3000.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -4899,7 +4943,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-3500.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   //door alcove 3 -4000 - -4500
   glPushMatrix();
   glBegin(GL_POLYGON);
@@ -4913,7 +4957,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-4000.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -4926,7 +4970,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-4500.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   //door alcove 4 -9500 - -10000
   glPushMatrix();
   glBegin(GL_POLYGON);
@@ -4940,7 +4984,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-9500.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -4953,7 +4997,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-10000.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   //door alcove 5 -10500 - 11000
   glPushMatrix();
   glBegin(GL_POLYGON);
@@ -4980,7 +5024,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-11000.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   //door alcove 6 -18000 - -185000
   glPushMatrix();
   glBegin(GL_POLYGON);
@@ -4994,7 +5038,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-18000.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -5007,7 +5051,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-18500.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   //door alcove 7 -19000 - -195000
   glPushMatrix();
   glBegin(GL_POLYGON);
@@ -5021,7 +5065,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-19000.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -5034,9 +5078,9 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-19500.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   //Alcove Doors
-  glBindTexture(GL_TEXTURE_2D, WOODENDOOR);
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(WOODENDOOR));
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -5049,7 +5093,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-11000.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -5062,7 +5106,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-19500.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -5075,7 +5119,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-18500.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -5101,7 +5145,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-4500.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -5114,7 +5158,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-3500.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -5127,7 +5171,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-500.0, 10000.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   //Wall to ceiling gap
   glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MAIN_POST));
   glPushMatrix();
@@ -5142,7 +5186,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(2100.0, 10900.0, 43340.0);
   glEnd();
   glPopMatrix();
-
+ 
   //Far side
   glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MAIN_POST));
   glPushMatrix();
@@ -5170,7 +5214,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(2500.0, 10900.0, 43341.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -5183,7 +5227,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(2500.0, 10900.0, 43840.0);
   glEnd();
   glPopMatrix();
-
+ 
   //Near side
   glPushMatrix();
   glBegin(GL_POLYGON);
@@ -5197,7 +5241,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-1700.0, 10900.0, 40975.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -5210,7 +5254,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-1700.0, 10900.0, 40975.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 0.0);
@@ -5223,22 +5267,22 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-1700.0, 10900.0, 41100.0);
   glEnd();
   glPopMatrix();
-
+ 
   //Ceiling
   glPushMatrix();
   glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MAIN_POST_2));
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 1.0);
-    glVertex3f(2500.0, 10900.0, 40900.0);
+    glVertex3f(2610.0, 10900.0, 40900.0);
     glTexCoord2f(1.0, 1.0);
-    glVertex3f(2500.0, 10900.0, 43340.0);
+    glVertex3f(2610.0, 10900.0, 43340.0);
     glTexCoord2f(1.0, 0.0);
     glVertex3f(2100.0, 10900.0, 43340.0);
     glTexCoord2f(0.0, 0.0);
     glVertex3f(2100.0, 10900.0, 40900.0);
   glEnd();
   glPopMatrix();
-
+ 
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 10.0);
@@ -5251,7 +5295,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(2500.0, 11200.0, 40900.0);
   glEnd();
   glPopMatrix();
-
+ 
   //Ceiling Beams
   glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MAIN_POST_2));
   step2 = 0;
@@ -5321,7 +5365,7 @@ void BushCourtController::DisplayWestExit()
     glPopMatrix();
     step -= 1940.0;
   }
-
+ 
   //Near Images
   glBindTexture(GL_TEXTURE_2D, tp.GetTexture(HALLWAY1));
   glPushMatrix();
@@ -5336,11 +5380,11 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-1700.0, 10000.0, 40900.0);
   glEnd();
   glPopMatrix();
-
+ 
   step = -1700.0;
   for(int i = 0; i < 11; i++)
   {
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture((TextureCodes)(228+i)));
+    glBindTexture(GL_TEXTURE_2D, tp.GetTexture((TextureCodes)(228+i)));
     glPushMatrix();
     glBegin(GL_POLYGON);
       glTexCoord2f(1.0, 0.0);
@@ -5355,7 +5399,7 @@ void BushCourtController::DisplayWestExit()
     glPopMatrix();
     step -= 1940.0;
   }
-
+ 
   glBindTexture(GL_TEXTURE_2D, tp.GetTexture(HALLWAY14));
   glPushMatrix();
   glBegin(GL_POLYGON);
@@ -5369,7 +5413,7 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-24000.0, 10000.0, 40900.0);
   glEnd();
   glPopMatrix();
-
+ 
   //Far Exit
   glBindTexture(GL_TEXTURE_2D, tp.GetTexture(FAR_EXIT));
   glPushMatrix();
@@ -5384,9 +5428,110 @@ void BushCourtController::DisplayWestExit()
     glVertex3f(-27500.0, 10000.0, 43340.0);
   glEnd();
   glPopMatrix();
-
-
+ 
+  //Boards
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOARD1));
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-11400.0, 10400.0, 43330.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-11400.0, 10800.0, 43330.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-12200.0, 10800.0, 43330.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-12200.0, 10400.0, 43330.0);
+  glEnd();
+  glPopMatrix();
+  
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOARD2));
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-13200.0, 10400.0, 43330.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-13200.0, 10800.0, 43330.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-14000.0, 10800.0, 43330.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-14000.0, 10400.0, 43330.0);
+  glEnd();
+  glPopMatrix();
+  
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOARD3));
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-15000.0, 10400.0, 43330.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-15000.0, 10800.0, 43330.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-15800.0, 10800.0, 43330.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-15800.0, 10400.0, 43330.0);
+  glEnd();
+  glPopMatrix();
+  
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOARD4));
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-16800.0, 10400.0, 43330.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-16800.0, 10800.0, 43330.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-17600.0, 10800.0, 43330.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-17600.0, 10400.0, 43330.0);
+  glEnd();
+  glPopMatrix();
+ 
+ 
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOARD1));
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-5400.0, 10400.0, 43330.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-5400.0, 10800.0, 43330.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-6200.0, 10800.0, 43330.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-6200.0, 10400.0, 43330.0);
+  glEnd();
+  glPopMatrix();
+  
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOARD2));
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-6800.0, 10400.0, 43330.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-6800.0, 10800.0, 43330.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-7600.0, 10800.0, 43330.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-7600.0, 10400.0, 43330.0);
+  glEnd();
+  glPopMatrix();
+  
+  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOARD3));
+  glPushMatrix();
+  glBegin(GL_POLYGON);
+    glTexCoord2f(0.0, 1.0);
+    glVertex3f(-8200.0, 10400.0, 43330.0);
+    glTexCoord2f(1.0, 1.0);
+    glVertex3f(-8200.0, 10800.0, 43330.0);
+    glTexCoord2f(1.0, 0.0);
+    glVertex3f(-9000.0, 10800.0, 43330.0);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3f(-9000.0, 10400.0, 43330.0);
+  glEnd();
+  glPopMatrix();
+ 
+ 
   // DRINKS MACINE 
+  //(-27000.0, 10450, 41000) Coordinates
   glTranslatef(-62000.0, 0.0, 16000.0);
   glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MACHINE_SIDES));
   for (int i = 321; i < 323; i++) glCallList(i);
@@ -5400,7 +5545,7 @@ void BushCourtController::DisplayWestExit()
     glTranslatef(255.0, 0.0, 0.0);
     glCallList(322);
   glPopMatrix();
-
+ 
   //blue machine
   glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MACHINE_SIDES_2));
   glCallList(323);
@@ -5408,7 +5553,7 @@ void BushCourtController::DisplayWestExit()
     glTranslatef(350.0, 0.0, 0.0);
     glCallList(323); 
   glPopMatrix();
-
+ 
   glBindTexture(GL_TEXTURE_2D, tp.GetTexture(COKE_MACHINE));
   glTranslatef(0.0, 0.0, 300.0);
   glCallList(370);
@@ -5416,6 +5561,49 @@ void BushCourtController::DisplayWestExit()
   glCallList(371);
   glBindTexture(GL_TEXTURE_2D, tp.GetTexture(SWEET_MACHINE));
   glCallList(372);
+}	
+
+//--------------------------------------------------------------------------------------
+// Room under vending machine
+//--------------------------------------------------------------------------------------
+void BushCourtController::DrawControlRoom()
+{
+    glPushMatrix();
+        glTranslatef(34700, 10000, 25000);
+        glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
+        //hole under vending machine
+        glBegin(GL_QUADS);
+            glTexCoord2f (1.0, 1.0);        glVertex3f(0, -2000, 0);
+            glTexCoord2f (0.0, 1.0);        glVertex3f(0, 0, 0);
+            glTexCoord2f (0.0, 0.0);        glVertex3f(500, 0, 0);
+            glTexCoord2f (1.0, 0.0);        glVertex3f(500, -2000, 0);
+        glEnd();
+        glBegin(GL_QUADS);
+            glTexCoord2f (1.0, 1.0);        glVertex3f(0, 0, 500);
+            glTexCoord2f (0.0, 1.0);        glVertex3f(500, 0, 500);
+            glTexCoord2f (0.0, 0.0);        glVertex3f(500, -2000, 500);
+            glTexCoord2f (1.0, 0.0);        glVertex3f(0, -2000, 500);
+        glEnd();
+        glBegin(GL_QUADS);
+            glTexCoord2f (1.0, 1.0);        glVertex3f(500, 0, 0);
+            glTexCoord2f (0.0, 1.0);        glVertex3f(500, -2000, 0);
+            glTexCoord2f (0.0, 0.0);        glVertex3f(500, -2000, 500);
+            glTexCoord2f (1.0, 0.0);        glVertex3f(500, 0, 500);
+        glEnd();
+        glBegin(GL_QUADS);
+            glTexCoord2f (1.0, 1.0);        glVertex3f(0, -2000, 0);
+            glTexCoord2f (0.0, 1.0);        glVertex3f(0, 0, 0);
+            glTexCoord2f (0.0, 0.0);        glVertex3f(0, 0, 500);
+            glTexCoord2f (1.0, 0.0);        glVertex3f(0, -2000, 500);
+        glEnd();
+ 
+        glBegin(GL_QUADS);
+            glTexCoord2f (1.0, 1.0);        glVertex3f(0, -2000, 0);
+            glTexCoord2f (0.0, 1.0);        glVertex3f(0, -2000, 500);
+            glTexCoord2f (0.0, 0.0);        glVertex3f(500, -2000, 500);
+            glTexCoord2f (1.0, 0.0);        glVertex3f(500, -2000, 0);
+        glEnd();
+    glPopMatrix();
 }
 
 void BushCourtController::DrawLights ()
@@ -5641,9 +5829,10 @@ void BushCourtController::DrawStepBricks()
 //--------------------------------------------------------------------------------------
 //  Draw the 3D Models
 //--------------------------------------------------------------------------------------
-void BushCourtController::Draw3DModels() //*JW
+void BushCourtController::Draw3DModels()
 {
 	DrawAdPosterModels();
+	DrawControlRoom();
 }
 
 //--------------------------------------------------------------------------------------
@@ -5655,36 +5844,38 @@ void BushCourtController::DrawAdPosterModels()
 		glTranslatef(32700, 10150, 21000);
 		glRotated(-20,0,1,0);
 		glScalef(50.0f, 50.0f, 50.0f);
-		GetModel()->drawModel(mAdvertisement, tp.GetTexture(VENDING_MACHINE));
-			//texture->getTextureID(taAdOreo_Text));
+		GetModel()->drawModel(mAdvertisement, tp.GetTexture(WRIGLEYS_POSTER));
 
 		glTranslatef(25, 0, 0);
 		glRotatef(40, 0, 1, 0);
-		GetModel()->drawModel(mAdvertisement, GetTexture()->getTextureID(tAdOreo)+LAST-5); //*JW: I don't understand it!? :(
+		GetModel()->drawModel(mAdvertisement, tp.GetTexture(COCACOLA_POSTER));
 
 		glTranslatef(-30, 0, 20);
 		glRotatef(20, 0, 1, 0);
-		GetModel()->drawModel(mAdvertisement, GetTexture()->getTextureID(tAdOreo));
+		GetModel()->drawModel(mAdvertisement, tp.GetTexture(DORITOS_POSTER));
 
 		glTranslatef(15, 0, 0);
 		glRotatef(-40, 0, 1, 0);
-		GetModel()->drawModel(mAdvertisement, GetTexture()->getTextureID(tAdOreo));
+		GetModel()->drawModel(mAdvertisement, tp.GetTexture(KITKAT_POSTER));
 
 		glTranslatef(-30, 0, -10);
 		glRotatef(100, 0, 1, 0);
-		GetModel()->drawModel(mAdvertisement, GetTexture()->getTextureID(tAdOreo));
+		GetModel()->drawModel(mAdvertisement, tp.GetTexture(MILKCHOC_POSTER));
 
 		glTranslatef(-20, 0, 50);
 		glRotatef(20, 0, 1, 0);
-		GetModel()->drawModel(mAdvertisement, GetTexture()->getTextureID(tAdOreo));
+		GetModel()->drawModel(mAdvertisement, tp.GetTexture(MM_POSTER));
 
 		glTranslatef(-20, 0, -40);
 		glRotatef(90, 0, 1, 0);
-		GetModel()->drawModel(mAdvertisement, GetTexture()->getTextureID(tAdOreo));
+		glPushMatrix();
+			glScalef(1.5,1.5,1.5);
+			GetModel()->drawModel(mAdvertisement, tp.GetTexture(SNICKERS_POSTER));
+		glPopMatrix();
 
 		glTranslatef(0, 0, 0);
 		glRotatef(150, 0, 1, 0);
-		GetModel()->drawModel(mAdvertisement, GetTexture()->getTextureID(tAdOreo));
+		GetModel()->drawModel(mAdvertisement, tp.GetTexture(TWIX_POSTER));
 	glPopMatrix();
 }
 

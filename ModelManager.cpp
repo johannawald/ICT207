@@ -8,11 +8,7 @@ ModelManager::ModelManager()
 
 ModelManager::~ModelManager()
 {
-	//clear(); abstract?
-	/*for (int i = 0; i<2 ;i++)
-		es->Unload(Sounds[i]);
-	*/
-	//anything?
+	clearMemory();
 }
 
 void ModelManager::init()
@@ -20,12 +16,11 @@ void ModelManager::init()
 	for (int i = 0; i < MODELS_SIZE; i++) 
 		Models[i] = new ModelLoader;
 
-	Models[0]->load("data/test.obj"); //advertisement
+	Models[0]->load("data/advertisement.obj");
 }
 
 void ModelManager::reload()
 {
-	//do we really need that function?
 	clearMemory();
 	init();
 }
@@ -42,5 +37,5 @@ void ModelManager::drawModel(const eModels model, const GLuint texture) const
 
 void ModelManager::clearMemory()
 {
-	//do we really need that function?
+	//work in progress
 }

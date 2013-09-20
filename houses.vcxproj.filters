@@ -60,9 +60,6 @@
     <ClCompile Include="BasisController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BasisStateController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DrawManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -138,9 +135,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BasisModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BasisStateController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BasisView.h">

@@ -7,8 +7,8 @@
 //--------------------------------------------------------------------------------------
 
 #include "cameraMap.h"
-#include "DrawManager.h" //*JW
-#include <GL/freeglut.h> //*JW
+#include "DrawManager.h"
+#include <GL/freeglut.h>
 
 //--------------------------------------------------------------------------------------
 //  Display a map with a cursor on it, which moves with the camera

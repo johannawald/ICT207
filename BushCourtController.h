@@ -112,6 +112,7 @@ public:
 	void DrawECL ();
 	void Draw3DModels(); //*JW
 	void DrawAdPosterModels(); //*JW
+	void DrawControlRoom();
 
 	//Display Functions
 	void DisplayBench ();

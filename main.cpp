@@ -1,20 +1,5 @@
-/**
- * @main.cpp
- * @brief Encapsulates Shay's World (Campus Tour)
- *
- * Encapsulates Shays World (Campus Tour) / turning it into its
- * own class (BushCourtController) and using a State Machine
- *
- * @author Shay Leary - Original, March 2005
- * @author Johanna Wald - Encapsulation as Class / Implementing a State Machine, 01/09/2013
- * @version 01
- * @date 01/03/2005 Shay Leary - Original
- * @date 14/09/2013 Johanna Wald
- */
-
 #include <GL/glut.h>
 #include "StateMachine.h" 
-
 
 //--------------------------------------------------------------------------------------
 //  glut events 
