@@ -24,7 +24,7 @@ Stairs::~Stairs(void)
 }
 
 
-bool Stairs::SetStairDimensions(float w, float h, float d, int n)
+bool Stairs::SetValues(float w, float h, float d, int n)
 {
 	bool isValid;
 
@@ -152,4 +152,59 @@ void Stairs::DrawStep(GLuint htex, GLuint dtex)
 		glVertex3f(m_stepWidth, m_stepHeight, 0); //top left corner
 	glEnd();
 	glDisable(GL_TEXTURE_2D); //disable texturing
+}
+
+
+static void Stairs::drawStairs(float stairWidth, float stairHeight, float stairDepth, float numSteps)
+{
+	//work out step dimensions
+	float stepHeight, stepDepth;
+	stepHeight = stairHeight / numSteps;
+	stepDepth = stairDepth / numSteps;
+
+	//draw vertical step faces
+	for (int i = 0; i < numSteps; i++)
+	{
+		glBegin(GL_QUADS);
+			glTexCoord2f (0.125, 0.5);		glVertex3f(0.0, stepHeight * i, stepDepth * i);
+			glTexCoord2f (0.0, 0.5);		glVertex3f(0.0, stepHeight * (i + 1), stepDepth * i);
+			glTexCoord2f (0.0, 0.0);		glVertex3f(stairWidth, stepHeight * (i + 1), stepDepth * i);
+			glTexCoord2f (0.125, 0.0);		glVertex3f(stairWidth, stepHeight * i, stepDepth * i);
+		glEnd();
+	}
+
+	//draw horizontal step faces
+	for (int i = 0; i < numSteps; i++)
+	{
+		glBegin(GL_QUADS);
+			glTexCoord2f (0.125, 0.5);		glVertex3f(0.0, stepHeight * (i + 1), stepDepth * i);
+			glTexCoord2f (0.0, 0.5);		glVertex3f(0.0, stepHeight * (i + 1), stepDepth * (i + 1));
+			glTexCoord2f (0.0, 0.0);		glVertex3f(stairWidth, stepHeight * (i + 1), stepDepth * (i + 1));
+			glTexCoord2f (0.125, 0.0);		glVertex3f(stairWidth, stepHeight * (i + 1), stepDepth * i);
+		glEnd();
+	}
+
+	//draw sides of staircase
+	for (int i = 0; i < numSteps; i++)
+	{
+		glBegin(GL_QUADS);
+			glTexCoord2f (0.125, 0.125);	glVertex3f(0.0, 0.0, stepDepth * i);
+			glTexCoord2f (0.0, 0.125);		glVertex3f(0.0, 0.0, stepDepth * (i + 1));
+			glTexCoord2f (0.0, 0.0);		glVertex3f(0.0, stepHeight * (i + 1), stepDepth * (i + 1));
+			glTexCoord2f (0.125, 0.0);		glVertex3f(0.0, stepHeight * (i + 1), stepDepth * i);
+
+			glTexCoord2f (0.125, 0.125);	glVertex3f(stairWidth, 0.0, stepDepth * i);
+			glTexCoord2f (0.0, 0.125);		glVertex3f(stairWidth, 0.0, stepDepth * (i + 1));
+			glTexCoord2f (0.0, 0.0);		glVertex3f(stairWidth, stepHeight * (i + 1), stepDepth * (i + 1));
+			glTexCoord2f (0.125, 0.0);		glVertex3f(stairWidth, stepHeight * (i + 1), stepDepth * i);
+		glEnd();
+	}
+
+	//draw rear of staircase
+		glBegin(GL_QUADS);
+			glTexCoord2f (0.5, 0.5);		glVertex3f(0.0, 0.0, stairDepth);
+			glTexCoord2f (0.0, 0.5);		glVertex3f(stairWidth, 0.0, stairDepth);
+			glTexCoord2f (0.0, 0.0);		glVertex3f(stairWidth, stairHeight, stairDepth);
+			glTexCoord2f (0.5, 0.0);		glVertex3f(0.0, stairHeight, stairDepth);
+		glEnd();
 }
