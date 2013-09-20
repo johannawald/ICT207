@@ -88,13 +88,17 @@ void CameraMap::DisplayGameEntryScreen(const int & screenWidth, const int & scre
 	//screenWidth = screenWidth-200;
 	glPushMatrix();
 	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
+	//glPushMatrix();
 	glLoadIdentity();
- 	gluOrtho2D(0, 790, 0, 490);
-	glScalef(1, -1, 1);
+	gluOrtho2D(0, 790, 490, 0);
+
+	//glPushMatrix();
+	//glScalef(1, -1, 1);
 	// move to centre of screen
-	glTranslatef((screenWidth/2)-(screenWidth*0.5), -screenHeight*0.5-(screenHeight*0.5), 0); 
+	//glTranslatef((screenWidth/2)-(screenWidth*0.5), -screenHeight*0.5-(screenHeight*0.5), 0);
 	//the smaller this value the more you have to stretch the screen to fix it??? -> HELP! :D
+	//glPopMatrix();
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	
@@ -117,7 +121,7 @@ void CameraMap::DisplayGameEntryScreen(const int & screenWidth, const int & scre
 	
 	// Reset Perspective Projection
 	glMatrixMode(GL_MODELVIEW);
-	glPopMatrix();
+	//glPopMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 }
