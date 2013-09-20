@@ -381,7 +381,7 @@ void LevelOneController::CreateTextures()
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	
 	// set texture count
-	tp.SetTextureCount(250); //NEEDS TO BE THE SAME ACROSS ALL CONTROLLERS!!! (else textures assigned randomly)
+	tp.SetTextureCount(260); //NEEDS TO BE THE SAME ACROSS ALL CONTROLLERS!!! (else textures assigned randomly)
 	unsigned char* image;
 	// load and create textures
 

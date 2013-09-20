@@ -256,21 +256,21 @@ enum TextureCodes { NONE,							//0
 					HALLWAY13,						//239
 					HALLWAY14,						//240
 					WOODENDOOR,						//241
-					COCACOLA_POSTER,					//242
+					COCACOLA_POSTER,				//242
 					BOARD1,							//243
 					BOARD2,							//244
 					BOARD3,							//245
 					BOARD4,							//246
 
 					//JM
-					CONCWALL,						//243
-					TILEWALL,						//244
-					TILEFLOOR,						//245
-					RUSTYWALL,						//246
-					PLATFORM4X1,					//247
-					BOX,							//248
-					BUTTON,							//249
-					BOMB,							//250
+					CONCWALL,						//247
+					TILEWALL,						//248
+					TILEFLOOR,						//249
+					RUSTYWALL,						//250
+					PLATFORM4X1,					//251
+					BOX,							//252
+					BUTTON,							//253
+					BOMB,							//254
 					LAST
 					//e*DM
 };
