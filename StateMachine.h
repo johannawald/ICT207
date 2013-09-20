@@ -1,9 +1,14 @@
 /**
- * @StateMachine.h
+ * @class StateMachine
+ * @brief Singelton that controlls the game state
  *
- * @author Johanna Wald, StateMachine, 16/09/2013
+ * These class stores a IStateController and calles the Init(), Update(), Draw(), etc. -functions
+ * always when it's necessary (since it's part of the encapulation of the glut-events in main.cpp)
+ * 
+ * 
+ * @author Johanna Wald
  * @version 01
- * @date 16/09/2013 Johanna Wald
+ * @date 10/09/2013 Johanna Wald - Basic Implementation
  */
 
 #pragma once

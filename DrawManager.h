@@ -35,3 +35,4 @@ public:
 	void RenderString(float x, float y, void *font, const char* str, unsigned r = 0, unsigned g = 0, unsigned b = 0);
 	void drawStairs(float stairWidth, float stairHeight, float stairDepth, float numSteps);
 };
+	

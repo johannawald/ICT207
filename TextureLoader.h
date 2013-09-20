@@ -1,7 +1,17 @@
+/**
+ * @TextureLoader
+ * @brief External class to Load different kind of Textures
+ *
+ * http://members.iinet.net.au/~cleathley/openGL/TextureLoader.htm
+ *
+ * @author Chris Leathley (Black)
+ * @version 1.4
+ * @date none Chris Leathley - Original
+ */
+
+
 #ifndef _TEXTURE_LOADER_H_
 #define _TEXTURE_LOADER_H_
-
-//http://members.iinet.net.au/~cleathley/openGL/TextureLoader.htm
 
 #include <windows.h>										// Header File For Windows
 #include <gl\gl.h>											// Header File For The OpenGL32 Library

@@ -1,8 +1,13 @@
-//  @ Unit : ICT207
-//  @ File Name : TextureManager.h
-//  @ Author : Johanna Wald
-//
-//
+/**
+ * @class TextureManager
+ * @brief Controller class for the texture assets
+ *
+ * Implements the basic functions to work with texture files: init(), reload(), clearMemory(), getTextureID and a List to manage them
+ *
+ * @author Johanna Wald
+ * @version 01
+ * @date 18/09/2013 Johanna Wald - Basic Implementation
+ */
 
 #pragma once
 

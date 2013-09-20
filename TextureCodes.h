@@ -1,5 +1,5 @@
 /**
- * @TextureCodes.h
+ * @TextureCodes
  * @brief Encapsulates the global variables of Shay's World (Campus Tour)
  *
  * Encapsulates the global variables of Shays World (Campus Tour) / turning it into an enum
@@ -239,7 +239,6 @@ enum TextureCodes { NONE,							//0
 					BANNER,							//223
 					NUMBERPAD,						//224
 					VENDING_MACHINE,				//225
-					//*DM
 					FAR_EXIT,						//226
 					HALLWAY1,						//227
 					HALLWAY2,						//228
@@ -261,7 +260,6 @@ enum TextureCodes { NONE,							//0
 					BOARD2,							//244
 					BOARD3,							//245
 					BOARD4,							//246
-
 					//JM
 					CONCWALL,						//247
 					TILEWALL,						//248
@@ -272,5 +270,4 @@ enum TextureCodes { NONE,							//0
 					BUTTON,							//253
 					BOMB,							//254
 					LAST
-					//e*DM
 };
