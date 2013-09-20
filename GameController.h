@@ -9,6 +9,9 @@
 #include "ModelManager.h"
 #include "TextureManager.h"
 
+//If the state has (member)-variables that should be updated,
+//		* this is the function there is should happen 
+
 #pragma once
 
 class GameController : public IStateController, BasisController

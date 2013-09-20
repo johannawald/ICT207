@@ -1,5 +1,5 @@
 /**
- * @class AudioManager.h
+ * @class AudioManager
  * @brief Controller class for the audio assets
  *
  * Implements the basic functions to work with audio files: init(), reload(), clearMemory() and a List to manage them
@@ -19,10 +19,16 @@ class CSound;
 class CEasySound;
 class AudioManager: public IAssetManager {
 private:
-	CEasySound* es;
-	CSound* Sounds[AUDIOSOUNDS_SIZE]; 	
+	CEasySound* es; /**< Helps the class to load and store the sounds in the list */
+	CSound* Sounds[AUDIOSOUNDS_SIZE];  /**< Array that stores the sounds */	
 public:
+	/**
+		* @brief constructor of the AudioManager
+	*/
 	AudioManager();
+	/**
+		* @brief destructor of the AudioManager
+	*/
 	~AudioManager();	
 	/**
 		* @brief loads the audio files

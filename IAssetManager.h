@@ -3,7 +3,7 @@
  * @brief Interface defines a AssetManager with its functions
  *
  * Defines the basic functions a AssetManager should implement: init(), reload(), clearMemory()
- *
+ * 
  * @author Johanna Wald
  * @version 01
  * @date 18/09/2013 Johanna Wald - Basic Implementation
