@@ -25,11 +25,6 @@ Transition::Transition(): Code("1337"), InsertedCode(""), state(tsVendingMachine
 
 }
 
-Transition::~Transition()
-{
-	
-}
-
 TransitionState Transition::getstate() {
 	return state;
 }

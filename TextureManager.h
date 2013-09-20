@@ -15,20 +15,39 @@
 #include <GL/freeglut.h>
 #include "TextureLoader.h"
 
-enum eTextures { tAdOreo, taAdOreo_Text,
+enum eTextures { tAdOreo, taAdOreo_Text, 
 				 TEXTURE_SIZE };
 
 class TextureManager: public IAssetManager {
 private:
-	//change that later to a better image loader!!
-	//TexturedPolygons tp;
+	//change that later to a better image loader
 	TextureLoader* tl;
 	glTexture Textures[TEXTURE_SIZE]; 	
-public:		
+public:	
 	TextureManager();
-	~TextureManager();		
+	~TextureManager();	
+	/**
+		* @brief loads the texture files
+        * @param none
+		* @return void
+	*/
 	void init();
+	/**
+		* @brief reload the texture files
+        * @param none
+		* @return void
+	*/
 	void reload();
+	/**
+		* @brief clear the memory / free the loaded textures
+        * @param none
+		* @return void
+	*/
 	void clearMemory();
+	/**
+		* @brief Returns the Texture ID of the textures stored at position "texture" in the list the class holds 
+        * @param eTextures texture - represents the position / index of the requested texture in the array
+		* @return GLuint - the Texture ID, you can pass to the BindTexture()-function
+	*/
 	GLuint getTextureID(const eTextures texture) const;
 };
