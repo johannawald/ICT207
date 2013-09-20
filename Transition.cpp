@@ -21,8 +21,7 @@
 #include "StateMachine.h"
 #include "GameController.h"
 
-//42 4F 4D 42 = B O M B
-Transition::Transition(): Code("000"), InsertedCode(""), state(tsVendingMachine), Char(' '), AnimationFrame(0)
+Transition::Transition(): Code("1337"), InsertedCode(""), state(tsVendingMachine), Char(' '), AnimationFrame(0)
 {
 
 }
