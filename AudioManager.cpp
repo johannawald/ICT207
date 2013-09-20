@@ -22,12 +22,12 @@ void AudioManager::init()
 	Sounds[2] = es->GetSound(es->Load("sounds/131657__bertrof__game-sound-wrong.wav")); 
 }
 
-void AudioManager::reaload()
+void AudioManager::reload()
 {
 	//do we really need that function?
 }
 
-void AudioManager::playSound(AudioSounds audio)
+void AudioManager::playSound(eSounds audio)
 {
 	Sounds[audio]->Play();
 }

@@ -18,7 +18,7 @@ private:
 	//private constructor since the state machine is a singelton
 	StateMachine(IStateController* gamestate);
 public:	
-	//save the bushcourtcontroller in a member-variable, since it takes a long time to reaload it
+	//save the bushcourtcontroller in a member-variable, since it takes a long time to reload it
 	static IStateController* bushcourtcontroller; 
 	IStateController* state;
 	static StateMachine* getInstance();

@@ -7,13 +7,12 @@
 //-Bug: Vending Machine step back - blue sky?
 //-quadratic images
 //-"clean" code (BaseController as a base class / Public members )
+//-raymond / loading texture -> processing
 
 //-1. Level - Design and Load (GameController.cpp)
-//-corridor crashing -> why?
-//-stairs class
 //-implement / use stairs
 //-Doxygen documentation -> see ModelLoader.h
-//-Esc-Screen with our Faces
+//-Esc-Screen with our Faces -> photoshop
 //-First Level with Camera Movement
 //-Create video using Fraps
 //-Game Design Document
@@ -21,6 +20,7 @@
 //-UML Diagramm
 //-Code struktur
 //-credits?
+//-e_models -> enum change name
 
 #include "Transition.h"
 #include <GL/glut.h>
@@ -57,6 +57,7 @@ void Transition::Update(TransitionState tstate)
 		if (AnimationFrame>100) {
 			InsertedCode = "";
 		}
+		glutSetCursor(0);
 	}
 	state = tstate;
 }
