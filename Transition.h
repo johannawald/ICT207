@@ -7,26 +7,29 @@
 
 //--------------------------------------------------------------------------------------
 
-enum TransitionState { tsNone, tsVendingMachine, tsMouseBuyButton, tsNumberPad, tsHole, tsFallAnimation };
+enum TransitionState { tsNone, tsVendingMachine, tsNumberPad, tsHole, tsFallAnimation };
 enum ReachtTransition {PlaySound, Move};
 
 class Transition
 {
-//private:
-public:
+private:
 	TransitionState state; 
-	//number game entry:
 	std::string InsertedCode; 
-
 	char Char;
 	int AnimationFrame;
-private:
 	const std::string Code;
 public:
 	Transition();
 	virtual ~Transition();
+	//get-functions
+	TransitionState getstate();
+	std::string getInsertedCode();
+	int getAnimationFrame();
+	
 	void Update(TransitionState tstate);
-	bool IsRightCode();
+	void AutoCorrection();
+	bool IsCorrectCode();
+	bool IsCodeStartedCorrect();
 	bool IsPlayMechanicSound();
 	void CheckMouseInput();
 	void CheckMousePosition(int x, int y, int width, int height);

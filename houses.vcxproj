@@ -126,7 +126,7 @@
     <ClCompile Include="AABB.CPP" />
     <ClCompile Include="AABBLinkedList.cpp" />
     <ClCompile Include="AABBNode.cpp" />
-    <ClCompile Include="AssertManager.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="BasisController.cpp" />
     <ClCompile Include="BasisStateController.cpp" />
     <ClCompile Include="camera.cpp" />
@@ -135,7 +135,10 @@
     <ClCompile Include="DrawManager.cpp" />
     <ClCompile Include="EasySound.cpp" />
     <ClCompile Include="GameController.cpp" />
+    <ClCompile Include="LevelOneController.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelLoader.cpp" />
+    <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="PlainLinkedList.cpp" />
     <ClCompile Include="PlainNode.cpp" />
     <ClCompile Include="BushCourtController.cpp" />
@@ -143,13 +146,16 @@
     <ClCompile Include="SoundTime.cpp" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="texturedPolygons.cpp" />
+    <ClCompile Include="TextureLoader.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Transition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB.H" />
     <ClInclude Include="AABBLinkedList.h" />
     <ClInclude Include="AABBNode.h" />
-    <ClInclude Include="AssertManager.h" />
+    <ClInclude Include="IAssetManager.h" />
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="BasisController.h" />
     <ClInclude Include="BasisModel.h" />
     <ClInclude Include="BasisStateController.h" />
@@ -161,6 +167,9 @@
     <ClInclude Include="EasySound.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="IStateController.h" />
+    <ClInclude Include="LevelOneController.h" />
+    <ClInclude Include="ModelLoader.h" />
+    <ClInclude Include="ModelManager.h" />
     <ClInclude Include="PlainLinkedList.h" />
     <ClInclude Include="PlainNode.h" />
     <ClInclude Include="BushCourtController.h" />
@@ -169,6 +178,8 @@
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="TextureCodes.h" />
     <ClInclude Include="texturedPolygons.h" />
+    <ClInclude Include="TextureLoader.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Transition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

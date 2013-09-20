@@ -14,17 +14,21 @@
 #include "cameraMap.h"
 #include "PlainLinkedList.h"
 #include "EasySound.h"
+#include "AudioManager.h" //*JW
 
 //--------------------------------------------------------------------------------------
 
 class Camera
 {
+private:
+	AudioManager* audio; //*JW
 public:
 
 	Camera();
 	virtual ~Camera() { //*JW
-		es->Unload(stepSound);
-		es->Unload(mechanicSound);
+		delete audio; //*JW
+		//es->Unload(stepSound);
+		//es->Unload(mechanicSound);
 	}
 
 	//----------------------------------------------------------------------------------
@@ -103,8 +107,6 @@ public:
 	// display no exit
 	void DisplayNoExit (const int & screenWidth, const int & screenHeight, 
 						const GLuint & tempImage);
-	
-	void PlayMechanicSound(void); //*JW
 private:
 
 	//steep incline increments
@@ -167,10 +169,10 @@ private:
 	void ClimbSteps(GLdouble stepStart, GLdouble stepFinish, GLdouble stepHeight, GLdouble stepWidth, int noSteps);
 	void CheckSteps();
 
-	CEasySound *es;
+	/*CEasySound *es;
 	CSound* stepSound;
 	CSound* mechanicSound; // not the right position! //*JW
-
+	*/
 	//----------------------------------------------------------------------------------
 
     // Privatised copy constructor and assignment operator

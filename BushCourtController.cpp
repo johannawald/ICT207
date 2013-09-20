@@ -1,6 +1,7 @@
 #include "BushCourtController.h"
 #include "texturedPolygons.h"
 #include "GameController.h"
+#include "LevelOneController.h"
 #include "StateMachine.h"
 #include "ModelLoader.h"
 
@@ -25,6 +26,21 @@ BushCourtController::BushCourtController(): movementSpeed(20.0), rotationSpeed(0
 	displayECL = true;
 	// Stores raw image file
 	image = nullptr;
+
+	Init();
+
+	CreatePlains();	
+	
+	// creates bounding boxes and places in array
+	CreateBoundingBoxes();
+	// copies bounding boxes from array to linked lists (one fopr each quadrant)
+	cam.InitiateBoundingBoxes();
+	
+	// load texture images and create display lists
+	CreateTextureList();
+	CreateTextures();
+	loaded = true;	
+
 }
 
 BushCourtController::~BushCourtController() {
@@ -35,6 +51,10 @@ BushCourtController::~BushCourtController() {
 //--------------------------------------------------------------------------------------
 void BushCourtController::Init() {
 	// set background (sky colour)
+	transition.Update(tsNone);
+	cam.DirectionUD(0);
+	cam.DirectionRotateLR(0);
+
 	glClearColor(97.0/255.0, 140.0/255.0, 185.0/255.0, 1.0);
 	
 	// set perpsective
@@ -50,23 +70,12 @@ void BushCourtController::Init() {
 	cam.SetWorldCoordinates(36000.0, 43200.0);
 	// turn collision detection on
 	cam.SetCollisionDetectionOn(true);
+
 	// set number of bounding boxes required
 	cam.SetNoBoundingBoxes(19);
 	// set starting position of user
-	cam.Position(32720.0, 10536.0,	
-				 22800.0, 180.0);
-	
-	CreatePlains();	
-	
-	// creates bounding boxes and places in array
-	CreateBoundingBoxes();
-	// copies bounding boxes from array to linked lists (one fopr each quadrant)
-	cam.InitiateBoundingBoxes();
-	
-	// load texture images and create display lists
-	CreateTextureList();
-	CreateTextures();
-	loaded = true;
+	cam.Position(32720.0, 10536.0, 22800.0, 180.0);
+	Reshape();
 }
 
 //--------------------------------------------------------------------------------------
@@ -89,13 +98,13 @@ void BushCourtController::Draw()
 			if (DisplayWelcome) 
 				cam.DisplayWelcomeScreen(width, height, 1, tp.GetTexture(WELCOME));
 			// *JW: display the vending machine (with the "buy"-button on it)
-			if ((transition.state == tsVendingMachine) || (transition.state == tsMouseBuyButton))
+			if (transition.getstate() == tsVendingMachine)
 				cam.DisplayGameEntryScreen(width, height, 1, tp.GetTexture(VENDING_MACHINE), "");
 			// display the numberpad of the vending machine (with that you can interact)
-			else if (transition.state == tsNumberPad) {
+			else if (transition.getstate() == tsNumberPad) {
 				//this is for the animation - if the animation haven't started yet, draw the numberpad:
-				if (transition.AnimationFrame==0)
-					cam.DisplayGameEntryScreen(width, height, 1, tp.GetTexture(NUMBERPAD), transition.InsertedCode.c_str());
+				if (transition.getAnimationFrame()==0)
+					cam.DisplayGameEntryScreen(width, height, 1, tp.GetTexture(NUMBERPAD), transition.getInsertedCode().c_str());
 				//otherwise draw a black screen (there is a "vending-machine-disappear" sound in the background)
 				else cam.DisplayGameEntryScreen(width, height, 1, 0, "");
 			}
@@ -125,28 +134,34 @@ void BushCourtController::Update() {
 	//there should be a difference between update (all the data) and draw (the objects)
 	//this method  has to be defined since it's an abstract-function; our game-state will make a differnece between update and draw
 	//*JW: trigger the transistion:
-	if (transition.IsRightCode()) {
+	if (transition.IsCorrectCode()) {
 		if (transition.IsPlayMechanicSound()) 
-			cam.PlayMechanicSound();
+			audio->playSound(asMetalicCrash);
 		cam.DirectionFB(-1);
 		transition.Update(tsHole);
+		Reshape();
 	}
-
-	if (transition.state == tsHole){
+	else if (!transition.IsCodeStartedCorrect()) {
+		transition.AutoCorrection();
+		audio->playSound(asIncorrectCode);		
+	}
+	if (transition.getstate() == tsHole){
 		if ((cam.GetFB() > 24900) && (cam.GetFB() < 25200) && (cam.GetLR() < 35200))
 			transition.Update(tsFallAnimation);
 	}
-	else if (transition.state != tsNumberPad) {
+	else if (transition.getstate() != tsNumberPad) {
 		if ((cam.GetFB() > 24500) && (cam.GetFB() < 25300) && (cam.GetLR() < 35000) && (cam.GetLR() > 34759))  {
-			if (transition.state < tsVendingMachine)
+			if (transition.getstate() < tsVendingMachine)
 				transition.Update(tsVendingMachine);
 		}
 		else
 			transition.Update(tsNone);
 	}
-	if (transition.state == tsFallAnimation) { 
-		cam.DirectionUD(-1); 
-		cam.DirectionRotateLR(2); 
+	if (transition.getstate() == tsFallAnimation) { 
+		cam.DirectionUD(-1);
+		cam.DirectionRotateLR(2);
+		if (cam.GetUD()<3000)
+			StateMachine::setController(new LevelOneController);
 	}
 }
 
@@ -222,10 +237,8 @@ void BushCourtController::Keyboard(unsigned char key, int x, int y)
 	{
 		// step left
 		case 'c':
-			//loaded = false;
-			StateMachine::setController(new GameController);
+			StateMachine::setController(new LevelOneController);
 		break;
-
 		case 'Z':
 		case 'z':
 			cam.DirectionLR(-1);
@@ -1268,8 +1281,8 @@ void BushCourtController::CreateTextures()
 	tp.CreateTexture(VENDING_MACHINE, image, 800, 500);
 
 	//*DM North-West-Hallway
-	/*image = tp.LoadTexture("data/wooddoor.bmp", 86, 226);
-	tp.CreateTexture(WOODENDOOR, image, 86, 226);
+	image = tp.LoadTexture("data/woodendoor.bmp", 225, 225);
+	tp.CreateTexture(WOODENDOOR, image, 225, 225);
 
 	image = tp.LoadTexture("data/FarExit.bmp", 512, 384);
 	tp.CreateTexture(FAR_EXIT, image, 512, 384);
@@ -1313,8 +1326,11 @@ void BushCourtController::CreateTextures()
     tp.CreateTexture(HALLWAY13, image, 512, 384);
  
     image = tp.LoadTexture("data/hallway14.bmp", 512, 384);
-    tp.CreateTexture(HALLWAY14, image, 512, 384);*/
+    tp.CreateTexture(HALLWAY14, image, 512, 384);
 	//e*DM
+
+	//image = tp.LoadTexture("data/hallway14.bmp", 512, 384);
+    //tp.CreateTexture(COCACOLA_POSTER, image, 512, 384);*/
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
@@ -1345,7 +1361,7 @@ void BushCourtController::DrawBackdrop()
 	DisplayRoof();
 	DisplayStepBricks ();
 	if (lightsOn) DisplayLights ();
-	//DisplayWestExit(); //*DM
+	DisplayWestExit(); //*DM
 }
 
 //--------------------------------------------------------------------------------------
@@ -3738,7 +3754,7 @@ void BushCourtController::DisplayExtras ()
 	glPopMatrix();
 	
 	//*JW - removed from the display list (it has to be redrawn)
-	if (transition.state != tsHole) {
+	if (transition.getstate() != tsHole) {
 		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(SWEET_MACHINE)); 
 		const GLdouble SweetMachine_zStart = 25016;
 		const GLdouble SweetMachine_xStart = 34778; 
@@ -5635,10 +5651,38 @@ void BushCourtController::Draw3DModels() //*JW
 void BushCourtController::DrawAdPosterModels()
 {
 	glPushMatrix();
-		glScalef(1000.0f, 1000.0f, 1000.0f);
-		ModelLoader cube;
-		cube.load("data/advertisement.obj");
-		cube.draw();
+		glTranslatef(32700, 10150, 21000);
+		glRotated(-20,0,1,0);
+		glScalef(50.0f, 50.0f, 50.0f);
+		model->drawModel(mAdvertisement, texture->getTextureID(taAdOreo_Text));
+
+		glTranslatef(25, 0, 0);
+		glRotatef(40, 0, 1, 0);
+		model->drawModel(mAdvertisement, texture->getTextureID(tAdOreo));
+
+		glTranslatef(-30, 0, 20);
+		glRotatef(20, 0, 1, 0);
+		model->drawModel(mAdvertisement, texture->getTextureID(tAdOreo));
+
+		glTranslatef(15, 0, 0);
+		glRotatef(-40, 0, 1, 0);
+		model->drawModel(mAdvertisement, texture->getTextureID(tAdOreo));
+
+		glTranslatef(-30, 0, -10);
+		glRotatef(100, 0, 1, 0);
+		model->drawModel(mAdvertisement, texture->getTextureID(tAdOreo));
+
+		glTranslatef(-20, 0, 50);
+		glRotatef(20, 0, 1, 0);
+		model->drawModel(mAdvertisement, texture->getTextureID(tAdOreo));
+
+		glTranslatef(-20, 0, -40);
+		glRotatef(90, 0, 1, 0);
+		model->drawModel(mAdvertisement, texture->getTextureID(tAdOreo));
+
+		glTranslatef(0, 0, 0);
+		glRotatef(150, 0, 1, 0);
+		model->drawModel(mAdvertisement, texture->getTextureID(tAdOreo));
 	glPopMatrix();
 }
 

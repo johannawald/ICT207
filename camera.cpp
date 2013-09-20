@@ -33,9 +33,10 @@ Camera::Camera()
 	m_CollisionDetectionOn = true;
 
 	// sound objects
-	es = CEasySound::Instance();
+	audio = new AudioManager();
+	/*es = CEasySound::Instance();
 	stepSound = es->GetSound(es->Load("sounds/step.wav"));
-	mechanicSound = es->GetSound(es->Load("sounds/Mechanical.wav")); //*JW
+	mechanicSound = es->GetSound(es->Load("sounds/Mechanical.wav")); //*JW*/
 }
 
 //--------------------------------------------------------------------------------------
@@ -277,7 +278,7 @@ void Camera::SetPlains(const int & moveX, const int & moveZ)
 				
 				if ((m_plainNo != i) && m_plainHeight != m_Plain.GetYstart(i))
 				{
-					stepSound->Play();
+					audio->playSound(asStep); //  stepSound->Play(); //*JW
 				}
 
 
@@ -518,9 +519,6 @@ void Camera::ClimbSteps(GLdouble stepStart, GLdouble stepFinish, GLdouble stepHe
 	}
 }
 
-void Camera::PlayMechanicSound(void) { //*JW
-	mechanicSound->Play();
-}
 //----------------------------------------------------------------------------------------
 
 

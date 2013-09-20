@@ -12,10 +12,12 @@ GameController::GameController()
 }
 
 void GameController::Init() {
+	int a;
 }
 
 void GameController::Draw() 
 {
+	glClearColor(0, 0, 0, 0);
 	glColor3b(1,0,0);
 	glClear( GL_COLOR_BUFFER_BIT );
 
