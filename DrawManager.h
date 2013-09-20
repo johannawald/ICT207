@@ -12,6 +12,7 @@
 #pragma once
 
 #include <string>
+#include <Windows.h>
 #include <GL/GL.h>
 
 class DrawManager {
