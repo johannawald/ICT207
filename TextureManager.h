@@ -24,5 +24,6 @@ public:
 	~TextureManager();		
 	void init();
 	void reload();
+	void clearMemory();
 	GLuint getTextureID(eTextures texture);
 };

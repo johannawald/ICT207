@@ -8,9 +8,7 @@ AudioManager::AudioManager()
 
 AudioManager::~AudioManager()
 {
-	//clear(); abstract?
-	for (int i = 0; i<2 ;i++)
-		es->Unload(Sounds[i]);
+	clearMemory();
 }
 
 void AudioManager::init()
@@ -24,10 +22,18 @@ void AudioManager::init()
 
 void AudioManager::reload()
 {
-	//do we really need that function?
+	clearMemory();
+	init();
 }
 
 void AudioManager::playSound(eSounds audio)
 {
 	Sounds[audio]->Play();
+}
+
+void AudioManager::clearMemory()
+{
+	delete es;
+	for (int i = 0; i<2 ;i++)
+		es->Unload(Sounds[i]);
 }

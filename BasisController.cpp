@@ -10,8 +10,8 @@
 #include "AudioManager.h"
 
 BasisController::BasisController() {	
-	drawmanager = new DrawManager();
+	/*drawmanager = new DrawManager();
 	audio = new AudioManager();
 	model = new ModelManager();
-	texture = new TextureManager();
+	texture = new TextureManager();*/
 }

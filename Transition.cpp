@@ -112,7 +112,7 @@ void Transition::CheckMousePosition(int x, int y, int width, int height)
 				else Char = ' ';
 			
 				if (Char!=' ') 
-					glutSetCursor(GLUT_CURSOR_CYCLE);
+					glutSetCursor(GLUT_CURSOR_INFO);
 				else 
 					glutSetCursor(0);  
 			}

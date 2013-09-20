@@ -12,40 +12,52 @@
 #include "BushCourtController.h"
 #include "GameController.h"
 
+#include "ModelManager.h"
+#include "TextureManager.h"
+#include "AudioManager.h"
+
 StateMachine* StateMachine::statemachine = nullptr;
-IStateController* StateMachine::bushcourtcontroller = nullptr;
+IStateController* StateMachine::bushcourtcontroller = nullptr; //maybe private
 bool StateMachine::init = false;
 
 StateMachine::StateMachine(IStateController* controller) {
-	state = controller;
+	//Stores the Manager to control the assets
+	if (bushcourtcontroller==nullptr) {
+		modelmanager = new ModelManager();
+		texturemanager = new TextureManager();
+		audiomanager = new AudioManager();
+		bushcourtcontroller = new BushCourtController(audiomanager, modelmanager, texturemanager);
+	}
+	if (controller==NULL)
+		state = bushcourtcontroller;
+	else
+		state = controller;
 }
 
 StateMachine::~StateMachine() {
-	if (StateMachine::state!=bushcourtcontroller)
-		delete StateMachine::state;		
-	statemachine = NULL;
+
 }
 
 StateMachine* StateMachine::getInstance()
 {	
-	if (StateMachine::statemachine==NULL) {
-		if (bushcourtcontroller==nullptr) {
-			bushcourtcontroller = new BushCourtController;
-		}
+	if (StateMachine::statemachine==NULL)
 		statemachine = new StateMachine(bushcourtcontroller);
-        return statemachine;
-    }
-    else return statemachine;
+    return statemachine;
+}
+
+void StateMachine::setBushCourtController() {	
+	setController(bushcourtcontroller);
+	bushcourtcontroller->Init();
 }
 
 void StateMachine::setController(IStateController* controller) {	
 	if (statemachine!=NULL)
-		delete statemachine;	
+		delete statemachine;
 	statemachine = new StateMachine(controller); 
 }
 
 void StateMachine::Init() {
-	StateMachine::state->Init();
+	StateMachine::state->Init(); //member variable as a const reference
 }
 
 void StateMachine::Draw() {

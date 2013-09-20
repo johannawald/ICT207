@@ -8,8 +8,12 @@
 //--------------------------------------------------------------------------------------
 //  Constructor
 //--------------------------------------------------------------------------------------
-BushCourtController::BushCourtController(): movementSpeed(20.0), rotationSpeed(0.005), lightsOn(true), displayECL(true), loaded(false)
+BushCourtController::BushCourtController(AudioManager* am, ModelManager* mm, TextureManager* tm): movementSpeed(20.0), rotationSpeed(0.005), lightsOn(true), displayECL(true), loaded(false)
 {
+	audio = am;
+	model = mm;
+	texture = tm;
+
 	// USE THESE STTEINGS TO CHANGE SPEED (on different spec computers)
 	// Set speed (steps)
 	frameCount = 0;
@@ -161,7 +165,7 @@ void BushCourtController::Update() {
 		cam.DirectionUD(-1);
 		cam.DirectionRotateLR(2);
 		if (cam.GetUD()<3000)
-			StateMachine::setController(new LevelOneController);
+			StateMachine::setController(new LevelOneController(audio, model, texture));
 	}
 }
 
@@ -237,7 +241,7 @@ void BushCourtController::Keyboard(unsigned char key, int x, int y)
 	{
 		// step left
 		case 'c':
-			StateMachine::setController(new LevelOneController);
+			StateMachine::setController(new LevelOneController(audio,model,texture));
 		break;
 		case 'Z':
 		case 'z':
@@ -1277,8 +1281,8 @@ void BushCourtController::CreateTextures()
 	image = tp.LoadTexture("data/numberpad.raw", 800, 500);
 	tp.CreateTexture(NUMBERPAD, image, 800, 500);
 
-	image = tp.LoadTexture("data/vending_machine.raw", 800, 500);
-	tp.CreateTexture(VENDING_MACHINE, image, 800, 500);
+	image = tp.LoadTexture("data/AdDoritos.raw", 1018, 1018); //vending_machine.raw", 800, 500);
+	tp.CreateTexture(VENDING_MACHINE, image, 1018, 1018); // 800, 500);
 
 	//*DM North-West-Hallway
 	image = tp.LoadTexture("data/woodendoor.bmp", 225, 225);
@@ -5654,11 +5658,12 @@ void BushCourtController::DrawAdPosterModels()
 		glTranslatef(32700, 10150, 21000);
 		glRotated(-20,0,1,0);
 		glScalef(50.0f, 50.0f, 50.0f);
-		model->drawModel(mAdvertisement, texture->getTextureID(taAdOreo_Text));
+		model->drawModel(mAdvertisement, tp.GetTexture(VENDING_MACHINE));
+			//texture->getTextureID(taAdOreo_Text));
 
 		glTranslatef(25, 0, 0);
 		glRotatef(40, 0, 1, 0);
-		model->drawModel(mAdvertisement, texture->getTextureID(tAdOreo));
+		model->drawModel(mAdvertisement, texture->getTextureID(tAdOreo)+LAST-5); //*JW: I don't understand it!? :(
 
 		glTranslatef(-30, 0, 20);
 		glRotatef(20, 0, 1, 0);

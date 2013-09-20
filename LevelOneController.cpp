@@ -10,8 +10,9 @@
 //--------------------------------------------------------------------------------------
 //  Constructor
 //--------------------------------------------------------------------------------------
-LevelOneController::LevelOneController(): movementSpeed(15.0), rotationSpeed(0.005), loaded(false)
+LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm): movementSpeed(15.0), rotationSpeed(0.005), loaded(false)
 {
+	
 	// USE THESE STTEINGS TO CHANGE SPEED (on different spec computers)
 	// Set speed (steps)
 	frameCount = 0;

@@ -68,7 +68,7 @@ private:
 
 	void CheckNumberPad();
 public:
-	BushCourtController(void);
+	BushCourtController(AudioManager* am, ModelManager* mm, TextureManager* tm);
 	virtual ~BushCourtController(void);
 
 	void Init();

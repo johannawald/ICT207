@@ -10,11 +10,10 @@
 
 class GameController : public IStateController, BasisController
 {
-private:
 	public:
 	GameController(void);
 
-	void Init();
+	void Init(const ModelManager* mm, const AudioManager* am, const TextureManager* tm);
 	void Draw();
 	void Update();
 	void SpecialKey(int key, int x, int y);

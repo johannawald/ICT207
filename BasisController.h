@@ -26,4 +26,6 @@ protected: //Is protected ok? Or should that be changed to privte? propably yes 
 	TextureManager* texture;
 public:	
 	BasisController();
+	//how can I force the classes to have a constructor like this:
+	//BasisController(const AudioManager* audiomanager, const ModelManager* modelmanager, TextureManager* texturemanager) = 0;
 };

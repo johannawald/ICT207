@@ -10,9 +10,7 @@ TextureManager::TextureManager()
 
 TextureManager::~TextureManager()
 {
-	//clear(); abstract?
-	for (int i = 0; i<TEXTURE_SIZE ;i++)
-		tl->FreeTexture(&Textures[i]);
+	clearMemory();
 }
 
 void TextureManager::init()
@@ -32,9 +30,19 @@ void TextureManager::init()
 void TextureManager::reload()
 {
 	//do we really need that function?
+	clearMemory();
+	init();
 }
 
 GLuint TextureManager::getTextureID(eTextures texture)
 {
 	return Textures[texture].TextureID;
+}
+
+void TextureManager::clearMemory() 
+{
+	delete tl;
+	//do we really need that function?
+	for (int i = 0; i<TEXTURE_SIZE ;i++)
+		tl->FreeTexture(&Textures[i]);
 }

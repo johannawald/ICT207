@@ -11,18 +11,25 @@
 #include <vector>
 
 class IStateController;
+class ModelManager;
+class TextureManager;
+class AudioManager;
 class StateMachine {
 private:
+	//save the bushcourtcontroller in a member-variable, since it takes a long time to reload it
+	ModelManager* modelmanager;
+	TextureManager* texturemanager;
+	AudioManager* audiomanager;
+
+	static IStateController* bushcourtcontroller; 
 	static bool init;
     static StateMachine* statemachine;
 	//private constructor since the state machine is a singelton
 	StateMachine(IStateController* gamestate);
 public:	
-	//save the bushcourtcontroller in a member-variable, since it takes a long time to reload it
-	static IStateController* bushcourtcontroller; 
 	IStateController* state;
 	static StateMachine* getInstance();
-
+	static void setBushCourtController();
 	static void setController(IStateController* controller);
 
 	~StateMachine();

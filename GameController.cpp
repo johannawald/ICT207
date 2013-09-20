@@ -11,8 +11,7 @@ GameController::GameController()
 
 }
 
-void GameController::Init() {
-	int a;
+void GameController::Init(const ModelManager* mm, const AudioManager* am, const TextureManager* tm) {
 }
 
 void GameController::Draw() 
@@ -77,8 +76,7 @@ void GameController::Keyboard(unsigned char key, int x, int y)
 	{
 		// step left
 		case 'e':
-			StateMachine::setController(StateMachine::bushcourtcontroller);
-			StateMachine::bushcourtcontroller->Init();
+			StateMachine::setBushCourtController();
 			break;
 	}
 }

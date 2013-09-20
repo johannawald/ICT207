@@ -21,5 +21,6 @@ public:
 	~ModelManager();		
 	void init();
 	void reload();
+	void clearMemory();
 	void drawModel(eModels model, GLuint texture = 0);
 };

@@ -58,7 +58,7 @@ private:
 
 	void CheckNumberPad();
 public:
-	LevelOneController(void);
+	LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm);
 	virtual ~LevelOneController(void);
 
 	void Init();

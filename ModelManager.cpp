@@ -12,6 +12,7 @@ ModelManager::~ModelManager()
 	/*for (int i = 0; i<2 ;i++)
 		es->Unload(Sounds[i]);
 	*/
+	//anything?
 }
 
 void ModelManager::init()
@@ -25,6 +26,8 @@ void ModelManager::init()
 void ModelManager::reload()
 {
 	//do we really need that function?
+	clearMemory();
+	init();
 }
 
 void ModelManager::drawModel(eModels model, GLuint texture)
@@ -35,4 +38,9 @@ void ModelManager::drawModel(eModels model, GLuint texture)
 		Models[model]->draw();
 		glBindTexture(GL_TEXTURE_2D, -1);
 	glPopMatrix();
+}
+
+void ModelManager::clearMemory()
+{
+	//do we really need that function?
 }
