@@ -73,7 +73,7 @@ void BushCourtController::Init() {
 	// set number of bounding boxes required
 	cam.SetNoBoundingBoxes(19);
 	// set starting position of user
-	cam.Position(32720.0, 10536.0, 22800.0, 180.0);
+	cam.Position(32720.0, 10536.0, 17000.0, 180.0);
 	Reshape();
 }
 
@@ -1367,6 +1367,7 @@ void BushCourtController::CreateTextures()
 
     image = tp.LoadTexture("data/PosterWrigleys.raw", 1018, 1018);
     tp.CreateTexture(WRIGLEYS_POSTER, image, 1018, 1018);
+
 	
 	image = tp.LoadTexture("data/concwall.raw", 512, 512);
     tp.CreateTexture(CONCWALL, image, 512, 512);
