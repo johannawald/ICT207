@@ -27,11 +27,23 @@ private:
 	//private constructor since the state machine is a singelton
 	StateMachine(IStateController* gamestate);
 public:	
+		/**
+         * @brief Current state of the program (All the control functions below will call the function of this state)
+		 */
 	IStateController* state;
+		/**
+         * @brief initalization / access method for the singelton (it's the only way to create the object, since the constructor is private)
+		 */
 	static StateMachine* getInstance();
+		/**
+         * @brief function to set the bush court controller (avoid reloading all the images)
+		 */
 	static void setBushCourtController();
+		/**
+         * @brief Set function for the state - changes the current state of the game
+		 * @param IStateController* - the new state
+		 */
 	static void setController(IStateController* controller);
-
 		/**
          * @brief Destructor destroys StateMachine object when it goes out of scope.
          */
