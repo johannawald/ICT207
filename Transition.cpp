@@ -1,7 +1,6 @@
 //  Transition.cpp
 
 //Transition to-do / Johanna's:
-//-correct position 2D screen (top) -> size fullscreen support
 //-3D-model advertisement
 //-cursor is wrong
 //-Bug: Vending Machine step back - blue sky?
@@ -9,18 +8,13 @@
 //-"clean" code (BaseController as a base class / Public members )
 //-raymond / loading texture -> processing
 
-//-1. Level - Design and Load (GameController.cpp)
 //-implement / use stairs
 //-Doxygen documentation -> see ModelLoader.h
-//-Esc-Screen with our Faces -> photoshop
-//-First Level with Camera Movement
 //-Create video using Fraps
 //-Game Design Document
 //-Team Charter
 //-UML Diagramm
 //-Code struktur
-//-credits?
-//-e_models -> enum change name
 
 #include "Transition.h"
 #include <GL/glut.h>

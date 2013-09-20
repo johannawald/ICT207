@@ -85,19 +85,10 @@ void CameraMap::DisplayWelcomeScreen (const int & screenWidth, const int & scree
 void CameraMap::DisplayGameEntryScreen(const int & screenWidth, const int & screenHeight, 
 		                       const int & tempExit, const GLuint & tempImage, const char* str)
 {
-	//screenWidth = screenWidth-200;
 	glPushMatrix();
 	glMatrixMode(GL_PROJECTION);
-	//glPushMatrix();
 	glLoadIdentity();
 	gluOrtho2D(0, 790, 490, 0);
-
-	//glPushMatrix();
-	//glScalef(1, -1, 1);
-	// move to centre of screen
-	//glTranslatef((screenWidth/2)-(screenWidth*0.5), -screenHeight*0.5-(screenHeight*0.5), 0);
-	//the smaller this value the more you have to stretch the screen to fix it??? -> HELP! :D
-	//glPopMatrix();
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
