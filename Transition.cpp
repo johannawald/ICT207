@@ -29,6 +29,12 @@ void Transition::Update(TransitionState tstate)
 		}
 		glutSetCursor(0);
 	}
+	else if (tstate==tsNone)
+	{
+		AnimationFrame=0;
+		glutSetCursor(0);
+	}
+
 	state = tstate;
 }
 

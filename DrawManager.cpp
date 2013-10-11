@@ -27,7 +27,7 @@ void DrawManager::RenderString(float x, float y, void *font, const char* str, un
 	glPopAttrib();
 }
 
-void DrawManager::drawStairs(float stairWidth, float stairHeight, float stairDepth, float numSteps)
+void DrawManager::DrawStairs(float stairWidth, float stairHeight, float stairDepth, float numSteps)
 {
 	//work out step dimensions
 	float stepHeight, stepDepth;

@@ -31,30 +31,23 @@ class LevelOneController : public IStateController, BasisController
 private:
 	bool insertedLevel;
 	bool loaded; 
-	Transition transition;
-
-	GLdouble movementSpeed;
-	GLdouble rotationSpeed;
 	
-	GLdouble stepIncrement;
-	GLdouble angleIncrement;
+	GLdouble movementSpeed; //ray, delete that after you inserted your camera movement
+	GLdouble rotationSpeed; //ray, delete that after you inserted your camera movement
+	
+	GLdouble stepIncrement; //ray, delete that after you inserted your camera movement
+	GLdouble angleIncrement; //ray, delete that after you inserted your camera movement
 	int frameCount;
-	clock_t lastClock;
+	clock_t lastClock; 
 
-	unsigned char* LevelOneController::image;
+	unsigned char* LevelOneController::image; 
 	// ratio of screen
 	float ratio;
 	// screen width and height
 	int width, height;
-	// display campus map
-	bool DisplayMap;
-	// display welcome screen
-	bool DisplayWelcome;
-	// display exit screen
-	bool DisplayExit;
 
-	Camera cam;
-	TexturedPolygons tp;
+	Camera cam; //ray, delete that after you inserted your camera movement
+	TexturedPolygons tp; //use the texturemanager! //ray, we don't need that if we implemented the texturemanager! 
 
 	void CheckNumberPad();
 public:
@@ -128,7 +121,4 @@ public:
 	void CreateTextures();
 	// creates bounding boxes for collsion detection
 	void CreateBoundingBoxes();
-
-	// deletes image and clears memory
-	void DeleteImageFromMemory(unsigned char* tempImage);
 };

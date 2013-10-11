@@ -67,6 +67,7 @@ private:
 	TexturedPolygons tp;
 
 	void CheckNumberPad();
+	void ResetTransition();
 public:
 	BushCourtController(AudioManager* am, ModelManager* mm, TextureManager* tm);
 	virtual ~BushCourtController(void);

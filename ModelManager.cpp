@@ -17,6 +17,12 @@ void ModelManager::init()
 		Models[i] = new ModelLoader;
 
 	Models[0]->load("data/advertisement.obj");
+	Models[1]->load("data/4x1platform.obj");
+	Models[2]->load("data/console.obj");
+	Models[3]->load("data/ladder.obj");
+	Models[4]->load("data/box.obj");
+	Models[5]->load("data/button.obj");
+
 }
 
 void ModelManager::reload()

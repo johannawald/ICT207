@@ -16,6 +16,11 @@
 #include <GL/GL.h>
 
 class DrawManager {
+//private: Stairs class change the drawStairs function, call the method of the class
+//please don't use a static function!!
+//maybe set function for the staris (ray, please make another constructor with parameters for the whole stair length, etc.)
+//ray, change the drawing in the LevelOneController, please (because the DrawManager is created over and over again)
+
 public:
 	DrawManager();	
 	~DrawManager();
@@ -34,6 +39,6 @@ public:
 		* @return void
     */
 	void RenderString(float x, float y, void *font, const char* str, unsigned r = 0, unsigned g = 0, unsigned b = 0);
-	void drawStairs(float stairWidth, float stairHeight, float stairDepth, float numSteps);
+	void DrawStairs(float stairWidth, float stairHeight, float stairDepth, float numSteps);
 };
 	

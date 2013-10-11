@@ -13,15 +13,11 @@
 LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), movementSpeed(15.0), rotationSpeed(0.005), loaded(false)
 {
 	insertedLevel = false;
-	// USE THESE STTEINGS TO CHANGE SPEED (on different spec computers)
-	// Set speed (steps)
 	frameCount = 0;
 	lastClock = 0;
 
-	// display exit screen
-	DisplayExit = false;
-	// Stores raw image file
-	image = nullptr;
+	image = nullptr; //ray, we don't need that if we implemented the texturemanager! 
+	//(images are loaded over and over again, if you enter the level / shay's world)
 
 	Init();
 	
@@ -43,9 +39,7 @@ LevelOneController::~LevelOneController() {
 //  Initialize Settings
 //--------------------------------------------------------------------------------------
 void LevelOneController::Init() {
-	// set background (sky colour)
-	transition.Update(tsNone);
-	cam.DirectionUD(0);
+	cam.DirectionUD(0); //ray, we don't need that if you change the camera movement!
 	cam.DirectionRotateLR(0);
 
 	glClearColor(0, 0, 0, 0); //background/sky colour
@@ -70,7 +64,7 @@ void LevelOneController::Init() {
 //--------------------------------------------------------------------------------------
 //  Initialize Settings
 //--------------------------------------------------------------------------------------
-void LevelOneController::Draw() 
+void LevelOneController::Draw()  //try to avoid updating variables in the draw function! -> do that in the update-funciton
 {
 	if (loaded) 
 	{
@@ -84,7 +78,6 @@ void LevelOneController::Draw()
 		glEnable (GL_TEXTURE_2D);
 		glPushMatrix();
 			// displays the exit screen
-			if (DisplayExit) cam.DisplayWelcomeScreen (width, height, 0, tp.GetTexture(EXIT));
 			DrawControlRoom();
 			DrawOuterWalls();
 			DrawArchitecture();
@@ -102,7 +95,8 @@ void LevelOneController::Draw()
 	}
 }
 
-void LevelOneController::Update() { 
+void LevelOneController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!)
+{ 
 	if ((cam.GetLR() > 400) && (cam.GetLR() < 700) && (cam.GetFB() < -4300) && (cam.GetFB() > -4500)) 
 		StateMachine::setBushCourtController();
 	else if ((cam.GetFB() > -2000) && (!insertedLevel)) {
@@ -134,9 +128,9 @@ void LevelOneController::Reshape(int w, int h) {
 //--------------------------------------------------------------------------------------
 // Keyboard Functions
 //--------------------------------------------------------------------------------------
-void LevelOneController::SpecialKey(int key, int x, int y)
+void LevelOneController::SpecialKey(int key, int x, int y) 
 {
-	switch (key)
+	switch (key) //ray, we don't need that if you change the camera movement!
 	{
 		case GLUT_KEY_LEFT :
 			cam.DirectionRotateLR(-2);
@@ -190,7 +184,7 @@ void LevelOneController::Keyboard(unsigned char key, int x, int y)
 			}
 			break;
 		case '0':
-			StateMachine::setBushCourtController();
+			StateMachine::setBushCourtController(); //debug! Should be deleted in the release version
 			break;
 		case 'e':
 			//next to ladder out
@@ -217,20 +211,6 @@ void LevelOneController::Keyboard(unsigned char key, int x, int y)
 		case 'a':
 			cam.DirectionLookUD(-1);
 		break;
-		// display campus map
-		case 'm':
-		case 'M':
-		{
-			if (DisplayMap)
-			{
-				DisplayMap = false;
-			}
-			else
-			{
-				DisplayMap = true;
-			}
-		}
-		break;
 		// exit tour (escape key)
 		case 27:
 			{
@@ -240,18 +220,8 @@ void LevelOneController::Keyboard(unsigned char key, int x, int y)
 		// display welcome page (space key)
 		case ' ':
 			{
-				if (DisplayWelcome)
-				{
-					cam.SetRotateSpeed (rotationSpeed);
-					cam.SetMoveSpeed (movementSpeed);
-					DisplayWelcome = false;
-				}
-				else
-				{
-					cam.SetRotateSpeed (0.0f);
-					cam.SetMoveSpeed (0.0f);
-					DisplayWelcome = true;
-				}
+				cam.SetRotateSpeed (0.0f);
+				cam.SetMoveSpeed (0.0f);
 			}
 		break;	
 	}
@@ -260,7 +230,7 @@ void LevelOneController::Keyboard(unsigned char key, int x, int y)
 //--------------------------------------------------------------------------------------
 void LevelOneController::KeyboardUp(unsigned char key, int x, int y)
 {
-	switch (key)
+	switch (key) //ray, we don't need that if you change the camera movement!
 	{
 		// step left or right
 		case 'x' :
@@ -284,17 +254,7 @@ void LevelOneController::KeyboardUp(unsigned char key, int x, int y)
 //--------------------------------------------------------------------------------------
 void LevelOneController::Mouse(int button, int state, int x, int y)
 {
-	// exit tour if clicked on exit splash screen
- 	if ((button == GLUT_LEFT_BUTTON) && (state == GLUT_DOWN))
-	{
-		transition.CheckMouseInput();
-		if ((DisplayExit) && (x <= width/2.0 + 256.0) && (x >= width/2.0 - 256.0)
-			&& (y <= height/2.0 + 256.0) && (y >= height/2.0 - 256.0))
-		{
-			DeleteImageFromMemory(image);
-			exit(1);
-		}
-  	 }
+
 }
 
 //--------------------------------------------------------------------------------------
@@ -303,43 +263,6 @@ void LevelOneController::Mouse(int button, int state, int x, int y)
 //--------------------------------------------------------------------------------------
 void LevelOneController::PassiveMotion(int x, int y) //mouseMove
 {
-	//trigger for the button-click-function in the transition
-	transition.CheckMousePosition(x,y, width, height);
-
-	/*if (x < 0)
-		cam.DirectionRotateLR(0);
-	else if (x > width)
-		cam.DirectionRotateLR(0);
-	else if (x > width/2.0)
-	{
-		cam.DirectionRotateLR(1);
-		Draw();
-		glutWarpPointer(width/2.0,height/2.0);
-	}
-	else if (x < width/2.0)
-	{
-		cam.DirectionRotateLR(-1);
-		Draw();
-		glutWarpPointer(width/2.0,height/2.0);
-	}
-	else
-		cam.DirectionRotateLR(0);
-	if (y < 0 || y > height)
-		cam.DirectionLookUD(0);
-
-	else if (y > height/2.0) {
-		cam.DirectionLookUD(-1);
-		Draw();
-		glutWarpPointer(width/2.0,height/2.0);
-	}
-	else if (y < height/2.0) {
-		cam.DirectionLookUD(1);
-		Draw();
-		glutWarpPointer(width/2.0,height/2.0);
-	}
-	else
-		cam.DirectionLookUD(0);
-	*/
 }
 
 //--------------------------------------------------------------------------------------
@@ -370,27 +293,15 @@ void LevelOneController::CreateBoundingBoxes()
 }
 
 //--------------------------------------------------------------------------------------
-//  Delete raw image and clear memory
-//--------------------------------------------------------------------------------------
-void LevelOneController::DeleteImageFromMemory(unsigned char* tempImage)
-{
-	tempImage = NULL;
-		if (tempImage == NULL)
-	{
-		delete [] tempImage;
-	}
-}
-
-//--------------------------------------------------------------------------------------
 // Load and Create Textures
 //--------------------------------------------------------------------------------------
-void LevelOneController::CreateTextures()
+void LevelOneController::CreateTextures() //ray, we don't need that if we implemented the texturemanager! 
 {
 	glEnable(GL_DEPTH_TEST);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	
 	// set texture count
-	tp.SetTextureCount(260); //NEEDS TO BE THE SAME ACROSS ALL CONTROLLERS!!! (else textures assigned randomly)
+	tp.SetTextureCount(LAST); //NEEDS TO BE THE SAME ACROSS ALL CONTROLLERS!!! (else textures assigned randomly)
 	unsigned char* image;
 	// load and create textures
 
@@ -431,50 +342,40 @@ void LevelOneController::CreateTextures()
 //--------------------------------------------------------------------------------------
 //  Draw the Objects
 //--------------------------------------------------------------------------------------
-void LevelOneController::DrawObjects()
+void LevelOneController::DrawObjects() 
 {
-
-	ModelLoader box;
-	box.load("data/box.obj");
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOX));
-
-
 
 	glPushMatrix();
 		glTranslatef(2000, 0, 3500);
 		glScalef(0.75, 1.0, 0.75);
-		box.draw();
+		GetModel()->drawModel(mBox, tp.GetTexture(BOX));
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(4250, 500, 750);
 		glScalef(0.75, 1.0, 0.75);
-		box.draw();
+		GetModel()->drawModel(mBox, tp.GetTexture(BOX));
 	glPopMatrix();
-
-	ModelLoader button;
-	button.load("data/button.obj");
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BUTTON));
 
 	glPushMatrix();
 		glTranslatef(750, 500, 750);
-		button.draw();
+		GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(4250, 500, 1250);
-		button.draw();
+		GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(4250, 500, 4250);
-		button.draw();
+		GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
 	glPopMatrix();
 
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOMB));
 		glPushMatrix();
 		glTranslatef(750, 500, 4250);
-		button.draw();
+		GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
 	glPopMatrix();
 }
 
@@ -484,52 +385,38 @@ void LevelOneController::DrawObjects()
 //--------------------------------------------------------------------------------------
 void LevelOneController::Draw3DModels()
 {
-	ModelLoader platform4x1;
-	platform4x1.load("data/4x1platform.obj");
-
-	ModelLoader console;
-	console.load("data/console.obj");
-
-	ModelLoader ladder;
-	ladder.load("data/ladder.obj");
-
 	glPushMatrix();
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PLATFORM4X1));
 		glTranslatef(4250, 0, 2500);
 		glRotatef(90, 0, 1, 0);
-		platform4x1.draw();
+		GetModel()->drawModel(m4x1platform, tp.GetTexture(PLATFORM4X1)); //*JW
 	glPopMatrix();
 
 	glPushMatrix();
 		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PLATFORM4X1));
 		glTranslatef(2500, 0, 4250);
-		platform4x1.draw();
+		GetModel()->drawModel(m4x1platform, tp.GetTexture(PLATFORM4X1)); //*JW
 	glPopMatrix();
 
 	glPushMatrix();
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PLATFORM4X1));
 		glTranslatef(2250, 450, 1500);
 		glRotatef(90, 0, 1, 0);
-		platform4x1.draw();
+		GetModel()->drawModel(m4x1platform, tp.GetTexture(PLATFORM4X1)); //*JW
 	glPopMatrix();
 
 	glPushMatrix();
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONSOLE));
 		glTranslatef(500, 0, -1250);
 		glRotatef(180, 0, 1, 0);
-		console.draw();
+		GetModel()->drawModel(mConsole, tp.GetTexture(CONSOLE)); //*JW
 	glPopMatrix();
 
 	glPushMatrix();
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(RUSTYWALL));
 		glTranslatef(500, 0, -4450);
-		glScalef(0.5, 1, 1);
-		ladder.draw();
+		glScalef(0.5, 1, 1);	
+		GetModel()->drawModel(mLadder, tp.GetTexture(RUSTYWALL)); //*JW
 	glPopMatrix();
-
 }
 
-//--------------------------------------------------------------------------------------
+//------------------------------------------------- -------------------------------------
 //  Draw the Outer Walls
 //--------------------------------------------------------------------------------------
 void LevelOneController::DrawOuterWalls()
@@ -757,23 +644,23 @@ void LevelOneController::DrawArchitecture()
 		glEnd();
 
 	 //stairs
-	DrawManager drawMan;
+	DrawManager drawMan; //jak, we should not create the drawmanager in the draw function! use the drawmanager provided in the base class!
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
 
 	glPushMatrix();
 		glTranslatef(0, 0, 2000);
-		drawMan.drawStairs(500, 500, -500, 5);
+		drawMan.DrawStairs(500, 500, -500, 5);
 		glTranslatef(500, 0, 0);
-		drawMan.drawStairs(500, 500, -500, 5);
+		drawMan.DrawStairs(500, 500, -500, 5);
 		glTranslatef(500, 0, 0);
-		drawMan.drawStairs(500, 500, -500, 5);
+		drawMan.DrawStairs(500, 500, -500, 5);
 	glPopMatrix();
 
 	
 	glPushMatrix(); //more stairs!
 		glTranslatef(1500, 0, 2000);
 		glRotatef(270, 0, 1, 0);
-		drawMan.drawStairs(500, 500, -500, 5);
+		drawMan.DrawStairs(500, 500, -500, 5);
 	glPopMatrix();
 
 	/*
@@ -870,12 +757,12 @@ void LevelOneController::DrawControlRoom()
 		glTexCoord2f(1.0, 0.0);			glVertex3f(700, 1000, -4000);
 	glEnd();
 	
-	DrawManager drawMan;
+	DrawManager drawMan; //jak, don't create that object over and over again!
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
 	glPushMatrix();
 		glTranslatef(700, 0, -4000);
 		glRotatef(180, 0, 1, 0);
-		drawMan.drawStairs(400, 250, 500, 5);
+		drawMan.DrawStairs(400, 250, 500, 5);
 	glPopMatrix();
 }
 
@@ -883,7 +770,7 @@ void LevelOneController::DrawControlRoom()
 //--------------------------------------------------------------------------------------
 //  Increments frame count used for setting movement speed
 //--------------------------------------------------------------------------------------
-void LevelOneController::IncrementFrameCount()
+void LevelOneController::IncrementFrameCount() //ray, check if you need that, please if you change the camera movement
 {
 	double t = ((GLdouble)(clock()-lastClock))/(GLdouble)CLOCKS_PER_SEC;  
 	frameCount ++;

@@ -9,7 +9,6 @@
 #include <iostream>
 #include "texturedPolygons.h"
 
-
 //--------------------------------------------------------------------------------------
 //  Declares datatype to store a raw image file and calls method to load image
 //--------------------------------------------------------------------------------------
@@ -50,7 +49,7 @@ GLubyte* TexturedPolygons::LoadRawImageFile(char* filename, int width, int heigh
 //  Set number of textures to be used in program
 //--------------------------------------------------------------------------------------
 
-void TexturedPolygons::SetTextureCount(const int &textureNo)
+void TexturedPolygons::SetTextureCount(const int &textureNo) 
 {
 	m_texture = new GLuint[textureNo];
 	glGenTextures(textureNo, &m_texture[0]);

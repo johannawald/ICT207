@@ -45,12 +45,21 @@ BushCourtController::BushCourtController(AudioManager* am, ModelManager* mm, Tex
 BushCourtController::~BushCourtController() {
 }
 
+//no idea why this is neccessary
+void BushCourtController::ResetTransition() 
+{
+	transition.Update(tsNone);
+	Reshape();
+	cam.Position(cam.GetLR(), cam.GetUD(), cam.GetFB()-50, 180.0);
+}			
+
 //--------------------------------------------------------------------------------------
 //  Initialize Settings
 //--------------------------------------------------------------------------------------
 void BushCourtController::Init() {
 	// set background (sky colour)
-	transition.Update(tsNone);
+	ResetTransition(); //*JW
+
 	cam.DirectionUD(0);
 	cam.DirectionRotateLR(0);
 
@@ -73,7 +82,7 @@ void BushCourtController::Init() {
 	// set number of bounding boxes required
 	cam.SetNoBoundingBoxes(19);
 	// set starting position of user
-	cam.Position(32720.0, 10536.0, 17000.0, 180.0);
+	cam.Position(32720.0, 10436.0, 17000.0, 180.0);
 	Reshape();
 }
 
@@ -161,8 +170,7 @@ void BushCourtController::Update() {
 			if (transition.getstate() < tsVendingMachine)
 				transition.Update(tsVendingMachine);
 		}
-		else
-			transition.Update(tsNone);
+		
 	}
 	if (transition.getstate() == tsFallAnimation) { 
 		cam.DirectionUD(-1);
@@ -209,10 +217,11 @@ void BushCourtController::SpecialKey(int key, int x, int y)
 		case GLUT_KEY_UP : 
 			if ((transition.getstate() == tsNone) || (transition.getstate() == tsHole))
 				cam.DirectionFB(1);
-			std::cout << transition.getstate();
 			break;
 		case GLUT_KEY_DOWN : 
 			cam.DirectionFB(-1);
+			if (transition.getstate()>tsNone)
+				ResetTransition();
 			break;
 	}
 }
@@ -242,6 +251,9 @@ void BushCourtController::Keyboard(unsigned char key, int x, int y)
 	int i = 0;
 	switch (key)
 	{
+		case 'g': 
+			ResetTransition();
+			break;
 		// step left
 		case 'Z':
 		case 'z':
