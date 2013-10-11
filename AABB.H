@@ -10,18 +10,19 @@
 //  quadrants)
 //
 //  Shay Leary, March 2005
+// Johanna Wald: improved code functionallity 
 //--------------------------------------------------------------------------------------
 
 #ifndef AABB_H
 #define AABB_H
-
-//--------------------------------------------------------------------------------------
 
 #include <iostream>
 #include <math.h>
 #include <gl/glut.h>
 
 //--------------------------------------------------------------------------------------
+
+//everyone, functions should not be declared in the .h file -> change that to the .cpp?
 
 class AABB
 {
@@ -38,44 +39,39 @@ private:
 		XYZ min; 
 	}; 
 	// dynamic array to store info
-	BoundingBox *m_BBox;
+	BoundingBox *mBBox;
 	// number of BB created (i.e. array size)
-	int m_NoOfBoxes;
-	// deletes arrays and clears memory
-	void ClearBB (BoundingBox* &tempArray);
-
-	//----------------------------------------------------------------------------------
-
-    // Privatised copy constructor and assignment operator
-    AABB (const AABB &aabb) {};
-    AABB &operator = (const AABB &aabb) {};
-
+	int mNoOfBoxes;
+	// count of data stored in the array
+	int mCount;
 public:
-	AABB () {}
-    virtual ~AABB () {ClearBB(m_BBox);}
-	
+	AABB(int count);
+	~AABB();
 	//----------------------------------------------------------------------------------
-	//  Set Methods
+	//  Set Method
 	//----------------------------------------------------------------------------------
-	void SetMaxX(const int & tempIndex, const GLdouble &tempX) {m_BBox[tempIndex].max.x = tempX;}
-	void SetMinX(const int & tempIndex, const GLdouble &tempX) {m_BBox[tempIndex].min.x = tempX;}
-	void SetMaxY(const int & tempIndex, const GLdouble &tempY) {m_BBox[tempIndex].max.y = tempY;}
-	void SetMinY(const int & tempIndex, const GLdouble &tempY) {m_BBox[tempIndex].min.y = tempY;}
-	void SetMaxZ(const int & tempIndex, const GLdouble &tempZ) {m_BBox[tempIndex].max.z = tempZ;}
-	void SetMinZ(const int & tempIndex, const GLdouble &tempZ) {m_BBox[tempIndex].min.z = tempZ;}
-	void SetNoBoundingBoxes(const int & tempSize);
+	void SetBBox(const int tempIndex,  //everyone, we don't need SetBBox if we use AddBox to the end of the list, work for later
+				const GLdouble MinX, const GLdouble MaxX, 
+				const GLdouble MinY, const GLdouble MaxY, 
+				const GLdouble MinZ, const GLdouble MaxZ);
 
+	void SetBBox(const int tempIndex, 
+				const GLdouble MinX, const GLdouble MaxX, 
+				const GLdouble MinZ, const GLdouble MaxZ);
+
+	void AddBBox(const GLdouble MinX, const GLdouble MaxX, 
+				const GLdouble MinY, const GLdouble MaxY, 
+				const GLdouble MinZ, const GLdouble MaxZ);
 	//----------------------------------------------------------------------------------
 	//  Get Methods
 	//----------------------------------------------------------------------------------
-	GLdouble GetMaxX (const int & tempIndex) {return m_BBox[tempIndex].max.x;}
-	GLdouble GetMinX (const int & tempIndex) {return m_BBox[tempIndex].min.x;}
-	GLdouble GetMaxY (const int & tempIndex) {return m_BBox[tempIndex].max.y;}
-	GLdouble GetMinY (const int & tempIndex) {return m_BBox[tempIndex].min.y;}
-	GLdouble GetMaxZ (const int & tempIndex) {return m_BBox[tempIndex].max.z;}
-	GLdouble GetMinZ (const int & tempIndex) {return m_BBox[tempIndex].min.z;}
-	int GetNoBoundingBoxes () {return m_NoOfBoxes;}
+	GLdouble GetMaxX (const int &tempIndex) {return mBBox[tempIndex].max.x;}
+	GLdouble GetMinX (const int &tempIndex) {return mBBox[tempIndex].min.x;}
+	GLdouble GetMaxY (const int &tempIndex) {return mBBox[tempIndex].max.y;}
+	GLdouble GetMinY (const int &tempIndex) {return mBBox[tempIndex].min.y;}
+	GLdouble GetMaxZ (const int &tempIndex) {return mBBox[tempIndex].max.z;}
+	GLdouble GetMinZ (const int &tempIndex) {return mBBox[tempIndex].min.z;}
+	int GetNoBoundingBoxes() {return mNoOfBoxes;}
 };
 
 #endif
-//--------------------------------------------------------------------------------------

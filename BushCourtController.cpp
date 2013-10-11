@@ -146,11 +146,12 @@ void BushCourtController::Draw()
 
 void BushCourtController::Update() { 
 	//there should be a difference between update (all the data) and draw (the objects)
-	//this method  has to be defined since it's an abstract-function; our game-state will make a differnece between update and draw
+	//this method has to be defined since it's an abstract-function; our game-state will make a differnece between update and draw
 	//trigger the transistion:
 	if (transition.IsCorrectCode()) {
-		if (transition.IsPlayMechanicSound()) 
+		if (transition.IsPlayMechanicSound())
 			GetAudio()->playSound(asMetalicCrash);
+			
 		if (transition.getAnimationFrame()<70)
 			cam.DirectionFB(-1);
 		else cam.DirectionFB(0);
@@ -251,9 +252,18 @@ void BushCourtController::Keyboard(unsigned char key, int x, int y)
 	int i = 0;
 	switch (key)
 	{
+		//debug-stuff:
 		case 'g': 
 			ResetTransition();
 			break;
+		case 'w':
+			GetAudio()->playSound(asMetalicCrash);
+			break;
+		case 'e':
+			GetAudio()->playSound(asStep);
+			break;
+
+
 		// step left
 		case 'Z':
 		case 'z':
@@ -277,17 +287,8 @@ void BushCourtController::Keyboard(unsigned char key, int x, int y)
 		// display campus map
 		case 'm':
 		case 'M':
-		{
-			if (DisplayMap)
-			{
-				DisplayMap = false;
-			}
-			else
-			{
-				DisplayMap = true;
-			}
-		}
-		break;
+			DisplayMap=!DisplayMap;
+			break;
 		// exit tour (escape key)
 		case 27:
 			{
@@ -316,31 +317,13 @@ void BushCourtController::Keyboard(unsigned char key, int x, int y)
 		// display light fittings
 		case 'l':
 		case 'L':
-		{
-			if (lightsOn)
-			{
-				lightsOn = false;
-			}
-			else
-			{
-				lightsOn = true;
-			}
-		}
+			lightsOn=!lightsOn;
 		break;
 		
 		case 'P':
 		case 'p':
-		{
 			// Display ECL Block
-			if (displayECL)
-			{
-				displayECL = false;
-			}
-			else
-			{
-				displayECL = true;
-			}
-		}
+			displayECL=!displayECL;
 		break;
 		
 	}
@@ -394,41 +377,6 @@ void BushCourtController::PassiveMotion(int x, int y) //mouseMove
 {
 	//trigger for the button-click-function in the transition
 	transition.CheckMousePosition(x,y, width, height);
-
-	/*if (x < 0)
-		cam.DirectionRotateLR(0);
-	else if (x > width)
-		cam.DirectionRotateLR(0);
-	else if (x > width/2.0)
-	{
-		cam.DirectionRotateLR(1);
-		Draw();
-		glutWarpPointer(width/2.0,height/2.0);
-	}
-	else if (x < width/2.0)
-	{
-		cam.DirectionRotateLR(-1);
-		Draw();
-		glutWarpPointer(width/2.0,height/2.0);
-	}
-	else
-		cam.DirectionRotateLR(0);
-	if (y < 0 || y > height)
-		cam.DirectionLookUD(0);
-
-	else if (y > height/2.0) {
-		cam.DirectionLookUD(-1);
-		Draw();
-		glutWarpPointer(width/2.0,height/2.0);
-	}
-	else if (y < height/2.0) {
-		cam.DirectionLookUD(1);
-		Draw();
-		glutWarpPointer(width/2.0,height/2.0);
-	}
-	else
-		cam.DirectionLookUD(0);
-	*/
 }
 
 //--------------------------------------------------------------------------------------
@@ -436,7 +384,7 @@ void BushCourtController::PassiveMotion(int x, int y) //mouseMove
 //--------------------------------------------------------------------------------------
 void BushCourtController::CreateBoundingBoxes()
 {
-	// chanc block
+	/*// chanc block
 	cam.SetAABBMaxX(0, 35879.0);
 	cam.SetAABBMinX(0, 33808.0);
 	cam.SetAABBMaxZ(0, 22096.0);
@@ -478,13 +426,6 @@ void BushCourtController::CreateBoundingBoxes()
 	cam.SetAABBMaxZ(6, 41127.0);
 	cam.SetAABBMinZ(6, 37855.0);
 
-	// drinks machine
-	cam.SetAABBMaxX(7, 35879.0);
-	//*JW: disable collision detection for the vending machine
-	cam.SetAABBMinX(7, 35004.0);
-	cam.SetAABBMaxZ(7, 25344.0);
-	cam.SetAABBMinZ(7, 24996.0);
-		
 	// bottom of steps
 	cam.SetAABBMaxX(8, 33808.0);
 	cam.SetAABBMinX(8, 0.0);
@@ -538,16 +479,49 @@ void BushCourtController::CreateBoundingBoxes()
 	cam.SetAABBMinX(16, 31444.0);
 	cam.SetAABBMaxZ(16, 10395.0);
 	cam.SetAABBMinZ(16, 4590.0);
+
+*/
+
+	//everyone, there is a bug - we have to compare the bb
+	//everyone, it would be better to say collision -> "a cube 400x400x200 on position (x/y/z)", same with a rect
 	
-	//- New West Hallway
-	cam.SetAABBMaxX(17, 2608.0);
-	cam.SetAABBMinX(17, -30000.0);
-	cam.SetAABBMaxZ(17, 44000.0);
-	cam.SetAABBMinZ(17, 43340.0);
-	cam.SetAABBMaxX(18, -27500.0);
-	cam.SetAABBMinX(18, -28000.0);
-	cam.SetAABBMaxZ(18, 43340.0);
-	cam.SetAABBMinZ(18, 40090.0);
+	// chanc block
+	cam.SetAABB(0, 33808.0, 33808.0, 4688.0, 22096.0); 
+	// between chanc block and phys sci
+	cam.SetAABB(1, 35730.0, 35999.0, 25344.0, 22096.0); 
+	// phy sci block panel 1
+	cam.SetAABB(2, 33808.0, 35879.0, 25344.0, 26752.0); 
+	// phy sci block 1st doorway
+	cam.SetAABB(3, 34256.0, 35879.0, 26752.0, 27559.0);
+	// phy sci block 2nd panel
+	cam.SetAABB(4, 33808.0, 35879.0, 27559.0, 36319.0); 
+	// phy sci block 2nd doorway
+	cam.SetAABB(5, 34260.0, 35879.0, 36319.0, 37855.0);
+	// phy sci block 3rd panel
+	cam.SetAABB(6, 33808.0, 35879.0, 37855.0, 41127.0);
+	// drinks machine
+	cam.SetAABB(7, 35004.0, 35879.0, 24996.0, 25344.0); 
+	// bottom of steps
+	cam.SetAABB(8, 0, 33808.0, 0, 4688.0); 
+	// end of phy sci block exit (top of steps)
+	cam.SetAABB(9, 35879.0, 34320.0, 41127.0, 43056.0); 
+	// library end panel
+	cam.SetAABB(10, 6514.0, 34320.0, 43036.0, 50000.0);
+	// KBLT
+	cam.SetAABB(11, 25608.0, 28104.0, 42754.0, 43046.0);
+	// Canteen block
+	cam.SetAABB(12, 27500.0, 2608.0, 0, 40900.0);
+	// Telephones
+	cam.SetAABB(13, 33872.0, 33892.0, 25173.0, 25344.0);
+	// Telephones
+	cam.SetAABB(14, 34157.0, 34277.0, 25173.0, 25344.0);
+	// Telephones
+	cam.SetAABB(15, 34541.0, 35462.0, 25173.0, 25344.0);
+	// Wall by Steps
+	cam.SetAABB(16, 31444.0, 31548.0, 4590.0, 10395.0);
+	// New West Hallway
+	cam.SetAABB(17, -30000.0, 2608.0, 43340.0, 44000.0);
+	cam.SetAABB(18, -28000.0, -27500.0, 40090.0, 43340.0);
 }
 
 //--------------------------------------------------------------------------------------

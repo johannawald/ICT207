@@ -11,6 +11,21 @@
 #include <math.h>
 #include <gl/glut.h>
 
+void Camera::SetAABB(const int tempIndex, 
+				const GLdouble MinX, const GLdouble MaxX, 
+				const GLdouble MinY, const GLdouble MaxY, 
+				const GLdouble MinZ, const GLdouble MaxZ) 
+{
+	m_colDetect.SetAABB(tempIndex, MaxX, MinX, MaxY, MinY, MaxZ, MinZ);
+}
+
+void Camera::SetAABB(const int tempIndex, 
+				const GLdouble MinX, const GLdouble MaxX, 
+				const GLdouble MinZ, const GLdouble MaxZ)
+{
+	m_colDetect.SetAABB(tempIndex, MaxX, MinX, MaxZ, MinZ);
+}
+
 //--------------------------------------------------------------------------------------
 // Set initial values
 //--------------------------------------------------------------------------------------
@@ -278,9 +293,8 @@ void Camera::SetPlains(const int & moveX, const int & moveZ)
 				
 				if ((m_plainNo != i) && m_plainHeight != m_Plain.GetYstart(i))
 				{
-					audio->playSound(asStep); //  stepSound->Play(); //*JW
+					audio->playSound(asStep); 
 				}
-
 
 				m_plainNo = i;
 				m_plainHeight = m_Plain.GetYstart(i);
@@ -474,10 +488,6 @@ void Camera::SetPlains (const int tempType,
 void Camera::CheckSteps()
 {
 
-	//ClimbSteps(10000.0, 9430.0, 48.0, 142.0, 4);
-	//ClimbSteps(8920.0, 8210.0, 48.0, 142.0, 5);
-	//ClimbSteps(7698.0, 6988.0, 48.0, 142.0, 5);
-	//ClimbSteps(6476.0, 5766.0, 48.0, 142.0, 5);
 }
 
 //----------------------------------------------------------------------------------------

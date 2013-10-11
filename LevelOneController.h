@@ -18,13 +18,11 @@
 #include <GL/glut.h>
 #include <time.h>
 
-#include <windows.h> // only used if mouse is required (not portable)
+#include <windows.h>
 #include "camera.h"
 #include "texturedPolygons.h"
-#include "Transition.h"
 #include "IStateController.h"
 #include "BasisController.h"
-
 
 class LevelOneController : public IStateController, BasisController
 {
@@ -48,21 +46,15 @@ private:
 
 	Camera cam; //ray, delete that after you inserted your camera movement
 	TexturedPolygons tp; //use the texturemanager! //ray, we don't need that if we implemented the texturemanager! 
-
-	void CheckNumberPad();
 public:
 			/**
-             * @brief Default constructor creates a new LevelOneController object.
-             *
-             * @param none
+             * @brief constructor creates a new LevelOneController object.
              */
 	LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm);
 	/**
              * @brief Destructor destroys LevelOneController object when it goes out of scope.
              * @param none
     */
-	virtual ~LevelOneController(void);
-
 	//shays code lol
 	void Init();
 	void Draw();
@@ -120,5 +112,4 @@ public:
 	// loads images and creates texture
 	void CreateTextures();
 	// creates bounding boxes for collsion detection
-	void CreateBoundingBoxes();
 };

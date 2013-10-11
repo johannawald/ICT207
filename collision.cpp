@@ -10,7 +10,7 @@
 
 //--------------------------------------------------------------------------------------
 //  Creates a linked list for each quadrant and then copies the bounding box data from
-//  AABB (array) to the required linked list.
+//  AABB (array) to the required linkedca list.
 //  I initially just created AABB, then decided to place the bounding box info into a list.
 //  I kept the array has it allows for the data to be copied into the list in any reuired 
 //  order.
@@ -72,7 +72,22 @@ void Collision::CreateLinkedList()
 	}
 	// Call AABB constructor the delete array and clear memory
 	// (the array AABB is not required once the lists have been created)
-	m_AABB.~AABB();
+	delete m_AABB;
+}
+
+void Collision::SetAABB(const int tempIndex, 
+				const double MaxX, const double MinX, 
+				const double MaxY, const double MinY,
+				const double MaxZ, const double MinZ) //*JW
+{
+	m_AABB->SetBBox(tempIndex, MinX, MaxX, MinY, MaxY, MinZ, MaxZ);
+}
+
+void Collision::SetAABB(const int tempIndex, 
+				const double MaxX, const double MinX, 
+				const double MaxZ, const double MinZ)
+{
+	m_AABB->SetBBox(tempIndex, MinX, MaxX, MinZ, MaxZ);
 }
 
 //--------------------------------------------------------------------------------------

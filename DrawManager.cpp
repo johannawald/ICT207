@@ -15,7 +15,7 @@ DrawManager::DrawManager() {
 DrawManager::~DrawManager() {
 }
 
-void DrawManager::RenderString(float x, float y, void *font, const char* str, unsigned r, unsigned g, unsigned b)
+void DrawManager::RenderString(const float x, const float y, void *font, const char* str, const unsigned r, const unsigned g, const unsigned b) const
 {
 	glPushAttrib(GL_CURRENT_BIT);
 		glBindTexture(GL_TEXTURE_2D, -1);
@@ -27,7 +27,7 @@ void DrawManager::RenderString(float x, float y, void *font, const char* str, un
 	glPopAttrib();
 }
 
-void DrawManager::DrawStairs(float stairWidth, float stairHeight, float stairDepth, float numSteps)
+void DrawManager::DrawStairs(const float stairWidth, const float stairHeight, const float stairDepth, const float numSteps) const
 {
 	//work out step dimensions
 	float stepHeight, stepDepth;
@@ -79,4 +79,23 @@ void DrawManager::DrawStairs(float stairWidth, float stairHeight, float stairDep
 			glTexCoord2f (0.0, 0.0);		glVertex3f(stairWidth, stairHeight, stairDepth);
 			glTexCoord2f (0.5, 0.0);		glVertex3f(0.0, stairHeight, stairDepth);
 		glEnd();
+}
+
+//everyone, not finished yet
+void DrawManager::DrawQuad(const GLint pTexture, 
+				const int TexCoordX, const int TexCoordY, 
+				const int pPositionX, const int pPositionY, const int pPositionZ, 
+				const GLdouble pWidth, const GLdouble pHeight) const
+{
+	glBindTexture(GL_TEXTURE_2D, pTexture);
+	glBegin(GL_QUADS);
+		glTexCoord2f (TexCoordX, TexCoordX);		
+		glVertex3f(0, 0, 0);
+		glTexCoord2f (0.0, TexCoordX);		
+		glVertex3f(0, 0, pWidth);
+		glTexCoord2f (0.0, 0.0);		
+		glVertex3f(pWidth, 0,	pWidth);
+		glTexCoord2f (TexCoordX, 0.0);		
+		glVertex3f(pWidth, 0, 0);
+	glEnd();
 }

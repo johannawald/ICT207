@@ -136,6 +136,7 @@
     <ClCompile Include="DrawManager.cpp" />
     <ClCompile Include="EasySound.cpp" />
     <ClCompile Include="GameController.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="LevelOneController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="AABB.H" />
     <ClInclude Include="AABBLinkedList.h" />
     <ClInclude Include="AABBNode.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="IAssetManager.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="BasisController.h" />

@@ -8,15 +8,18 @@ Transition::Transition(): Code("1337"), InsertedCode(""), state(tsVendingMachine
 
 }
 
-TransitionState Transition::getstate() {
+TransitionState Transition::getstate() const
+{
 	return state;
 }
 
-std::string Transition::getInsertedCode() {
+std::string Transition::getInsertedCode() const
+{
 	return InsertedCode;
 }
 
-int Transition::getAnimationFrame() {
+int Transition::getAnimationFrame() const
+{
 	return AnimationFrame;
 }
 
@@ -103,18 +106,21 @@ void Transition::CheckMousePosition(int x, int y, int width, int height)
 	}	  
 }
 
-bool Transition::IsCorrectCode() { 
+bool Transition::IsCorrectCode() const
+{ 
 	return InsertedCode == Code;
 }
 
-bool Transition::IsCodeStartedCorrect() { 
+bool Transition::IsCodeStartedCorrect() const
+{ 
 	if (InsertedCode.length() > Code.length())
 		return false;
 	else 
 		return Code.substr(0,InsertedCode.length()) == InsertedCode; 
 }
 
-bool Transition::IsPlayMechanicSound() { 
+bool Transition::IsPlayMechanicSound() const
+{ 
 	return AnimationFrame==0;
 } 
 

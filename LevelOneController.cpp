@@ -20,9 +20,6 @@ LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, Textu
 	//(images are loaded over and over again, if you enter the level / shay's world)
 
 	Init();
-	
-	// creates bounding boxes and places in array
-	CreateBoundingBoxes();
 	// copies bounding boxes from array to linked lists (one fopr each quadrant)
 	cam.InitiateBoundingBoxes();
 	
@@ -30,9 +27,6 @@ LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, Textu
 	CreateTextures();
 	loaded = true;	
 
-}
-
-LevelOneController::~LevelOneController() {
 }
 
 //--------------------------------------------------------------------------------------
@@ -70,7 +64,6 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 	{
 		// check for movement
 		cam.CheckCamera();
-		//ansition.CheckNumberpad();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// DISPLAY TEXTURES
@@ -268,29 +261,14 @@ void LevelOneController::PassiveMotion(int x, int y) //mouseMove
 //--------------------------------------------------------------------------------------
 // Set up bounding boxes for collsion detection
 //--------------------------------------------------------------------------------------
-void LevelOneController::CreateBoundingBoxes()
+/*	void LevelOneController::CreateBoundingBoxes()
 {
 	//outer level walls - needs more work, can escape in the corners!
-	cam.SetAABBMinX(0, -100);
-	cam.SetAABBMaxX(0, 0);
-	cam.SetAABBMinZ(0, 0);
-	cam.SetAABBMaxZ(0, 5000);
-
-	cam.SetAABBMinX(1, 5000);
-	cam.SetAABBMaxX(1, 5100);
-	cam.SetAABBMinZ(1, 0);
-	cam.SetAABBMaxZ(1, 5000);
-
-	cam.SetAABBMinX(2, 0);
-	cam.SetAABBMaxX(2, 5000);
-	cam.SetAABBMinZ(2, -100);
-	cam.SetAABBMaxZ(2, 0);
-
-	cam.SetAABBMinX(3, 0);
-	cam.SetAABBMaxX(3, 5000);
-	cam.SetAABBMinZ(3, 5000);
-	cam.SetAABBMaxZ(3, 5100);
-}
+	cam.SetAABB(0, -100, 0, 0, 0, 0, 5000);
+	cam.SetAABB(1, 5000, 5100, 0, 0, 0, 5000);
+	cam.SetAABB(2, 0, 5000, 0, 0, -100, 0);
+	cam.SetAABB(3, 0, 5000, 0, 0, 5000, 5100);
+}*/
 
 //--------------------------------------------------------------------------------------
 // Load and Create Textures
@@ -344,7 +322,6 @@ void LevelOneController::CreateTextures() //ray, we don't need that if we implem
 //--------------------------------------------------------------------------------------
 void LevelOneController::DrawObjects() 
 {
-
 	glPushMatrix();
 		glTranslatef(2000, 0, 3500);
 		glScalef(0.75, 1.0, 0.75);
@@ -412,7 +389,7 @@ void LevelOneController::Draw3DModels()
 	glPushMatrix();
 		glTranslatef(500, 0, -4450);
 		glScalef(0.5, 1, 1);	
-		GetModel()->drawModel(mLadder, tp.GetTexture(RUSTYWALL)); //*JW
+		GetModel()->drawModel(mLadder, tp.GetTexture(RUSTYWALL));
 	glPopMatrix();
 }
 
@@ -644,7 +621,7 @@ void LevelOneController::DrawArchitecture()
 		glEnd();
 
 	 //stairs
-	DrawManager drawMan; //jak, we should not create the drawmanager in the draw function! use the drawmanager provided in the base class!
+	DrawManager drawMan; //jon, we should not create the drawmanager in the draw function! use the drawmanager provided in the base class!
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
 
 	glPushMatrix();
@@ -757,7 +734,7 @@ void LevelOneController::DrawControlRoom()
 		glTexCoord2f(1.0, 0.0);			glVertex3f(700, 1000, -4000);
 	glEnd();
 	
-	DrawManager drawMan; //jak, don't create that object over and over again!
+	DrawManager drawMan; //jon, don't create that object over and over again!
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
 	glPushMatrix();
 		glTranslatef(700, 0, -4000);

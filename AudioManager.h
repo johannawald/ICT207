@@ -13,7 +13,8 @@
 
 #include "IAssetManager.h"
 
-enum eSounds { asStep, asMetalicCrash, asIncorrectCode, AUDIOSOUNDS_SIZE };
+enum eSounds { asStep, asMetalicCrash, asIncorrectCode, asBGMusicGamePlay,
+				AUDIOSOUNDS_SIZE };
 
 class CSound;
 class CEasySound;

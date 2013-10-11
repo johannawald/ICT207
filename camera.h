@@ -4,6 +4,7 @@
 //	Also sets Plains, Bounding Boxes and view Maps
 //
 //  Shay Leary, March 2005
+// johanna, changed it!
 //--------------------------------------------------------------------------------------
 #ifndef CAMERA_H
 #define CAMERA_H
@@ -37,12 +38,22 @@ public:
 	//  Set Methods
 	//----------------------------------------------------------------------------------
 	// sets initial value for bounding boxes (in the array AABB)
-	void SetAABBMaxX(const int & tempIndex, const GLdouble &tempX) {m_colDetect.SetAABBMaxX(tempIndex, tempX);}
+	void SetAABB(const int tempIndex, 
+				const GLdouble MinX, const GLdouble MaxX, 
+				const GLdouble MinY, const GLdouble MaxY, 
+				const GLdouble MinZ, const GLdouble MaxZ);
+
+	void SetAABB(const int tempIndex, 
+				const GLdouble MinX, const GLdouble MaxX, 
+				const GLdouble MinZ, const GLdouble MaxZ);
+
+	/*{
+		m_colDetect.SetAABBMaxX(tempIndex, tempX);}
 	void SetAABBMinX(const int & tempIndex, const GLdouble &tempX) {m_colDetect.SetAABBMinX(tempIndex, tempX);}
 	void SetAABBMaxY(const int & tempIndex, const GLdouble &tempY) {m_colDetect.SetAABBMaxY(tempIndex, tempY);}
 	void SetAABBMinY(const int & tempIndex, const GLdouble &tempY) {m_colDetect.SetAABBMinY(tempIndex, tempY);}
 	void SetAABBMaxZ(const int & tempIndex, const GLdouble &tempZ) {m_colDetect.SetAABBMaxZ(tempIndex, tempZ);}
-	void SetAABBMinZ(const int & tempIndex, const GLdouble &tempZ) {m_colDetect.SetAABBMinZ(tempIndex, tempZ);}
+	void SetAABBMinZ(const int & tempIndex, const GLdouble &tempZ) {m_colDetect.SetAABBMinZ(tempIndex, tempZ);}*/
 
 	// set step and rotation size
 	void SetRotateSpeed (const GLdouble &tempSpeed) {m_rotateSpeed = tempSpeed;}
@@ -63,6 +74,10 @@ public:
 	void SetPlains (const int tempType,
 				    const GLdouble tempXs, const GLdouble tempXe,
 				    const GLdouble tempYs, const GLdouble tempYe,
+				    const GLdouble tempZs, const GLdouble tempZe);
+
+	void SetPlains (const int tempType,
+				    const GLdouble tempXs, const GLdouble tempXe,
 				    const GLdouble tempZs, const GLdouble tempZe);
 
 	//----------------------------------------------------------------------------------
@@ -167,16 +182,6 @@ private:
 	// The Plain object is used instead
 	void ClimbSteps(GLdouble stepStart, GLdouble stepFinish, GLdouble stepHeight, GLdouble stepWidth, int noSteps);
 	void CheckSteps();
-
-	/*CEasySound *es;
-	CSound* stepSound;
-	CSound* mechanicSound; // not the right position! //*JW
-	*/
-	//----------------------------------------------------------------------------------
-
-    // Privatised copy constructor and assignment operator
-    Camera (const Camera &cam) {};
-    Camera &operator = (const Camera &cam) {};
 };
 
 #endif

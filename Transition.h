@@ -32,20 +32,20 @@ public:
         * @param none
 		* @return TransitionState - current transition state
 	*/
-	TransitionState getstate();
+	TransitionState getstate() const;
 	/**
 		* @brief get-function for the private InsertedCode member variable
         * @param none
 		* @return std::string - the inserted code for the vending machine
 	*/
-	std::string getInsertedCode();
+	std::string getInsertedCode() const;
 	/**
 		* @brief get-function for the private AnimationFrame member variable
 		* It represents the Frame-Count since the Transition started
         * @param none
 		* @return int - returns the value of the member variable "AnimationFrame"s
 	*/
-	int getAnimationFrame();
+	int getAnimationFrame() const;
 	/**
 		* @brief Set-function for the state member variable
         * @param TransitionState
@@ -64,19 +64,19 @@ public:
         * @param none
 		* @return bool - true, if the code is correct
 	*/
-	bool IsCorrectCode();
+	bool IsCorrectCode() const;
 	/**
 		* @brief Returns true, if the user input starts correct
         * @param none
 		* @return bool - true, if the beginning of the code is correct, but some digits are missing
 	*/
-	bool IsCodeStartedCorrect();
+	bool IsCodeStartedCorrect() const;
 	/**
 		* @brief Returns true, if the animation of the just started (AnimationFrame is 0)
         * @param none
 		* @return bool - true, if the animation of the just started
 	*/
-	bool IsPlayMechanicSound();
+	bool IsPlayMechanicSound() const;
 	/**
 		* @brief Handles the Mouse input especially if the user 
 		* clicks on the buttons on the numberpad of the vending machine

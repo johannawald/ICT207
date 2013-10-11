@@ -22,7 +22,6 @@ void ModelManager::init()
 	Models[3]->load("data/ladder.obj");
 	Models[4]->load("data/box.obj");
 	Models[5]->load("data/button.obj");
-
 }
 
 void ModelManager::reload()
@@ -44,4 +43,5 @@ void ModelManager::drawModel(const eModels model, const GLuint texture) const
 void ModelManager::clearMemory()
 {
 	//work in progress
+	//delete Models[5]; ?
 }

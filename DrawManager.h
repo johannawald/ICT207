@@ -38,7 +38,11 @@ public:
 		* @param unsigned b - default parameter, the blue part of the rgb-color the text should have
 		* @return void
     */
-	void RenderString(float x, float y, void *font, const char* str, unsigned r = 0, unsigned g = 0, unsigned b = 0);
-	void DrawStairs(float stairWidth, float stairHeight, float stairDepth, float numSteps);
+	void RenderString(const float x, const float y, void *font, const char* str, const unsigned r = 0, const unsigned g = 0, const unsigned b = 0) const;
+	void DrawStairs(const float stairWidth, const float stairHeight, const float stairDepth, const float numSteps) const;
+	void DrawQuad(const GLint pTexture, 
+				const int TexCoordX, const int TexCoordY, 
+				const int pPositionX, const int pPositionY, const int pPositionZ, 
+				const GLdouble pWidth, const GLdouble pHeight) const; //everyone, is not working yet!
+	//void DrawCollisionQuad(); //calles DrawQuad and creates a collision box for it
 };
-	
