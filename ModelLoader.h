@@ -29,7 +29,7 @@
 using namespace std;
 
 //--------------------------------------------------------------------------------------
-// Data Structures
+// FData Structures
 
 	/*
 	 * @struct Vector

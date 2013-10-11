@@ -16,12 +16,12 @@ void ModelManager::init()
 	for (int i = 0; i < MODELS_SIZE; i++) 
 		Models[i] = new ModelLoader;
 
-	Models[0]->load("data/advertisement.obj");
-	Models[1]->load("data/4x1platform.obj");
-	Models[2]->load("data/console.obj");
-	Models[3]->load("data/ladder.obj");
-	Models[4]->load("data/box.obj");
-	Models[5]->load("data/button.obj");
+	Models[0]->load("models/advertisement.obj");
+	Models[1]->load("models/4x1platform.obj");
+	Models[2]->load("models/console.obj");
+	Models[3]->load("models/ladder.obj");
+	Models[4]->load("models/box.obj");
+	Models[5]->load("models/button.obj");
 }
 
 void ModelManager::reload()
