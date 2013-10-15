@@ -95,6 +95,7 @@ public:
 	void				SetMipMapping(GLboolean fEnabled);
 	void				SetTextureFilter(eglTexFilterType type);
 
+	GLubyte*			LoadTexture(char* filename, int imgWidth, int imgHeight); //*JW
 	int					LoadTextureFromDisk(char *szFileName, glTexture *pglTexture);
 	int					LoadTextureFromRam(unsigned char *pData, int Length, glTexture *pglTexture, eglTexType TexType);
 	int					LoadTextureFromResource(unsigned int ResourceName, char *pResourceType, glTexture *pglTexture, eglTexType TexType);

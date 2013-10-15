@@ -34,7 +34,7 @@ GLubyte* TexturedPolygons::LoadRawImageFile(char* filename, int width, int heigh
 	// create memory space w x h x 3 (3 stores RGB values)
 	image = (unsigned char*)malloc(sizeof(unsigned char) * width * height * 3);
 	file = fopen(filename, "rb" );
-	// exit program if image not found and inform user
+	// exit program if image not found and inform usre
 	if (file == NULL)
 	{
 		std::cout << "ERROR loading image file: " << filename << "...\n";

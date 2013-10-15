@@ -38,7 +38,7 @@
 ****************************************************************************/
 
 #include "TextureLoader.h"											// Our Header
-
+#include <iostream> //*JW
 
 // Constructor
 //
@@ -102,6 +102,28 @@ void TextureLoader::SetTextureFilter(eglTexFilterType type)
 	m_TextureFilterType = type;
 }
 
+GLubyte* TextureLoader::LoadTexture(char* filename, int imgWidth, int imgHeight) //raw!!
+{
+	//
+	unsigned char* image = NULL;
+
+	FILE* file;
+	// create memory space w x h x 3 (3 stores RGB values)
+	image = (unsigned char*)malloc(sizeof(unsigned char) * imgWidth * imgHeight * 3);
+	file = fopen(filename, "rb" );
+	// exit program if image not found and inform user
+	if (file == NULL)
+	{
+		std::cout << "ERROR loading image file: " << filename << "...\n";
+		exit(0);
+	}
+	fread(image, imgWidth * imgHeight * 3, 1, file);
+	fclose(file);
+
+	// inform user if file loaded
+	std::cout << "Loading image file " << filename << "...\n";
+	return image;
+}
 
 // Load A Texture from Disk (based on the current location of the executable)
 //

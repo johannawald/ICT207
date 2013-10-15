@@ -379,6 +379,11 @@ void BushCourtController::PassiveMotion(int x, int y) //mouseMove
 	transition.CheckMousePosition(x,y, width, height);
 }
 
+void BushCourtController::MouseMotion(int x, int y)
+{
+
+}
+
 //--------------------------------------------------------------------------------------
 // Set up bounding boxes for collsion detection
 //--------------------------------------------------------------------------------------
@@ -4477,10 +4482,6 @@ void BushCourtController::DisplayGrass ()
 
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(GRASS_2));
 	glCallList(198);
-	
-	// USED IF REQUIRED DARKER HILL
-	//glBindTexture(GL_TEXTURE_2D, tp.GetTexture(GRASS_HILL));
-	//for (int i = 461; i < 477; i++) glCallList(i);
 }
 
 void BushCourtController::DrawGrass ()
@@ -4568,7 +4569,7 @@ void BushCourtController::DrawGrass ()
 void BushCourtController::DisplayLights ()
 {
 	// Light Fitting
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(LIGHT));
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(tAdOreo)); //tp.GetTexture(LIGHT));
 	GLdouble beamstep = 0.0;
 	for (int i = 0; i < 4; i++)
 	{
@@ -4599,7 +4600,7 @@ void BushCourtController::DisplayLights ()
 	beamstep = 0.0;
 	for (int i = 0; i < 4; i++)
 	{
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(LIGHT_SUPPORT_2));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(tAdOreo)); //tp.GetTexture(LIGHT_SUPPORT_2));
 		step = -40.0;
 		for (int k = 0; k < 2; k++)
 		{
@@ -4618,7 +4619,7 @@ void BushCourtController::DisplayLights ()
 			step += 64.0;
 		}
 
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(LIGHT_SUPPORT));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(tAdOreo)); //tp.GetTexture(LIGHT_SUPPORT));
 		step = -40.0;
 		for (int k = 0; k < 2; k++)
 		{

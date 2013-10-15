@@ -13,16 +13,23 @@
 
 #include "IAssetManager.h"
 #include <GL/freeglut.h>
-#include "TextureLoader.h"
+//#include "TextureLoader.h"
+#include "include\SOIL.h"
 
-enum eTextures { tAdOreo, taAdOreo_Text, 
+//ray, should we do that with a map?
+
+enum eTextures { tAdOreo, 
+				 taSomeTexture,
+				 taAdOreo_Text, 
+				 taGrass, taGrass2, tatext,
+				 taWelcome,
 				 TEXTURE_SIZE };
 
 class TextureManager: public IAssetManager {
 private:
 	//change that later to a better image loader
-	TextureLoader* tl;
-	glTexture Textures[TEXTURE_SIZE]; 	
+	//TextureLoader* tl;
+	GLuint Textures[TEXTURE_SIZE]; 	
 public:	
 	TextureManager();
 	~TextureManager();	

@@ -117,7 +117,13 @@ public:
 		 * @param int y - the y position of the mouse
          */
 	void PassiveMotion(int x, int y);
-
+		/**
+         * @brief Calls the MouseMotion() function of the appropriate State.
+		 *
+		 * @param int x - the x position of the mouse 
+		 * @param int y - the y position of the mouse
+         */
+	void MouseMotion(int x, int y);
 		/**
          * @brief Calls the Reshape() function of the appropriate State.
 		 *

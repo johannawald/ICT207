@@ -248,6 +248,7 @@ void LevelOneController::KeyboardUp(unsigned char key, int x, int y)
 void LevelOneController::Mouse(int button, int state, int x, int y)
 {
 
+
 }
 
 //--------------------------------------------------------------------------------------
@@ -255,6 +256,10 @@ void LevelOneController::Mouse(int button, int state, int x, int y)
 //  Can be used to rotate around screen using mouse, but keyboard used instead
 //--------------------------------------------------------------------------------------
 void LevelOneController::PassiveMotion(int x, int y) //mouseMove
+{
+}
+
+void LevelOneController::MouseMotion(int x, int y)
 {
 }
 
@@ -273,7 +278,7 @@ void LevelOneController::PassiveMotion(int x, int y) //mouseMove
 //--------------------------------------------------------------------------------------
 // Load and Create Textures
 //--------------------------------------------------------------------------------------
-void LevelOneController::CreateTextures() //ray, we don't need that if we implemented the texturemanager! 
+void LevelOneController::CreateTextures() //ray, we don't need that if we implemented the texturemanager, because all the texture should be loaded in the texturemanager
 {
 	glEnable(GL_DEPTH_TEST);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -352,7 +357,7 @@ void LevelOneController::DrawObjects()
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOMB));
 		glPushMatrix();
 		glTranslatef(750, 500, 4250);
-		GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
+		GetModel()->drawModel(mButton, tp.GetTexture(BUTTON)); //ray, jon, don't do it like this!
 	glPopMatrix();
 }
 
@@ -365,31 +370,31 @@ void LevelOneController::Draw3DModels()
 	glPushMatrix();
 		glTranslatef(4250, 0, 2500);
 		glRotatef(90, 0, 1, 0);
-		GetModel()->drawModel(m4x1platform, tp.GetTexture(PLATFORM4X1)); //*JW
+		GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
 	glPopMatrix();
 
 	glPushMatrix();
 		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PLATFORM4X1));
 		glTranslatef(2500, 0, 4250);
-		GetModel()->drawModel(m4x1platform, tp.GetTexture(PLATFORM4X1)); //*JW
+		GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(2250, 450, 1500);
 		glRotatef(90, 0, 1, 0);
-		GetModel()->drawModel(m4x1platform, tp.GetTexture(PLATFORM4X1)); //*JW
+		GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(500, 0, -1250);
 		glRotatef(180, 0, 1, 0);
-		GetModel()->drawModel(mConsole, tp.GetTexture(CONSOLE)); //*JW
+		GetModel()->drawModel(mConsole, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONSOLE)); //*JW
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(500, 0, -4450);
 		glScalef(0.5, 1, 1);	
-		GetModel()->drawModel(mLadder, tp.GetTexture(RUSTYWALL));
+		GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(RUSTYWALL));
 	glPopMatrix();
 }
 
@@ -399,7 +404,7 @@ void LevelOneController::Draw3DModels()
 void LevelOneController::DrawOuterWalls()
 {
 		//floor
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
+		glBindTexture(GL_TEXTURE_2D,GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEFLOOR));
 		glBegin(GL_QUADS);
 			glTexCoord2f (5.0, 5.0);		glVertex3f(0, 0, 0);
 			glTexCoord2f (0.0, 5.0);		glVertex3f(0, 0, 5000);
@@ -408,7 +413,7 @@ void LevelOneController::DrawOuterWalls()
 		glEnd();
 
 		//ceiling
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(TILEFLOOR));
 		glBegin(GL_QUADS);
 			glTexCoord2f (5.0, 5.0);		glVertex3f(0, 2000,	0);
 			glTexCoord2f (0.0, 5.0);		glVertex3f(0, 2000, 5000);
@@ -417,7 +422,7 @@ void LevelOneController::DrawOuterWalls()
 		glEnd();
 
 		//walls
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEWALL));
 		glBegin(GL_QUADS);
 			glTexCoord2f (10.0, 1.0);		glVertex3f(0, 0, 0);
 			glTexCoord2f (0.0, 1.0);		glVertex3f(0, 0, 5000);
@@ -447,7 +452,7 @@ void LevelOneController::DrawOuterWalls()
 		glEnd();
 
 		//2nd story walls
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
 			glTexCoord2f (10.0, 1.0);		glVertex3f(0, 1000, 0);
 			glTexCoord2f (0.0, 1.0);		glVertex3f(0, 1000, 5000);
@@ -484,7 +489,7 @@ void LevelOneController::DrawArchitecture()
 {
 
 		//solid platform tops
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(TILEFLOOR));
 		glBegin(GL_QUADS);
 			glTexCoord2f (1.5, 1.5);		glVertex3f(0, 500, 0);
 			glTexCoord2f (0.0, 1.5);		glVertex3f(0, 500, 1500);
@@ -517,7 +522,7 @@ void LevelOneController::DrawArchitecture()
 		glEnd();
 
 		//platform sides
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
 			glTexCoord2f (4.0, 0.25);		glVertex3f(1500, 0, 500);
 			glTexCoord2f (0.0, 0.25);		glVertex3f(3500, 0, 500);
@@ -573,7 +578,7 @@ void LevelOneController::DrawArchitecture()
 		glEnd();
 
 		//high inside walls - lowersection
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
 			glTexCoord2f (1.0, 4.0);		glVertex3f(1500, 500, 0);
 			glTexCoord2f (0.0, 4.0);		glVertex3f(1500, 500, 500);
@@ -594,7 +599,7 @@ void LevelOneController::DrawArchitecture()
 		glEnd();
 
 		//high inside walls - uppersection
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
 			glTexCoord2f (1.0, 4.0);		glVertex3f(1500, 0, 1000);
 			glTexCoord2f (0.0, 4.0);		glVertex3f(1500, 0, 2000);
@@ -622,7 +627,7 @@ void LevelOneController::DrawArchitecture()
 
 	 //stairs
 	DrawManager drawMan; //jon, we should not create the drawmanager in the draw function! use the drawmanager provided in the base class!
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEFLOOR));
 
 	glPushMatrix();
 		glTranslatef(0, 0, 2000);
@@ -655,7 +660,7 @@ void LevelOneController::DrawArchitecture()
 void LevelOneController::DrawControlRoom()
 {
 
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
+	glBindTexture(GL_TEXTURE_2D,GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEFLOOR));
 	//floor
 	glBegin(GL_QUADS);
 		glTexCoord2f (1.0, 1.0);		glVertex3f(0, 0, -4000);
@@ -682,7 +687,7 @@ void LevelOneController::DrawControlRoom()
 		glTexCoord2f (0.25, 0.0);		glVertex3f(700, 1000, -4000);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
 	glBegin(GL_QUADS);
 		glTexCoord2f(1.0, 1.0);			glVertex3f(0, 0, -4000);
 		glTexCoord2f(0.0, 1.0);			glVertex3f(0, 0, -1000);
@@ -735,7 +740,7 @@ void LevelOneController::DrawControlRoom()
 	glEnd();
 	
 	DrawManager drawMan; //jon, don't create that object over and over again!
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(TILEFLOOR));
 	glPushMatrix();
 		glTranslatef(700, 0, -4000);
 		glRotatef(180, 0, 1, 0);

@@ -55,7 +55,11 @@ public:
 	*/	
 	virtual void PassiveMotion(int x, int y) = 0;
 	/**
+		* @brief abstract, virtual MouseMotion function for the state
+	*/
+	virtual void MouseMotion(int x, int y) = 0;
+	/**
 		* @brief abstract, virtual Reshape function for the state
-	*/	
+	*/
 	virtual void Reshape(int w, int h) = 0;
 };

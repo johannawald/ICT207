@@ -4,6 +4,10 @@
 
 BasisController::BasisController(AudioManager* audiomanager, ModelManager* modelmanager, TextureManager* texturemanager): audio(audiomanager), model(modelmanager), texture(texturemanager)
 {	
+	/*audio = audiomanager;
+	model = modelmanager;
+	texture = texturemanager;*/
+
 	drawmanager = new DrawManager();
 }
 

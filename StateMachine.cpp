@@ -99,6 +99,11 @@ void StateMachine::PassiveMotion(int x, int y)
 	StateMachine::state->PassiveMotion(x,y);
 }
 
+void StateMachine::MouseMotion(int x, int y)
+{
+	StateMachine::state->MouseMotion(x,y);
+}
+
 void StateMachine::Reshape(int w, int h)
 {	
 	StateMachine::state->Reshape(w,h);

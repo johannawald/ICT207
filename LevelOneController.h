@@ -27,6 +27,7 @@
 class LevelOneController : public IStateController, BasisController
 {
 private:
+	
 	bool insertedLevel;
 	bool loaded; 
 	
@@ -67,6 +68,7 @@ public:
 	void Keyboard(unsigned char key, int x, int y);
 	void Mouse(int button, int state, int x, int y);
 	void PassiveMotion(int x, int y);
+	void MouseMotion(int x, int y);
 
 			/**
              * @brief Draws the containing walls of the level

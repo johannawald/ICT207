@@ -10,6 +10,7 @@ void KeyboardUp(unsigned char key, int x, int y);
 void Keyboard(unsigned char key, int x, int y);
 void Display();
 void Mouse(int button, int state, int x, int y);
+void MouseMotion(int x, int y);
 void PassiveMotion(int x, int y);
 void Reshape(int w, int h);
 
@@ -37,6 +38,7 @@ int main(int argc, char **argv)
 	glutIdleFunc(Display);
 	glutMouseFunc(Mouse);
 	glutPassiveMotionFunc(PassiveMotion);
+	glutMotionFunc(MouseMotion);
 	glutReshapeFunc(Reshape);
 	glutMainLoop();
 	return(0);
@@ -80,6 +82,11 @@ void Mouse(int button, int state, int x, int y)
 void PassiveMotion(int x, int y)
 {
 	StateMachine::getInstance()->PassiveMotion(x, y);
+}
+
+void MouseMotion(int x, int y)
+{
+	StateMachine::getInstance()->MouseMotion(x, y);
 }
 
 void Reshape(int w, int h) 
