@@ -34,9 +34,9 @@ LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, Textu
 	camZpos = 0.0; 
 	camXrot = 0.0; 
 	camYrot = 0.0;
-	camRadius = 1000.0f;
+	camRadius = 500.0f;
 	camMaxAngle = 35.0;
-	camMinAngle = -20.0;
+	camMinAngle = 0.0;
 	camYrotrad;
 	camXrotrad;
 	camMouseClicked = false;
@@ -60,6 +60,7 @@ void LevelOneController::Init()
 	//	      0.0, 1.75, -1,
 	//		  0.0f,1.0f,0.0f);
 
+	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 	Reshape();
 }
 
@@ -84,13 +85,13 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 		//control the camera
 		glLoadIdentity();
 		
-		glTranslatef(0.0f, -500.0f, -camRadius);
+		glTranslatef(0.0f, -100.0f, -camRadius);
 		glRotatef(camXrot,1.0,0.0,0.0);
 
 		glPushMatrix();
 			glRotatef(90, 1, 0, 0);
 			glColor3f(1.0f, 0.0f, 0.0f);
-			glutSolidSphere(300, 12, 12); //Our character to follow
+			glutSolidSphere(100, 12, 12); //Our character to follow
 		glPopMatrix();
     
 		glRotatef(camYrot,0.0,1.0,0.0);  //rotate our camera on the y-axis (up and down)
@@ -101,6 +102,7 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 		//enable texture mapping
 		glEnable (GL_TEXTURE_2D);
 		glPushMatrix();
+			glTranslatef(-500.0, -250.0, 3000.0); //translate camera starting position
 			// displays the exit screen
 			DrawControlRoom();
 			DrawOuterWalls();
@@ -120,8 +122,10 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 
 void LevelOneController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!)
 { 
-	if ((camXpos > 400) && (camXpos < 700) && (camZpos < -4300) && (camZpos > -4500)) 
-		StateMachine::setBushCourtController();
+	//NEED TO CHANGE TO DETECT TRANSITION LOCATION - use collision?
+	//if ((camXpos > 400) && (camXpos < 700) && (camZpos < -4300) && (camZpos > -4500)) 
+	//	StateMachine::setBushCourtController();
+	
 	//if ((cam.GetLR() > 400) && (cam.GetLR() < 700) && (cam.GetFB() < -4300) && (cam.GetFB() > -4500)) 
 	//	StateMachine::setBushCourtController();
 	//else if ((cam.GetFB() > -2000) && (!insertedLevel)) {
@@ -245,12 +249,12 @@ void LevelOneController::Mouse(int button, int state, int x, int y)
 		camMouseClicked = (state == GLUT_DOWN);
 		if(state == GLUT_DOWN)
 		{
-			ShowCursor(FALSE);
+			glutSetCursor(GLUT_CURSOR_NONE);
 		}
 		else
 		{
 			glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH)/2, glutGet(GLUT_WINDOW_HEIGHT)/2); //rest the mouse point to center of window
-			ShowCursor(TRUE);
+			glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 		}
 	}
 }
