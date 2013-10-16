@@ -57,4 +57,8 @@ public:
 		* @return GLuint - the Texture ID, you can pass to the BindTexture()-function
 	*/
 	GLuint getTextureID(const eTextures texture) const;
+	/**
+		*** comment missing
+	*/	
+	GLuint Loadimage(const char* filename);
 };
