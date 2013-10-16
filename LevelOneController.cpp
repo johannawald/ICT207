@@ -41,12 +41,18 @@ LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, Textu
 	camXrotrad;
 	camMouseClicked = false;
 	camKeyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)
+	camSpecialKeyStates = new bool[4];
 	camLastx = glutGet(GLUT_WINDOW_WIDTH)/2; 
 	camLasty = glutGet(GLUT_WINDOW_HEIGHT)/2;
 
 	for(int i=0; i<256; i++)
 	{
 		camKeyStates[i] = false;
+	}
+
+	for(int i=0; i<4; i++)
+	{
+		camSpecialKeyStates[i] = false;
 	}
 }
 
@@ -60,7 +66,7 @@ void LevelOneController::Init()
 	//	      0.0, 1.75, -1,
 	//		  0.0f,1.0f,0.0f);
 
-	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+	glutIgnoreKeyRepeat(0);
 	Reshape();
 }
 
@@ -75,11 +81,9 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
 		Enable();
 
-		// check for movement
 		//RF READ CAMERA CONTROLS
+		// check for movement
 		KeyOperations();
-		//glClearColor (0.0,0.0,0.0,1.0); //clear the screen to black
-		//glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
 
 		//RF: CAMERA
 		//control the camera
@@ -94,7 +98,7 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 			glutSolidSphere(100, 12, 12); //Our character to follow
 		glPopMatrix();
     
-		glRotatef(camYrot,0.0,1.0,0.0);  //rotate our camera on the y-axis (up and down)
+		glRotatef(camYrot,0.0,1.0,0.0);  //rotate the camera on the y-axis (up and down)
 		glTranslated(-camXpos,0.0f,-camZpos); //translate the screen to the position of our camera
 		glColor3f(1.0f, 1.0f, 1.0f);
 
@@ -102,6 +106,7 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 		//enable texture mapping
 		glEnable (GL_TEXTURE_2D);
 		glPushMatrix();
+			glRotatef(180, 0.0, 1.0, 0.0); //rotate camera 180 degrees
 			glTranslatef(-500.0, -250.0, 3000.0); //translate camera starting position
 			// displays the exit screen
 			DrawControlRoom();
@@ -161,13 +166,47 @@ void LevelOneController::Reshape(int w, int h)
 //--------------------------------------------------------------------------------------
 void LevelOneController::SpecialKey(int key, int x, int y) 
 {
+	switch (key)
+	{
+		case GLUT_KEY_LEFT :
+			camSpecialKeyStates[0] = true;
+			break;
 
+		case GLUT_KEY_RIGHT :
+			camSpecialKeyStates[1] = true;
+			break;
+
+		case GLUT_KEY_UP : 
+			camSpecialKeyStates[2] = true;
+			break;
+
+		case GLUT_KEY_DOWN : 
+			camSpecialKeyStates[3] = true;
+			break;
+	}
 }
 
 //---------------------------------------------------------
 void LevelOneController::SpecialKeyUp(int key, int x, int y) 
 {
+	switch (key)
+	{
+		case GLUT_KEY_LEFT :
+			camSpecialKeyStates[0] = false;
+			break;
 
+		case GLUT_KEY_RIGHT :
+			camSpecialKeyStates[1] = false;
+			break;
+
+		case GLUT_KEY_UP : 
+			camSpecialKeyStates[2] = false;
+			break;
+
+		case GLUT_KEY_DOWN : 
+			camSpecialKeyStates[3] = false;
+			break;
+	}
 }
 
 //--------------------------------------------------------------------------------------
@@ -865,5 +904,33 @@ void LevelOneController::KeyOperations(void)
 	if(camKeyStates['d'])
 	{
 		camYrot += 1.0f;
+	}
+
+	if(camSpecialKeyStates[0])
+	{
+		camYrot += -1.0f;
+	}
+
+	if(camSpecialKeyStates[1])
+	{
+		camYrot += 1.0f;
+	}
+
+	if(camSpecialKeyStates[2])
+	{
+		camYrotrad = (camYrot / 180 * 3.141592654f);
+		camXrotrad = (camXrot / 180 * 3.141592654f); 
+		camXpos += float(sin(camYrotrad)) * camSpeed;
+		camZpos -= float(cos(camYrotrad)) * camSpeed;
+		camYpos -= float(sin(camXrotrad)) * camSpeed;
+	}
+
+	if(camSpecialKeyStates[3])
+	{
+		camYrotrad = (camYrot / 180 * 3.141592654f);
+		camXrotrad = (camXrot / 180 * 3.141592654f); 
+		camXpos -= float(sin(camYrotrad)) * camSpeed;
+		camZpos += float(cos(camYrotrad)) * camSpeed;
+		camYpos += float(sin(camXrotrad)) * camSpeed;
 	}
 }

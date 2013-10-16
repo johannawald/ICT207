@@ -71,8 +71,9 @@ private:
 	int camDiffx;
 	float camYrotrad;
 	float camXrotrad;
-	bool camMouseClicked; //= false;
-	bool* camKeyStates; //= new bool[256]; // Create an array of boolean values of length 256 (0-255)
+	bool camMouseClicked;
+	bool* camKeyStates; 
+	bool* camSpecialKeyStates;
 
 public:
 			/**
