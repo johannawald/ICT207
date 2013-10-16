@@ -9,17 +9,19 @@
  * @author Jon Mace
  * @version 01
  * @date 20/09/2013 Jon Mace - Version1
+ * @date 16/10/2013 Raymond Forster - Version2: Added 3rd Person Camera
  */
 
 #pragma once
 
+#include <Windows.h>
+#include <GL/gl.h>
+#include <GL/glut.h>
 #include <cstdlib>
 #include <math.h>
-#include <GL/glut.h>
 #include <time.h>
 
-#include <windows.h>
-#include "camera.h"
+//#include "camera.h"
 #include "texturedPolygons.h"
 #include "IStateController.h"
 #include "BasisController.h"
@@ -45,17 +47,42 @@ private:
 	// screen width and height
 	int width, height;
 
-	Camera cam; //ray, delete that after you inserted your camera movement
+	//Camera cam; //ray, delete that after you inserted your camera movement
 	TexturedPolygons tp; //use the texturemanager! //ray, we don't need that if we implemented the texturemanager! 
+
+	// camera data members
+	float camSpeed;
+	// angle of rotation values
+	float camXpos; //= 0.0; 
+	float camYpos; //= 0.0; 
+	float camZpos; //= 0.0; 
+	float camXrot; //= 0.0; 
+	float camYrot; //= 0.0;
+	
+	// distance from character
+	float camRadius; //= 2.5f;
+
+	// max and min camera angle
+	float camMaxAngle; //= 30.0;
+	float camMinAngle; //= 0.0;
+	float camLastx; // last mouse x position 
+	float camLasty; // last mouse y position
+	int camDiffy;
+	int camDiffx;
+	float camYrotrad;
+	float camXrotrad;
+	bool camMouseClicked; //= false;
+	bool* camKeyStates; //= new bool[256]; // Create an array of boolean values of length 256 (0-255)
+
 public:
 			/**
              * @brief constructor creates a new LevelOneController object.
              */
 	LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm);
-	/**
+			/**
              * @brief Destructor destroys LevelOneController object when it goes out of scope.
              * @param none
-    */
+			*/
 	//shays code lol
 	void Init();
 	void Draw();
@@ -114,4 +141,9 @@ public:
 	// loads images and creates texture
 	void CreateTextures();
 	// creates bounding boxes for collsion detection
+
+	// enables depth testing, lighting and shading
+	void Enable(void);
+	// control key presses
+	void KeyOperations(void);
 };

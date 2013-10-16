@@ -21,37 +21,45 @@ LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, Textu
 
 	Init();
 	// copies bounding boxes from array to linked lists (one fopr each quadrant)
-	cam.InitiateBoundingBoxes();
+	//cam.InitiateBoundingBoxes();
 	
 	// load texture images and create display lists
 	CreateTextures();
-	loaded = true;	
+	loaded = true;
 
+	// intialise camera values
+	camSpeed = 20.0;
+	camXpos = 0.0; 
+	camYpos = 0.0; 
+	camZpos = 0.0; 
+	camXrot = 0.0; 
+	camYrot = 0.0;
+	camRadius = 1000.0f;
+	camMaxAngle = 35.0;
+	camMinAngle = -20.0;
+	camYrotrad;
+	camXrotrad;
+	camMouseClicked = false;
+	camKeyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)
+	camLastx = glutGet(GLUT_WINDOW_WIDTH)/2; 
+	camLasty = glutGet(GLUT_WINDOW_HEIGHT)/2;
+
+	for(int i=0; i<256; i++)
+	{
+		camKeyStates[i] = false;
+	}
 }
 
 //--------------------------------------------------------------------------------------
 //  Initialize Settings
 //--------------------------------------------------------------------------------------
-void LevelOneController::Init() {
-	cam.DirectionUD(0); //ray, we don't need that if you change the camera movement!
-	cam.DirectionRotateLR(0);
-
-	glClearColor(0, 0, 0, 0); //background/sky colour
-	
+void LevelOneController::Init() 
+{
 	// set perpsective
-	gluLookAt(0.0, 1.75, 0.0, 
-		      0.0, 1.75, -1,
-			  0.0f,1.0f,0.0f);
+	//gluLookAt(0.0, 1.75, 0.0, 
+	//	      0.0, 1.75, -1,
+	//		  0.0f,1.0f,0.0f);
 
-	// set the world co-ordinates (used to set quadrants for bounding boxes)
-	cam.SetWorldCoordinates(5000.0, 5000.0);
-	// turn collision detection on
-	cam.SetCollisionDetectionOn(true);
-
-	// set number of bounding boxes required
-	cam.SetNoBoundingBoxes(19);
-	// set starting position of user
-	cam.Position(500, 500, -4000, 180.0);
 	Reshape();
 }
 
@@ -62,9 +70,32 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 {
 	if (loaded) 
 	{
+		glClearColor(0, 0, 0, 0);
+		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
+		Enable();
+
 		// check for movement
-		cam.CheckCamera();
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//RF READ CAMERA CONTROLS
+		KeyOperations();
+		//glClearColor (0.0,0.0,0.0,1.0); //clear the screen to black
+		//glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
+
+		//RF: CAMERA
+		//control the camera
+		glLoadIdentity();
+		
+		glTranslatef(0.0f, -500.0f, -camRadius);
+		glRotatef(camXrot,1.0,0.0,0.0);
+
+		glPushMatrix();
+			glRotatef(90, 1, 0, 0);
+			glColor3f(1.0f, 0.0f, 0.0f);
+			glutSolidSphere(300, 12, 12); //Our character to follow
+		glPopMatrix();
+    
+		glRotatef(camYrot,0.0,1.0,0.0);  //rotate our camera on the y-axis (up and down)
+		glTranslated(-camXpos,0.0f,-camZpos); //translate the screen to the position of our camera
+		glColor3f(1.0f, 1.0f, 1.0f);
 
 		// DISPLAY TEXTURES
 		//enable texture mapping
@@ -78,10 +109,9 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 			DrawObjects();
 			// set the movement and rotation speed according to frame count
 			IncrementFrameCount();
-			cam.SetMoveSpeed(stepIncrement);
-			cam.SetRotateSpeed(angleIncrement);
 		glPopMatrix();
 		glDisable (GL_TEXTURE_2D); 
+
 		// clear buffers
 		glFlush();
 		glutSwapBuffers();
@@ -90,19 +120,23 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 
 void LevelOneController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!)
 { 
-	if ((cam.GetLR() > 400) && (cam.GetLR() < 700) && (cam.GetFB() < -4300) && (cam.GetFB() > -4500)) 
+	if ((camXpos > 400) && (camXpos < 700) && (camZpos < -4300) && (camZpos > -4500)) 
 		StateMachine::setBushCourtController();
-	else if ((cam.GetFB() > -2000) && (!insertedLevel)) {
-		cam.Position(2500.0, 1500.0, 550.0, 180.0);
-		insertedLevel = true;
-	}
+	//if ((cam.GetLR() > 400) && (cam.GetLR() < 700) && (cam.GetFB() < -4300) && (cam.GetFB() > -4500)) 
+	//	StateMachine::setBushCourtController();
+	//else if ((cam.GetFB() > -2000) && (!insertedLevel)) {
+	//	cam.Position(2500.0, 1500.0, 550.0, 180.0);
+	//	insertedLevel = true;
+	//}
 }
 
-void LevelOneController::Reshape() {
+void LevelOneController::Reshape() 
+{
 	Reshape(width, height);
 }
 
-void LevelOneController::Reshape(int w, int h) {
+void LevelOneController::Reshape(int w, int h) 
+{
 	width = w;		
 	height = h;
 	// Prevent a divide by zero, when window is too short		
@@ -114,7 +148,7 @@ void LevelOneController::Reshape(int w, int h) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glViewport(0, 0, w, h);
-	gluPerspective(45,ratio,1,250000);	
+	gluPerspective(60,ratio,1,250000);	
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -123,123 +157,79 @@ void LevelOneController::Reshape(int w, int h) {
 //--------------------------------------------------------------------------------------
 void LevelOneController::SpecialKey(int key, int x, int y) 
 {
-	switch (key) //ray, we don't need that if you change the camera movement!
-	{
-		case GLUT_KEY_LEFT :
-			cam.DirectionRotateLR(-2);
-			break;
 
-		case GLUT_KEY_RIGHT : 
-			cam.DirectionRotateLR(2);
-			break;
-
-		case GLUT_KEY_UP : 
-			cam.DirectionFB(1);
-			break;
-
-		case GLUT_KEY_DOWN : 
-			cam.DirectionFB(-1);
-			break;
-	}
 }
 
 //---------------------------------------------------------
 void LevelOneController::SpecialKeyUp(int key, int x, int y) 
 {
-	switch (key)
-	{
-		// rotate left or right
-		case GLUT_KEY_LEFT : 
-		case GLUT_KEY_RIGHT : 
-			cam.DirectionRotateLR(0);			
-		break;
-		// move backwards or forwards
-		case GLUT_KEY_UP : 
-		case GLUT_KEY_DOWN : 
-			cam.DirectionFB(0);
-		break;
-	}
+
 }
 
 //--------------------------------------------------------------------------------------
 
 void LevelOneController::Keyboard(unsigned char key, int x, int y)
 {
-	int i = 0;
-	switch (key)
-	{
-		case '1':
-			//can only be used within these bounds - next to console - adjust size
-			if (((cam.GetLR() > 0) && (cam.GetLR() < 1000)) && ((cam.GetFB() < -1000) || (cam.GetFB() > -2000)))
-			{
-				//change that later to a seperate controller
-				cam.Position(2500.0, 1500.0, 550.0, 180.0);
-			}
-			break;
-		case '0':
-			StateMachine::setBushCourtController(); //debug! Should be deleted in the release version
-			break;
-		case 'e':
-			//next to ladder out
-			if (((cam.GetLR() > 250) && (cam.GetLR() < 750)) && ((cam.GetFB() < -2000) || (cam.GetFB() > -3000)))
-			{
-				StateMachine::setBushCourtController();
-			}
-		case 'Z':
-		case 'z':
-			cam.DirectionLR(-1);
-			break;
-		// step right
-		case 'X':
-		case 'x':
-			cam.DirectionLR(1);
-		break;
-		// look up
-		case 'Q':
-		case 'q':
-			cam.DirectionLookUD(1);
-			break;
-		// look down
-		case 'A':
-		case 'a':
-			cam.DirectionLookUD(-1);
-		break;
-		// exit tour (escape key)
-		case 27:
-			{
-				cam.Position(500, 500, -4000, 180.0);
-			}
-		break;
-		// display welcome page (space key)
-		case ' ':
-			{
-				cam.SetRotateSpeed (0.0f);
-				cam.SetMoveSpeed (0.0f);
-			}
-		break;	
-	}
+	camKeyStates[key] = true; // Set the state of the current key to pressed
+	//int i = 0;
+	//switch (key)
+	//{
+	//	case '1':
+	//		//can only be used within these bounds - next to console - adjust size
+	//		if (((cam.GetLR() > 0) && (cam.GetLR() < 1000)) && ((cam.GetFB() < -1000) || (cam.GetFB() > -2000)))
+	//		{
+	//			//change that later to a seperate controller
+	//			cam.Position(2500.0, 1500.0, 550.0, 180.0);
+	//		}
+	//		break;
+	//	case '0':
+	//		StateMachine::setBushCourtController(); //debug! Should be deleted in the release version
+	//		break;
+	//	case 'e':
+	//		//next to ladder out
+	//		if (((cam.GetLR() > 250) && (cam.GetLR() < 750)) && ((cam.GetFB() < -2000) || (cam.GetFB() > -3000)))
+	//		{
+	//			StateMachine::setBushCourtController();
+	//		}
+	//	case 'Z':
+	//	case 'z':
+	//		cam.DirectionLR(-1);
+	//		break;
+	//	// step right
+	//	case 'X':
+	//	case 'x':
+	//		cam.DirectionLR(1);
+	//	break;
+	//	// look up
+	//	case 'Q':
+	//	case 'q':
+	//		cam.DirectionLookUD(1);
+	//		break;
+	//	// look down
+	//	case 'A':
+	//	case 'a':
+	//		cam.DirectionLookUD(-1);
+	//	break;
+	//	// exit tour (escape key)
+	//	case 27:
+	//		{
+	//			cam.Position(500, 500, -4000, 180.0);
+	//		}
+	//	break;
+	//	// display welcome page (space key)
+	//	case ' ':
+	//		{
+	//			cam.SetRotateSpeed (0.0f);
+	//			cam.SetMoveSpeed (0.0f);
+	//		}
+	//	break;	
+	//}
 }
 
 //--------------------------------------------------------------------------------------
 void LevelOneController::KeyboardUp(unsigned char key, int x, int y)
 {
-	switch (key) //ray, we don't need that if you change the camera movement!
-	{
-		// step left or right
-		case 'x' :
-		case 'X' :
-		case 'z' :
-		case 'Z' :
-			cam.DirectionLR(0);
-		break;
-		// look left up or down
-		case 'a' :
-		case 'A' :
-		case 'q' :
-		case 'Q' :
-			cam.DirectionLookUD(0);
-		break;
-	}
+	camKeyStates[key] = false; // Set the state of the current key to not pressed
 }
 
 //--------------------------------------------------------------------------------------
@@ -247,20 +237,53 @@ void LevelOneController::KeyboardUp(unsigned char key, int x, int y)
 //--------------------------------------------------------------------------------------
 void LevelOneController::Mouse(int button, int state, int x, int y)
 {
-
-
+	camLastx = x; //set lastx to the current x position
+	camLasty = y; //set lasty to the current y position
+	
+	if((button == GLUT_LEFT_BUTTON) || (button == GLUT_RIGHT_BUTTON)) 
+	{
+		camMouseClicked = (state == GLUT_DOWN);
+		if(state == GLUT_DOWN)
+		{
+			ShowCursor(FALSE);
+		}
+		else
+		{
+			glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH)/2, glutGet(GLUT_WINDOW_HEIGHT)/2); //rest the mouse point to center of window
+			ShowCursor(TRUE);
+		}
+	}
 }
 
 //--------------------------------------------------------------------------------------
 //  Mouse Movements (NOT USED)
 //  Can be used to rotate around screen using mouse, but keyboard used instead
 //--------------------------------------------------------------------------------------
-void LevelOneController::PassiveMotion(int x, int y) //mouseMove
+void LevelOneController::PassiveMotion(int x, int y) 
 {
 }
 
 void LevelOneController::MouseMotion(int x, int y)
 {
+	camDiffx = 0;// = x-lastx; //check the difference between the current x and the last x position
+	camDiffy = 0;// = y-lasty; //check the difference between the current y and the last y position
+
+	if(camMouseClicked)
+	{
+		camDiffx = x-camLastx; //check the difference between the current x and the last x position
+		camDiffy = y-camLasty; //check the difference between the current y and the last y position
+	}
+
+	camLastx=x; //set lastx to the current x position
+	camLasty=y; //set lasty to the current y position
+
+	camXrot += (float) camDiffy; //set the xrot to xrot with the addition of the difference in the y position
+	camYrot += (float) camDiffx; //set the yrot to yrot with the addition of the difference in the x position
+
+	if(camXrot > camMaxAngle) //restrict maximum vertical camera angle to 45 degrees
+		camXrot = camMaxAngle;
+	else if(camXrot < camMinAngle) //restrict minimum vertical camera angle to 5 degrees
+		camXrot = camMinAngle;
 }
 
 //--------------------------------------------------------------------------------------
@@ -764,5 +787,79 @@ void LevelOneController::IncrementFrameCount() //ray, check if you need that, pl
 		angleIncrement = t/frameCount;
 		frameCount = 0;
 		lastClock = clock();
+	}
+}
+
+
+//--------------------------------------------------------------------------------------
+//  RF: Enables depth testing, lighting and shading model
+//--------------------------------------------------------------------------------------
+void LevelOneController::Enable(void) 
+{
+	glEnable(GL_DEPTH_TEST); //enable the depth testing
+	glEnable(GL_LIGHTING); //enable the lighting
+	glEnable(GL_LIGHT0); //enable LIGHT0, our Diffuse Light
+	glShadeModel(GL_SMOOTH); //set the shader to smooth shader
+}
+
+
+//--------------------------------------------------------------------------------------
+//  RF: Controls key presses
+//--------------------------------------------------------------------------------------
+void LevelOneController::KeyOperations(void)
+{
+	if(camKeyStates['q'])
+	{
+		camYrotrad = (camYrot / 180 * 3.141592654f);
+		camXpos -= float(cos(camYrotrad)) * camSpeed;
+		camZpos -= float(sin(camYrotrad)) * camSpeed;
+		
+	}
+
+	if(camKeyStates['e'])
+	{
+		camYrotrad = (camYrot / 180 * 3.141592654f);
+		camXpos += float(cos(camYrotrad)) * camSpeed;
+		camZpos += float(sin(camYrotrad)) * camSpeed;
+	}
+
+	if(camKeyStates['r'])
+	{
+		if(camXrot < camMaxAngle) //restrict maximum vertical camera angle to 45 degrees
+			camXrot += 1;
+	}
+
+	if(camKeyStates['f'])
+	{
+		if(camXrot > camMinAngle) //restrict minimum vertical camera angle to 5 degrees
+			camXrot -= 1;
+	}
+
+	if(camKeyStates['w'])
+	{
+		camYrotrad = (camYrot / 180 * 3.141592654f);
+		camXrotrad = (camXrot / 180 * 3.141592654f); 
+		camXpos += float(sin(camYrotrad)) * camSpeed;
+		camZpos -= float(cos(camYrotrad)) * camSpeed;
+		camYpos -= float(sin(camXrotrad)) * camSpeed;
+	}
+
+	if(camKeyStates['s'])
+	{
+		camYrotrad = (camYrot / 180 * 3.141592654f);
+		camXrotrad = (camXrot / 180 * 3.141592654f); 
+		camXpos -= float(sin(camYrotrad)) * camSpeed;
+		camZpos += float(cos(camYrotrad)) * camSpeed;
+		camYpos += float(sin(camXrotrad)) * camSpeed;
+	}
+
+	if(camKeyStates['a'])
+	{
+		camYrot += -1.0f;
+	}
+
+	if(camKeyStates['d'])
+	{
+		camYrot += 1.0f;
 	}
 }
