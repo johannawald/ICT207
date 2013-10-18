@@ -360,28 +360,28 @@ void LevelOneController::CreateTextures() //ray, we don't need that if we implem
 	image = tp.LoadTexture("textures/box.raw", 512, 512);
 	tp.CreateTexture(BOX, image, 512, 512);
 
-	image = tp.LoadTexture("textures/tilefloor.raw", 512, 512);
+	image = tp.LoadTexture("textures/tilefloor.bmp", 512, 512);
 	tp.CreateTexture(TILEFLOOR, image, 512, 512);
 
-	image = tp.LoadTexture("textures/concwall.raw", 512, 512);
+	image = tp.LoadTexture("textures/concwall.bmp", 512, 512);
 	tp.CreateTexture(CONCWALL, image, 512, 512);
 
-	image = tp.LoadTexture("textures/rustywall.raw", 512, 256);
+	image = tp.LoadTexture("textures/rustywall.raw", 512, 256); //bad  texture, not sure where used :S *JM
 	tp.CreateTexture(RUSTYWALL, image, 512, 256);
 
-	image = tp.LoadTexture("textures/tilewall.raw", 512, 512);
+	image = tp.LoadTexture("textures/tilewall.bmp", 512, 512);
 	tp.CreateTexture(TILEWALL, image, 512, 512);
 
-	image = tp.LoadTexture("textures/4x1platform.raw", 512, 512);
+	image = tp.LoadTexture("textures/4x1platform.png", 512, 512);
 	tp.CreateTexture(PLATFORM4X1, image, 512, 512);
 
-	image = tp.LoadTexture("textures/button.raw", 512, 512);
+	image = tp.LoadTexture("textures/button.bmp", 512, 512);
 	tp.CreateTexture(BUTTON, image, 512, 512);
 
-	image = tp.LoadTexture("textures/bomb.raw", 512, 512);
+	image = tp.LoadTexture("textures/bomb.bmp", 512, 512);
 	tp.CreateTexture(BOMB, image, 512, 512);
 
-	image = tp.LoadTexture("textures/console.raw", 512, 512);
+	image = tp.LoadTexture("textures/console.bmp", 512, 512);
 	tp.CreateTexture(CONSOLE, image, 512, 512);
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);	

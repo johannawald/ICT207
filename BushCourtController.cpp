@@ -1359,7 +1359,7 @@ void BushCourtController::CreateTextures()
     image = tp.LoadTexture("textures/PosterWrigleys.raw", 1018, 1018);
     tp.CreateTexture(WRIGLEYS_POSTER, image, 1018, 1018);
 
-	image = tp.LoadTexture("textures/concwall.raw", 512, 512);
+	image = tp.LoadTexture("textures/concwall.bmp", 512, 512);
     tp.CreateTexture(CONCWALL, image, 512, 512);
 
 	//This function should not be used if the TextureManager works
