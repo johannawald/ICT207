@@ -357,7 +357,7 @@ void LevelOneController::CreateTextures() //ray, we don't need that if we implem
 	image = tp.LoadTexture("textures/thanks.raw", 512, 512);
 	tp.CreateTexture(EXIT, image, 512, 512);
 
-	image = tp.LoadTexture("textures/box.raw", 512, 512);
+	image = tp.LoadTexture("textures/box.bmp", 512, 512);
 	tp.CreateTexture(BOX, image, 512, 512);
 
 	image = tp.LoadTexture("textures/tilefloor.bmp", 512, 512);
