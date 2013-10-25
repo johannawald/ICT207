@@ -43,7 +43,11 @@ bool CollisionDetection::Collision(BoundingBox *b, GLfloat x, GLfloat y, GLfloat
 	GLfloat y1 = y;
 	GLfloat z1 = z;
 
-	bool collision1 = ((x1 <= b->max.x) && (x1>= b->min.x) && (y1<= b->max.y) && (y1>= b->min.y) && (z1<= b->max.z) && (z1 >= b->min.z));
+	bool collision1 = (
+						(x1 <= b->max.x) && (x1>= b->min.x) 
+
+						&& (y1<= b->max.y) && (y1>= b->min.y) 
+						&& (z1<= b->max.z) && (z1 >= b->min.z));
 
     return (collision1 || false);
 	

@@ -6,8 +6,7 @@
 //--------------------------------------------------------------------------------------
 //  Constructor
 //--------------------------------------------------------------------------------------
-ControlRoom::ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm): 
-	BasisController(am,mm,tm), loaded(false), MoveX(true), MoveY(true), MoveZ(true)
+ControlRoom::ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), loaded(false)
 {
 	Init();
 	loaded = true;	
@@ -27,7 +26,7 @@ void ControlRoom::Init()
 
 //--------------------------------------------------------------------------------------
 //  Initialize Settings
-//--------------------------------------------------------------------------------------
+//------------------'t'--------------------------------------------------------------------
 void ControlRoom::Draw()
 {
 	if (loaded) 
@@ -37,7 +36,7 @@ void ControlRoom::Draw()
 			glLoadIdentity();
 			//Move camera:
 			mCamera.PrepareMovement();
-			//mCamera.SetDiffValues(mCamera.GetXposDiff(), mCamera.GetYposDiff(), mCamera.GetZposDiff());
+			CheckCollision();
 			mCamera.MoveCamera();
 			glEnable(GL_TEXTURE_2D);
 			glPushMatrix();
@@ -49,11 +48,6 @@ void ControlRoom::Draw()
 			DrawStairs();
 			DrawLadder();
 			DrawConsole(); //the last one is always not working
-			
-			GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 100, 100, 10, 100, 200, 300); 
-			GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 10, 50, 200, 100, 20, 30);
-			GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 100, 10, -200, 200, 4000, 200); 
-
 		glPopMatrix();
 		glDisable (GL_TEXTURE_2D); 
 		// clear buffers
@@ -62,19 +56,32 @@ void ControlRoom::Draw()
 	}
 }
 
+void ControlRoom::CheckCollision()
+{	
+	int IndexCollision = -1;
+	if (cd.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), IndexCollision))
+	{
+		float DiffX = mCamera.GetXposDiff();
+		float DiffY = mCamera.GetYposDiff();
+		float DiffZ = mCamera.GetZposDiff();
+
+		if (cd.CollisionX(IndexCollision, mCamera.GetXpos()))
+			if (cd.CollisionX(IndexCollision, mCamera.GetXpos()+mCamera.GetXposDiff()))
+				DiffX = 0;
+		if (cd.CollisionY(IndexCollision, mCamera.GetYpos()))
+			if (cd.CollisionY(IndexCollision, mCamera.GetYpos()+mCamera.GetYposDiff()))
+				DiffY = 0;
+		if (cd.CollisionZ(IndexCollision, mCamera.GetZpos()))
+			if (cd.CollisionZ(IndexCollision, mCamera.GetZpos()+mCamera.GetZposDiff()))
+				DiffZ = 0;
+
+		mCamera.SetDiffValues(DiffX, DiffY, DiffZ);
+	}
+}
+
 void ControlRoom::Update()
 { 
-	int IndexCollision = -1;
-	// the camera wants to move(1,2,1)
-	if (cd.Collision(mCamera.GetXpos(), mCamera.GetXpos(), mCamera.GetXpos(), IndexCollision))
-	{
-		//cd.UpdateMovementVector(IndexCollision, );
-		//Update Movement Vector
-	}
-	MoveX = true; //!cd.CollisionX(mCamera.GetXpos());
-	MoveY = true; //!cd.CollisionY(mCamera.GetYpos());
-	MoveZ = true; //!cd.CollisionZ(mCamera.GetZpos());
-	//Collision Detection
+	
 
 	if (IsAtComputerPosition())
 		StateMachine::setController(new GameController(GetAudio(), GetModel(), GetTexture()));
@@ -123,6 +130,8 @@ void ControlRoom::SpecialKeyUp(int key, int x, int y)
 void ControlRoom::Keyboard(unsigned char key, int x, int y)
 {
 	mCamera.Keyboard(key, x, y);
+	if (key='t')
+		StateMachine::setController(new GameController(GetAudio(), GetModel(), GetTexture()));
 }
 
 //--------------------------------------------------------------------------------------
@@ -176,14 +185,13 @@ void ControlRoom::DrawFloor()
 void ControlRoom::DrawWalls()
 {
 	//Jon, can you change this to Collision-quads?
-	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall));
+	/*GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 100, 100, 10, 100, 200, 300); 
+	GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 10, 50, 200, 100, 20, 30);
+	GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 100, 10, -200, 200, 4000, 200); */
 	//walls
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(0, 0, -4000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(0, 0, -1000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(0, 1000, -1000);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(0, 1000, -4000);
-	glEnd();
+	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taConcWall), 10, 10, 0, 0, 1000, 4000, 3000, 100); 
+	
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall));
 	glBegin(GL_QUADS);
 		glTexCoord2f(1.0, 1.0);			glVertex3f(0, 0, -1000);
 		glTexCoord2f(0.0, 1.0);			glVertex3f(1000, 0, -1000);

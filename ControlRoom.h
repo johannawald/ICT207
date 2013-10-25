@@ -28,10 +28,6 @@ private:
 	MoveController mCamera;
 	CollisionDetection cd;
 
-	bool MoveX; 
-	bool MoveY;
-	bool MoveZ;
-
 	bool loaded;
 	// ratio of screen
 	float ratio;
@@ -43,8 +39,8 @@ private:
 	void DrawConsole();
 	void DrawLadder();
 
-	
 	bool IsAtComputerPosition();
+	void CheckCollision();
 public:
 	ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm);
 	void Init();
