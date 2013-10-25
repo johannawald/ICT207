@@ -143,6 +143,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="ModelManager.cpp" />
+    <ClCompile Include="MoveController.cpp" />
     <ClCompile Include="PlainLinkedList.cpp" />
     <ClCompile Include="PlainNode.cpp" />
     <ClCompile Include="BushCourtController.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="LevelOneController.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="ModelManager.h" />
+    <ClInclude Include="MoveController.h" />
     <ClInclude Include="PlainLinkedList.h" />
     <ClInclude Include="PlainNode.h" />
     <ClInclude Include="BushCourtController.h" />
