@@ -25,8 +25,8 @@ MoveController::MoveController()
 	mYrotrad;
 	mXrotrad;
 	mMouseClicked = false;
-	mLastx = glutGet(GLUT_WINDOW_WIDTH)/2; 
-	mLasty = glutGet(GLUT_WINDOW_HEIGHT)/2;
+	mLastx = glutGet(GLUT_WINDOW_WIDTH)/2.0f; 
+	mLasty = glutGet(GLUT_WINDOW_HEIGHT)/2.0f;
 
 	//set camera key states to false (not pressed)
 	for(int i=0; i<256; i++)
@@ -132,8 +132,8 @@ void MoveController::KeyboardUp(unsigned char key, int x, int y)
 
 void MoveController::Mouse(int button, int state, int x, int y)
 {
-	mLastx = x; //set lastx to the current x position
-	mLasty = y; //set lasty to the current y position
+	mLastx = (float)x; //set lastx to the current x position
+	mLasty = (float)y; //set lasty to the current y position
 	
 	if((button == GLUT_LEFT_BUTTON) || (button == GLUT_RIGHT_BUTTON)) 
 	{
@@ -158,12 +158,12 @@ void MoveController::MouseMotion(int x, int y)
 
 	if(mMouseClicked)
 	{
-		mDiffx = x-mLastx; //check the difference between the current x and the last x position
-		mDiffy = y-mLasty; //check the difference between the current y and the last y position
+		mDiffx = x-(int)mLastx; //check the difference between the current x and the last x position
+		mDiffy = y-(int)mLasty; //check the difference between the current y and the last y position
 	}
 
-	mLastx=x; //set lastx to the current x position
-	mLasty=y; //set lasty to the current y position
+	mLastx = (float)x; //set lastx to the current x position
+	mLasty = (float)y; //set lasty to the current y position
 
 	mXrot += (float) mDiffy; //set the xrot to xrot with the addition of the difference in the y position
 	mYrot += (float) mDiffx; //set the yrot to yrot with the addition of the difference in the x position

@@ -48,7 +48,7 @@ class MoveController
 		bool mSpecialKeyStates[4];
 		void Enable(void);
 		void KeyOperations(void);
-
+		
 	public:
 		MoveController();
 		void SetCameraPosition(float xpos, float ypos, float zpos, float rotation);
@@ -59,7 +59,5 @@ class MoveController
 		void Keyboard(unsigned char key, int x, int y);
 		void Mouse(int button, int state, int x, int y);
 		void MouseMotion(int x, int y);
-		
-
 };
 #endif //end of MoveController class
