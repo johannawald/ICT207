@@ -40,7 +40,7 @@ LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, Textu
 	camYrotrad;
 	camXrotrad;
 	camMouseClicked = false;
-	camKeyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)
+	camKeyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255) 
 	camLastx = glutGet(GLUT_WINDOW_WIDTH)/2; 
 	camLasty = glutGet(GLUT_WINDOW_HEIGHT)/2;
 

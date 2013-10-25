@@ -22,15 +22,16 @@ IStateController* StateMachine::bushcourtcontroller = nullptr;
 bool StateMachine::init = false;
 
 StateMachine::StateMachine(IStateController* controller) {
-	if (bushcourtcontroller==nullptr) {
+	if (bushcourtcontroller==nullptr) 
+	{
 		modelmanager = new ModelManager();
 		texturemanager = new TextureManager();
 		audiomanager = new AudioManager();
 		//bushcourtcontroller = new BushCourtController(audiomanager, modelmanager, texturemanager);
 	}
 	if (controller==NULL)
-		//state = new GameController(audiomanager, modelmanager, texturemanager);
-		state = new ControlRoom(audiomanager, modelmanager, texturemanager);
+		state = new GameController(audiomanager, modelmanager, texturemanager);
+		//state = new ControlRoom(audiomanager, modelmanager, texturemanager);
 	else
 		state = controller;
 }

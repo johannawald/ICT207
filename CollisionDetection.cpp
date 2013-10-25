@@ -1,27 +1,17 @@
 #include "CollisionDetection.h"
 #include <iostream>
 
-
-CollisionDetection::CollisionDetection(void)
-{
-
-}
-
-CollisionDetection::~CollisionDetection(void)
-{
-}
-
 bool CollisionDetection::Collision(GLfloat x, GLfloat y, GLfloat z)
 {
 	bool collision = false;
 	for (int i = 0; i<static_box.size(); i++) 
 	{
-		collision = collision || Collision(static_box[i], x, y, z);
+		collision = collision || Collision(static_box[i], x, y, z, 100);
 	}
 	return collision;
 }
 
-bool CollisionDetection::Collision(BoundingBox *b, GLfloat x,GLfloat y,GLfloat z)
+bool CollisionDetection::Collision(BoundingBox *b, GLfloat x,GLfloat y,GLfloat z, GLfloat size)
 {
 	if ((x!=x_old) || (y!=y_old) || (z!=z_old)) 
 	{
@@ -30,58 +20,19 @@ bool CollisionDetection::Collision(BoundingBox *b, GLfloat x,GLfloat y,GLfloat z
 	x_old = x;
 	y_old = y;
 	z_old = z;
+
+	GLfloat x1 = x; //+size/2.0f;
+	GLfloat y1 = y; //+size/2.0f;
+	GLfloat z1 = z; //+size/2.0f;
+
+	GLfloat x2 = x-size/2.0f;
+	GLfloat y2 = y-size/2.0f;
+	GLfloat z2 = z-size/2.0f;
 	
-    return x <= b->max.x && x>= b->min.x && y<= b->max.y && y>= b->min.y && z<= b->max.z && z >= b->min.z;
-}
+	bool collision1 = ((x1 <= b->max.x) && (x1>= b->min.x) && (y1<= b->max.y) && (y1>= b->min.y) && (z1<= b->max.z) && (z1 >= b->min.z));
+	bool collision2 =  ((x2 <= b->max.x) && (x2>= b->min.x) && (y2<= b->max.y) && (y2>= b->min.y) && (z2<= b->max.z) && (z2 >= b->min.z));
 
-void CollisionDetection::drawBox(BoundingBox *b)
-{
-    glColor3f(1,0,0);
-	glBegin(GL_POLYGON);
-    glVertex3f(b->max.x,b->max.y,b->min.z);
-    glVertex3f(b->min.x,b->max.y,b->min.z);
-    glVertex3f(b->min.x,b->min.y,b->min.z);
-    glVertex3f(b->max.x,b->min.y,b->min.z);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glVertex3f(b->max.x,b->min.y,b->max.z);
-    glVertex3f(b->max.x,b->max.y,b->max.z);
-    glVertex3f(b->min.x,b->max.y,b->max.z);
-    glVertex3f(b->min.x,b->min.y,b->max.z);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glVertex3f(b->max.x,b->max.y,b->min.z);
-    glVertex3f(b->max.x,b->max.y,b->max.z);
-    glVertex3f(b->min.x,b->max.y,b->max.z);
-    glVertex3f(b->min.x,b->max.y,b->min.z);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glVertex3f(b->max.x,b->min.y,b->max.z);
-    glVertex3f(b->min.x,b->min.y,b->max.z);
-    glVertex3f(b->min.x,b->min.y,b->min.z);
-    glVertex3f(b->max.x,b->min.y,b->min.z);
-    glEnd();
-}
-
-//display function
-void CollisionDetection::display(){
-   
-	//drawBox();
-    //DefineCollisionBoxes(pmodel1,"body"); // actual function call
-    //drawBox(static_box[0]); //draw bounding box
-    //glPopMatrix();
-
-    //test if the character collides with any of the walls - not working
-    /*for(int i=0;i<static_boxes;i++){
-        if(CollisionTest(box_mo,static_box[i]) == true){
-            printf("collision");
-        }
-    }*/
-
-    //swap buffers
+    return (collision1 || collision2);
 }
 
 void CollisionDetection::translateBoundingBox(int i, const GLfloat x, const GLfloat y, const GLfloat z)

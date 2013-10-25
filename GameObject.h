@@ -8,20 +8,19 @@
 
 #pragma once
 
-//#include "ModelManager.h"
-
-struct Position {
-	double x;
-	double y;
-	double z;
-};
+#include <GL\freeglut.h>
+#include "Vector3D.h"
+#include "BoundingBox.h"
 
 class GameObject 
 {
 	private:
-		Position position;
+		Vector3D mPosition;
+		Vector3D mMovement;
+		BoundingBox* mBoundingBox;
 		int model;
 		int CollisionIndex;
 	public:
+
 		GameObject();
 };
