@@ -130,6 +130,7 @@
     <ClCompile Include="AABBNode.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="BasisController.cpp" />
+    <ClCompile Include="BasisGameController.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cameraMap.cpp" />
     <ClCompile Include="collision.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="AABB.H" />
     <ClInclude Include="AABBLinkedList.h" />
     <ClInclude Include="AABBNode.h" />
+    <ClInclude Include="BasisGameController.h" />
     <ClInclude Include="BoundingBox.h" />
     <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="ControlRoom.h" />

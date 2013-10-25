@@ -9,44 +9,35 @@
  * @author Daniel Manganaro
  * @version 01
  * @date 15/10/2013 Daniel Manganaro - Version1
+ * @date 25/10/2013 Johanna Wald - Version2
  */
 
 #pragma once
 
 #include <cstdlib>
-#include <math.h>
 #include <GL/glut.h>
-#include <time.h>
-
 #include <windows.h>
-#include "camera.h"
-#include "texturedPolygons.h"
+
 #include "IStateController.h"
 #include "BasisController.h"
+#include "MoveController.h"
 
-class ControlRoom : public IStateController, BasisController{
+class ControlRoom : public IStateController, BasisController {
 private:
-	bool insertedLevel;
+	MoveController mCamera;
+
 	bool loaded;
-
-	GLdouble movementSpeed;
-	GLdouble rotationSpeed;
-	GLdouble stepIncrement;
-	GLdouble angleIncrement;
-	int frameCount;
-	clock_t lastClock;
-
-	unsigned char* ControlRoom::image;
 	// ratio of screen
 	float ratio;
 	// screen width and height
 	int width, height;
-
-	Camera cam;
-	DrawManager drawMan;
+	void DrawFloor();
+	void DrawWalls();
+	void DrawStairs();
+	void DrawConsole();
+	void DrawLadder();
 public:
 	ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm);
-
 	void Init();
 	void Draw();
 	void Reshape();
@@ -59,13 +50,4 @@ public:
 	void Mouse(int button, int state, int x, int y);
 	void PassiveMotion(int x, int y);
 	void MouseMotion(int x, int y);
-
-	void DrawFloor();
-	void DrawWalls();
-	void DrawStairs();
-	void DrawConsole();
-	void DrawLadder();
-
-	//void CreateTextures();
-	void IncrementFrameCount();	
 };

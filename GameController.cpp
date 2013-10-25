@@ -109,7 +109,6 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 			Draw3DModels();
 			//DrawObjects();
 			// set the movement and rotation speed according to frame count
-			IncrementFrameCount();
 		glPopMatrix();
 		GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
 		GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
@@ -724,26 +723,6 @@ void GameController::DrawControlRoom()
 	glPopMatrix();
 }
 
-
-//--------------------------------------------------------------------------------------
-//  Increments frame count used for setting movement speed
-//--------------------------------------------------------------------------------------
-void GameController::IncrementFrameCount() //ray, check if you need that, please if you change the camera movement
-{
-	double t = ((GLdouble)(clock()-lastClock))/(GLdouble)CLOCKS_PER_SEC;  
-	frameCount ++;
-
-	// reset after t
-	if (t > 0.1)
-	{
-		stepIncrement = t/frameCount * 1400;
-		angleIncrement = t/frameCount;
-		frameCount = 0;
-		lastClock = clock();
-	}
-}
-
-
 //--------------------------------------------------------------------------------------
 //  RF: Enables depth testing, lighting and shading model
 //--------------------------------------------------------------------------------------
@@ -754,7 +733,6 @@ void GameController::Enable(void)
 	glEnable(GL_LIGHT0); //enable LIGHT0, our Diffuse Light
 	glShadeModel(GL_SMOOTH); //set the shader to smooth shader
 }
-
 
 //--------------------------------------------------------------------------------------
 //  RF: Controls key presses

@@ -132,12 +132,6 @@ public:
 			 * @return void
              */
 	void DrawControlRoom();
-
-	void IncrementFrameCount();	
-	// loads images and creates texture
-	void CreateTextures();
-	// creates bounding boxes for collsion detection
-
 	// enables depth testing, lighting and shading
 	void Enable(void);
 	// control key presses
