@@ -17,7 +17,11 @@ private:
 	bool Collision(BoundingBox *b, GLfloat x, GLfloat y, GLfloat z, GLfloat size);
 public:
 	void translateBoundingBox(int i, const GLfloat x, const GLfloat y, const GLfloat z);
-	bool Collision(GLfloat x, GLfloat y, GLfloat z);
+	bool Collision(GLfloat x, GLfloat y, GLfloat z, int &pIndex);
+	bool CollisionX(int pIndex, GLfloat x);
+	bool CollisionY(int pIndex, GLfloat y);
+	bool CollisionZ(int pIndex, GLfloat z);
+
 	void addCollisionBox(const GLfloat pMinX, const GLfloat pMinY, const GLfloat pMinZ,
 						 const GLfloat pMaxX, const GLfloat pMaxY, const GLfloat pMaxZ);
 

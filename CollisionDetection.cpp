@@ -2,16 +2,34 @@
 #include <iostream>
 #include <cstdlib>
 
-bool CollisionDetection::Collision(GLfloat x, GLfloat y, GLfloat z)
+bool CollisionDetection::CollisionX(int pIndex, GLfloat x)
 {
+	return ((x <= static_box[pIndex]->max.x) && (x>= static_box[pIndex]->min.x));
+}
+
+bool CollisionDetection::CollisionY(int pIndex, GLfloat y)
+{
+	return  ((y <= static_box[pIndex]->max.y) && (y>= static_box[pIndex]->min.y));
+}
+
+bool CollisionDetection::CollisionZ(int pIndex, GLfloat z)
+{
+	return ((z <= static_box[pIndex]->max.z) && (z>= static_box[pIndex]->min.z));
+}
+
+bool CollisionDetection::Collision(GLfloat x, GLfloat y, GLfloat z, int &pIndex)
+{
+	bool collisionResult = false;
 	bool collision = false;
 	for (int i = 0; i<static_box.size(); i++) 
 	{
-		collision = collision || Collision(static_box[i], x, y, z, 10);
+		collision = Collision(static_box[i], x, y, z, 10);
+		if (collision)
+			pIndex=i;
+		collisionResult = collisionResult || collision;
 	}
-	return collision;
+	return collisionResult;
 }
-
 
 bool CollisionDetection::Collision(BoundingBox *b, GLfloat x, GLfloat y, GLfloat z, GLfloat size)
 {

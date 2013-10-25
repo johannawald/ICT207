@@ -21,10 +21,16 @@
 #include "IStateController.h"
 #include "BasisController.h"
 #include "MoveController.h"
+#include "CollisionDetection.h"
 
 class ControlRoom : public IStateController, BasisController {
 private:
 	MoveController mCamera;
+	CollisionDetection cd;
+
+	bool MoveX; 
+	bool MoveY;
+	bool MoveZ;
 
 	bool loaded;
 	// ratio of screen
@@ -36,6 +42,9 @@ private:
 	void DrawStairs();
 	void DrawConsole();
 	void DrawLadder();
+
+	
+	bool IsAtComputerPosition();
 public:
 	ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm);
 	void Init();

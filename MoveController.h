@@ -28,6 +28,11 @@ class MoveController
 		float mXpos;  
 		float mYpos;  
 		float mZpos;  
+
+		float mXposDiff;  
+		float mYposDiff;  
+		float mZposDiff;  
+
 		float mXrot; 
 		float mYrot; 
 	
@@ -48,14 +53,19 @@ class MoveController
 		bool mSpecialKeyStates[4];
 		void Enable(void);
 		void KeyOperations(void);
-		
+		void ResetDiffValues();
 	public:
 		MoveController();
 		float GetXpos();
 		float GetYpos();
 		float GetZpos();
+		float GetXposDiff();
+		float GetYposDiff();
+		float GetZposDiff();
 		void SetCameraPosition(float xpos, float ypos, float zpos, float rotation);
-		void MoveCamera(const bool pMoveX = true, const bool pMoveY = true, const bool pMoveZ = true);
+		void MoveCamera(); //const bool pMoveX = true, const bool pMoveY = true, const bool pMoveZ = true);
+		void PrepareMovement();
+		void SetDiffValues(float x, float y, float z);
 		void SpecialKey(int key, int x, int y);
 		void SpecialKeyUp(int key, int x, int y);
 		void KeyboardUp(unsigned char key, int x, int y);

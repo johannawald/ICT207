@@ -19,6 +19,9 @@ MoveController::MoveController()
 	mZpos = 0.0; 
 	mXrot = 0.0; 
 	mYrot = 0.0;
+	mXposDiff = 0.0;
+	mYposDiff = 0.0;  
+	mZposDiff = 0.0;
 	mRadius = 500.0f;
 	mMaxAngle = 35.0;
 	mMinAngle = 0.0;
@@ -59,6 +62,20 @@ float MoveController::GetZpos()
 	return mZpos;
 }
 
+float MoveController::GetXposDiff()
+{
+	return mXposDiff;
+}
+
+float MoveController::GetYposDiff()
+{
+	return mYposDiff;
+}
+
+float MoveController::GetZposDiff()
+{
+	return mZposDiff;
+}
 
 void MoveController::SetCameraPosition(float xpos, float ypos, float zpos, float rotation)
 {
@@ -66,15 +83,28 @@ void MoveController::SetCameraPosition(float xpos, float ypos, float zpos, float
 	glTranslatef(xpos, ypos, zpos); //translate camera starting position
 }
 
-
-void MoveController::MoveCamera(const bool pMoveX, const bool pMoveY, const bool pMoveZ)  //try to avoid updating variables in the draw function! -> do that in the update-funciton
+void MoveController::PrepareMovement()
 {
 	// enable depth testing, lighting and shading
 	Enable();
-
 	// check for movement
 	KeyOperations();
-		
+}
+
+void MoveController::SetDiffValues(float x, float y, float z)
+{
+	mXposDiff = x;
+	mYposDiff = y;
+	mZposDiff = z;
+}
+
+void MoveController::MoveCamera()  //try to avoid updating variables in the draw function! -> do that in the update-funciton
+{		
+	mXpos += mXposDiff;
+	mYpos += mYposDiff;
+	mZpos += mZposDiff;
+
+	ResetDiffValues();
 	glTranslatef(0.0f, -100.0f, -mRadius);
 	glRotatef(mXrot,1.0,0.0,0.0);
 
@@ -85,12 +115,12 @@ void MoveController::MoveCamera(const bool pMoveX, const bool pMoveY, const bool
 	glPopMatrix();
     
 	glRotatef(mYrot,0.0,1.0,0.0);  //rotate the camera on the y-axis (up and down)
-	if (!pMoveX) 
+	/*if (!pMoveX) 
 		mXpos = 0;
 	if (!pMoveY) 
 		mYpos = 0;
 	if (!pMoveZ) 
-		mZpos = 0;
+		mZpos = 0;*/
 
 	glTranslated(-mXpos,-mYpos,-mZpos); //translate the screen to the position of our camera
 	glColor3f(1.0f, 1.0f, 1.0f);	
@@ -212,16 +242,15 @@ void MoveController::KeyOperations(void)
 	if(mKeyStates['q'])
 	{
 		mYrotrad = (mYrot / 180 * 3.141592654f);
-		mXpos -= float(cos(mYrotrad)) * mSpeed;
-		mZpos -= float(sin(mYrotrad)) * mSpeed;
-		
+		mXposDiff -= float(cos(mYrotrad)) * mSpeed;
+		mZposDiff -= float(sin(mYrotrad)) * mSpeed;
 	}
 
 	if(mKeyStates['e'])
 	{
 		mYrotrad = (mYrot / 180 * 3.141592654f);
-		mXpos += float(cos(mYrotrad)) * mSpeed;
-		mZpos += float(sin(mYrotrad)) * mSpeed;
+		mXposDiff += float(cos(mYrotrad)) * mSpeed;
+		mZposDiff += float(sin(mYrotrad)) * mSpeed;
 	}
 
 	if(mKeyStates['r'])
@@ -240,18 +269,18 @@ void MoveController::KeyOperations(void)
 	{
 		mYrotrad = (mYrot / 180 * 3.141592654f);
 		mXrotrad = (mXrot / 180 * 3.141592654f); 
-		mXpos += float(sin(mYrotrad)) * mSpeed;
-		mZpos -= float(cos(mYrotrad)) * mSpeed;
-		mYpos -= float(sin(mXrotrad)) * mSpeed;
+		mXposDiff += float(sin(mYrotrad)) * mSpeed;
+		mZposDiff -= float(cos(mYrotrad)) * mSpeed;
+		mYposDiff -= float(sin(mXrotrad)) * mSpeed;
 	}
 
 	if(mKeyStates['s'])
 	{
 		mYrotrad = (mYrot / 180 * 3.141592654f);
 		mXrotrad = (mXrot / 180 * 3.141592654f); 
-		mXpos -= float(sin(mYrotrad)) * mSpeed;
-		mZpos += float(cos(mYrotrad)) * mSpeed;
-		mYpos += float(sin(mXrotrad)) * mSpeed;
+		mXposDiff -= float(sin(mYrotrad)) * mSpeed;
+		mZposDiff += float(cos(mYrotrad)) * mSpeed;
+		mYposDiff += float(sin(mXrotrad)) * mSpeed;
 	}
 
 	if(mKeyStates['a'])
@@ -278,26 +307,33 @@ void MoveController::KeyOperations(void)
 	{
 		mYrotrad = (mYrot / 180 * 3.141592654f);
 		mXrotrad = (mXrot / 180 * 3.141592654f); 
-		mXpos += float(sin(mYrotrad)) * mSpeed;
-		mZpos -= float(cos(mYrotrad)) * mSpeed;
-		mYpos -= float(sin(mXrotrad)) * mSpeed;
+		mXposDiff += float(sin(mYrotrad)) * mSpeed;
+		mZposDiff -= float(cos(mYrotrad)) * mSpeed;
+		mYposDiff -= float(sin(mXrotrad)) * mSpeed;
 	}
 
 	if(mSpecialKeyStates[3])
 	{
 		mYrotrad = (mYrot / 180 * 3.141592654f);
 		mXrotrad = (mXrot / 180 * 3.141592654f); 
-		mXpos -= float(sin(mYrotrad)) * mSpeed;
-		mZpos += float(cos(mYrotrad)) * mSpeed;
-		mYpos += float(sin(mXrotrad)) * mSpeed;
+		mXposDiff -= float(sin(mYrotrad)) * mSpeed;
+		mZposDiff += float(cos(mYrotrad)) * mSpeed;
+		mYposDiff += float(sin(mXrotrad)) * mSpeed;
 	}
 
 	if(mKeyStates['o'])
 	{
-		mYpos += 1.0f * mSpeed;
+		mYposDiff += 1.0f * mSpeed;
 	}
 	if(mKeyStates['l'])
 	{
-		mYpos -= 1.0f * mSpeed;
+		mYposDiff -= 1.0f * mSpeed;
 	}
+}
+
+void MoveController::ResetDiffValues()
+{
+	mXposDiff = 0;
+	mYposDiff = 0;
+	mZposDiff = 0;
 }

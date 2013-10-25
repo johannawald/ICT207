@@ -129,7 +129,7 @@ void DrawManager::DrawCube(const GLint pTexture,
 	glPushMatrix();
 	glPushAttrib(GL_CURRENT_BIT);
 		glBindTexture(GL_TEXTURE_2D, -1);
-		glDisable(GL_LIGHTING);
+		//glDisable(GL_LIGHTING);
 		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, 10, 10);
 		//draw the front
 		//glColor3f(0.3f, 0.0f, 0.0f);
@@ -150,7 +150,7 @@ void DrawManager::DrawCube(const GLint pTexture,
 		glTranslatef(0,pHeight,0);
 		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pDepth, -90, 0, 0);
 		glTranslatef(0,-pHeight,0);
-		glEnable(GL_LIGHTING); 
+		//glEnable(GL_LIGHTING); 
 	glPopAttrib();
 	glPopMatrix();
 }

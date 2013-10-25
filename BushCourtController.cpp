@@ -4,7 +4,7 @@
 #include "BushCourtController.h"
 #include "texturedPolygons.h"
 #include "GameController.h"
-#include "LevelOneController.h"
+#include "ControlRoom.h"
 #include "StateMachine.h"
 #include "ModelLoader.h"
 
@@ -173,18 +173,21 @@ void BushCourtController::Update() {
 		}
 		
 	}
-	if (transition.getstate() == tsFallAnimation) { 
+	if (transition.getstate() == tsFallAnimation) 
+	{ 
 		cam.DirectionUD(-1);
 	}
 	if (cam.GetUD()<9000)
-		StateMachine::setController(new LevelOneController(GetAudio(), GetModel(), GetTexture()));
+		StateMachine::setController(new ControlRoom(GetAudio(), GetModel(), GetTexture()));
 }
 
-void BushCourtController::Reshape() {
+void BushCourtController::Reshape() 
+{
 	Reshape(width, height);
 }
 
-void BushCourtController::Reshape(int w, int h) {
+void BushCourtController::Reshape(int w, int h) 
+{
 	width = w;		
 	height = h;
 	// Prevent a divide by zero, when window is too short		
@@ -256,14 +259,6 @@ void BushCourtController::Keyboard(unsigned char key, int x, int y)
 		case 'g': 
 			ResetTransition();
 			break;
-		case 'w':
-			GetAudio()->playSound(asMetalicCrash);
-			break;
-		case 'e':
-			GetAudio()->playSound(asStep);
-			break;
-
-
 		// step left
 		case 'Z':
 		case 'z':
@@ -484,7 +479,6 @@ void BushCourtController::CreateBoundingBoxes()
 	cam.SetAABBMinX(16, 31444.0);
 	cam.SetAABBMaxZ(16, 10395.0);
 	cam.SetAABBMinZ(16, 4590.0);
-
 */
 
 	//everyone, there is a bug - we have to compare the bb

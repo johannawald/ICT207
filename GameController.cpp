@@ -174,13 +174,13 @@ bool c = false;
 
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!)
 { 
-	
-	if (cd.Collision(camXpos, camYpos, camZpos))
+	int index = -1;
+	if (cd.Collision(camXpos, camYpos, camZpos, index))
 	{ 
 		std::cout << "collision changed: " << c << std::endl;
 		test++;
 	}
-	c = (cd.Collision(camXpos, camYpos, camZpos));
+	c = (cd.Collision(camXpos, camYpos, camZpos, index));
 	
 	//NEED TO CHANGE TO DETECT TRANSITION LOCATION - use collision?
 	//if ((camXpos > 400) && (camXpos < 700) && (camZpos < -4300) && (camZpos > -4500)) 
