@@ -78,6 +78,15 @@ protected:
 		* @return void
     */
 	void SetTexture(TextureManager* tm);
+	/**
+    * @brief GetMethod of the TextureManager member variable "drawmanager"
+		*
+		* Returns the drawmanager member variable
+     	*
+	    * @param none
+		* @return DrawManager*: the membervariable DrawManager*
+    */
+	DrawManager* GetDrawManager();
 public:	
 	/**
     * @brief constructor of the BasisController

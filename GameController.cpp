@@ -91,7 +91,7 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 
 		glPushMatrix();
 			glRotatef(90, 1, 0, 0);
-			glColor3f(1.0f, 0.0f, 0.0f);
+			//glColor3f(1.0f, 0.0f, 0.0f);
 			//glutSolidSphere(100, 12, 12); //Our character to follow
 			glutSolidCube(100);
 		glPopMatrix();
@@ -109,14 +109,12 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 			//DrawControlRoom();
 			//DrawOuterWalls();
 			//DrawArchitecture();
-			
-			//cd.display(); //*JW
+
 			DrawManager dm;
 
-			//glRotatef(90,1,0,0);
-			dm.DrawCollisionCube(&cd, -1, 1, 1, 0, 0, 0, 100, 200, 300); 
-			dm.DrawCollisionCube(&cd, -1, 1, 1, 10, 50, 200, 100, 20, 30);
-			dm.DrawCollisionCube(&cd, -1, 1, 1, 100, 0, -200, 200, 4000, 200); 
+			dm.DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
+			dm.DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
+			dm.DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 100, 0, -200, 200, 4000, 200); 
 		
 			//glRotatef(-90,1,0,0);
 			Draw3DModels();

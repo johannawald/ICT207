@@ -43,21 +43,23 @@ public:
 	void DrawStairs(const float stairWidth, const float stairHeight, const float stairDepth, const float numSteps) const;
 	
 	void DrawRect(const GLint pTexture, 
-				const int TexCoordX, const int TexCoordY, 
-				const int pPositionX, const int pPositionY, const int pPositionZ, 
-				const GLdouble pWidth, const GLdouble pHeight) const;
+				  const int TexCoordX, const int TexCoordY, 
+				  const int pPositionX, const int pPositionY, const int pPositionZ, 
+				  const GLdouble pWidth, const GLdouble pHeight) const;
 	void DrawRect(const GLint pTexture, 
-				const int TexCoordX, const int TexCoordY, 
-				const int pPositionX, const int pPositionY, const int pPositionZ, 
-				const GLdouble pWidth, const GLdouble pHeight, const float angleX, const float angleY, const float angleZ) const;
-	void DrawCube(const int pPositionX, const int pPositionY, const int pPositionZ, 
-						   const GLdouble pWidth, const GLdouble pHeight, const GLdouble pDepth) const;
+				  const int TexCoordX, const int TexCoordY, 
+				  const int pPositionX, const int pPositionY, const int pPositionZ, 
+				  const GLdouble pWidth, const GLdouble pHeight, const float angleX, const float angleY, const float angleZ) const;
+	void DrawCube(const GLint pTexture, 
+				  const int pTexCoordX, const int pTexCoordY, 
+				  const int pPositionX, const int pPositionY, const int pPositionZ, 
+				  const GLdouble pWidth, const GLdouble pHeight, const GLdouble pDepth) const;
 	void DrawCollisionRect(CollisionDetection* collision, const GLint pTexture, 
-				const int TexCoordX, const int TexCoordY, 
+				const int pTexCoordX, const int pTexCoordY, 
 				const int pPositionX, const int pPositionY, const int pPositionZ, 
 				const GLdouble pWidth, const GLdouble pHeight);
 	void DrawCollisionCube(CollisionDetection* collision, const GLint pTexture, 
-				const int TexCoordX, const int TexCoordY, 
+				const int pTexCoordX, const int pTexCoordY, 
 				const int pPositionX, const int pPositionY, const int pPositionZ, 
 				const GLdouble pWidth, const GLdouble pHeight, const GLdouble pDepth);
 };
