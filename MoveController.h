@@ -46,6 +46,8 @@ class MoveController
 		bool mMouseClicked;
 		bool mKeyStates[256]; 
 		bool mSpecialKeyStates[4];
+		void Enable(void);
+		void KeyOperations(void);
 
 	public:
 		MoveController();
@@ -57,8 +59,7 @@ class MoveController
 		void Keyboard(unsigned char key, int x, int y);
 		void Mouse(int button, int state, int x, int y);
 		void MouseMotion(int x, int y);
-		void Enable(void);
-		void KeyOperations(void);
+		
 
 };
 #endif //end of MoveController class
