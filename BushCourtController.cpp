@@ -1272,13 +1272,11 @@ void BushCourtController::CreateTextures()
 	image = tp.LoadTexture("textures/vending_machine.raw", 800, 500);
 	tp.CreateTexture(VENDING_MACHINE, image, 800, 500);
 
-	image = tp.LoadTexture("textures/woodendoor.raw", 193, 419);
+	/*image = tp.LoadTexture("textures/woodendoor.raw", 193, 419);
 	tp.CreateTexture(WOODENDOOR, image, 193, 419);
 
 	image = tp.LoadTexture("textures/FarExit.bmp", 512, 384);
 	tp.CreateTexture(FAR_EXIT, image, 512, 384);
-
-	//daniel istead of this create them in the texturemanager
 
 	image = tp.LoadTexture("textures/hallway1.bmp", 512, 384);
 	tp.CreateTexture(HALLWAY1, image, 512, 384);
@@ -1332,7 +1330,7 @@ void BushCourtController::CreateTextures()
 	tp.CreateTexture(BOARD3, image, 307, 187);
 
 	image = tp.LoadTexture("textures/board4.raw", 381, 252);
-	tp.CreateTexture(BOARD4, image, 381, 252);
+	tp.CreateTexture(BOARD4, image, 381, 252);*/
 
     image = tp.LoadTexture("textures/PosterCocacola.raw", 1018, 1018);
     tp.CreateTexture(COCACOLA_POSTER, image, 1018, 1018);
@@ -5081,7 +5079,7 @@ glPopMatrix();
   glPopMatrix();
 
   //Alcove Doors
-  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(WOODENDOOR));
+  glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWoodenDoor));
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 1.0);
@@ -5368,7 +5366,7 @@ glPopMatrix();
   }
 
   //Near Images
-  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(HALLWAY1));
+  glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taHallway1));
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(1.0, 0.0);
@@ -5385,7 +5383,44 @@ glPopMatrix();
   step = -1700.0;
   for(int i = 0; i < 11; i++)
   {
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture((TextureCodes)(228+i)));
+	switch(i){
+	case 0 :
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taHallway2));
+		break;
+	case 1 :
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taHallway3));
+		break;
+	case 2 :
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taHallway4));
+		break;
+	case 3 :
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taHallway5));
+		break;
+	case 4 :
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taHallway6));
+		break;
+	case 5 :
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taHallway7));
+		break;
+	case 6 :
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taHallway8));
+		break;
+	case 7 :
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taHallway9));
+		break;
+	case 8 :
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taHallway10));
+		break;
+	case 9 :
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taHallway11));
+		break;
+	case 10 :
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taHallway12));
+		break;
+	case 11 :
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taHallway13));
+		break;
+	}
     glPushMatrix();
     glBegin(GL_POLYGON);
       glTexCoord2f(1.0, 0.0);
@@ -5401,7 +5436,7 @@ glPopMatrix();
     step -= 1940.0;
   }
 
-  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(HALLWAY14));
+  glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taHallway14));
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(1.0, 0.0);
@@ -5416,7 +5451,7 @@ glPopMatrix();
   glPopMatrix();
 
   //Far Exit
-  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(FAR_EXIT));
+  glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taFarExit));
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(1.0, .0);
@@ -5431,7 +5466,7 @@ glPopMatrix();
   glPopMatrix();
 
   //Boards
-  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOARD1));
+  glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taBoard1));
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 1.0);
@@ -5445,7 +5480,7 @@ glPopMatrix();
   glEnd();
   glPopMatrix();
   
-  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOARD2));
+  glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taBoard2));
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 1.0);
@@ -5459,7 +5494,7 @@ glPopMatrix();
   glEnd();
   glPopMatrix();
   
-  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOARD3));
+  glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taBoard3));
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 1.0);
@@ -5473,7 +5508,7 @@ glPopMatrix();
   glEnd();
   glPopMatrix();
   
-  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOARD4));
+  glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taBoard4));
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 1.0);
@@ -5488,7 +5523,7 @@ glPopMatrix();
   glPopMatrix();
 
 
-  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOARD1));
+  glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taBoard1));
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 1.0);
@@ -5502,7 +5537,7 @@ glPopMatrix();
   glEnd();
   glPopMatrix();
   
-  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOARD2));
+  glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taBoard2));
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 1.0);
@@ -5516,7 +5551,7 @@ glPopMatrix();
   glEnd();
   glPopMatrix();
   
-  glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOARD3));
+  glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taBoard3));
   glPushMatrix();
   glBegin(GL_POLYGON);
     glTexCoord2f(0.0, 1.0);

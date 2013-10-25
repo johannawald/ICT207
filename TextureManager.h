@@ -21,9 +21,14 @@
 enum eTextures { tAdOreo, 
 				 taSomeTexture,
 				 taAdOreo_Text, 
-				 taSome,
 				 taGrass, taGrass2, tatext,
-				 taWelcome,
+				 taWelcome, taWoodenDoor, taFarExit, 
+				 taHallway1, taHallway2, taHallway3,
+				 taHallway4, taHallway5, taHallway6,
+				 taHallway7, taHallway8, taHallway9, 
+				 taHallway10, taHallway11, taHallway12,
+				 taHallway13, taHallway14, taBoard1,
+				 taBoard2, taBoard3, taBoard4,
 				 TEXTURE_SIZE };
 
 class TextureManager: public IAssetManager {

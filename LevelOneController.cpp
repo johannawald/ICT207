@@ -18,14 +18,25 @@ LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, Textu
 
 	image = nullptr; //ray, we don't need that if we implemented the texturemanager! 
 	//(images are loaded over and over again, if you enter the level / shay's world)
+	
+	// load texture images and create display lists
+	CreateTextures();
+	loaded = true;
 
 	Init();
 	// copies bounding boxes from array to linked lists (one fopr each quadrant)
 	//cam.InitiateBoundingBoxes();
-	
-	// load texture images and create display lists
-	//CreateTextures();
-	loaded = true;
+}
+
+//--------------------------------------------------------------------------------------
+//  Initialize Settings
+//--------------------------------------------------------------------------------------
+void LevelOneController::Init() 
+{
+	// set perpsective
+	//gluLookAt(0.0, 1.75, 0.0, 
+	//	      0.0, 1.75, -1,
+	//		  0.0f,1.0f,0.0f);
 
 	// intialise camera values
 	camSpeed = 20.0;
@@ -40,27 +51,24 @@ LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, Textu
 	camYrotrad;
 	camXrotrad;
 	camMouseClicked = false;
-	camKeyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255) 
+	camKeyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)
+	camSpecialKeyStates = new bool[4];
 	camLastx = glutGet(GLUT_WINDOW_WIDTH)/2; 
 	camLasty = glutGet(GLUT_WINDOW_HEIGHT)/2;
 
+	//set camera key states to false (not pressed)
 	for(int i=0; i<256; i++)
 	{
 		camKeyStates[i] = false;
 	}
-}
 
-//--------------------------------------------------------------------------------------
-//  Initialize Settings
-//--------------------------------------------------------------------------------------
-void LevelOneController::Init() 
-{
-	// set perpsective
-	//gluLookAt(0.0, 1.75, 0.0, 
-	//	      0.0, 1.75, -1,
-	//		  0.0f,1.0f,0.0f);
+	//set camera special key states (arrow keys) to false (not pressed)
+	for(int i=0; i<4; i++)
+	{
+		camSpecialKeyStates[i] = false;
+	}
 
-	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+	glutIgnoreKeyRepeat(0);
 	Reshape();
 }
 
@@ -75,14 +83,9 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
 		Enable();
 
-		// check for movement
-		//RF READ CAMERA CONTROLS
-		KeyOperations();
-		//glClearColor (0.0,0.0,0.0,1.0); //clear the screen to black
-		//glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
-
 		//RF: CAMERA
 		//control the camera
+		glPushMatrix();
 		glLoadIdentity();
 		
 		glTranslatef(0.0f, -100.0f, -camRadius);
@@ -94,7 +97,7 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 			glutSolidSphere(100, 12, 12); //Our character to follow
 		glPopMatrix();
     
-		glRotatef(camYrot,0.0,1.0,0.0);  //rotate our camera on the y-axis (up and down)
+		glRotatef(camYrot,0.0,1.0,0.0);  //rotate the camera on the y-axis (up and down)
 		glTranslated(-camXpos,0.0f,-camZpos); //translate the screen to the position of our camera
 		glColor3f(1.0f, 1.0f, 1.0f);
 
@@ -102,6 +105,7 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 		//enable texture mapping
 		glEnable (GL_TEXTURE_2D);
 		glPushMatrix();
+			glRotatef(180, 0.0, 1.0, 0.0); //rotate camera 180 degrees
 			glTranslatef(-500.0, -250.0, 3000.0); //translate camera starting position
 			// displays the exit screen
 			DrawControlRoom();
@@ -113,10 +117,15 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 			IncrementFrameCount();
 		glPopMatrix();
 		glDisable (GL_TEXTURE_2D); 
+		glPopMatrix();
 
 		// clear buffers
 		glFlush();
 		glutSwapBuffers();
+
+		//RF READ CAMERA CONTROLS
+		// check for movement
+		KeyOperations();
 	}
 }
 
@@ -152,7 +161,7 @@ void LevelOneController::Reshape(int w, int h)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glViewport(0, 0, w, h);
-	gluPerspective(60,ratio,1,250000);	
+	gluPerspective(45,ratio,1,250000);	
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -161,13 +170,47 @@ void LevelOneController::Reshape(int w, int h)
 //--------------------------------------------------------------------------------------
 void LevelOneController::SpecialKey(int key, int x, int y) 
 {
+	switch (key)
+	{
+		case GLUT_KEY_LEFT :
+			camSpecialKeyStates[0] = true;
+			break;
 
+		case GLUT_KEY_RIGHT :
+			camSpecialKeyStates[1] = true;
+			break;
+
+		case GLUT_KEY_UP : 
+			camSpecialKeyStates[2] = true;
+			break;
+
+		case GLUT_KEY_DOWN : 
+			camSpecialKeyStates[3] = true;
+			break;
+	}
 }
 
 //---------------------------------------------------------
 void LevelOneController::SpecialKeyUp(int key, int x, int y) 
 {
+	switch (key)
+	{
+		case GLUT_KEY_LEFT :
+			camSpecialKeyStates[0] = false;
+			break;
 
+		case GLUT_KEY_RIGHT :
+			camSpecialKeyStates[1] = false;
+			break;
+
+		case GLUT_KEY_UP : 
+			camSpecialKeyStates[2] = false;
+			break;
+
+		case GLUT_KEY_DOWN : 
+			camSpecialKeyStates[3] = false;
+			break;
+	}
 }
 
 //--------------------------------------------------------------------------------------
@@ -305,7 +348,7 @@ void LevelOneController::MouseMotion(int x, int y)
 //--------------------------------------------------------------------------------------
 // Load and Create Textures
 //--------------------------------------------------------------------------------------
-/*void LevelOneController::CreateTextures() //ray, we don't need that if we implemented the texturemanager, because all the texture should be loaded in the texturemanager
+void LevelOneController::CreateTextures() //ray, we don't need that if we implemented the texturemanager, because all the texture should be loaded in the texturemanager
 {
 	glEnable(GL_DEPTH_TEST);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -318,36 +361,36 @@ void LevelOneController::MouseMotion(int x, int y)
 	image = tp.LoadTexture("textures/thanks.raw", 512, 512);
 	tp.CreateTexture(EXIT, image, 512, 512);
 
-	image = tp.LoadTexture("textures/box.raw", 512, 512);
+	image = tp.LoadTexture("textures/box.bmp", 512, 512);
 	tp.CreateTexture(BOX, image, 512, 512);
 
-	image = tp.LoadTexture("textures/tilefloor.raw", 512, 512);
+	image = tp.LoadTexture("textures/tilefloor.bmp", 512, 512);
 	tp.CreateTexture(TILEFLOOR, image, 512, 512);
 
-	image = tp.LoadTexture("textures/concwall.raw", 512, 512);
+	image = tp.LoadTexture("textures/concwall.bmp", 512, 512);
 	tp.CreateTexture(CONCWALL, image, 512, 512);
 
-	image = tp.LoadTexture("textures/rustywall.raw", 512, 256);
+	image = tp.LoadTexture("textures/rustywall.raw", 512, 256); //bad  texture, not sure where used :S *JM
 	tp.CreateTexture(RUSTYWALL, image, 512, 256);
 
-	image = tp.LoadTexture("textures/tilewall.raw", 512, 512);
+	image = tp.LoadTexture("textures/tilewall.bmp", 512, 512);
 	tp.CreateTexture(TILEWALL, image, 512, 512);
 
-	image = tp.LoadTexture("textures/4x1platform.raw", 512, 512);
+	image = tp.LoadTexture("textures/4x1platform.png", 512, 512);
 	tp.CreateTexture(PLATFORM4X1, image, 512, 512);
 
-	image = tp.LoadTexture("textures/button.raw", 512, 512);
+	image = tp.LoadTexture("textures/button.bmp", 512, 512);
 	tp.CreateTexture(BUTTON, image, 512, 512);
 
-	image = tp.LoadTexture("textures/bomb.raw", 512, 512);
+	image = tp.LoadTexture("textures/bomb.bmp", 512, 512);
 	tp.CreateTexture(BOMB, image, 512, 512);
 
-	image = tp.LoadTexture("textures/console.raw", 512, 512);
+	image = tp.LoadTexture("textures/console.bmp", 512, 512);
 	tp.CreateTexture(CONSOLE, image, 512, 512);
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-}*/
+}
 
 //--------------------------------------------------------------------------------------
 //  Draw the Objects
@@ -357,34 +400,34 @@ void LevelOneController::DrawObjects()
 	glPushMatrix();
 		glTranslatef(2000, 0, 3500);
 		glScalef(0.75, 1.0, 0.75);
-		//GetModel()->drawModel(mBox, tp.GetTexture(BOX));
+		GetModel()->drawModel(mBox, tp.GetTexture(BOX));
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(4250, 500, 750);
 		glScalef(0.75, 1.0, 0.75);
-		//GetModel()->drawModel(mBox, tp.GetTexture(BOX));
+		GetModel()->drawModel(mBox, tp.GetTexture(BOX));
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(750, 500, 750);
-		//GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
+		GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(4250, 500, 1250);
-		//GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
+		GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(4250, 500, 4250);
-		//GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
+		GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
 	glPopMatrix();
 
-	//glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOMB));
+	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOMB));
 		glPushMatrix();
 		glTranslatef(750, 500, 4250);
-		//GetModel()->drawModel(mButton, tp.GetTexture(BUTTON)); //ray, jon, don't do it like this!
+		GetModel()->drawModel(mButton, tp.GetTexture(BUTTON)); //ray, jon, don't do it like this!
 	glPopMatrix();
 }
 
@@ -397,31 +440,31 @@ void LevelOneController::Draw3DModels()
 	glPushMatrix();
 		glTranslatef(4250, 0, 2500);
 		glRotatef(90, 0, 1, 0);
-		//GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
+		GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
 	glPopMatrix();
 
 	glPushMatrix();
-		//glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PLATFORM4X1));
+		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PLATFORM4X1));
 		glTranslatef(2500, 0, 4250);
-		//GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
+		GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(2250, 450, 1500);
 		glRotatef(90, 0, 1, 0);
-		//GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
+		GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(500, 0, -1250);
 		glRotatef(180, 0, 1, 0);
-		//GetModel()->drawModel(mConsole, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONSOLE)); //*JW
+		GetModel()->drawModel(mConsole, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONSOLE)); //*JW
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(500, 0, -4450);
 		glScalef(0.5, 1, 1);	
-		//GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(RUSTYWALL));
+		GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(RUSTYWALL));
 	glPopMatrix();
 }
 
@@ -431,7 +474,7 @@ void LevelOneController::Draw3DModels()
 void LevelOneController::DrawOuterWalls()
 {
 		//floor
-		//glBindTexture(GL_TEXTURE_2D,GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEFLOOR));
+		glBindTexture(GL_TEXTURE_2D,GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEFLOOR));
 		glBegin(GL_QUADS);
 			glTexCoord2f (5.0, 5.0);		glVertex3f(0, 0, 0);
 			glTexCoord2f (0.0, 5.0);		glVertex3f(0, 0, 5000);
@@ -440,7 +483,7 @@ void LevelOneController::DrawOuterWalls()
 		glEnd();
 
 		//ceiling
-		//glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(TILEFLOOR));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(TILEFLOOR));
 		glBegin(GL_QUADS);
 			glTexCoord2f (5.0, 5.0);		glVertex3f(0, 2000,	0);
 			glTexCoord2f (0.0, 5.0);		glVertex3f(0, 2000, 5000);
@@ -449,7 +492,7 @@ void LevelOneController::DrawOuterWalls()
 		glEnd();
 
 		//walls
-		//glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEWALL));
 		glBegin(GL_QUADS);
 			glTexCoord2f (10.0, 1.0);		glVertex3f(0, 0, 0);
 			glTexCoord2f (0.0, 1.0);		glVertex3f(0, 0, 5000);
@@ -479,7 +522,7 @@ void LevelOneController::DrawOuterWalls()
 		glEnd();
 
 		//2nd story walls
-		//glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
 			glTexCoord2f (10.0, 1.0);		glVertex3f(0, 1000, 0);
 			glTexCoord2f (0.0, 1.0);		glVertex3f(0, 1000, 5000);
@@ -516,7 +559,7 @@ void LevelOneController::DrawArchitecture()
 {
 
 		//solid platform tops
-		//glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(TILEFLOOR));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(TILEFLOOR));
 		glBegin(GL_QUADS);
 			glTexCoord2f (1.5, 1.5);		glVertex3f(0, 500, 0);
 			glTexCoord2f (0.0, 1.5);		glVertex3f(0, 500, 1500);
@@ -549,7 +592,7 @@ void LevelOneController::DrawArchitecture()
 		glEnd();
 
 		//platform sides
-		//glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
 			glTexCoord2f (4.0, 0.25);		glVertex3f(1500, 0, 500);
 			glTexCoord2f (0.0, 0.25);		glVertex3f(3500, 0, 500);
@@ -605,7 +648,7 @@ void LevelOneController::DrawArchitecture()
 		glEnd();
 
 		//high inside walls - lowersection
-		//glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(CONCWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
 			glTexCoord2f (1.0, 4.0);		glVertex3f(1500, 500, 0);
 			glTexCoord2f (0.0, 4.0);		glVertex3f(1500, 500, 500);
@@ -626,7 +669,7 @@ void LevelOneController::DrawArchitecture()
 		glEnd();
 
 		//high inside walls - uppersection
-		//glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
 		glBegin(GL_QUADS);
 			glTexCoord2f (1.0, 4.0);		glVertex3f(1500, 0, 1000);
 			glTexCoord2f (0.0, 4.0);		glVertex3f(1500, 0, 2000);
@@ -654,7 +697,7 @@ void LevelOneController::DrawArchitecture()
 
 	 //stairs
 	DrawManager drawMan; //jon, we should not create the drawmanager in the draw function! use the drawmanager provided in the base class!
-	//glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEFLOOR));
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEFLOOR));
 
 	glPushMatrix();
 		glTranslatef(0, 0, 2000);
@@ -687,7 +730,7 @@ void LevelOneController::DrawArchitecture()
 void LevelOneController::DrawControlRoom()
 {
 
-	//glBindTexture(GL_TEXTURE_2D,GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEFLOOR));
+	glBindTexture(GL_TEXTURE_2D,GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEFLOOR));
 	//floor
 	glBegin(GL_QUADS);
 		glTexCoord2f (1.0, 1.0);		glVertex3f(0, 0, -4000);
@@ -714,7 +757,7 @@ void LevelOneController::DrawControlRoom()
 		glTexCoord2f (0.25, 0.0);		glVertex3f(700, 1000, -4000);
 	glEnd();
 
-	//glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
 	glBegin(GL_QUADS);
 		glTexCoord2f(1.0, 1.0);			glVertex3f(0, 0, -4000);
 		glTexCoord2f(0.0, 1.0);			glVertex3f(0, 0, -1000);
@@ -767,7 +810,7 @@ void LevelOneController::DrawControlRoom()
 	glEnd();
 	
 	DrawManager drawMan; //jon, don't create that object over and over again!
-	//glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(TILEFLOOR));
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(TILEFLOOR));
 	glPushMatrix();
 		glTranslatef(700, 0, -4000);
 		glRotatef(180, 0, 1, 0);
@@ -812,6 +855,11 @@ void LevelOneController::Enable(void)
 //--------------------------------------------------------------------------------------
 void LevelOneController::KeyOperations(void)
 {
+	if(camKeyStates[27])
+	{
+		StateMachine::setBushCourtController();
+	}
+
 	if(camKeyStates['q'])
 	{
 		camYrotrad = (camYrot / 180 * 3.141592654f);
@@ -865,5 +913,33 @@ void LevelOneController::KeyOperations(void)
 	if(camKeyStates['d'])
 	{
 		camYrot += 1.0f;
+	}
+
+	if(camSpecialKeyStates[0])
+	{
+		camYrot += -1.0f;
+	}
+
+	if(camSpecialKeyStates[1])
+	{
+		camYrot += 1.0f;
+	}
+
+	if(camSpecialKeyStates[2])
+	{
+		camYrotrad = (camYrot / 180 * 3.141592654f);
+		camXrotrad = (camXrot / 180 * 3.141592654f); 
+		camXpos += float(sin(camYrotrad)) * camSpeed;
+		camZpos -= float(cos(camYrotrad)) * camSpeed;
+		camYpos -= float(sin(camXrotrad)) * camSpeed;
+	}
+
+	if(camSpecialKeyStates[3])
+	{
+		camYrotrad = (camYrot / 180 * 3.141592654f);
+		camXrotrad = (camXrot / 180 * 3.141592654f); 
+		camXpos -= float(sin(camYrotrad)) * camSpeed;
+		camZpos += float(cos(camYrotrad)) * camSpeed;
+		camYpos += float(sin(camXrotrad)) * camSpeed;
 	}
 }
