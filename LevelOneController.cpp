@@ -10,10 +10,8 @@
 //--------------------------------------------------------------------------------------
 //  Constructor
 //--------------------------------------------------------------------------------------
-LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), movementSpeed(15.0), rotationSpeed(0.005), loaded(false)
+LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), loaded(false)
 {
-	frameCount = 0;
-	lastClock = 0;
 	loaded = true;
 	Init();
 }
@@ -23,33 +21,6 @@ LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, Textu
 //--------------------------------------------------------------------------------------
 void LevelOneController::Init() 
 {
-	// intialise camera values
-	camSpeed = 20.0;
-	camXpos = 0.0; 
-	camYpos = 0.0; 
-	camZpos = 0.0; 
-	camXrot = 0.0; 
-	camYrot = 0.0;
-	camRadius = 500.0f;
-	camMaxAngle = 35.0;
-	camMinAngle = 0.0;
-	camYrotrad;
-	camXrotrad;
-	camMouseClicked = false;
-	camLastx = glutGet(GLUT_WINDOW_WIDTH)/2; 
-	camLasty = glutGet(GLUT_WINDOW_HEIGHT)/2;
-
-	//set camera key states to false (not pressed)
-	for(int i=0; i<256; i++)
-	{
-		camKeyStates[i] = false;
-	}
-
-	//set camera special key states (arrow keys) to false (not pressed)
-	for(int i=0; i<4; i++)
-	{
-		camSpecialKeyStates[i] = false;
-	}
 	Reshape();
 }
 
@@ -62,40 +33,26 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 	{
 		glClearColor(0, 0, 0, 0);
 		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
-		Enable();
-
-		//RF: CAMERA
-		//control the camera
+		
+		// prepare for camera manipulation
 		glPushMatrix();
 		glLoadIdentity();
-		
-		glTranslatef(0.0f, -100.0f, -camRadius);
-		glRotatef(camXrot,1.0,0.0,0.0);
 
-		glPushMatrix();
-			glRotatef(90, 1, 0, 0);
-			glColor3f(1.0f, 0.0f, 0.0f);
-			glutSolidSphere(100, 12, 12); //Our character to follow
-		glPopMatrix();
-    
-		glRotatef(camYrot,0.0,1.0,0.0);  //rotate the camera on the y-axis (up and down)
-		glTranslated(-camXpos,0.0f,-camZpos); //translate the screen to the position of our camera
-		glColor3f(1.0f, 1.0f, 1.0f);
+		// move the camera
+		mCamera.MoveCamera();
 
 		// DISPLAY TEXTURES
 		//enable texture mapping
 		glEnable (GL_TEXTURE_2D);
 		glPushMatrix();
-			glRotatef(180, 0.0, 1.0, 0.0); //rotate camera 180 degrees
-			glTranslatef(-500.0, -250.0, 3000.0); //translate camera starting position
+			//set camera to start position
+			mCamera.SetCameraPosition(-500.0, -250.0, 3000.0, 180.0); 
 			// displays the exit screen
 			DrawControlRoom();
 			DrawOuterWalls();
 			DrawArchitecture();
 			Draw3DModels();
 			DrawObjects();
-			// set the movement and rotation speed according to frame count
-			IncrementFrameCount();
 		glPopMatrix();
 		glDisable (GL_TEXTURE_2D); 
 		glPopMatrix();
@@ -103,10 +60,6 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 		// clear buffers
 		glFlush();
 		glutSwapBuffers();
-
-		//RF READ CAMERA CONTROLS
-		// check for movement
-		KeyOperations();
 	}
 }
 
@@ -142,113 +95,26 @@ void LevelOneController::Reshape(int w, int h)
 //--------------------------------------------------------------------------------------
 void LevelOneController::SpecialKey(int key, int x, int y) 
 {
-	switch (key)
-	{
-		case GLUT_KEY_LEFT :
-			camSpecialKeyStates[0] = true;
-			break;
-
-		case GLUT_KEY_RIGHT :
-			camSpecialKeyStates[1] = true;
-			break;
-
-		case GLUT_KEY_UP : 
-			camSpecialKeyStates[2] = true;
-			break;
-
-		case GLUT_KEY_DOWN : 
-			camSpecialKeyStates[3] = true;
-			break;
-	}
+	mCamera.SpecialKey(key, x, y);
 }
 
 //---------------------------------------------------------
 void LevelOneController::SpecialKeyUp(int key, int x, int y) 
 {
-	switch (key)
-	{
-		case GLUT_KEY_LEFT :
-			camSpecialKeyStates[0] = false;
-			break;
-
-		case GLUT_KEY_RIGHT :
-			camSpecialKeyStates[1] = false;
-			break;
-
-		case GLUT_KEY_UP : 
-			camSpecialKeyStates[2] = false;
-			break;
-
-		case GLUT_KEY_DOWN : 
-			camSpecialKeyStates[3] = false;
-			break;
-	}
+	mCamera.SpecialKeyUp(key, x, y);
 }
 
 //--------------------------------------------------------------------------------------
 
 void LevelOneController::Keyboard(unsigned char key, int x, int y)
 {
-	camKeyStates[key] = true; // Set the state of the current key to pressed
-	//int i = 0;
-	//switch (key)
-	//{
-	//	case '1':
-	//		//can only be used within these bounds - next to console - adjust size
-	//		if (((cam.GetLR() > 0) && (cam.GetLR() < 1000)) && ((cam.GetFB() < -1000) || (cam.GetFB() > -2000)))
-	//		{
-	//			//change that later to a seperate controller
-	//			cam.Position(2500.0, 1500.0, 550.0, 180.0);
-	//		}
-	//		break;
-	//	case '0':
-	//		StateMachine::setBushCourtController(); //debug! Should be deleted in the release version
-	//		break;
-	//	case 'e':
-	//		//next to ladder out
-	//		if (((cam.GetLR() > 250) && (cam.GetLR() < 750)) && ((cam.GetFB() < -2000) || (cam.GetFB() > -3000)))
-	//		{
-	//			StateMachine::setBushCourtController();
-	//		}
-	//	case 'Z':
-	//	case 'z':
-	//		cam.DirectionLR(-1);
-	//		break;
-	//	// step right
-	//	case 'X':
-	//	case 'x':
-	//		cam.DirectionLR(1);
-	//	break;
-	//	// look up
-	//	case 'Q':
-	//	case 'q':
-	//		cam.DirectionLookUD(1);
-	//		break;
-	//	// look down
-	//	case 'A':
-	//	case 'a':
-	//		cam.DirectionLookUD(-1);
-	//	break;
-	//	// exit tour (escape key)
-	//	case 27:
-	//		{
-	//			cam.Position(500, 500, -4000, 180.0);
-	//		}
-	//	break;
-	//	// display welcome page (space key)
-	//	case ' ':
-	//		{
-	//			cam.SetRotateSpeed (0.0f);
-	//			cam.SetMoveSpeed (0.0f);
-	//		}
-	//	break;	
-	//}
+	mCamera.Keyboard(key, x, y);
 }
 
 //--------------------------------------------------------------------------------------
 void LevelOneController::KeyboardUp(unsigned char key, int x, int y)
 {
-	camKeyStates[key] = false; // Set the state of the current key to not pressed
+	mCamera.KeyboardUp(key, x, y);
 }
 
 //--------------------------------------------------------------------------------------
@@ -256,22 +122,7 @@ void LevelOneController::KeyboardUp(unsigned char key, int x, int y)
 //--------------------------------------------------------------------------------------
 void LevelOneController::Mouse(int button, int state, int x, int y)
 {
-	camLastx = x; //set lastx to the current x position
-	camLasty = y; //set lasty to the current y position
-	
-	if((button == GLUT_LEFT_BUTTON) || (button == GLUT_RIGHT_BUTTON)) 
-	{
-		camMouseClicked = (state == GLUT_DOWN);
-		if(state == GLUT_DOWN)
-		{
-			glutSetCursor(GLUT_CURSOR_NONE);
-		}
-		else
-		{
-			glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH)/2, glutGet(GLUT_WINDOW_HEIGHT)/2); //rest the mouse point to center of window
-			glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-		}
-	}
+	mCamera.Mouse(button, state, x, y);
 }
 
 //--------------------------------------------------------------------------------------
@@ -284,25 +135,7 @@ void LevelOneController::PassiveMotion(int x, int y)
 
 void LevelOneController::MouseMotion(int x, int y)
 {
-	camDiffx = 0;// = x-lastx; //check the difference between the current x and the last x position
-	camDiffy = 0;// = y-lasty; //check the difference between the current y and the last y position
-
-	if(camMouseClicked)
-	{
-		camDiffx = x-camLastx; //check the difference between the current x and the last x position
-		camDiffy = y-camLasty; //check the difference between the current y and the last y position
-	}
-
-	camLastx=x; //set lastx to the current x position
-	camLasty=y; //set lasty to the current y position
-
-	camXrot += (float) camDiffy; //set the xrot to xrot with the addition of the difference in the y position
-	camYrot += (float) camDiffx; //set the yrot to yrot with the addition of the difference in the x position
-
-	if(camXrot > camMaxAngle) //restrict maximum vertical camera angle to 45 degrees
-		camXrot = camMaxAngle;
-	else if(camXrot < camMinAngle) //restrict minimum vertical camera angle to 5 degrees
-		camXrot = camMinAngle;
+	mCamera.MouseMotion(x, y);
 }
 
 //--------------------------------------------------------------------------------------
@@ -505,7 +338,7 @@ void LevelOneController::DrawArchitecture()
 		glEnd();
 
 		//platform sides
-		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall)); //tp.GetTexture(CONCWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall));
 		glBegin(GL_QUADS);
 			glTexCoord2f (4.0, 0.25);		glVertex3f(1500, 0, 500);
 			glTexCoord2f (0.0, 0.25);		glVertex3f(3500, 0, 500);
@@ -561,7 +394,7 @@ void LevelOneController::DrawArchitecture()
 		glEnd();
 
 		//high inside walls - lowersection
-		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall)); // tp.GetTexture(CONCWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall));
 		glBegin(GL_QUADS);
 			glTexCoord2f (1.0, 4.0);		glVertex3f(1500, 500, 0);
 			glTexCoord2f (0.0, 4.0);		glVertex3f(1500, 500, 500);
@@ -582,7 +415,7 @@ void LevelOneController::DrawArchitecture()
 		glEnd();
 
 		//high inside walls - uppersection
-		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall)); //tp.GetTexture(CONCWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall)); 
 		glBegin(GL_QUADS);
 			glTexCoord2f (1.0, 4.0);		glVertex3f(1500, 0, 1000);
 			glTexCoord2f (0.0, 4.0);		glVertex3f(1500, 0, 2000);
@@ -609,31 +442,22 @@ void LevelOneController::DrawArchitecture()
 		glEnd();
 
 	 //stairs
-	DrawManager drawMan; //jon, we should not create the drawmanager in the draw function! use the drawmanager provided in the base class!
-	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor)); // tp.GetTexture(TILEFLOOR));
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor)); 
 
 	glPushMatrix();
 		glTranslatef(0, 0, 2000);
-		drawMan.DrawStairs(500, 500, -500, 5);
+		GetDrawManager()->DrawStairs(500, 500, -500, 5);
 		glTranslatef(500, 0, 0);
-		drawMan.DrawStairs(500, 500, -500, 5);
+		GetDrawManager()->DrawStairs(500, 500, -500, 5);
 		glTranslatef(500, 0, 0);
-		drawMan.DrawStairs(500, 500, -500, 5);
+		GetDrawManager()->DrawStairs(500, 500, -500, 5);
 	glPopMatrix();
 
-	
 	glPushMatrix(); //more stairs!
 		glTranslatef(1500, 0, 2000);
 		glRotatef(270, 0, 1, 0);
-		drawMan.DrawStairs(500, 500, -500, 5);
+		GetDrawManager()->DrawStairs(500, 500, -500, 5);
 	glPopMatrix();
-
-	/*
-	Stairs stairs;
-	glPushMatrix();
-		stairs.SetStairDimensions(500, 500, 500, 5);
-		stairs.DrawStairs(1550, 0, 2000, 0, 270, 0, 1, CONCWALL, CONCWALL);
-	glPopMatrix();*/
 }
 
 
@@ -643,7 +467,7 @@ void LevelOneController::DrawArchitecture()
 void LevelOneController::DrawControlRoom()
 {
 
-	glBindTexture(GL_TEXTURE_2D,GetTexture()->getTextureID(taTilefloor)); // tp.GetTexture(TILEFLOOR));
+	glBindTexture(GL_TEXTURE_2D,GetTexture()->getTextureID(taTilefloor)); 
 	//floor
 	glBegin(GL_QUADS);
 		glTexCoord2f (1.0, 1.0);		glVertex3f(0, 0, -4000);
@@ -670,7 +494,7 @@ void LevelOneController::DrawControlRoom()
 		glTexCoord2f (0.25, 0.0);		glVertex3f(700, 1000, -4000);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall)); //tp.GetTexture(CONCWALL));
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall)); 
 	glBegin(GL_QUADS);
 		glTexCoord2f(1.0, 1.0);			glVertex3f(0, 0, -4000);
 		glTexCoord2f(0.0, 1.0);			glVertex3f(0, 0, -1000);
@@ -722,137 +546,10 @@ void LevelOneController::DrawControlRoom()
 		glTexCoord2f(1.0, 0.0);			glVertex3f(700, 1000, -4000);
 	glEnd();
 	
-	DrawManager drawMan; //jon, don't create that object over and over again!
-	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor)); //tp.GetTexture(TILEFLOOR));
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor)); 
 	glPushMatrix();
 		glTranslatef(700, 0, -4000);
 		glRotatef(180, 0, 1, 0);
-		drawMan.DrawStairs(400, 250, 500, 5);
+		GetDrawManager()->DrawStairs(400, 250, 500, 5);
 	glPopMatrix();
-}
-
-
-//--------------------------------------------------------------------------------------
-//  Increments frame count used for setting movement speed
-//--------------------------------------------------------------------------------------
-void LevelOneController::IncrementFrameCount() //ray, check if you need that, please if you change the camera movement
-{
-	double t = ((GLdouble)(clock()-lastClock))/(GLdouble)CLOCKS_PER_SEC;  
-	frameCount ++;
-
-	// reset after t
-	if (t > 0.1)
-	{
-		stepIncrement = t/frameCount * 1400;
-		angleIncrement = t/frameCount;
-		frameCount = 0;
-		lastClock = clock();
-	}
-}
-
-
-//--------------------------------------------------------------------------------------
-//  RF: Enables depth testing, lighting and shading model
-//--------------------------------------------------------------------------------------
-void LevelOneController::Enable(void)  //for what is that function?
-{
-	glEnable(GL_DEPTH_TEST); //enable the depth testing
-	//glEnable(GL_LIGHTING); //enable the lighting
-	glEnable(GL_LIGHT0); //enable LIGHT0, our Diffuse Light
-	glShadeModel(GL_SMOOTH); //set the shader to smooth shader
-}
-
-
-//--------------------------------------------------------------------------------------
-//  RF: Controls key presses
-//--------------------------------------------------------------------------------------
-void LevelOneController::KeyOperations(void)
-{
-	if(camKeyStates[27])
-	{
-		StateMachine::setBushCourtController();
-	}
-
-	if(camKeyStates['q'])
-	{
-		camYrotrad = (camYrot / 180 * 3.141592654f);
-		camXpos -= float(cos(camYrotrad)) * camSpeed;
-		camZpos -= float(sin(camYrotrad)) * camSpeed;
-		
-	}
-
-	if(camKeyStates['e'])
-	{
-		camYrotrad = (camYrot / 180 * 3.141592654f);
-		camXpos += float(cos(camYrotrad)) * camSpeed;
-		camZpos += float(sin(camYrotrad)) * camSpeed;
-	}
-
-	if(camKeyStates['r'])
-	{
-		if(camXrot < camMaxAngle) //restrict maximum vertical camera angle to 45 degrees
-			camXrot += 1;
-	}
-
-	if(camKeyStates['f'])
-	{
-		if(camXrot > camMinAngle) //restrict minimum vertical camera angle to 5 degrees
-			camXrot -= 1;
-	}
-
-	if(camKeyStates['w'])
-	{
-		camYrotrad = (camYrot / 180 * 3.141592654f);
-		camXrotrad = (camXrot / 180 * 3.141592654f); 
-		camXpos += float(sin(camYrotrad)) * camSpeed;
-		camZpos -= float(cos(camYrotrad)) * camSpeed;
-		camYpos -= float(sin(camXrotrad)) * camSpeed;
-	}
-
-	if(camKeyStates['s'])
-	{
-		camYrotrad = (camYrot / 180 * 3.141592654f);
-		camXrotrad = (camXrot / 180 * 3.141592654f); 
-		camXpos -= float(sin(camYrotrad)) * camSpeed;
-		camZpos += float(cos(camYrotrad)) * camSpeed;
-		camYpos += float(sin(camXrotrad)) * camSpeed;
-	}
-
-	if(camKeyStates['a'])
-	{
-		camYrot += -1.0f;
-	}
-
-	if(camKeyStates['d'])
-	{
-		camYrot += 1.0f;
-	}
-
-	if(camSpecialKeyStates[0])
-	{
-		camYrot += -1.0f;
-	}
-
-	if(camSpecialKeyStates[1])
-	{
-		camYrot += 1.0f;
-	}
-
-	if(camSpecialKeyStates[2])
-	{
-		camYrotrad = (camYrot / 180 * 3.141592654f);
-		camXrotrad = (camXrot / 180 * 3.141592654f); 
-		camXpos += float(sin(camYrotrad)) * camSpeed;
-		camZpos -= float(cos(camYrotrad)) * camSpeed;
-		camYpos -= float(sin(camXrotrad)) * camSpeed;
-	}
-
-	if(camSpecialKeyStates[3])
-	{
-		camYrotrad = (camYrot / 180 * 3.141592654f);
-		camXrotrad = (camXrot / 180 * 3.141592654f); 
-		camXpos -= float(sin(camYrotrad)) * camSpeed;
-		camZpos += float(cos(camYrotrad)) * camSpeed;
-		camYpos += float(sin(camXrotrad)) * camSpeed;
-	}
 }

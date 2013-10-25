@@ -21,57 +21,23 @@
 #include <math.h>
 #include <time.h>
 
-//#include "camera.h"
 #include "texturedPolygons.h"
 #include "IStateController.h"
 #include "BasisController.h"
+#include "MoveController.h"
 
 class LevelOneController : public IStateController, BasisController
 {
 private:
+	MoveController mCamera;
 	bool loaded; 
-	
-	GLdouble movementSpeed; //ray, delete that after you inserted your camera movement
-	GLdouble rotationSpeed; //ray, delete that after you inserted your camera movement
-	
-	GLdouble stepIncrement; //ray, delete that after you inserted your camera movement
-	GLdouble angleIncrement; //ray, delete that after you inserted your camera movement
-	int frameCount;
-	clock_t lastClock; 
+
 	// ratio of screen
 	float ratio;
 	// screen width and height
 	int width, height;
 
-	// camera data members
-	float camSpeed;
-	// angle of rotation values
-	float camXpos; //= 0.0; 
-	float camYpos; //= 0.0; 
-	float camZpos; //= 0.0; 
-	float camXrot; //= 0.0; 
-	float camYrot; //= 0.0;
-	
-	// distance from character
-	float camRadius; //= 2.5f;
-
-	// max and min camera angle
-	float camMaxAngle; //= 30.0;
-	float camMinAngle; //= 0.0;
-	float camLastx; // last mouse x position 
-	float camLasty; // last mouse y position
-	int camDiffy;
-	int camDiffx;
-	float camYrotrad;
-	float camXrotrad;
-	bool camMouseClicked;
-	bool camKeyStates[256]; 
-	bool camSpecialKeyStates[4];
-	void Enable(void);
-	void IncrementFrameCount();	
 	// creates bounding boxes for collsion detection
-	// control key presses
-	void KeyOperations(void);
 	void DrawOuterWalls();
 	void DrawArchitecture();
 	void Draw3DModels();
