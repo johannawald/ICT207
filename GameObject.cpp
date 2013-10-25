@@ -40,5 +40,5 @@ float GameObject::GetZScale()
 
 int GameObject::getModelIndex()
 {
-	
+	return mModelIndex;
 }
