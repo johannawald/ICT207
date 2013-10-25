@@ -8,6 +8,8 @@
 #include "Stairs.h"
 #include <sstream>
 
+int levelTime = 60;
+
 //--------------------------------------------------------------------------------------
 //  Constructor
 //--------------------------------------------------------------------------------------
@@ -45,6 +47,13 @@ GameController::GameController(AudioManager* am, ModelManager* mm, TextureManage
 	}
 }
 
+void Countdown(int counterStepTime)
+{
+	levelTime -=1;
+	cout << "Timer: " << levelTime << "\n";
+	glutTimerFunc(1000, *Countdown, 0);
+}
+
 void GameController::SetGameObject() //*JW
 {
 	//GameObject Box(Vector3D(2000, 0, 3500), Vector3D(0, 0, 0), Vector3D(0.75, 1.0, 0.75), mBox, 0); //johanna, collision detection!
@@ -56,6 +65,7 @@ void GameController::SetGameObject() //*JW
 //--------------------------------------------------------------------------------------
 void GameController::Init() 
 {
+	glutTimerFunc(1000, *Countdown, 0);
 	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 	Reshape();
 }
