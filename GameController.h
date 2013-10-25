@@ -25,12 +25,14 @@
 #include "IStateController.h"
 #include "BasisController.h"
 #include "CollisionDetection.h"
+#include "GameObject.h"
 
 class GameController : public IStateController, BasisController
 {
 private:
+	std::vector<GameObject*> mGameObject;
 	CollisionDetection cd; //*JW
-	bool insertedLevel;
+
 	bool loaded; 
 	
 	GLdouble movementSpeed; //ray, delete that after you inserted your camera movement
@@ -41,7 +43,6 @@ private:
 	int frameCount;
 	clock_t lastClock; 
 
-	unsigned char* GameController::image; 
 	// ratio of screen
 	float ratio;
 	// screen width and height
@@ -74,6 +75,8 @@ private:
 	bool camMouseClicked; //= false;
 	bool* camKeyStates; //= new bool[256]; // Create an array of boolean values of length 256 (0-255)
 	void DrawTexttest();
+	void SetGameObject(); //*JW
+	void DrawGameObjects();
 public:
 			/**
              * @brief constructor creates a new LevelOneController object.

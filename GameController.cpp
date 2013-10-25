@@ -13,19 +13,13 @@
 //--------------------------------------------------------------------------------------
 GameController::GameController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), movementSpeed(15.0), rotationSpeed(0.005), loaded(false)
 {
-	insertedLevel = false;
+	SetGameObject(); //*JW
 	frameCount = 0;
 	lastClock = 0;
 
-	image = nullptr; //ray, we don't need that if we implemented the texturemanager! 
-	//(images are loaded over and over again, if you enter the level / shay's world)
-
 	Init();
 	// copies bounding boxes from array to linked lists (one fopr each quadrant)
-	//cam.InitiateBoundingBoxes();
-	
-	// load texture images and create display lists
-	//CreateTextures();
+
 	loaded = true;
 
 	// intialise camera values
@@ -51,16 +45,17 @@ GameController::GameController(AudioManager* am, ModelManager* mm, TextureManage
 	}
 }
 
+void GameController::SetGameObject() //*JW
+{
+	GameObject Box(Vector3D(2000, 0, 3500), Vector3D(0, 0, 0), Vector3D(0.75, 1.0, 0.75), mBox, 0); //johanna, collision detection!
+	mGameObject.push_back(&Box);
+}
+
 //--------------------------------------------------------------------------------------
 //  Initialize Settings
 //--------------------------------------------------------------------------------------
 void GameController::Init() 
 {
-	// set perpsective
-	//gluLookAt(0.0, 1.75, 0.0, 
-	//	      0.0, 1.75, -1,
-	//		  0.0f,1.0f,0.0f);
-
 	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 	Reshape();
 }
@@ -110,6 +105,7 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 			//DrawArchitecture();
 		
 			//glRotatef(-90,1,0,0);
+			DrawGameObjects(); //*JW
 			Draw3DModels();
 			//DrawObjects();
 			// set the movement and rotation speed according to frame count
@@ -125,6 +121,27 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 		glFlush();
 		glutSwapBuffers();
 	}
+}
+
+void GameController::DrawGameObjects() //*JW
+{ 
+	for(std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) {
+		glPushMatrix();
+			glTranslatef((*it)->GetXPosition(), (*it)->GetYPosition(), (*it)->GetZPosition());
+			glScalef((*it)->GetXScale(), (*it)->GetXScale(), (*it)->GetXScale()); 
+			if ((*it)->getModelIndex()>=0)
+				GetModel()->drawModel(mBox, tp.GetTexture(BOX));
+		glPopMatrix();
+	}
+
+	GameObject Box(Vector3D(2000, 0, 3500), Vector3D(0, 0, 0), 10, 10);
+	/*
+
+	glPushMatrix();
+		glTranslatef(4250, 500, 750);
+		glScalef(0.75, 1.0, 0.75);
+		//GetModel()->drawModel(mBox, tp.GetTexture(BOX));
+	glPopMatrix();*/
 }
 
 void GameController::DrawTexttest()
@@ -219,59 +236,6 @@ void GameController::SpecialKeyUp(int key, int x, int y)
 void GameController::Keyboard(unsigned char key, int x, int y)
 {
 	camKeyStates[key] = true; // Set the state of the current key to pressed
-	//int i = 0;
-	//switch (key)
-	//{
-	//	case '1':
-	//		//can only be used within these bounds - next to console - adjust size
-	//		if (((cam.GetLR() > 0) && (cam.GetLR() < 1000)) && ((cam.GetFB() < -1000) || (cam.GetFB() > -2000)))
-	//		{
-	//			//change that later to a seperate controller
-	//			cam.Position(2500.0, 1500.0, 550.0, 180.0);
-	//		}
-	//		break;
-	//	case '0':
-	//		StateMachine::setBushCourtController(); //debug! Should be deleted in the release version
-	//		break;
-	//	case 'e':
-	//		//next to ladder out
-	//		if (((cam.GetLR() > 250) && (cam.GetLR() < 750)) && ((cam.GetFB() < -2000) || (cam.GetFB() > -3000)))
-	//		{
-	//			StateMachine::setBushCourtController();
-	//		}
-	//	case 'Z':
-	//	case 'z':
-	//		cam.DirectionLR(-1);
-	//		break;
-	//	// step right
-	//	case 'X':
-	//	case 'x':
-	//		cam.DirectionLR(1);
-	//	break;
-	//	// look up
-	//	case 'Q':
-	//	case 'q':
-	//		cam.DirectionLookUD(1);
-	//		break;
-	//	// look down
-	//	case 'A':
-	//	case 'a':
-	//		cam.DirectionLookUD(-1);
-	//	break;
-	//	// exit tour (escape key)
-	//	case 27:
-	//		{
-	//			cam.Position(500, 500, -4000, 180.0);
-	//		}
-	//	break;
-	//	// display welcome page (space key)
-	//	case ' ':
-	//		{
-	//			cam.SetRotateSpeed (0.0f);
-	//			cam.SetMoveSpeed (0.0f);
-	//		}
-	//	break;	
-	//}
 }
 
 //--------------------------------------------------------------------------------------
@@ -288,7 +252,7 @@ void GameController::Mouse(int button, int state, int x, int y)
 	camLastx = x; //set lastx to the current x position
 	camLasty = y; //set lasty to the current y position
 	
-	if((button == GLUT_LEFT_BUTTON) || (button == GLUT_RIGHT_BUTTON)) 
+	if ((button == GLUT_LEFT_BUTTON) || (button == GLUT_RIGHT_BUTTON)) 
 	{
 		camMouseClicked = (state == GLUT_DOWN);
 		if(state == GLUT_DOWN)
@@ -332,65 +296,6 @@ void GameController::MouseMotion(int x, int y)
 		camXrot = camMaxAngle;
 	else if(camXrot < camMinAngle) //restrict minimum vertical camera angle to 5 degrees
 		camXrot = camMinAngle;
-}
-
-//--------------------------------------------------------------------------------------
-// Set up bounding boxes for collsion detection
-//--------------------------------------------------------------------------------------
-/*	void LevelOneController::CreateBoundingBoxes()
-{
-	//outer level walls - needs more work, can escape in the corners!
-	cam.SetAABB(0, -100, 0, 0, 0, 0, 5000);
-	cam.SetAABB(1, 5000, 5100, 0, 0, 0, 5000);
-	cam.SetAABB(2, 0, 5000, 0, 0, -100, 0);
-	cam.SetAABB(3, 0, 5000, 0, 0, 5000, 5100);
-}*/
-
-//--------------------------------------------------------------------------------------
-// Load and Create Textures
-//--------------------------------------------------------------------------------------
-void GameController::CreateTextures() //ray, we don't need that if we implemented the texturemanager, because all the texture should be loaded in the texturemanager
-{
-	glEnable(GL_DEPTH_TEST);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	
-	// set texture count
-	/*tp.SetTextureCount(LAST); //NEEDS TO BE THE SAME ACROSS ALL CONTROLLERS!!! (else textures assigned randomly)
-	unsigned char* image;
-	// load and create textures
-
-	image = tp.LoadTexture("textures/thanks.raw", 512, 512);
-	tp.CreateTexture(EXIT, image, 512, 512);
-
-	image = tp.LoadTexture("textures/box.raw", 512, 512);
-	tp.CreateTexture(BOX, image, 512, 512);
-
-	image = tp.LoadTexture("textures/tilefloor.raw", 512, 512);
-	tp.CreateTexture(TILEFLOOR, image, 512, 512);
-
-	image = tp.LoadTexture("textures/concwall.raw", 512, 512);
-	tp.CreateTexture(CONCWALL, image, 512, 512);
-
-	image = tp.LoadTexture("textures/rustywall.raw", 512, 256);
-	tp.CreateTexture(RUSTYWALL, image, 512, 256);
-
-	image = tp.LoadTexture("textures/tilewall.raw", 512, 512);
-	tp.CreateTexture(TILEWALL, image, 512, 512);
-
-	image = tp.LoadTexture("textures/4x1platform.raw", 512, 512);
-	tp.CreateTexture(PLATFORM4X1, image, 512, 512);
-
-	image = tp.LoadTexture("textures/button.raw", 512, 512);
-	tp.CreateTexture(BUTTON, image, 512, 512);
-
-	image = tp.LoadTexture("textures/bomb.raw", 512, 512);
-	tp.CreateTexture(BOMB, image, 512, 512);
-
-	image = tp.LoadTexture("textures/console.raw", 512, 512);
-	tp.CreateTexture(CONSOLE, image, 512, 512);
-
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);	
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);*/
 }
 
 //--------------------------------------------------------------------------------------
