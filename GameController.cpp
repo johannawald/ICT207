@@ -25,7 +25,7 @@ GameController::GameController(AudioManager* am, ModelManager* mm, TextureManage
 	//cam.InitiateBoundingBoxes();
 	
 	// load texture images and create display lists
-	CreateTextures();
+	//CreateTextures();
 	loaded = true;
 
 	// intialise camera values
@@ -105,7 +105,6 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 		glEnable (GL_TEXTURE_2D);
 		glPushMatrix();
 			//glTranslatef(-500.0, -250.0, 3000.0); //translate camera starting position ??
-		//wj
 			// displays the exit screen
 			//DrawControlRoom();
 			//DrawOuterWalls();
@@ -361,7 +360,7 @@ void GameController::CreateTextures() //ray, we don't need that if we implemente
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	
 	// set texture count
-	tp.SetTextureCount(LAST); //NEEDS TO BE THE SAME ACROSS ALL CONTROLLERS!!! (else textures assigned randomly)
+	/*tp.SetTextureCount(LAST); //NEEDS TO BE THE SAME ACROSS ALL CONTROLLERS!!! (else textures assigned randomly)
 	unsigned char* image;
 	// load and create textures
 
@@ -396,7 +395,7 @@ void GameController::CreateTextures() //ray, we don't need that if we implemente
 	tp.CreateTexture(CONSOLE, image, 512, 512);
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);	
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);*/
 }
 
 //--------------------------------------------------------------------------------------
@@ -407,34 +406,34 @@ void GameController::DrawObjects()
 	glPushMatrix();
 		glTranslatef(2000, 0, 3500);
 		glScalef(0.75, 1.0, 0.75);
-		GetModel()->drawModel(mBox, tp.GetTexture(BOX));
+		//GetModel()->drawModel(mBox, tp.GetTexture(BOX));
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(4250, 500, 750);
 		glScalef(0.75, 1.0, 0.75);
-		GetModel()->drawModel(mBox, tp.GetTexture(BOX));
+		//GetModel()->drawModel(mBox, tp.GetTexture(BOX));
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(750, 500, 750);
-		GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
+		//GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(4250, 500, 1250);
-		GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
+		//GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(4250, 500, 4250);
-		GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
+		//GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
 	glPopMatrix();
 
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOMB));
+	//glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOMB));
 		glPushMatrix();
 		glTranslatef(750, 500, 4250);
-		GetModel()->drawModel(mButton, tp.GetTexture(BUTTON)); //ray, jon, don't do it like this!
+		//GetModel()->drawModel(mButton, tp.GetTexture(BUTTON)); //ray, jon, don't do it like this!
 	glPopMatrix();
 }
 
@@ -451,7 +450,7 @@ void GameController::Draw3DModels()
 	glPopMatrix();
 
 	glPushMatrix();
-		glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PLATFORM4X1));
+		//glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PLATFORM4X1));
 		glTranslatef(2500, 0, 4250);
 		GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
 	glPopMatrix();
@@ -459,7 +458,7 @@ void GameController::Draw3DModels()
 	glPushMatrix();
 		glTranslatef(2250, 450, 1500);
 		glRotatef(90, 0, 1, 0);
-		GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
+		//GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
 	glPopMatrix();
 
 	glPushMatrix();

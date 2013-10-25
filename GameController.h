@@ -48,7 +48,7 @@ private:
 	int width, height;
 
 	//Camera cam; //ray, delete that after you inserted your camera movement
-	TexturedPolygons tp; //use the texturemanager! //ray, we don't need that if we implemented the texturemanager! 
+	//TexturedPolygons tp; //use the texturemanager! //ray, we don't need that if we implemented the texturemanager! 
 
 	// camera data members
 	float camSpeed;
