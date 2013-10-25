@@ -41,12 +41,18 @@ LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, Textu
 	camXrotrad;
 	camMouseClicked = false;
 	camKeyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)
+	camSpecialKeyStates = new bool[4];
 	camLastx = glutGet(GLUT_WINDOW_WIDTH)/2; 
 	camLasty = glutGet(GLUT_WINDOW_HEIGHT)/2;
 
 	for(int i=0; i<256; i++)
 	{
 		camKeyStates[i] = false;
+	}
+
+	for(int i=0; i<4; i++)
+	{
+		camSpecialKeyStates[i] = false;
 	}
 }
 
@@ -60,7 +66,7 @@ void LevelOneController::Init()
 	//	      0.0, 1.75, -1,
 	//		  0.0f,1.0f,0.0f);
 
-	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+	glutIgnoreKeyRepeat(0);
 	Reshape();
 }
 
@@ -75,11 +81,9 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
 		Enable();
 
-		// check for movement
 		//RF READ CAMERA CONTROLS
+		// check for movement
 		KeyOperations();
-		//glClearColor (0.0,0.0,0.0,1.0); //clear the screen to black
-		//glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
 
 		//RF: CAMERA
 		//control the camera
@@ -94,7 +98,7 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 			glutSolidSphere(100, 12, 12); //Our character to follow
 		glPopMatrix();
     
-		glRotatef(camYrot,0.0,1.0,0.0);  //rotate our camera on the y-axis (up and down)
+		glRotatef(camYrot,0.0,1.0,0.0);  //rotate the camera on the y-axis (up and down)
 		glTranslated(-camXpos,0.0f,-camZpos); //translate the screen to the position of our camera
 		glColor3f(1.0f, 1.0f, 1.0f);
 
@@ -102,6 +106,7 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 		//enable texture mapping
 		glEnable (GL_TEXTURE_2D);
 		glPushMatrix();
+			glRotatef(180, 0.0, 1.0, 0.0); //rotate camera 180 degrees
 			glTranslatef(-500.0, -250.0, 3000.0); //translate camera starting position
 			// displays the exit screen
 			DrawControlRoom();
@@ -141,8 +146,6 @@ void LevelOneController::Reshape()
 
 void LevelOneController::Reshape(int w, int h) 
 {
-	width = w;		
-	height = h;
 	// Prevent a divide by zero, when window is too short		
 	// (you cant make a window of zero width).
 	if (h == 0) h = 1;
@@ -152,7 +155,7 @@ void LevelOneController::Reshape(int w, int h)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glViewport(0, 0, w, h);
-	gluPerspective(60,ratio,1,250000);	
+	gluPerspective(45,1.5,1,250000);	
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -161,13 +164,47 @@ void LevelOneController::Reshape(int w, int h)
 //--------------------------------------------------------------------------------------
 void LevelOneController::SpecialKey(int key, int x, int y) 
 {
+	switch (key)
+	{
+		case GLUT_KEY_LEFT :
+			camSpecialKeyStates[0] = true;
+			break;
 
+		case GLUT_KEY_RIGHT :
+			camSpecialKeyStates[1] = true;
+			break;
+
+		case GLUT_KEY_UP : 
+			camSpecialKeyStates[2] = true;
+			break;
+
+		case GLUT_KEY_DOWN : 
+			camSpecialKeyStates[3] = true;
+			break;
+	}
 }
 
 //---------------------------------------------------------
 void LevelOneController::SpecialKeyUp(int key, int x, int y) 
 {
+	switch (key)
+	{
+		case GLUT_KEY_LEFT :
+			camSpecialKeyStates[0] = false;
+			break;
 
+		case GLUT_KEY_RIGHT :
+			camSpecialKeyStates[1] = false;
+			break;
+
+		case GLUT_KEY_UP : 
+			camSpecialKeyStates[2] = false;
+			break;
+
+		case GLUT_KEY_DOWN : 
+			camSpecialKeyStates[3] = false;
+			break;
+	}
 }
 
 //--------------------------------------------------------------------------------------
@@ -318,31 +355,31 @@ void LevelOneController::CreateTextures() //ray, we don't need that if we implem
 	image = tp.LoadTexture("textures/thanks.raw", 512, 512);
 	tp.CreateTexture(EXIT, image, 512, 512);
 
-	image = tp.LoadTexture("textures/box.raw", 512, 512);
+	image = tp.LoadTexture("textures/box.bmp", 512, 512);
 	tp.CreateTexture(BOX, image, 512, 512);
 
-	image = tp.LoadTexture("textures/tilefloor.raw", 512, 512);
+	image = tp.LoadTexture("textures/tilefloor.bmp", 512, 512);
 	tp.CreateTexture(TILEFLOOR, image, 512, 512);
 
-	image = tp.LoadTexture("textures/concwall.raw", 512, 512);
+	image = tp.LoadTexture("textures/concwall.bmp", 512, 512);
 	tp.CreateTexture(CONCWALL, image, 512, 512);
 
-	image = tp.LoadTexture("textures/rustywall.raw", 512, 256);
+	image = tp.LoadTexture("textures/rustywall.raw", 512, 256); //bad  texture, not sure where used :S *JM
 	tp.CreateTexture(RUSTYWALL, image, 512, 256);
 
-	image = tp.LoadTexture("textures/tilewall.raw", 512, 512);
+	image = tp.LoadTexture("textures/tilewall.bmp", 512, 512);
 	tp.CreateTexture(TILEWALL, image, 512, 512);
 
-	image = tp.LoadTexture("textures/4x1platform.raw", 512, 512);
+	image = tp.LoadTexture("textures/4x1platform.png", 512, 512);
 	tp.CreateTexture(PLATFORM4X1, image, 512, 512);
 
-	image = tp.LoadTexture("textures/button.raw", 512, 512);
+	image = tp.LoadTexture("textures/button.bmp", 512, 512);
 	tp.CreateTexture(BUTTON, image, 512, 512);
 
-	image = tp.LoadTexture("textures/bomb.raw", 512, 512);
+	image = tp.LoadTexture("textures/bomb.bmp", 512, 512);
 	tp.CreateTexture(BOMB, image, 512, 512);
 
-	image = tp.LoadTexture("textures/console.raw", 512, 512);
+	image = tp.LoadTexture("textures/console.bmp", 512, 512);
 	tp.CreateTexture(CONSOLE, image, 512, 512);
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);	
@@ -812,6 +849,11 @@ void LevelOneController::Enable(void)
 //--------------------------------------------------------------------------------------
 void LevelOneController::KeyOperations(void)
 {
+	if(camKeyStates[27])
+	{
+		StateMachine::setBushCourtController();
+	}
+
 	if(camKeyStates['q'])
 	{
 		camYrotrad = (camYrot / 180 * 3.141592654f);
@@ -865,5 +907,33 @@ void LevelOneController::KeyOperations(void)
 	if(camKeyStates['d'])
 	{
 		camYrot += 1.0f;
+	}
+
+	if(camSpecialKeyStates[0])
+	{
+		camYrot += -1.0f;
+	}
+
+	if(camSpecialKeyStates[1])
+	{
+		camYrot += 1.0f;
+	}
+
+	if(camSpecialKeyStates[2])
+	{
+		camYrotrad = (camYrot / 180 * 3.141592654f);
+		camXrotrad = (camXrot / 180 * 3.141592654f); 
+		camXpos += float(sin(camYrotrad)) * camSpeed;
+		camZpos -= float(cos(camYrotrad)) * camSpeed;
+		camYpos -= float(sin(camXrotrad)) * camSpeed;
+	}
+
+	if(camSpecialKeyStates[3])
+	{
+		camYrotrad = (camYrot / 180 * 3.141592654f);
+		camXrotrad = (camXrot / 180 * 3.141592654f); 
+		camXpos -= float(sin(camYrotrad)) * camSpeed;
+		camZpos += float(cos(camYrotrad)) * camSpeed;
+		camYpos += float(sin(camXrotrad)) * camSpeed;
 	}
 }
