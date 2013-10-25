@@ -81,21 +81,101 @@ void DrawManager::DrawStairs(const float stairWidth, const float stairHeight, co
 		glEnd();
 }
 
-//everyone, not finished yet
-void DrawManager::DrawQuad(const GLint pTexture, 
+void DrawManager::DrawRect(const GLint pTexture, 
 				const int TexCoordX, const int TexCoordY, 
 				const int pPositionX, const int pPositionY, const int pPositionZ, 
 				const GLdouble pWidth, const GLdouble pHeight) const
 {
-	glBindTexture(GL_TEXTURE_2D, pTexture);
 	glBegin(GL_QUADS);
-		glTexCoord2f (TexCoordX, TexCoordX);		
-		glVertex3f(0, 0, 0);
-		glTexCoord2f (0.0, TexCoordX);		
-		glVertex3f(0, 0, pWidth);
-		glTexCoord2f (0.0, 0.0);		
-		glVertex3f(pWidth, 0,	pWidth);
-		glTexCoord2f (TexCoordX, 0.0);		
-		glVertex3f(pWidth, 0, 0);
+			glTexCoord2f(TexCoordX, TexCoordX);		
+			glVertex3f(pPositionX, pPositionY, pPositionZ);
+			//glTexCoord2f (0.0, TexCoordX);		
+			glVertex3f(pPositionX+pWidth, pPositionY, pPositionZ);
+			//glTexCoord2f (0.0, 0.0);		
+			glVertex3f(pPositionX+pWidth, pPositionY+pHeight, pPositionZ);
+			//glTexCoord2f (TexCoordX, 0.0);		
+			glVertex3f(pPositionX, pPositionY+pHeight, pPositionZ);
 	glEnd();
+}
+void DrawManager::DrawRect(const GLint pTexture, 
+				const int TexCoordX, const int TexCoordY, 
+				const int pPositionX, const int pPositionY, const int pPositionZ, 
+				const GLdouble pWidth, const GLdouble pHeight, const float angleX, const float angleY, const float angleZ) const
+{
+	glPushMatrix();
+		//glTranslatef(-pPositionX, -pPositionY, -pPositionZ);
+		glRotatef(angleX,1,0,0);
+		glRotatef(angleY,0,1,0);
+		glRotatef(angleZ,0,0,1);
+		
+		DrawRect(pTexture, TexCoordX, TexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pHeight);
+		
+		glRotatef(-angleX,1,0,0);
+		glRotatef(-angleY,0,1,0);
+		glRotatef(-angleZ,0,0,1);
+		//glTranslatef(pPositionX, pPositionY, pPositionZ);
+	glPopMatrix();
+}
+
+void DrawManager::DrawCube(const int pPositionX, const int pPositionY, const int pPositionZ, 
+						   const GLdouble pWidth, const GLdouble pHeight, const GLdouble pDepth) const
+{	
+	//z is reverse!
+	glPushAttrib(GL_CURRENT_BIT);
+		glBindTexture(GL_TEXTURE_2D, -1);
+		glDisable(GL_LIGHTING);
+		glColor3f(1.0f, 0.0f, 0.0f);
+		DrawRect(-1, 1, 1, pPositionX, pPositionY, pPositionZ, 10, 10); //debug (x,y,z)
+		//front
+		glColor3f(0.3f, 0.0f, 0.0f);
+		DrawRect(-1, 1, 1, pPositionX, pPositionY, pPositionZ, pWidth, pHeight); 
+		//back
+		glColor3f(0.0f, 0.5f, 0.0f);
+		DrawRect(-1, 1, 1, pPositionX, pPositionY, pPositionZ-pDepth, pWidth, pHeight);
+		
+		//side
+		glColor3f(0.0f, 0.0f, 0.5f);
+		DrawRect(-1, 1, 1, pPositionX, pPositionY, pPositionZ, pDepth, pHeight, 0, 90, 0);
+		glTranslatef(pWidth,0,0);
+		glColor3f(0.0f, 0.0f, 0.5f);
+		DrawRect(-1, 1, 1, pPositionX, pPositionY, pPositionZ, pDepth, pHeight, 0, 90, 0);
+		glTranslatef(-pWidth,0,0);
+
+		//top / bottom
+		glColor3f(0.5f, 0.5f, 0.0f);
+		DrawRect(-1, 1, 1, pPositionX, pPositionY, pPositionZ, pWidth, pDepth, -90, 0, 0);
+		glTranslatef(0,pHeight,0);
+		DrawRect(-1, 1, 1, pPositionX, pPositionY, pPositionZ, pWidth, pDepth, -90, 0, 0);
+		glTranslatef(0,-pHeight,0);
+
+		glEnable(GL_LIGHTING); 
+	glPopAttrib();
+	/*glBegin(GL_QUADS);
+		glTexCoord2f(TexCoordX, TexCoordX);		
+		glVertex3f(pPositionX, pPositionY, pPositionZ);
+		//glTexCoord2f (0.0, TexCoordX);		
+		glVertex3f(pPositionX+pWidth, pPositionY, pPositionZ);
+		//glTexCoord2f (0.0, 0.0);		
+		glVertex3f(pPositionX+pWidth, pPositionY+pHeight, pPositionZ);
+		//glTexCoord2f (TexCoordX, 0.0);		
+		glVertex3f(pPositionX, pPositionY+pHeight, pPositionZ);
+	glEnd();*/
+}
+
+void DrawManager::DrawCollisionCube(CollisionDetection* collision, const GLint pTexture, 
+				const int TexCoordX, const int TexCoordY, 
+				const int pPositionX, const int pPositionY, const int pPositionZ, 
+				const GLdouble pWidth, const GLdouble pHeight, const GLdouble pDepth)
+{
+	DrawCube(pPositionX, pPositionY, pPositionZ, pWidth, pHeight, pDepth);
+	collision->addCollisionBox(pPositionX, pPositionY, pPositionZ-pDepth, pPositionX+pWidth, pPositionY+pHeight, pPositionZ);
+}
+
+void DrawManager::DrawCollisionRect(CollisionDetection* collision, const GLint pTexture, 
+				const int TexCoordX, const int TexCoordY, 
+				const int pPositionX, const int pPositionY, const int pPositionZ, 
+				const GLdouble pWidth, const GLdouble pHeight)
+{
+	DrawRect(pTexture, TexCoordX, TexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pHeight);
+	collision->addCollisionBox(pPositionX, pPositionY, pPositionZ, pPositionX+pWidth, pPositionY+pHeight, pPositionZ+100); //das 100 ist auch nicht richtig
 }

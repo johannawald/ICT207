@@ -21,6 +21,7 @@
 enum eTextures { tAdOreo, 
 				 taSomeTexture,
 				 taAdOreo_Text, 
+				 taSome,
 				 taGrass, taGrass2, tatext,
 				 taWelcome,
 				 TEXTURE_SIZE };

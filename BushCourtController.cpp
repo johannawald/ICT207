@@ -1278,6 +1278,8 @@ void BushCourtController::CreateTextures()
 	image = tp.LoadTexture("textures/FarExit.bmp", 512, 384);
 	tp.CreateTexture(FAR_EXIT, image, 512, 384);
 
+	//daniel istead of this create them in the texturemanager
+
 	image = tp.LoadTexture("textures/hallway1.bmp", 512, 384);
 	tp.CreateTexture(HALLWAY1, image, 512, 384);
 

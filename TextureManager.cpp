@@ -20,6 +20,10 @@ GLuint TextureManager::Loadimage(const char* filename)
 void TextureManager::init()
 {
 	Textures[tAdOreo] = Loadimage("textures/welcome.raw");
+	Textures[taSome] = Loadimage("textures/welcome.raw");
+	
+	
+
 	Textures[taAdOreo_Text] = Loadimage("textures/welcome.raw");
 	Textures[taGrass] = Loadimage("textures/CocaCola.bmp");
 	Textures[taGrass2] = Loadimage("textures/CocaCola.bmp");

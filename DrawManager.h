@@ -14,6 +14,7 @@
 #include <string>
 #include <Windows.h>
 #include <GL/GL.h>
+#include "CollisionDetection.h"
 
 class DrawManager {
 //private: Stairs class change the drawStairs function, call the method of the class
@@ -40,9 +41,23 @@ public:
     */
 	void RenderString(const float x, const float y, void *font, const char* str, const unsigned r = 0, const unsigned g = 0, const unsigned b = 0) const;
 	void DrawStairs(const float stairWidth, const float stairHeight, const float stairDepth, const float numSteps) const;
-	void DrawQuad(const GLint pTexture, 
+	
+	void DrawRect(const GLint pTexture, 
 				const int TexCoordX, const int TexCoordY, 
 				const int pPositionX, const int pPositionY, const int pPositionZ, 
-				const GLdouble pWidth, const GLdouble pHeight) const; //everyone, is not working yet!
-	//void DrawCollisionQuad(); //calles DrawQuad and creates a collision box for it
+				const GLdouble pWidth, const GLdouble pHeight) const;
+	void DrawRect(const GLint pTexture, 
+				const int TexCoordX, const int TexCoordY, 
+				const int pPositionX, const int pPositionY, const int pPositionZ, 
+				const GLdouble pWidth, const GLdouble pHeight, const float angleX, const float angleY, const float angleZ) const;
+	void DrawCube(const int pPositionX, const int pPositionY, const int pPositionZ, 
+						   const GLdouble pWidth, const GLdouble pHeight, const GLdouble pDepth) const;
+	void DrawCollisionRect(CollisionDetection* collision, const GLint pTexture, 
+				const int TexCoordX, const int TexCoordY, 
+				const int pPositionX, const int pPositionY, const int pPositionZ, 
+				const GLdouble pWidth, const GLdouble pHeight);
+	void DrawCollisionCube(CollisionDetection* collision, const GLint pTexture, 
+				const int TexCoordX, const int TexCoordY, 
+				const int pPositionX, const int pPositionY, const int pPositionZ, 
+				const GLdouble pWidth, const GLdouble pHeight, const GLdouble pDepth);
 };

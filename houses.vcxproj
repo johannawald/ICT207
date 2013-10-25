@@ -133,6 +133,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cameraMap.cpp" />
     <ClCompile Include="collision.cpp" />
+    <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="DrawManager.cpp" />
     <ClCompile Include="EasySound.cpp" />
     <ClCompile Include="GameController.cpp" />
@@ -151,11 +152,14 @@
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Transition.cpp" />
+    <ClCompile Include="Vector3D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB.H" />
     <ClInclude Include="AABBLinkedList.h" />
     <ClInclude Include="AABBNode.h" />
+    <ClInclude Include="BoundingBox.h" />
+    <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IAssetManager.h" />
     <ClInclude Include="AudioManager.h" />
@@ -183,6 +187,7 @@
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Transition.h" />
+    <ClInclude Include="Vector3D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,56 +10,133 @@
  * @date 15/09/2013
  */
 
+
 #pragma once
 
+#include <Windows.h>
+#include <GL/gl.h>
+#include <GL/glut.h>
+#include <cstdlib>
+#include <math.h>
+#include <time.h>
+
+//#include "camera.h"
+#include "texturedPolygons.h"
 #include "IStateController.h"
 #include "BasisController.h"
-#include "AudioManager.h"
-#include "ModelManager.h"
-#include "TextureManager.h"
+#include "CollisionDetection.h"
 
 class GameController : public IStateController, BasisController
 {
+private:
+	CollisionDetection cd; //*JW
+	bool insertedLevel;
+	bool loaded; 
+	
+	GLdouble movementSpeed; //ray, delete that after you inserted your camera movement
+	GLdouble rotationSpeed; //ray, delete that after you inserted your camera movement
+	
+	GLdouble stepIncrement; //ray, delete that after you inserted your camera movement
+	GLdouble angleIncrement; //ray, delete that after you inserted your camera movement
+	int frameCount;
+	clock_t lastClock; 
+
+	unsigned char* GameController::image; 
+	// ratio of screen
+	float ratio;
+	// screen width and height
+	int width, height;
+
+	//Camera cam; //ray, delete that after you inserted your camera movement
+	TexturedPolygons tp; //use the texturemanager! //ray, we don't need that if we implemented the texturemanager! 
+
+	// camera data members
+	float camSpeed;
+	// angle of rotation values
+	float camXpos; //= 0.0; 
+	float camYpos; //= 0.0; 
+	float camZpos; //= 0.0; 
+	float camXrot; //= 0.0; 
+	float camYrot; //= 0.0;
+	
+	// distance from character
+	float camRadius; //= 2.5f;
+
+	// max and min camera angle
+	float camMaxAngle; //= 30.0;
+	float camMinAngle; //= 0.0;
+	float camLastx; // last mouse x position 
+	float camLasty; // last mouse y position
+	int camDiffy;
+	int camDiffx;
+	float camYrotrad;
+	float camXrotrad;
+	bool camMouseClicked; //= false;
+	bool* camKeyStates; //= new bool[256]; // Create an array of boolean values of length 256 (0-255)
+	void DrawTexttest();
 public:
+			/**
+             * @brief constructor creates a new LevelOneController object.
+             */
 	GameController(AudioManager* am, ModelManager* mm, TextureManager* tm);
-	/**
-		* @brief init-function, functionality yet to be implemented
-	*/
-	void Init(const ModelManager* mm, const AudioManager* am, const TextureManager* tm);
-	/**
-		* @brief draw function for the game state, functionality yet to be implemented
-	*/
+			/**
+             * @brief Destructor destroys LevelOneController object when it goes out of scope.
+             * @param none
+			*/
+	//shays code lol
+	void Init();
 	void Draw();
-	/**
-		* @brief update function for the game state, functionality yet to be implemented
-	*/
+	void Reshape();
 	void Update();
-	/**
-		* @brief SpecialKey function for the game state, functionality yet to be implemented
-	*/
-	void SpecialKey(int key, int x, int y);
-	/**
-		* @brief SpecialKeyUp function for the state, functionality yet to be implemented
-	*/
-	void SpecialKeyUp(int key, int x, int y);
-	/**
-		* @brief KeyboardUp function for the state, functionality yet to be implemented
-	*/
-	void KeyboardUp(unsigned char key, int x, int y);
-	/**
-		* @brief Keyboard function for the state, functionality yet to be implemented
-	*/
-	void Keyboard(unsigned char key, int x, int y);
-	/**
-		* @brief Mouse function for the state, functionality yet to be implemented
-	*/
-	void Mouse(int button, int state, int x, int y);
-	/**
-		* @brief PassiveMotion function for the state, functionality yet to be implemented
-	*/	
-	void PassiveMotion(int x, int y);
-	/**
-		* @brief Reshape function for the state, functionality yet to be implemented
-	*/	
 	void Reshape(int w, int h);
+	void SpecialKey(int key, int x, int y);
+	void SpecialKeyUp(int key, int x, int y);
+	void KeyboardUp(unsigned char key, int x, int y);
+	void Keyboard(unsigned char key, int x, int y);
+	void Mouse(int button, int state, int x, int y);
+	void PassiveMotion(int x, int y);
+	void MouseMotion(int x, int y);
+	void DrawOuterWalls();
+
+			/**
+             * @brief Draws the world geometry of the level
+             *
+             * @param none
+			 * @return void
+             */
+	void DrawArchitecture();
+
+			/**
+             * @brief Initializes and draws the 3d models (.obj) in the level
+             *
+             * @param none
+			 * @return void
+             */
+	void Draw3DModels();
+
+			/**
+             * @brief Draws the objects (things that can change) in the level
+             *
+             * @param none
+			 * @return void
+             */
+	void DrawObjects();
+
+			/**
+             * @brief Geometry for the control room
+             *
+             * @param none
+			 * @return void
+             */
+	void DrawControlRoom();
+
+	void IncrementFrameCount();	
+	// loads images and creates texture
+	void CreateTextures();
+	// creates bounding boxes for collsion detection
+
+	// enables depth testing, lighting and shading
+	void Enable(void);
+	// control key presses
+	void KeyOperations(void);
 };
