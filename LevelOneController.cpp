@@ -12,7 +12,6 @@
 //--------------------------------------------------------------------------------------
 LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), movementSpeed(15.0), rotationSpeed(0.005), loaded(false)
 {
-	insertedLevel = false;
 	frameCount = 0;
 	lastClock = 0;
 	loaded = true;
@@ -37,8 +36,6 @@ void LevelOneController::Init()
 	camYrotrad;
 	camXrotrad;
 	camMouseClicked = false;
-	camKeyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)
-	camSpecialKeyStates = new bool[4];
 	camLastx = glutGet(GLUT_WINDOW_WIDTH)/2; 
 	camLasty = glutGet(GLUT_WINDOW_HEIGHT)/2;
 
@@ -760,7 +757,7 @@ void LevelOneController::IncrementFrameCount() //ray, check if you need that, pl
 void LevelOneController::Enable(void)  //for what is that function?
 {
 	glEnable(GL_DEPTH_TEST); //enable the depth testing
-	glEnable(GL_LIGHTING); //enable the lighting
+	//glEnable(GL_LIGHTING); //enable the lighting
 	glEnable(GL_LIGHT0); //enable LIGHT0, our Diffuse Light
 	glShadeModel(GL_SMOOTH); //set the shader to smooth shader
 }

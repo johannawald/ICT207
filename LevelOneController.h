@@ -29,8 +29,6 @@
 class LevelOneController : public IStateController, BasisController
 {
 private:
-	
-	bool insertedLevel;
 	bool loaded; 
 	
 	GLdouble movementSpeed; //ray, delete that after you inserted your camera movement
@@ -67,17 +65,26 @@ private:
 	float camYrotrad;
 	float camXrotrad;
 	bool camMouseClicked;
-	bool* camKeyStates; 
-	bool* camSpecialKeyStates;
-
+	bool camKeyStates[256]; 
+	bool camSpecialKeyStates[4];
+	void Enable(void);
+	void IncrementFrameCount();	
+	// creates bounding boxes for collsion detection
+	// control key presses
+	void KeyOperations(void);
+	void DrawOuterWalls();
+	void DrawArchitecture();
+	void Draw3DModels();
+	void DrawObjects();
+	void DrawControlRoom();
 public:
 	/**
-            * @brief constructor creates a new LevelOneController object.
+        * @brief constructor creates a new LevelOneController object.
     */
 	LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm);
 	/**
-             * @brief Destructor destroys LevelOneController object when it goes out of scope.
-             * @param none
+		* @brief Destructor destroys LevelOneController object when it goes out of scope.
+        * @param none
 	*/
 	void Init();
 	void Draw();
@@ -91,52 +98,4 @@ public:
 	void Mouse(int button, int state, int x, int y);
 	void PassiveMotion(int x, int y);
 	void MouseMotion(int x, int y);
-
-			/**
-             * @brief Draws the containing walls of the level
-             *
-             * @param none
-			 * @return void
-             */
-	void DrawOuterWalls();
-
-			/**
-             * @brief Draws the world geometry of the level
-             *
-             * @param none
-			 * @return void
-             */
-	void DrawArchitecture();
-
-			/**
-             * @brief Initializes and draws the 3d models (.obj) in the level
-             *
-             * @param none
-			 * @return void
-             */
-	void Draw3DModels();
-
-			/**
-             * @brief Draws the objects (things that can change) in the level
-             *
-             * @param none
-			 * @return void
-             */
-	void DrawObjects();
-
-			/**
-             * @brief Geometry for the control room
-             *
-             * @param none
-			 * @return void
-             */
-	void DrawControlRoom();
-
-	void IncrementFrameCount();	
-	// creates bounding boxes for collsion detection
-
-	// enables depth testing, lighting and shading
-	void Enable(void);
-	// control key presses
-	void KeyOperations(void);
 };
