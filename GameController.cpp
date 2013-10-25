@@ -13,38 +13,13 @@ int levelTime = 60;
 //--------------------------------------------------------------------------------------
 //  Constructor
 //--------------------------------------------------------------------------------------
-GameController::GameController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), movementSpeed(15.0), rotationSpeed(0.005), loaded(false)
+GameController::GameController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), loaded(false)
 {
 	SetGameObject(); //*JW
-	frameCount = 0;
-	lastClock = 0;
-
 	Init();
 	// copies bounding boxes from array to linked lists (one fopr each quadrant)
 
 	loaded = true;
-
-	// intialise camera values
-	camSpeed = 3.0;
-	camXpos = 0.0; 
-	camYpos = 0.0; 
-	camZpos = 0.0; 
-	camXrot = 0.0; 
-	camYrot = 0.0;
-	camRadius = 500.0f;
-	camMaxAngle = 35.0;
-	camMinAngle = 0.0;
-	camYrotrad;
-	camXrotrad;
-	camMouseClicked = false;
-	camKeyStates = new bool[256]; // Create an array of boolean values of length 256 (0-255)
-	camLastx = glutGet(GLUT_WINDOW_WIDTH)/2; 
-	camLasty = glutGet(GLUT_WINDOW_HEIGHT)/2;
-
-	for(int i=0; i<256; i++)
-	{
-		camKeyStates[i] = false;
-	}
 }
 
 void Countdown(int counterStepTime)
@@ -68,6 +43,10 @@ void GameController::Init()
 	glutTimerFunc(1000, *Countdown, 0);
 	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 	Reshape();
+	
+	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
+	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
+	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 100, 0, -200, 200, 4000, 200); 
 }
 
 //--------------------------------------------------------------------------------------
@@ -79,35 +58,15 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 	{
 		glClearColor(0, 0, 0, 0);
 		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
-		Enable();
 		
-		// check for movement
-		//RF READ CAMERA CONTROLS
-		KeyOperations();
-		//glClearColor (0.0,0.0,0.0,1.0); //clear the screen to black
-		//glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
-		
-		//RF: CAMERA
-		//control the camera
-		glLoadIdentity();
-		
-		glTranslatef(0.0f, -100.0f, -camRadius);
-		glRotatef(camXrot,1.0,0.0,0.0);
+		glPushMatrix();
+			glLoadIdentity();
+			mCamera.PrepareMovement();
+			mCamera.MoveCamera();	
+			mCamera.SetCameraPosition(1000, 1000, 1000, 0);
+			//cd.translateBoundingBoxes(1000, 1000, 1000);
+			glEnable (GL_TEXTURE_2D);
 
-		glPushMatrix();
-			glRotatef(90, 1, 0, 0);
-			//glColor3f(1.0f, 0.0f, 0.0f);
-			//glutSolidSphere(100, 12, 12); //Our character to follow
-			glutSolidCube(100);
-		glPopMatrix();
-    
-		glRotatef(camYrot,0.0,1.0,0.0);  //rotate our camera on the y-axis (up and down)
-		glTranslated(-camXpos,-camYpos,-camZpos); //translate the screen to the position of our camera
-		//glColor3f(1.0f, 1.0f, 1.0f);
-		// DISPLAY TEXTURES
-		//enable texture mapping
-		glEnable (GL_TEXTURE_2D);
-		glPushMatrix();
 			//glTranslatef(-500.0, -250.0, 3000.0); //translate camera starting position ??
 			// displays the exit screen
 			//DrawControlRoom();
@@ -115,15 +74,14 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 			//DrawArchitecture();
 		
 			//glRotatef(-90,1,0,0);
+
+			cd.Draw(GetDrawManager());
+
 			DrawGameObjects(); //*JW
 			Draw3DModels();
 			//DrawObjects();
 			// set the movement and rotation speed according to frame count
-		glPopMatrix();
-		GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
-		GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
-		GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 100, 0, -200, 200, 4000, 200); 
-		
+		glPopMatrix();		
 		glDisable (GL_TEXTURE_2D); 
 		DrawTexttest();
 		// clear buffers
@@ -134,12 +92,13 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 
 void GameController::DrawGameObjects() //*JW
 { 
-	for(std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) {
+	for(std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) 
+	{
 		glPushMatrix();
 			glTranslatef((*it)->GetXPosition(), (*it)->GetYPosition(), (*it)->GetZPosition());
 			glScalef((*it)->GetXScale(), (*it)->GetXScale(), (*it)->GetXScale()); 
 			if ((*it)->getModelIndex()>=0)
-			//	GetModel()->drawModel(mBox, tp.GetTexture(BOX));
+				GetModel()->drawModel((*it)->getModelIndex(), (*it)->getTextureIndex());
 		glPopMatrix();
 	}
 
@@ -185,12 +144,12 @@ bool c = false;
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!)
 { 
 	int index = -1;
-	if (cd.Collision(camXpos, camYpos, camZpos, index))
+	if (cd.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), index))
 	{ 
 		std::cout << "collision changed: " << c << std::endl;
 		test++;
 	}
-	c = (cd.Collision(camXpos, camYpos, camZpos, index));
+	c = (cd.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), index));
 	
 	//NEED TO CHANGE TO DETECT TRANSITION LOCATION - use collision?
 	//if ((camXpos > 400) && (camXpos < 700) && (camZpos < -4300) && (camZpos > -4500)) 
@@ -244,13 +203,13 @@ void GameController::SpecialKeyUp(int key, int x, int y)
 
 void GameController::Keyboard(unsigned char key, int x, int y)
 {
-	camKeyStates[key] = true; // Set the state of the current key to pressed
+	mCamera.Keyboard(key,x,y);
 }
 
 //--------------------------------------------------------------------------------------
 void GameController::KeyboardUp(unsigned char key, int x, int y)
 {
-	camKeyStates[key] = false; // Set the state of the current key to not pressed
+	mCamera.KeyboardUp(key,x,y);
 }
 
 //--------------------------------------------------------------------------------------
@@ -258,22 +217,7 @@ void GameController::KeyboardUp(unsigned char key, int x, int y)
 //--------------------------------------------------------------------------------------
 void GameController::Mouse(int button, int state, int x, int y)
 {
-	camLastx = x; //set lastx to the current x position
-	camLasty = y; //set lasty to the current y position
-	
-	if ((button == GLUT_LEFT_BUTTON) || (button == GLUT_RIGHT_BUTTON)) 
-	{
-		camMouseClicked = (state == GLUT_DOWN);
-		if(state == GLUT_DOWN)
-		{
-			glutSetCursor(GLUT_CURSOR_NONE);
-		}
-		else
-		{
-			glutWarpPointer(glutGet(GLUT_WINDOW_WIDTH)/2, glutGet(GLUT_WINDOW_HEIGHT)/2); //rest the mouse point to center of window
-			glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-		}
-	}
+	mCamera.Mouse(button,state, x,y);
 }
 
 //--------------------------------------------------------------------------------------
@@ -286,25 +230,7 @@ void GameController::PassiveMotion(int x, int y)
 
 void GameController::MouseMotion(int x, int y)
 {
-	camDiffx = 0;// = x-lastx; //check the difference between the current x and the last x position
-	camDiffy = 0;// = y-lasty; //check the difference between the current y and the last y position
-
-	if(camMouseClicked)
-	{
-		camDiffx = x-camLastx; //check the difference between the current x and the last x position
-		camDiffy = y-camLasty; //check the difference between the current y and the last y position
-	}
-
-	camLastx=x; //set lastx to the current x position
-	camLasty=y; //set lasty to the current y position
-
-	camXrot += (float) camDiffy; //set the xrot to xrot with the addition of the difference in the y position
-	camYrot += (float) camDiffx; //set the yrot to yrot with the addition of the difference in the x position
-
-	if(camXrot > camMaxAngle) //restrict maximum vertical camera angle to 45 degrees
-		camXrot = camMaxAngle;
-	else if(camXrot < camMinAngle) //restrict minimum vertical camera angle to 5 degrees
-		camXrot = camMinAngle;
+	mCamera.MouseMotion(x, y);
 }
 
 //--------------------------------------------------------------------------------------
@@ -731,85 +657,4 @@ void GameController::DrawControlRoom()
 		glRotatef(180, 0, 1, 0);
 		drawMan.DrawStairs(400, 250, 500, 5);
 	glPopMatrix();
-}
-
-//--------------------------------------------------------------------------------------
-//  RF: Enables depth testing, lighting and shading model
-//--------------------------------------------------------------------------------------
-void GameController::Enable(void) 
-{
-	glEnable(GL_DEPTH_TEST); //enable the depth testing
-	glEnable(GL_LIGHTING); //enable the lighting
-	glEnable(GL_LIGHT0); //enable LIGHT0, our Diffuse Light
-	glShadeModel(GL_SMOOTH); //set the shader to smooth shader
-}
-
-//--------------------------------------------------------------------------------------
-//  RF: Controls key presses
-//--------------------------------------------------------------------------------------
-void GameController::KeyOperations(void)
-{
-	if(camKeyStates['q'])
-	{
-		camYrotrad = (camYrot / 180 * 3.141592654f);
-		camXpos -= float(cos(camYrotrad)) * camSpeed;
-		camZpos -= float(sin(camYrotrad)) * camSpeed;
-		
-	}
-
-	if(camKeyStates['e'])
-	{
-		camYrotrad = (camYrot / 180 * 3.141592654f);
-		camXpos += float(cos(camYrotrad)) * camSpeed;
-		camZpos += float(sin(camYrotrad)) * camSpeed;
-	}
-
-	if(camKeyStates['r'])
-	{
-		if(camXrot < camMaxAngle) //restrict maximum vertical camera angle to 45 degrees
-			camXrot += 1;
-	}
-
-	if(camKeyStates['f'])
-	{
-		if(camXrot > camMinAngle) //restrict minimum vertical camera angle to 5 degrees
-			camXrot -= 1;
-	}
-
-	if(camKeyStates['w'])
-	{
-		camYrotrad = (camYrot / 180 * 3.141592654f);
-		camXrotrad = (camXrot / 180 * 3.141592654f); 
-		camXpos += float(sin(camYrotrad)) * camSpeed;
-		camZpos -= float(cos(camYrotrad)) * camSpeed;
-		camYpos -= float(sin(camXrotrad)) * camSpeed;
-	}
-
-	if(camKeyStates['s'])
-	{
-		camYrotrad = (camYrot / 180 * 3.141592654f);
-		camXrotrad = (camXrot / 180 * 3.141592654f); 
-		camXpos -= float(sin(camYrotrad)) * camSpeed;
-		camZpos += float(cos(camYrotrad)) * camSpeed;
-		camYpos += float(sin(camXrotrad)) * camSpeed;
-	}
-
-	if(camKeyStates['a'])
-	{
-		camYrot += -1.0f;
-	}
-
-	if(camKeyStates['d'])
-	{
-		camYrot += 1.0f;
-	}
-
-	if(camKeyStates['o'])
-	{
-		camYpos += 1.0f;
-	}
-	if(camKeyStates['l'])
-	{
-		camYpos -= 1.0f;
-	}
 }

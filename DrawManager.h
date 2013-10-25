@@ -14,8 +14,8 @@
 #include <string>
 #include <Windows.h>
 #include <GL/GL.h>
-#include "CollisionDetection.h"
 
+class CollisionDetection;
 class DrawManager {
 //private: Stairs class change the drawStairs function, call the method of the class
 //please don't use a static function!!

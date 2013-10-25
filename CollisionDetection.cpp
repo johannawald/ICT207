@@ -1,6 +1,7 @@
 #include "CollisionDetection.h"
 #include <iostream>
 #include <cstdlib>
+#include "DrawManager.h"
 
 bool CollisionDetection::CollisionX(int pIndex, GLfloat x)
 {
@@ -79,6 +80,12 @@ void CollisionDetection::translateBoundingBox(int i, const GLfloat x, const GLfl
 	static_box[i]->min.z += z;
 }
 
+void CollisionDetection::translateBoundingBoxes(const GLfloat x, const GLfloat y, const GLfloat z)
+{
+	for (int i = 0; i<static_box.size(); i++) 
+		translateBoundingBox(i, x, y, z);
+}
+
 void CollisionDetection::addCollisionBox(const GLfloat pMinX, const GLfloat pMinY, const GLfloat pMinZ,
 										 const GLfloat pMaxX, const GLfloat pMaxY, const GLfloat pMaxZ) 
 {
@@ -93,3 +100,15 @@ void CollisionDetection::addCollisionBox(const GLfloat pMinX, const GLfloat pMin
 	bb->min.z = pMinZ;
 	static_box.push_back(bb);
 }
+
+void CollisionDetection::Draw(DrawManager* dm)
+{
+	for (int i = 0; i<static_box.size(); i++) 
+	{
+		dm->DrawCube(-1, 1, 1, static_box[i]->min.x, static_box[i]->min.y, static_box[i]->min.z,
+							   static_box[i]->max.x-static_box[i]->min.x,
+							   static_box[i]->max.y-static_box[i]->min.y,
+							   static_box[i]->max.z-static_box[i]->min.z);
+	}
+}
+		

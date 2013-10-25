@@ -8,6 +8,8 @@
 #include "DrawManager.h"
 #include <GL/glut.h>
 #include <GL/freeglut.h>
+#include "CollisionDetection.h"
+
 
 DrawManager::DrawManager() {	
 }
@@ -172,7 +174,7 @@ void DrawManager::DrawCollisionRect(CollisionDetection* collision, const GLint p
 				const GLdouble pWidth, const GLdouble pHeight)
 {
 	glPushMatrix();
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pHeight);
+		//DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pHeight);
 		collision->addCollisionBox(pPositionX, pPositionY, pPositionZ, pPositionX+pWidth, pPositionY+pHeight, pPositionZ+100); 
 	glPopAttrib();
 }

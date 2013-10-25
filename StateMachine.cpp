@@ -31,8 +31,8 @@ StateMachine::StateMachine(IStateController* controller) {
 	}
 	if (controller==NULL)
 		//state = bushcourtcontroller;
-		//state = new GameController(audiomanager, modelmanager, texturemanager);
-		state = new ControlRoom(audiomanager, modelmanager, texturemanager);
+		state = new GameController(audiomanager, modelmanager, texturemanager);
+		//state = new ControlRoom(audiomanager, modelmanager, texturemanager);
 	else
 		state = controller;
 }

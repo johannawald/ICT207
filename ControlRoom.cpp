@@ -65,6 +65,18 @@ void ControlRoom::CheckCollision()
 		float DiffY = mCamera.GetYposDiff();
 		float DiffZ = mCamera.GetZposDiff();
 
+		/*if ((cd.CollisionX(IndexCollision, mCamera.GetXpos())) && (cd.CollisionY(IndexCollision, mCamera.GetYpos())) && (cd.CollisionZ(IndexCollision, mCamera.GetZpos())))
+		{
+			if (cd.CollisionX(IndexCollision, mCamera.GetXpos()+mCamera.GetXposDiff()))
+				DiffX = 0;
+		if
+			if (cd.CollisionY(IndexCollision, mCamera.GetYpos()+mCamera.GetYposDiff()))
+				DiffY = 0;
+		if (cd.CollisionZ(IndexCollision, mCamera.GetZpos()))
+			if (cd.CollisionZ(IndexCollision, mCamera.GetZpos()+mCamera.GetZposDiff()))
+				DiffZ = 0;
+		}*/
+		
 		if (cd.CollisionX(IndexCollision, mCamera.GetXpos()))
 			if (cd.CollisionX(IndexCollision, mCamera.GetXpos()+mCamera.GetXposDiff()))
 				DiffX = 0;
@@ -130,7 +142,7 @@ void ControlRoom::SpecialKeyUp(int key, int x, int y)
 void ControlRoom::Keyboard(unsigned char key, int x, int y)
 {
 	mCamera.Keyboard(key, x, y);
-	if (key='t')
+	if (key=='t')
 		StateMachine::setController(new GameController(GetAudio(), GetModel(), GetTexture()));
 }
 
@@ -185,11 +197,11 @@ void ControlRoom::DrawFloor()
 void ControlRoom::DrawWalls()
 {
 	//Jon, can you change this to Collision-quads?
-	/*GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 100, 100, 10, 100, 200, 300); 
+	GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 100, 100, 10, 100, 200, 300); 
 	GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 10, 50, 200, 100, 20, 30);
-	GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 100, 10, -200, 200, 4000, 200); */
+	GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 100, 10, -200, 200, 4000, 200);
 	//walls
-	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taConcWall), 10, 10, 0, 0, 1000, 4000, 3000, 100); 
+	GetDrawManager()->DrawCollisionCube(&cd, -1, 10, 10, 0, 0, 1000, 4000, 3000, 100); 
 	
 	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall));
 	glBegin(GL_QUADS);

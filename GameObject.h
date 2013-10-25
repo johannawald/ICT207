@@ -11,6 +11,8 @@
 #include <GL\freeglut.h>
 #include "Vector3D.h"
 #include "BoundingBox.h"
+#include "ModelManager.h"
+#include "TextureManager.h"
 
 class GameObject 
 {
@@ -18,11 +20,16 @@ class GameObject
 		Vector3D mPosition;
 		Vector3D mScale;
 		Vector3D mMovement;
-		int mModelIndex;
-		int mTextureIndex;
+
+		eModels mModelIndex;
+		eTextures mTextureIndex;
 		int mCollisionIndex;
+
+		//void (Class::*collisionMethod)(void);
 	public:
-		GameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pScale, int pModelIndex, int pTextureIndex, int pCollisionIndex);
+		//void (GameController::*c
+		GameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex);
+
 		float GetXPosition();
 		float GetYPosition();
 		float GetZPosition();
@@ -31,6 +38,6 @@ class GameObject
 		float GetYScale();
 		float GetZScale();
 
-		int getModelIndex();
-		int getTextureIndex();
+		eModels getModelIndex();
+		eTextures getTextureIndex();
 };

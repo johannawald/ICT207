@@ -4,6 +4,7 @@
 #include <GL\freeglut.h>
 #include <vector>
 
+class DrawManager;
 class CollisionDetection
 {
 private:
@@ -15,8 +16,11 @@ private:
 
 	//BoundingBox* CreateCollisionBox();
 	bool Collision(BoundingBox *b, GLfloat x, GLfloat y, GLfloat z, GLfloat size);
-public:
 	void translateBoundingBox(int i, const GLfloat x, const GLfloat y, const GLfloat z);
+public:
+	void Draw(DrawManager* dm);
+
+	void translateBoundingBoxes(const GLfloat x, const GLfloat y, const GLfloat z);
 	bool Collision(GLfloat x, GLfloat y, GLfloat z, int &pIndex);
 	bool CollisionX(int pIndex, GLfloat x);
 	bool CollisionY(int pIndex, GLfloat y);

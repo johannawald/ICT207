@@ -10,7 +10,6 @@
  * @date 15/09/2013
  */
 
-
 #pragma once
 
 #include <Windows.h>
@@ -26,23 +25,17 @@
 #include "BasisController.h"
 #include "CollisionDetection.h"
 #include "GameObject.h"
+#include "MoveController.h"
 
 class GameController : public IStateController, BasisController
 {
 private:
+	MoveController mCamera;
+
 	std::vector<GameObject*> mGameObject;
 	CollisionDetection cd; //*JW
 
 	bool loaded; 
-	
-	GLdouble movementSpeed; //ray, delete that after you inserted your camera movement
-	GLdouble rotationSpeed; //ray, delete that after you inserted your camera movement
-	
-	GLdouble stepIncrement; //ray, delete that after you inserted your camera movement
-	GLdouble angleIncrement; //ray, delete that after you inserted your camera movement
-	int frameCount;
-	clock_t lastClock; 
-
 	// ratio of screen
 	float ratio;
 	// screen width and height
@@ -50,30 +43,6 @@ private:
 
 	//Camera cam; //ray, delete that after you inserted your camera movement
 	//TexturedPolygons tp; //use the texturemanager! //ray, we don't need that if we implemented the texturemanager! 
-
-	// camera data members
-	float camSpeed;
-	// angle of rotation values
-	float camXpos; //= 0.0; 
-	float camYpos; //= 0.0; 
-	float camZpos; //= 0.0; 
-	float camXrot; //= 0.0; 
-	float camYrot; //= 0.0;
-	
-	// distance from character
-	float camRadius; //= 2.5f;
-
-	// max and min camera angle
-	float camMaxAngle; //= 30.0;
-	float camMinAngle; //= 0.0;
-	float camLastx; // last mouse x position 
-	float camLasty; // last mouse y position
-	int camDiffy;
-	int camDiffx;
-	float camYrotrad;
-	float camXrotrad;
-	bool camMouseClicked; //= false;
-	bool* camKeyStates; //= new bool[256]; // Create an array of boolean values of length 256 (0-255)
 	void DrawTexttest();
 	void SetGameObject(); //*JW
 	void DrawGameObjects();
@@ -132,8 +101,4 @@ public:
 			 * @return void
              */
 	void DrawControlRoom();
-	// enables depth testing, lighting and shading
-	void Enable(void);
-	// control key presses
-	void KeyOperations(void);
 };
