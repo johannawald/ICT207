@@ -42,6 +42,24 @@ MoveController::MoveController()
 }
 
 
+float MoveController::GetXpos()
+{
+	return mXpos;
+}
+
+
+float MoveController::GetYpos()
+{
+	return mYpos;
+}
+
+
+float MoveController::GetZpos()
+{
+	return mZpos;
+}
+
+
 void MoveController::SetCameraPosition(float xpos, float ypos, float zpos, float rotation)
 {
 	glRotatef(rotation, 0.0, 1.0, 0.0); //rotate camera 180 degrees

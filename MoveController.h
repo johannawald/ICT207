@@ -51,6 +51,9 @@ class MoveController
 		
 	public:
 		MoveController();
+		float GetXpos();
+		float GetYpos();
+		float GetZpos();
 		void SetCameraPosition(float xpos, float ypos, float zpos, float rotation);
 		void MoveCamera(const bool pMoveX = true, const bool pMoveY = true, const bool pMoveZ = true);
 		void SpecialKey(int key, int x, int y);
