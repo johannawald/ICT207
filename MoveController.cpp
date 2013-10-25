@@ -49,7 +49,7 @@ void MoveController::SetCameraPosition(float xpos, float ypos, float zpos, float
 }
 
 
-void MoveController::MoveCamera()  //try to avoid updating variables in the draw function! -> do that in the update-funciton
+void MoveController::MoveCamera(const bool pMoveX, const bool pMoveY, const bool pMoveZ)  //try to avoid updating variables in the draw function! -> do that in the update-funciton
 {
 	// enable depth testing, lighting and shading
 	Enable();
@@ -67,6 +67,13 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 	glPopMatrix();
     
 	glRotatef(mYrot,0.0,1.0,0.0);  //rotate the camera on the y-axis (up and down)
+	if (!pMoveX) 
+		mXpos = 0;
+	if (!pMoveY) 
+		mYpos = 0;
+	if (!pMoveZ) 
+		mZpos = 0;
+
 	glTranslated(-mXpos,-mYpos,-mZpos); //translate the screen to the position of our camera
 	glColor3f(1.0f, 1.0f, 1.0f);	
 }

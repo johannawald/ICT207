@@ -52,7 +52,7 @@ class MoveController
 	public:
 		MoveController();
 		void SetCameraPosition(float xpos, float ypos, float zpos, float rotation);
-		void MoveCamera();
+		void MoveCamera(const bool pMoveX = true, const bool pMoveY = true, const bool pMoveZ = true);
 		void SpecialKey(int key, int x, int y);
 		void SpecialKeyUp(int key, int x, int y);
 		void KeyboardUp(unsigned char key, int x, int y);
