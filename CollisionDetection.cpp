@@ -1,38 +1,49 @@
 #include "CollisionDetection.h"
 #include <iostream>
+#include <cstdlib>
 
 bool CollisionDetection::Collision(GLfloat x, GLfloat y, GLfloat z)
 {
 	bool collision = false;
 	for (int i = 0; i<static_box.size(); i++) 
 	{
-		collision = collision || Collision(static_box[i], x, y, z, 100);
+		collision = collision || Collision(static_box[i], x, y, z, 10);
 	}
 	return collision;
 }
 
-bool CollisionDetection::Collision(BoundingBox *b, GLfloat x,GLfloat y,GLfloat z, GLfloat size)
+
+bool CollisionDetection::Collision(BoundingBox *b, GLfloat x, GLfloat y, GLfloat z, GLfloat size)
 {
 	if ((x!=x_old) || (y!=y_old) || (z!=z_old)) 
-	{
 		std::cout << "x: " << x << " y: " << y << " z: " << z << std::endl;
-	}
 	x_old = x;
 	y_old = y;
 	z_old = z;
 
-	GLfloat x1 = x; //+size/2.0f;
-	GLfloat y1 = y; //+size/2.0f;
-	GLfloat z1 = z; //+size/2.0f;
+	GLfloat x1 = x;
+	GLfloat y1 = y;
+	GLfloat z1 = z;
 
-	GLfloat x2 = x-size/2.0f;
-	GLfloat y2 = y-size/2.0f;
-	GLfloat z2 = z-size/2.0f;
-	
 	bool collision1 = ((x1 <= b->max.x) && (x1>= b->min.x) && (y1<= b->max.y) && (y1>= b->min.y) && (z1<= b->max.z) && (z1 >= b->min.z));
-	bool collision2 =  ((x2 <= b->max.x) && (x2>= b->min.x) && (y2<= b->max.y) && (y2>= b->min.y) && (z2<= b->max.z) && (z2 >= b->min.z));
 
-    return (collision1 || collision2);
+    return (collision1 || false);
+	
+   //check the X axis
+   /*if(abs(x - b->min.x) < size + b->max.x)
+   {
+      //check the Y axis
+      if(abs(y - b->min.y) < size + b->max.y)
+      {
+          //check the Z axis
+          if(abs(z - b->min.z) < size + b->max.z)
+          {
+             return true;
+          }
+      }
+   }*/
+
+   return false;
 }
 
 void CollisionDetection::translateBoundingBox(int i, const GLfloat x, const GLfloat y, const GLfloat z)

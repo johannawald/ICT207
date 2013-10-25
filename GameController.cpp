@@ -99,7 +99,6 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 		glRotatef(camYrot,0.0,1.0,0.0);  //rotate our camera on the y-axis (up and down)
 		glTranslated(-camXpos,-camYpos,-camZpos); //translate the screen to the position of our camera
 		//glColor3f(1.0f, 1.0f, 1.0f);
-
 		// DISPLAY TEXTURES
 		//enable texture mapping
 		glEnable (GL_TEXTURE_2D);
@@ -109,12 +108,6 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 			//DrawControlRoom();
 			//DrawOuterWalls();
 			//DrawArchitecture();
-
-			DrawManager dm;
-
-			dm.DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
-			dm.DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
-			dm.DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 100, 0, -200, 200, 4000, 200); 
 		
 			//glRotatef(-90,1,0,0);
 			Draw3DModels();
@@ -122,6 +115,10 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 			// set the movement and rotation speed according to frame count
 			IncrementFrameCount();
 		glPopMatrix();
+		GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
+		GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
+		GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 100, 0, -200, 200, 4000, 200); 
+		
 		glDisable (GL_TEXTURE_2D); 
 		DrawTexttest();
 		// clear buffers

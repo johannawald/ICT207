@@ -29,13 +29,37 @@ enum eTextures { tAdOreo,
 				 taHallway10, taHallway11, taHallway12,
 				 taHallway13, taHallway14, taBoard1,
 				 taBoard2, taBoard3, taBoard4,
+				 //LevelOneController:
+				 taBox, taButton, taBomb, ta4x1platform, taConsole, 
+				 taTilefloor, taTilewall, taConcWall,
 				 TEXTURE_SIZE };
+
+/*
+	image = tp.LoadTexture("textures/thanks.raw", 512, 512);
+	tp.CreateTexture(EXIT, image, 512, 512);
+
+
+
+
+	image = tp.LoadTexture("textures/rustywall.raw", 512, 256); //bad  texture, not sure where used :S *JM
+	tp.CreateTexture(RUSTYWALL, image, 512, 256);
+
+
+
+
+
+*/
+
 
 class TextureManager: public IAssetManager {
 private:
 	//change that later to a better image loader
 	//TextureLoader* tl;
 	GLuint Textures[TEXTURE_SIZE]; 	
+	/**
+		*** comment missing
+	*/	
+	GLuint Loadimage(const char* filename);
 public:	
 	TextureManager();
 	~TextureManager();	
@@ -63,8 +87,4 @@ public:
 		* @return GLuint - the Texture ID, you can pass to the BindTexture()-function
 	*/
 	GLuint getTextureID(const eTextures texture) const;
-	/**
-		*** comment missing
-	*/	
-	GLuint Loadimage(const char* filename);
 };

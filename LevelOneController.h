@@ -40,15 +40,10 @@ private:
 	GLdouble angleIncrement; //ray, delete that after you inserted your camera movement
 	int frameCount;
 	clock_t lastClock; 
-
-	unsigned char* LevelOneController::image; 
 	// ratio of screen
 	float ratio;
 	// screen width and height
 	int width, height;
-
-	//Camera cam; //ray, delete that after you inserted your camera movement
-	TexturedPolygons tp; //use the texturemanager! //ray, we don't need that if we implemented the texturemanager! 
 
 	// camera data members
 	float camSpeed;
@@ -76,15 +71,14 @@ private:
 	bool* camSpecialKeyStates;
 
 public:
-			/**
-             * @brief constructor creates a new LevelOneController object.
-             */
+	/**
+            * @brief constructor creates a new LevelOneController object.
+    */
 	LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm);
-			/**
+	/**
              * @brief Destructor destroys LevelOneController object when it goes out of scope.
              * @param none
-			*/
-	//shays code lol
+	*/
 	void Init();
 	void Draw();
 	void Reshape();
@@ -139,8 +133,6 @@ public:
 	void DrawControlRoom();
 
 	void IncrementFrameCount();	
-	// loads images and creates texture
-	void CreateTextures();
 	// creates bounding boxes for collsion detection
 
 	// enables depth testing, lighting and shading

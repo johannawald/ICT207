@@ -46,6 +46,16 @@ void TextureManager::init()
 	Textures[taBoard2] = Loadimage("textures/board2.bmp");
 	Textures[taBoard3] = Loadimage("textures/board3.bmp");
 	Textures[taBoard4] = Loadimage("textures/board4.bmp");
+	//LevelOneController:
+	Textures[taBox] = Loadimage("textures/box.bmp");
+	Textures[taButton] = Loadimage("textures/button.bmp");
+	Textures[taBomb] = Loadimage("textures/bomb.bmp");
+	Textures[ta4x1platform] = Loadimage("textures/4x1platform.png");
+	Textures[taConsole] = Loadimage("textures/console.bmp"); //bmp?
+	Textures[taTilefloor] = Loadimage("textures/tilefloor.bmp");
+	Textures[taTilewall] = Loadimage("textures/tilewall.bmp");
+	Textures[taConcWall] = Loadimage("textures/concwall.bmp");
+
 }
 
 void TextureManager::reload()
