@@ -134,6 +134,7 @@
     <ClCompile Include="cameraMap.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="CollisionDetection.cpp" />
+    <ClCompile Include="ControlRoom.cpp" />
     <ClCompile Include="DrawManager.cpp" />
     <ClCompile Include="EasySound.cpp" />
     <ClCompile Include="GameController.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="AABBNode.h" />
     <ClInclude Include="BoundingBox.h" />
     <ClInclude Include="CollisionDetection.h" />
+    <ClInclude Include="ControlRoom.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IAssetManager.h" />
     <ClInclude Include="AudioManager.h" />

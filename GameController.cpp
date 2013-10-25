@@ -115,9 +115,9 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 			DrawManager dm;
 
 			//glRotatef(90,1,0,0);
-			//dm.DrawCollisionCube(&cd, -1, 1, 1, 0, 0, 0, 100, 200, 300); //-100, -10, 10, 20000, 20000, 0); 
-			dm.DrawCollisionCube(&cd, -1, 1, 1, 10, 50, 200, 100, 20, 30); //-100, -10, 10, 20000, 20000, 0); 
-			//dm.DrawCollisionCube(&cd, -1, 1, 1, 100, 0, -200, 200, 4000, 200); //-100, -10, 10, 20000, 20000, 0); 
+			dm.DrawCollisionCube(&cd, -1, 1, 1, 0, 0, 0, 100, 200, 300); 
+			dm.DrawCollisionCube(&cd, -1, 1, 1, 10, 50, 200, 100, 20, 30);
+			dm.DrawCollisionCube(&cd, -1, 1, 1, 100, 0, -200, 200, 4000, 200); 
 		
 			//glRotatef(-90,1,0,0);
 			Draw3DModels();

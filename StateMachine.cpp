@@ -25,10 +25,10 @@ StateMachine::StateMachine(IStateController* controller) {
 		modelmanager = new ModelManager();
 		texturemanager = new TextureManager();
 		audiomanager = new AudioManager();
-		bushcourtcontroller = new BushCourtController(audiomanager, modelmanager, texturemanager);
+		//bushcourtcontroller = new BushCourtController(audiomanager, modelmanager, texturemanager);
 	}
 	if (controller==NULL)
-		state = bushcourtcontroller; //GameController(audiomanager, modelmanager, texturemanager);
+		state = new GameController(audiomanager, modelmanager, texturemanager);
 	else
 		state = controller;
 }
