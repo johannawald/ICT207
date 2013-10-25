@@ -21,6 +21,7 @@ class GameObject
 	private:
 		Position position;
 		int model;
+		int CollisionIndex;
 	public:
 		GameObject();
 };

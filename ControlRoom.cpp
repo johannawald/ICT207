@@ -24,7 +24,7 @@ ControlRoom::ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm)
 	cam.InitiateBoundingBoxes();
 	
 	// load texture images and create display lists
-	CreateTextures();
+	//CreateTextures();
 	loaded = true;	
 }
 
@@ -85,6 +85,11 @@ void ControlRoom::Draw()  //try to avoid updating variables in the draw function
 		glFlush();
 		glutSwapBuffers();
 	}
+}
+
+void ControlRoom::MouseMotion(int x, int y)
+{
+
 }
 
 void ControlRoom::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!)
@@ -255,57 +260,9 @@ void ControlRoom::PassiveMotion(int x, int y) //mouseMove
 {
 }
 
-
-//--------------------------------------------------------------------------------------
-// Load and Create Textures
-//--------------------------------------------------------------------------------------
-void ControlRoom::CreateTextures() //ray, we don't need that if we implemented the texturemanager! 
-{
-	glEnable(GL_DEPTH_TEST);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	
-	// set texture count
-	tp.SetTextureCount(LAST); //NEEDS TO BE THE SAME ACROSS ALL CONTROLLERS!!! (else textures assigned randomly)
-	unsigned char* image;
-	// load and create textures
-
-	image = tp.LoadTexture("textures/thanks.raw", 512, 512);
-	tp.CreateTexture(EXIT, image, 512, 512);
-
-	image = tp.LoadTexture("textures/box.raw", 512, 512);
-	tp.CreateTexture(BOX, image, 512, 512);
-
-	image = tp.LoadTexture("textures/tilefloor.raw", 512, 512);
-	tp.CreateTexture(TILEFLOOR, image, 512, 512);
-
-	image = tp.LoadTexture("textures/concwall.raw", 512, 512);
-	tp.CreateTexture(CONCWALL, image, 512, 512);
-
-	image = tp.LoadTexture("textures/rustywall.raw", 512, 256);
-	tp.CreateTexture(RUSTYWALL, image, 512, 256);
-
-	image = tp.LoadTexture("textures/tilewall.raw", 512, 512);
-	tp.CreateTexture(TILEWALL, image, 512, 512);
-
-	image = tp.LoadTexture("textures/4x1platform.raw", 512, 512);
-	tp.CreateTexture(PLATFORM4X1, image, 512, 512);
-
-	image = tp.LoadTexture("textures/button.raw", 512, 512);
-	tp.CreateTexture(BUTTON, image, 512, 512);
-
-	image = tp.LoadTexture("textures/bomb.raw", 512, 512);
-	tp.CreateTexture(BOMB, image, 512, 512);
-
-	image = tp.LoadTexture("textures/console.raw", 512, 512);
-	tp.CreateTexture(CONSOLE, image, 512, 512);
-
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);	
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-}
-
 void ControlRoom::DrawFloor()
 {
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
+	//glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
 	//floor
 	glBegin(GL_QUADS);
 		glTexCoord2f (1.0, 1.0);		glVertex3f(0, 0, -4000);
@@ -335,7 +292,7 @@ void ControlRoom::DrawFloor()
 
 void ControlRoom::DrawWalls()
 {
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
+	//glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
 	//walls
 	glBegin(GL_QUADS);
 		glTexCoord2f(1.0, 1.0);			glVertex3f(0, 0, -4000);
@@ -391,7 +348,7 @@ void ControlRoom::DrawWalls()
 
 void ControlRoom::DrawStairs()
 {
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
+	//glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
 	glPushMatrix();
 		glTranslatef(700, 0, -4000);
 		glRotatef(180, 0, 1, 0);
@@ -404,7 +361,7 @@ void ControlRoom::DrawConsole()
 	glPushMatrix();
 		glTranslatef(500, 0, -1250);
 		glRotatef(180, 0, 1, 0);
-		GetModel()->drawModel(mConsole, tp.GetTexture(CONSOLE)); //*JW
+		//GetModel()->drawModel(mConsole, tp.GetTexture(CONSOLE)); //*JW
 	glPopMatrix();
 }
 
@@ -412,7 +369,7 @@ void ControlRoom::DrawLadder(){
 	glPushMatrix();
 		glTranslatef(500, 0, -4450);
 		glScalef(0.5, 1, 1);	
-		GetModel()->drawModel(mLadder, tp.GetTexture(RUSTYWALL));
+		//GetModel()->drawModel(mLadder, tp.GetTexture(RUSTYWALL));
 	glPopMatrix();
 }
 
