@@ -11,7 +11,7 @@
 #include <vector>
 #include "BushCourtController.h"
 #include "GameController.h"
-
+#include "LevelOneController.h"
 #include "ModelManager.h"
 #include "TextureManager.h"
 #include "AudioManager.h"
@@ -30,8 +30,9 @@ StateMachine::StateMachine(IStateController* controller) {
 		//bushcourtcontroller = new BushCourtController(audiomanager, modelmanager, texturemanager);
 	}
 	if (controller==NULL)
-		state = new GameController(audiomanager, modelmanager, texturemanager);
-		//state = new ControlRoom(audiomanager, modelmanager, texturemanager);
+		//state = bushcourtcontroller;
+		//state = new GameController(audiomanager, modelmanager, texturemanager);
+		state = new ControlRoom(audiomanager, modelmanager, texturemanager);
 	else
 		state = controller;
 }

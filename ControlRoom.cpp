@@ -1,11 +1,13 @@
  #include "ControlRoom.h"
 #include "StateMachine.h"
 #include "ModelLoader.h"
+#include "GameController.h"
 
 //--------------------------------------------------------------------------------------
 //  Constructor
 //--------------------------------------------------------------------------------------
-ControlRoom::ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), loaded(false)
+ControlRoom::ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm): 
+	BasisController(am,mm,tm), loaded(false), MoveX(true), MoveY(true), MoveZ(true)
 {
 	Init();
 	loaded = true;	
@@ -34,7 +36,9 @@ void ControlRoom::Draw()
 		glPushMatrix();
 			glLoadIdentity();
 			//Move camera:
-			mCamera.MoveCamera(true, true, true);
+			mCamera.PrepareMovement();
+			//mCamera.SetDiffValues(mCamera.GetXposDiff(), mCamera.GetYposDiff(), mCamera.GetZposDiff());
+			mCamera.MoveCamera();
 			glEnable(GL_TEXTURE_2D);
 			glPushMatrix();
 			//Set camera position:
@@ -43,8 +47,13 @@ void ControlRoom::Draw()
 			DrawWalls();
 			DrawFloor();
 			DrawStairs();
-			DrawConsole();
 			DrawLadder();
+			DrawConsole(); //the last one is always not working
+			
+			GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 100, 100, 10, 100, 200, 300); 
+			GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 10, 50, 200, 100, 20, 30);
+			GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 100, 10, -200, 200, 4000, 200); 
+
 		glPopMatrix();
 		glDisable (GL_TEXTURE_2D); 
 		// clear buffers
@@ -55,7 +64,25 @@ void ControlRoom::Draw()
 
 void ControlRoom::Update()
 { 
-	
+	int IndexCollision = -1;
+	// the camera wants to move(1,2,1)
+	if (cd.Collision(mCamera.GetXpos(), mCamera.GetXpos(), mCamera.GetXpos(), IndexCollision))
+	{
+		//cd.UpdateMovementVector(IndexCollision, );
+		//Update Movement Vector
+	}
+	MoveX = true; //!cd.CollisionX(mCamera.GetXpos());
+	MoveY = true; //!cd.CollisionY(mCamera.GetYpos());
+	MoveZ = true; //!cd.CollisionZ(mCamera.GetZpos());
+	//Collision Detection
+
+	if (IsAtComputerPosition())
+		StateMachine::setController(new GameController(GetAudio(), GetModel(), GetTexture()));
+}
+
+bool ControlRoom::IsAtComputerPosition()
+{ 
+	return (false);  //(mCamera.GetZpos() > -2000); Jon, insert here position of computer
 }
 
 void ControlRoom::Reshape() {
@@ -111,12 +138,14 @@ void ControlRoom::Mouse(int button, int state, int x, int y)
 
 void ControlRoom::PassiveMotion(int x, int y)
 {
-	
 }
 
 void ControlRoom::DrawFloor()
 {
-	//glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
+	//jon, please make it bigger -> controlroom we need an window for the left
+	//maybe create a variable "factor" to change the size of everything easily
+
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor));
 	//floor
 	glBegin(GL_QUADS);
 		glTexCoord2f (1.0, 1.0);		glVertex3f(0, 0, -4000);
@@ -146,7 +175,8 @@ void ControlRoom::DrawFloor()
 
 void ControlRoom::DrawWalls()
 {
-	//glBindTexture(GL_TEXTURE_2D, tp.GetTexture(CONCWALL));
+	//Jon, can you change this to Collision-quads?
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall));
 	//walls
 	glBegin(GL_QUADS);
 		glTexCoord2f(1.0, 1.0);			glVertex3f(0, 0, -4000);
@@ -202,7 +232,7 @@ void ControlRoom::DrawWalls()
 
 void ControlRoom::DrawStairs()
 {
-	//glBindTexture(GL_TEXTURE_2D, tp.GetTexture(TILEFLOOR));
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor));
 	glPushMatrix();
 		glTranslatef(700, 0, -4000);
 		glRotatef(180, 0, 1, 0);
@@ -215,15 +245,15 @@ void ControlRoom::DrawConsole()
 	glPushMatrix();
 		glTranslatef(500, 0, -1250);
 		glRotatef(180, 0, 1, 0);
-		//GetModel()->drawModel(mConsole, tp.GetTexture(CONSOLE)); //*JW
+		GetModel()->drawModel(mConsole, GetTexture()->getTextureID(taConsole));
 	glPopMatrix();
 }
 
-void ControlRoom::DrawLadder(){
+void ControlRoom::DrawLadder()
+{
 	glPushMatrix();
-		glTranslatef(500, 0, -4450);
+		glTranslatef(500, 0, -4450); //Jon, can you please locate that + Texture
 		glScalef(0.5, 1, 1);	
-		//GetModel()->drawModel(mLadder, tp.GetTexture(RUSTYWALL));
+		GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taRustyWall));
 	glPopMatrix();
 }
-

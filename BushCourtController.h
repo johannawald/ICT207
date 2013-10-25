@@ -24,7 +24,7 @@
 #include "texturedPolygons.h"
 #include "Transition.h"
 #include "IStateController.h"
-#include "BasisController.h";
+#include "BasisController.h"
 
 enum TextureImgAxises { XY, XZ, YZ, YZ_FLIP, XY_FLIP };
 enum PlainTypes  { FLAT_PLAIN, XY_PLAIN, ZY_PLAIN };

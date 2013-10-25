@@ -51,11 +51,11 @@ void TextureManager::init()
 	Textures[taButton] = Loadimage("textures/button.bmp");
 	Textures[taBomb] = Loadimage("textures/bomb.bmp");
 	Textures[ta4x1platform] = Loadimage("textures/4x1platform.png");
-	Textures[taConsole] = Loadimage("textures/console.bmp"); //bmp?
+	Textures[taConsole] = Loadimage("textures/console.png");
 	Textures[taTilefloor] = Loadimage("textures/tilefloor.bmp");
 	Textures[taTilewall] = Loadimage("textures/tilewall.bmp");
 	Textures[taConcWall] = Loadimage("textures/concwall.bmp");
-
+	Textures[taRustyWall] = Loadimage("textures/rustywall.png");
 }
 
 void TextureManager::reload()
