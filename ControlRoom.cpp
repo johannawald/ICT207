@@ -40,16 +40,17 @@ void ControlRoom::Draw()
 			mCamera.MoveCamera();
 			glEnable(GL_TEXTURE_2D);
 			glPushMatrix();
-			//Set camera position:
-			mCamera.SetCameraPosition(-500, -250, 3000, 180);
-			//Draw objects
-			DrawWalls();
-			DrawFloor();
-			DrawStairs();
-			DrawLadder();
-			DrawConsole(); //the last one is always not working
+				//Set camera position:
+				mCamera.SetCameraPosition(-500, -250, 3000, 180);
+				//Draw objects
+				DrawWalls();
+				DrawFloor();
+				DrawStairs();
+				DrawLadder();
+				DrawConsole(); //the last one is always not working
+			glPopMatrix();
+			glDisable (GL_TEXTURE_2D);
 		glPopMatrix();
-		glDisable (GL_TEXTURE_2D); 
 		// clear buffers
 		glFlush();
 		glutSwapBuffers();

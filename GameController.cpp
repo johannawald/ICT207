@@ -66,7 +66,7 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 			mCamera.SetCameraPosition(1000, 1000, 1000, 0);
 			//cd.translateBoundingBoxes(1000, 1000, 1000);
 			glEnable (GL_TEXTURE_2D);
-
+			glPushMatrix();
 			//glTranslatef(-500.0, -250.0, 3000.0); //translate camera starting position ??
 			// displays the exit screen
 			//DrawControlRoom();
@@ -82,7 +82,8 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 			//DrawObjects();
 			// set the movement and rotation speed according to frame count
 		glPopMatrix();		
-		glDisable (GL_TEXTURE_2D); 
+		glDisable (GL_TEXTURE_2D);
+		glPopMatrix();
 		DrawTexttest();
 		// clear buffers
 		glFlush();
