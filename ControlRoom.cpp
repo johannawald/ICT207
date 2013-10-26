@@ -96,7 +96,7 @@ void ControlRoom::CheckCollision()
 				DiffZ = 0;
 		}*/
 		
-		if (cd.CollisionX(IndexCollision, mCamera.GetXpos()))
+		/*if (cd.CollisionX(IndexCollision, mCamera.GetXpos()))
 			if (cd.CollisionX(IndexCollision, mCamera.GetXpos()+mCamera.GetXposDiff()))
 				DiffX = 0;
 		if (cd.CollisionY(IndexCollision, mCamera.GetYpos()))
@@ -104,9 +104,10 @@ void ControlRoom::CheckCollision()
 				DiffY = 0;
 		if (cd.CollisionZ(IndexCollision, mCamera.GetZpos()))
 			if (cd.CollisionZ(IndexCollision, mCamera.GetZpos()+mCamera.GetZposDiff()))
-				DiffZ = 0;
+				DiffZ = 0;*/
 
-		mCamera.SetDiffValues(DiffX, DiffY, DiffZ);
+		if (cd.Collision(mCamera.GetXpos()+DiffX, mCamera.GetYpos()+DiffY, mCamera.GetZpos()+DiffZ, IndexCollision, 100))
+			mCamera.SetDiffValues(0, 0, 0);
 	}
 }
 
