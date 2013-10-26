@@ -8,22 +8,23 @@
  * @version 01
  * @date 18/09/2013 Johanna Wald - Basic Implementation
  * @date 25/10/2013 Raymond Forster - added loading of background music and bomb explosion
+ * @date 26/10/2013 Raymond Forster - fixes to naming
  */
 
 #pragma once
 
 #include "IAssetManager.h"
 
-enum eAudioSounds { asStep, asMetalicCrash, asIncorrectCode,
-					asBgMusic, asBomb,
-					AUDIOSOUNDS_SIZE };
+enum eSounds { sStep, sMetalicCrash, sIncorrectCode,
+			   sBgMusic, sBomb,
+			   AUDIOSOUNDS_SIZE };
 
 class CSound;
 class CEasySound;
 class AudioManager: public IAssetManager {
 private:
-	CEasySound* es; /**< Helps the class to load and store the sounds in the list */
-	CSound* Sounds[AUDIOSOUNDS_SIZE];  /**< Array that stores the sounds */	
+	CEasySound* mSound; /**< Helps the class to load and store the sounds in the list */
+	CSound* mSounds[AUDIOSOUNDS_SIZE];  /**< Array that stores the sounds */	
 public:
 	/**
 		* @brief constructor of the AudioManager
@@ -57,5 +58,5 @@ public:
         * @param eSounds audio - the enum of the sound that should be played it represents the position of the file in the list the class stores
 		* @return void
 	*/
-	void playSound(const eAudioSounds audio) const;
+	void playSound(const eSounds audio) const;
 };

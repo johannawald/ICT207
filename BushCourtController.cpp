@@ -150,7 +150,7 @@ void BushCourtController::Update() {
 	//trigger the transistion:
 	if (transition.IsCorrectCode()) {
 		if (transition.IsPlayMechanicSound())
-			GetAudio()->playSound(asMetalicCrash);
+			GetAudio()->playSound(sMetalicCrash);
 			
 		if (transition.getAnimationFrame()<70)
 			cam.DirectionFB(-1);
@@ -160,7 +160,7 @@ void BushCourtController::Update() {
 	}
 	else if (!transition.IsCodeStartedCorrect()) {
 		transition.AutoCorrection();
-		GetAudio()->playSound(asIncorrectCode);		
+		GetAudio()->playSound(sIncorrectCode);		
 	}
 	if (transition.getstate() == tsHole){
 		if ((cam.GetFB() > 24900) && (cam.GetFB() < 25200) && (cam.GetLR() < 35200))

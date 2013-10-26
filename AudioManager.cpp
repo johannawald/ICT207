@@ -14,12 +14,12 @@ AudioManager::~AudioManager()
 void AudioManager::init()
 {
 	// sound objects - later we should not work with the CEasySound
-	es = CEasySound::Instance();
-	Sounds[asStep] = es->GetSound(es->Load("sounds/step.wav"));
-	Sounds[asMetalicCrash] = es->GetSound(es->Load("sounds/Mechanical.wav")); 
-	Sounds[asIncorrectCode] = es->GetSound(es->Load("sounds/131657__bertrof__game-sound-wrong.wav"));
-	Sounds[asBgMusic] = es->GetSound(es->Load("sounds/BackgroundMusic.wav"));
-	Sounds[asBomb] = es->GetSound(es->Load("sounds/TimeBomb.wav"));
+	mSound = CEasySound::Instance();
+	mSounds[sStep] = mSound->GetSound(mSound->Load("sounds/step.wav"));
+	mSounds[sMetalicCrash] = mSound->GetSound(mSound->Load("sounds/Mechanical.wav")); 
+	mSounds[sIncorrectCode] = mSound->GetSound(mSound->Load("sounds/131657__bertrof__game-sound-wrong.wav"));
+	mSounds[sBgMusic] = mSound->GetSound(mSound->Load("sounds/BackgroundMusic.wav"));
+	mSounds[sBomb] = mSound->GetSound(mSound->Load("sounds/TimeBomb.wav"));
 }
 
 void AudioManager::reload()
@@ -28,14 +28,14 @@ void AudioManager::reload()
 	init();
 }
 
-void AudioManager::playSound(const eAudioSounds audio) const
+void AudioManager::playSound(const eSounds audio) const
 {
-	Sounds[audio]->Play();
+	mSounds[audio]->Play();
 }
 
 void AudioManager::clearMemory()
 {
-	delete es;
+	delete mSound;
 	for (int i = 0; i<2 ;i++)
-		es->Unload(Sounds[i]);
+		mSound->Unload(mSounds[i]);
 }
