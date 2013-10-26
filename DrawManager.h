@@ -15,6 +15,7 @@
 #include <Windows.h>
 #include <GL/GL.h>
 
+class BoundingBox;
 class CollisionDetection;
 class DrawManager {
 //private: Stairs class change the drawStairs function, call the method of the class
@@ -62,4 +63,6 @@ public:
 				const int pTexCoordX, const int pTexCoordY, 
 				const int pPositionX, const int pPositionY, const int pPositionZ, 
 				const GLdouble pWidth, const GLdouble pHeight, const GLdouble pDepth);
+	void DrawCollisionBox(BoundingBox *b);
+
 };

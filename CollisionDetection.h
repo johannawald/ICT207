@@ -15,7 +15,7 @@ private:
 	GLfloat z_old;
 
 	//BoundingBox* CreateCollisionBox();
-	bool Collision(BoundingBox *b, GLfloat x, GLfloat y, GLfloat z, GLfloat size);
+	bool Collision(BoundingBox *b, GLfloat x, GLfloat y, GLfloat z, GLfloat size, bool pShowPosition);
 	void translateBoundingBox(int i, const GLfloat x, const GLfloat y, const GLfloat z);
 public:
 	void Draw(DrawManager* dm);

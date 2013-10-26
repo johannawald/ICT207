@@ -44,9 +44,9 @@ void GameController::Init()
 	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 	Reshape();
 	
-	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
-	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
-	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 100, 0, -200, 200, 4000, 200); 
+	//GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
+	//GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
+	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 100, 0, -200, 200, 400, 200); 
 }
 
 //--------------------------------------------------------------------------------------
@@ -64,19 +64,10 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 			mCamera.PrepareMovement();
 			mCamera.MoveCamera();	
 			mCamera.SetCameraPosition(1000, 1000, 1000, 0);
-			//cd.translateBoundingBoxes(1000, 1000, 1000);
+			cd.translateBoundingBoxes(1000, 1000, 1000);
 			glEnable (GL_TEXTURE_2D);
 			glPushMatrix();
-			//glTranslatef(-500.0, -250.0, 3000.0); //translate camera starting position ??
-			// displays the exit screen
-			//DrawControlRoom();
-			//DrawOuterWalls();
-			//DrawArchitecture();
-		
-			//glRotatef(-90,1,0,0);
-
 			cd.Draw(GetDrawManager());
-
 			DrawGameObjects(); //*JW
 			Draw3DModels();
 			//DrawObjects();

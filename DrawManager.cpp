@@ -9,7 +9,7 @@
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 #include "CollisionDetection.h"
-
+#include "BoundingBox.h"
 
 DrawManager::DrawManager() {	
 }
@@ -177,4 +177,36 @@ void DrawManager::DrawCollisionRect(CollisionDetection* collision, const GLint p
 		//DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pHeight);
 		collision->addCollisionBox(pPositionX, pPositionY, pPositionZ, pPositionX+pWidth, pPositionY+pHeight, pPositionZ+100); 
 	glPopAttrib();
+}
+
+void DrawManager::DrawCollisionBox(BoundingBox *b)
+{
+    glColor3f(1,1,1);
+    glBegin(GL_LINE_LOOP);
+    glVertex3f(b->max.x,b->max.y,b->min.z);
+    glVertex3f(b->min.x,b->max.y,b->min.z);
+    glVertex3f(b->min.x,b->min.y,b->min.z);
+    glVertex3f(b->max.x,b->min.y,b->min.z);
+    glEnd();
+
+    glBegin(GL_LINE_LOOP);
+    glVertex3f(b->max.x,b->min.y,b->max.z);
+    glVertex3f(b->max.x,b->max.y,b->max.z);
+    glVertex3f(b->min.x,b->max.y,b->max.z);
+    glVertex3f(b->min.x,b->min.y,b->max.z);
+    glEnd();
+
+    glBegin(GL_LINE_LOOP);
+    glVertex3f(b->max.x,b->max.y,b->min.z);
+    glVertex3f(b->max.x,b->max.y,b->max.z);
+    glVertex3f(b->min.x,b->max.y,b->max.z);
+    glVertex3f(b->min.x,b->max.y,b->min.z);
+    glEnd();
+
+    glBegin(GL_LINE_LOOP);
+    glVertex3f(b->max.x,b->min.y,b->max.z);
+    glVertex3f(b->min.x,b->min.y,b->max.z);
+    glVertex3f(b->min.x,b->min.y,b->min.z);
+    glVertex3f(b->max.x,b->min.y,b->min.z);
+    glEnd();
 }
