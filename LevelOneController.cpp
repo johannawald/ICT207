@@ -21,6 +21,7 @@ LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, Textu
 //--------------------------------------------------------------------------------------
 void LevelOneController::Init() 
 {
+	//GetAudio()->playSound(asBgMusic);
 	Reshape();
 }
 
