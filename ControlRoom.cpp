@@ -46,6 +46,8 @@ void ControlRoom::DrawObjects()
 
 void ControlRoom::CheckCollision()
 {	
+	//collision with walls:
+	BasisGameController::CheckCollision();
 	//here collision with objects 
 }
 
