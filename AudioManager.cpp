@@ -14,10 +14,10 @@ AudioManager::~AudioManager()
 void AudioManager::init()
 {
 	// sound objects - later we should not work with the CEasySound
-	es = CEasySound::Instance();
-	Sounds[0] = es->GetSound(es->Load("sounds/step.wav"));
-	Sounds[1] = es->GetSound(es->Load("sounds/Mechanical.wav")); 
-	Sounds[2] = es->GetSound(es->Load("sounds/131657__bertrof__game-sound-wrong.wav")); 
+	mSound = CEasySound::Instance();
+	mSounds[0] = mSound->GetSound(mSound->Load("sounds/step.wav"));
+	mSounds[1] = mSound->GetSound(mSound->Load("sounds/Mechanical.wav")); 
+	mSounds[2] = mSound->GetSound(mSound->Load("sounds/131657__bertrof__game-sound-wrong.wav")); 
 }
 
 void AudioManager::reload()
@@ -28,12 +28,12 @@ void AudioManager::reload()
 
 void AudioManager::playSound(const eSounds audio) const
 {
-	Sounds[audio]->Play();
+	mSounds[audio]->Play();
 }
 
 void AudioManager::clearMemory()
 {
-	delete es;
 	for (int i = 0; i<2 ;i++)
-		es->Unload(Sounds[i]);
+		mSound->Unload(mSounds[i]);
+	delete mSound;
 }

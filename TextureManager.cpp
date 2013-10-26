@@ -19,43 +19,43 @@ GLuint TextureManager::Loadimage(const char* filename)
 
 void TextureManager::init()
 {
-	Textures[tAdOreo] = Loadimage("textures/welcome.raw");
-	Textures[taAdOreo_Text] = Loadimage("textures/welcome.raw");
-	Textures[taGrass] = Loadimage("textures/CocaCola.bmp");
-	Textures[taGrass2] = Loadimage("textures/CocaCola.bmp");
-	Textures[taSomeTexture] = Loadimage("textures/CocaCola.bmp");
-	Textures[tatext] = Loadimage("textures/CocaCola.bmp");
-	Textures[taWelcome] = Loadimage("textures/CocaCola.bmp");
-	Textures[taWoodenDoor] = Loadimage("textures/woodendoor.bmp");
-	Textures[taFarExit] = Loadimage("textures/FarExit.bmp");
-	Textures[taHallway1] = Loadimage("textures/hallway1.bmp");
-	Textures[taHallway2] = Loadimage("textures/hallway2.bmp");
-	Textures[taHallway3] = Loadimage("textures/hallway3.bmp");
-	Textures[taHallway4] = Loadimage("textures/hallway4.bmp");
-	Textures[taHallway5] = Loadimage("textures/hallway5.bmp");
-	Textures[taHallway6] = Loadimage("textures/hallway6.bmp");
-	Textures[taHallway7] = Loadimage("textures/hallway7.bmp");
-	Textures[taHallway8] = Loadimage("textures/hallway8.bmp");
-	Textures[taHallway9] = Loadimage("textures/hallway9.bmp");
-	Textures[taHallway10] = Loadimage("textures/hallway10.bmp");
-	Textures[taHallway11] = Loadimage("textures/hallway11.bmp");
-	Textures[taHallway12] = Loadimage("textures/hallway12.bmp");
-	Textures[taHallway13] = Loadimage("textures/hallway13.bmp");
-	Textures[taHallway14] = Loadimage("textures/hallway14.bmp");
-	Textures[taBoard1] = Loadimage("textures/board1.bmp");
-	Textures[taBoard2] = Loadimage("textures/board2.bmp");
-	Textures[taBoard3] = Loadimage("textures/board3.bmp");
-	Textures[taBoard4] = Loadimage("textures/board4.bmp");
+	mTextures[tAdOreo] = Loadimage("textures/welcome.raw");
+	mTextures[taAdOreo_Text] = Loadimage("textures/welcome.raw");
+	mTextures[taGrass] = Loadimage("textures/CocaCola.bmp");
+	mTextures[taGrass2] = Loadimage("textures/CocaCola.bmp");
+	mTextures[taSomeTexture] = Loadimage("textures/CocaCola.bmp");
+	mTextures[tatext] = Loadimage("textures/CocaCola.bmp");
+	mTextures[taWelcome] = Loadimage("textures/CocaCola.bmp");
+	mTextures[taWoodenDoor] = Loadimage("textures/woodendoor.bmp");
+	mTextures[taFarExit] = Loadimage("textures/FarExit.bmp");
+	mTextures[taHallway1] = Loadimage("textures/hallway1.bmp");
+	mTextures[taHallway2] = Loadimage("textures/hallway2.bmp");
+	mTextures[taHallway3] = Loadimage("textures/hallway3.bmp");
+	mTextures[taHallway4] = Loadimage("textures/hallway4.bmp");
+	mTextures[taHallway5] = Loadimage("textures/hallway5.bmp");
+	mTextures[taHallway6] = Loadimage("textures/hallway6.bmp");
+	mTextures[taHallway7] = Loadimage("textures/hallway7.bmp");
+	mTextures[taHallway8] = Loadimage("textures/hallway8.bmp");
+	mTextures[taHallway9] = Loadimage("textures/hallway9.bmp");
+	mTextures[taHallway10] = Loadimage("textures/hallway10.bmp");
+	mTextures[taHallway11] = Loadimage("textures/hallway11.bmp");
+	mTextures[taHallway12] = Loadimage("textures/hallway12.bmp");
+	mTextures[taHallway13] = Loadimage("textures/hallway13.bmp");
+	mTextures[taHallway14] = Loadimage("textures/hallway14.bmp");
+	mTextures[taBoard1] = Loadimage("textures/board1.bmp");
+	mTextures[taBoard2] = Loadimage("textures/board2.bmp");
+	mTextures[taBoard3] = Loadimage("textures/board3.bmp");
+	mTextures[taBoard4] = Loadimage("textures/board4.bmp");
 	//LevelOneController:
-	Textures[taBox] = Loadimage("textures/box.bmp");
-	Textures[taButton] = Loadimage("textures/button.bmp");
-	Textures[taBomb] = Loadimage("textures/bomb.bmp");
-	Textures[ta4x1platform] = Loadimage("textures/4x1platform.png");
-	Textures[taConsole] = Loadimage("textures/console.png");
-	Textures[taTilefloor] = Loadimage("textures/tilefloor.bmp");
-	Textures[taTilewall] = Loadimage("textures/tilewall.bmp");
-	Textures[taConcWall] = Loadimage("textures/concwall.bmp");
-	Textures[taRustyWall] = Loadimage("textures/rustywall.png");
+	mTextures[taBox] = Loadimage("textures/box.bmp");
+	mTextures[taButton] = Loadimage("textures/button.bmp");
+	mTextures[taBomb] = Loadimage("textures/bomb.bmp");
+	mTextures[ta4x1platform] = Loadimage("textures/4x1platform.png");
+	mTextures[taConsole] = Loadimage("textures/console.png");
+	mTextures[taTilefloor] = Loadimage("textures/tilefloor.bmp");
+	mTextures[taTilewall] = Loadimage("textures/tilewall.bmp");
+	mTextures[taConcWall] = Loadimage("textures/concwall.bmp");
+	mTextures[taRustyWall] = Loadimage("textures/rustywall.png");
 }
 
 void TextureManager::reload()
@@ -66,7 +66,7 @@ void TextureManager::reload()
 
 GLuint TextureManager::getTextureID(const eTextures texture) const
 {
-	return Textures[texture];
+	return mTextures[texture];
 }
 
 void TextureManager::clearMemory() 

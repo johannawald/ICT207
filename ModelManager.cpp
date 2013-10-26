@@ -14,14 +14,14 @@ ModelManager::~ModelManager()
 void ModelManager::init()
 {
 	for (int i = 0; i < MODELS_SIZE; i++) 
-		Models[i] = new ModelLoader;
+		mModels[i] = new ModelLoader;
 
-	Models[0]->load("models/advertisement.obj");
-	Models[1]->load("models/4x1platform.obj");
-	Models[2]->load("models/console.obj");
-	Models[3]->load("models/ladder.obj");
-	Models[4]->load("models/box.obj");
-	Models[5]->load("models/button.obj");
+	mModels[0]->load("models/advertisement.obj");
+	mModels[1]->load("models/4x1platform.obj");
+	mModels[2]->load("models/console.obj");
+	mModels[3]->load("models/ladder.obj");
+	mModels[4]->load("models/box.obj");
+	mModels[5]->load("models/button.obj");
 }
 
 void ModelManager::reload()
@@ -35,7 +35,7 @@ void ModelManager::drawModel(const eModels model, const GLuint texture) const
 	glPushMatrix();
 		if (texture>0)
 			glBindTexture(GL_TEXTURE_2D, texture);
-		Models[model]->draw();
+		mModels[model]->draw();
 		glBindTexture(GL_TEXTURE_2D, -1);
 	glPopMatrix();
 }

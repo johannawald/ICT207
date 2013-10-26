@@ -21,7 +21,7 @@ enum eModels { mAdvertisement, m4x1platform, mConsole, mLadder, mBox, mButton,
 class ModelLoader;
 class ModelManager: public IAssetManager {
 private:
-	ModelLoader* Models[MODELS_SIZE]; 	
+	ModelLoader* mModels[MODELS_SIZE]; 	
 public:	
 	ModelManager();
 	~ModelManager();
@@ -51,5 +51,5 @@ public:
 		* @param GLUint texture - represents the Texture ID that should be used to texture the model
 		* @return void
 	*/
-	void drawModel(const eModels model, const GLuint texture = 0) const;
+	void drawModel(const eModels pModel, const GLuint pTexture = 0) const;
 };

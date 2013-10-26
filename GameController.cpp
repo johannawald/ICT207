@@ -7,23 +7,26 @@
 #include "DrawManager.h"
 #include "Stairs.h"
 #include <sstream>
+#include "GameOverController.h"
 
 int levelTime = 60;
 
 //--------------------------------------------------------------------------------------
 //  Constructor
 //--------------------------------------------------------------------------------------
-GameController::GameController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), loaded(false)
-{
-	SetGameObject(); //*JW
-	Init();
-	loaded = true;
-}
 
 void Countdown(int counterStepTime)
 {
 	levelTime -=1;
 	cout << "Timer: " << levelTime << "\n";
+	glutTimerFunc(1000, *Countdown, 0);
+}
+
+GameController::GameController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), loaded(false)
+{
+	SetGameObject(); //*JW
+	Init();
+	loaded = true;
 	glutTimerFunc(1000, *Countdown, 0);
 }
 
@@ -38,7 +41,6 @@ void GameController::SetGameObject() //*JW
 //--------------------------------------------------------------------------------------
 void GameController::Init() 
 {
-	glutTimerFunc(1000, *Countdown, 0);
 	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 	Reshape();
 	
@@ -141,7 +143,8 @@ void GameController::Update()  //this function should be used for updating varia
 		test++;
 	}
 	c = (cd.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), index, 100));
-	
+	if (levelTime<=0)
+		StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture()));
 	//NEED TO CHANGE TO DETECT TRANSITION LOCATION - use collision?
 	//if ((camXpos > 400) && (camXpos < 700) && (camZpos < -4300) && (camZpos > -4500)) 
 	//	StateMachine::setBushCourtController();

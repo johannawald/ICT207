@@ -17,20 +17,20 @@ class AudioManager;
 class StateMachine {
 private:
 	//save the bushcourtcontroller in a member-variable, since it takes a long time to reload it
-	ModelManager* modelmanager;
-	TextureManager* texturemanager;
-	AudioManager* audiomanager;
+	ModelManager* mModelmanager;
+	TextureManager* mTexturemanager;
+	AudioManager* mAudiomanager;
 
-	static IStateController* bushcourtcontroller; 
-	static bool init;
-    static StateMachine* statemachine;
+	static IStateController* mBushcourtController; 
+	static bool mInit;
+    static StateMachine* mStateMachine;
 	//private constructor since the state machine is a singelton
-	StateMachine(IStateController* gamestate);
+	StateMachine(IStateController* pController);
 public:	
 		/**
          * @brief Current state of the program (All the control functions below will call the function of this state)
 		 */
-	IStateController* state;
+	IStateController* mState;
 		/**
          * @brief initalization / access method for the singelton (it's the only way to create the object, since the constructor is private)
 		 */
@@ -43,7 +43,7 @@ public:
          * @brief Set function for the state - changes the current state of the game
 		 * @param IStateController* - the new state
 		 */
-	static void setController(IStateController* controller);
+	static void setController(IStateController* pController);
 		/**
          * @brief Destructor destroys StateMachine object when it goes out of scope.
          */

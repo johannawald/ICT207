@@ -13,10 +13,7 @@
 
 #include "IAssetManager.h"
 #include <GL/freeglut.h>
-//#include "TextureLoader.h"
 #include "include\SOIL.h"
-
-//ray, should we do that with a map?
 
 enum eTextures { tAdOreo, 
 				 taSomeTexture,
@@ -36,7 +33,7 @@ enum eTextures { tAdOreo,
 
 class TextureManager: public IAssetManager {
 private:
-	GLuint Textures[TEXTURE_SIZE]; 	
+	GLuint mTextures[TEXTURE_SIZE]; 	
 	GLuint Loadimage(const char* filename);
 public:	
 	TextureManager();

@@ -18,24 +18,25 @@
 #include "ControlRoom.h"
 #include "GameOverController.h"
 
-StateMachine* StateMachine::statemachine = nullptr;
-IStateController* StateMachine::bushcourtcontroller = nullptr;
-bool StateMachine::init = false;
+StateMachine* StateMachine::mStateMachine = nullptr;
+IStateController* StateMachine::mBushcourtController = nullptr;
+bool StateMachine::mInit = false;
 
-StateMachine::StateMachine(IStateController* controller) {
-	if (bushcourtcontroller==nullptr) 
+StateMachine::StateMachine(IStateController* pController) {
+	if (mBushcourtController==nullptr) 
 	{
-		modelmanager = new ModelManager();
-		texturemanager = new TextureManager();
-		audiomanager = new AudioManager();
-		//bushcourtcontroller = new BushCourtController(audiomanager, modelmanager, texturemanager);
+		mModelmanager = new ModelManager();
+		mTexturemanager = new TextureManager();
+		mAudiomanager = new AudioManager();
+		//mBushcourtController = new BushCourtController(audiomanager, modelmanager, texturemanager);
 	}
-	if (controller==NULL)
-		//state = bushcourtcontroller;
-		state = new LevelOneController(audiomanager, modelmanager, texturemanager);
+	if (pController==NULL)
+		//state = mBushcourtController;
+		//state = new ControlRoom(audiomanager, modelmanager, texturemanager);
+		mState = new GameController(mAudiomanager, mModelmanager, mTexturemanager);
 		//state = new GameOverController(audiomanager, modelmanager, texturemanager);
 	else
-		state = controller;
+		mState = pController;
 }
 
 StateMachine::~StateMachine() {
@@ -44,72 +45,72 @@ StateMachine::~StateMachine() {
 
 StateMachine* StateMachine::getInstance()
 {	
-	if (StateMachine::statemachine==NULL)
-		statemachine = new StateMachine(bushcourtcontroller);
-    return statemachine;
+	if (StateMachine::mStateMachine==NULL)
+		mStateMachine = new StateMachine(mBushcourtController);
+    return mStateMachine;
 }
 
 void StateMachine::setBushCourtController() {	
-	setController(bushcourtcontroller);
-	bushcourtcontroller->Init();
+	setController(mBushcourtController);
+	mBushcourtController->Init();
 	//sorry for that:
-	dynamic_cast<BushCourtController*>(bushcourtcontroller)->SetCamPosition(-27000, 10450, 41400, 180);
+	dynamic_cast<BushCourtController*>(mBushcourtController)->SetCamPosition(-27000, 10450, 41400, 180);
 }
 
-void StateMachine::setController(IStateController* controller) {	
-	if (statemachine!=NULL)
-		delete statemachine;
-	statemachine = new StateMachine(controller); 
+void StateMachine::setController(IStateController* pController) {	
+	if (mStateMachine!=NULL)
+		delete mStateMachine;
+	mStateMachine = new StateMachine(pController); 
 }
 
 void StateMachine::Init() {
-	StateMachine::state->Init();
+	StateMachine::mState->Init();
 }
 
 void StateMachine::Draw() {
-	StateMachine::state->Draw();
+	StateMachine::mState->Draw();
 }
 
 void StateMachine::Update() {
-	StateMachine::state->Update();
+	StateMachine::mState->Update();
 }
 
 void StateMachine::SpecialKey(int key, int x, int y)
 {
-	StateMachine::state->SpecialKey(key,x,y);
+	StateMachine::mState->SpecialKey(key,x,y);
 }
 
 void StateMachine::SpecialKeyUp(int key, int x, int y)
 {
-	StateMachine::state->SpecialKeyUp(key,x,y);
+	StateMachine::mState->SpecialKeyUp(key,x,y);
 }
 
 void StateMachine::KeyboardUp(unsigned char key, int x, int y)
 {
-	StateMachine::state->KeyboardUp(key,x,y);
+	StateMachine::mState->KeyboardUp(key,x,y);
 }
 
 void StateMachine::Keyboard(unsigned char key, int x, int y)
 {
-	StateMachine::state->Keyboard(key,x,y);
+	StateMachine::mState->Keyboard(key,x,y);
 }
 
 void StateMachine::Mouse(int button, int state, int x, int y)
 {
-	StateMachine::state->Mouse(button, state, x, y);
+	StateMachine::mState->Mouse(button, state, x, y);
 }
 
 void StateMachine::PassiveMotion(int x, int y)
 {
-	StateMachine::state->PassiveMotion(x,y);
+	StateMachine::mState->PassiveMotion(x,y);
 }
 
 void StateMachine::MouseMotion(int x, int y)
 {
-	StateMachine::state->MouseMotion(x,y);
+	StateMachine::mState->MouseMotion(x,y);
 }
 
 void StateMachine::Reshape(int w, int h)
 {	
-	StateMachine::state->Reshape(w,h);
+	StateMachine::mState->Reshape(w,h);
 }

@@ -92,7 +92,6 @@ void ControlRoom::Keyboard(unsigned char key, int x, int y)
 		StateMachine::setController(new GameController(GetAudio(), GetModel(), GetTexture()));
 }
 
-//--------------------------------------------------------------------------------------
 void ControlRoom::KeyboardUp(unsigned char key, int x, int y)
 {
 	BasisGameController::KeyboardUp(key,x,y);
