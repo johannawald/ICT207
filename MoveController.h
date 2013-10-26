@@ -42,8 +42,8 @@ class MoveController
 		// max and min camera angle
 		float mMaxAngle; 
 		float mMinAngle; 
-		float mLastx; // last mouse x position // last mouse y position
-		float mLasty; 
+		float mLastx; // last mouse x position 
+		float mLasty; // last mouse y position
 		int mDiffy;
 		int mDiffx;
 		float mYrotrad;

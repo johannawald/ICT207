@@ -285,12 +285,33 @@ void MoveController::KeyOperations(void)
 
 	if(mKeyStates['a'])
 	{
-		mYrot += -1.0f;
+		if(!mMouseClicked)
+		{
+			mYrot += -1.0f; //rotate view left if mouse not clicked
+		}
+		else
+		{
+			//strafe left if mouse is clicked
+			mYrotrad = (mYrot / 180 * 3.141592654f);
+			mXposDiff -= float(cos(mYrotrad)) * mSpeed;
+			mZposDiff -= float(sin(mYrotrad)) * mSpeed;
+		}
+
 	}
 
 	if(mKeyStates['d'])
 	{
-		mYrot += 1.0f;
+		if(!mMouseClicked)
+		{
+			mYrot += 1.0f; //rotate view right if mouse not clicked
+		}
+		else
+		{
+			//strafe right if mouse is clicked
+			mYrotrad = (mYrot / 180 * 3.141592654f);
+			mXposDiff += float(cos(mYrotrad)) * mSpeed;
+			mZposDiff += float(sin(mYrotrad)) * mSpeed;
+		}
 	}
 
 	if(mSpecialKeyStates[0])
