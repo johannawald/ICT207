@@ -3,10 +3,24 @@
 #include "ModelManager.h"
 #include "TextureManager.h"
 #include <iostream>
+#include "GameObject.h"
 
 BasisGameController::BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager): 
 	BasisController(pAudiomanager, pModelmanager, pTexturemanager)
 {	
+}
+
+void BasisGameController::DrawGameObjects() 
+{ 
+	for (std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) 
+	{
+		glPushMatrix();
+			glTranslatef((*it)->GetXPosition(), (*it)->GetYPosition(), (*it)->GetZPosition());
+			glScalef((*it)->GetXScale(), (*it)->GetXScale(), (*it)->GetXScale()); 
+			if ((*it)->getModelIndex()>=0)
+				GetModel()->drawModel((*it)->getModelIndex(), (*it)->getTextureIndex());
+		glPopMatrix();
+	}
 }
 
 void BasisGameController::MouseMotion(int x, int y)
@@ -56,6 +70,8 @@ void BasisGameController::Draw()
 				//Set camera position:
 				mCamera.SetCameraPosition(-500, -250, 3000, 0);
 				mCollision.translateBoundingBoxes(-500, -250, 3000);		
+				mCollision.Draw(GetDrawManager());
+				translateGameObjects(-500, -250, 3000);
 				DrawObjects();
 			glPopMatrix();
 			glDisable(GL_TEXTURE_2D);
@@ -64,6 +80,12 @@ void BasisGameController::Draw()
 		glFlush();
 		glutSwapBuffers();
 	}
+}
+
+void BasisGameController::addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex)
+{
+	GameObject* gameobject = new GameObject(Vector3D(100,100,100), Vector3D(0, 0, 0), Vector3D(1, 1, 1), mBox, taBox, 0);
+	mGameObject.push_back(gameobject);
 }
 
 void BasisGameController::CheckCollision()
@@ -79,5 +101,13 @@ void BasisGameController::CheckCollision()
 						 mCamera.GetYpos()+mCamera.GetYposDiff(), 
 						 mCamera.GetZpos()+mCamera.GetZposDiff(), IndexCollision, mSizeController))
 			mCamera.SetDiffValues(0, 0, 0);
+	}
+}
+
+void BasisGameController::translateGameObjects(float x, float y, float z)
+{ 
+	for (std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) 
+	{
+		(*it)->Transform(x,y,z);
 	}
 }

@@ -152,10 +152,10 @@ void CollisionDetection::Draw(DrawManager* dm)
 		glColor3f(1.0f, 0.0f, 0.0f);
 		dm->DrawCollisionBox(static_box[i]);
 		//glColor3f();
-		depth = static_box[i]->max.z-static_box[i]->min.z;
-		dm->DrawCube(-1, 1, 1, static_box[i]->min.x, static_box[i]->min.y, static_box[i]->min.z+depth,
+		//depth = static_box[i]->max.z-static_box[i]->min.z;
+		/*dm->DrawCube(-1, 1, 1, static_box[i]->min.x, static_box[i]->min.y, static_box[i]->min.z+depth,
 							   static_box[i]->max.x-static_box[i]->min.x,
 							   static_box[i]->max.y-static_box[i]->min.y,
-							   static_box[i]->max.z-static_box[i]->min.z);
+							   static_box[i]->max.z-static_box[i]->min.z);*/
 	}
 }

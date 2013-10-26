@@ -17,6 +17,7 @@
 class GameObject 
 {
 	private:
+		Vector3D mPositionOriginal;
 		Vector3D mPosition;
 		Vector3D mScale;
 		Vector3D mMovement;
@@ -37,6 +38,8 @@ class GameObject
 		float GetXScale();
 		float GetYScale();
 		float GetZScale();
+
+		void Transform(float x, float y, float z);
 
 		eModels getModelIndex();
 		eTextures getTextureIndex();

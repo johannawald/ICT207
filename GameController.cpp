@@ -11,10 +11,6 @@
 
 int levelTime = 60;
 
-//--------------------------------------------------------------------------------------
-//  Constructor
-//--------------------------------------------------------------------------------------
-
 void Countdown(int counterStepTime)
 {
 	levelTime -=1;
@@ -22,161 +18,67 @@ void Countdown(int counterStepTime)
 	glutTimerFunc(1000, *Countdown, 0);
 }
 
-GameController::GameController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), loaded(false)
+GameController::GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture): 
+		BasisGameController(pAudio, pModel, pTexture)
 {
-	SetGameObject(); //*JW
-	Init();
-	loaded = true;
+	SetGameObject();
 	glutTimerFunc(1000, *Countdown, 0);
 }
 
-void GameController::SetGameObject() //*JW
+void GameController::SetGameObject()
 {
-	//GameObject Box(Vector3D(2000, 0, 3500), Vector3D(0, 0, 0), Vector3D(0.75, 1.0, 0.75), mBox, 0); //johanna, collision detection!
-	//mGameObject.push_back(&Box);
+
 }
 
-//--------------------------------------------------------------------------------------
-//  Initialize Settings
-//--------------------------------------------------------------------------------------
 void GameController::Init() 
 {
-	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-	Reshape();
-	
-	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
-	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
-	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 100, 0, -200, 200, 400, 200); 
+	BasisGameController::Init();
+	int cubeSize = 200;
+	mCollision.addCollisionBox(100, 100, 100-cubeSize, 100+cubeSize, 100+cubeSize, 100);
+	InitGameObjects();
 }
 
-//--------------------------------------------------------------------------------------
-//  Initialize Settings
-//--------------------------------------------------------------------------------------
-void GameController::Draw()  //try to avoid updating variables in the draw function! -> do that in the update-funciton
+void GameController::InitGameObjects() 
 {
-	if (loaded) 
-	{
-		glClearColor(0, 0, 0, 0);
-		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the color buffer and the depth buffer
-		
-		glPushMatrix();
-			glLoadIdentity();
-			mCamera.PrepareMovement();
-			mCamera.MoveCamera();	
-			mCamera.SetCameraPosition(1000, 1000, 1000, 0);
-			cd.translateBoundingBoxes(1000, 1000, 1000);
-			glEnable (GL_TEXTURE_2D);
-			glPushMatrix();
-				cd.Draw(GetDrawManager());
-				DrawGameObjects(); //*JW
-				Draw3DModels();
-				//DrawObjects();
-				// set the movement and rotation speed according to frame count
-			glPopMatrix();
-		glPopMatrix();		
-		glDisable (GL_TEXTURE_2D);
-		glPopMatrix();
-		DrawTexttest();
-		// clear buffers
-		glFlush();
-		glutSwapBuffers();
-	}
+	addGameObject(Vector3D(100,100,100), Vector3D(0, 0, 0), Vector3D(10, 10, 10), mBox, taBox, 0);
 }
 
-void GameController::DrawGameObjects() //*JW
+void GameController::CheckCollision()
+{	
+	//collision with walls:
+	BasisGameController::CheckCollision();
+	//here collision with objects 
+}
+
+void GameController::Draw()
+{
+	BasisGameController::Draw();
+}
+
+void GameController::CollisionWithObject(GameObject* pGameObject)
 { 
-	for(std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) 
-	{
-		glPushMatrix();
-			glTranslatef((*it)->GetXPosition(), (*it)->GetYPosition(), (*it)->GetZPosition());
-			glScalef((*it)->GetXScale(), (*it)->GetXScale(), (*it)->GetXScale()); 
-			if ((*it)->getModelIndex()>=0)
-				GetModel()->drawModel((*it)->getModelIndex(), (*it)->getTextureIndex());
-		glPopMatrix();
-	}
 
-	//GameObject Box(Vector3D(2000, 0, 3500), Vector3D(0, 0, 0), 10, 10);
-	/*
-
-	glPushMatrix();
-		glTranslatef(4250, 500, 750);
-		glScalef(0.75, 1.0, 0.75);
-		//GetModel()->drawModel(mBox, tp.GetTexture(BOX));
-	glPopMatrix();*/
 }
 
 void GameController::DrawTexttest()
 { 
-	//glMatrixMode(GL_PROJECTION);
-	
-	/*glLoadIdentity();
-	gluOrtho2D(0, 790, 490, 0);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	
-	//Draw-Text:
-	glPushMatrix();
-		DrawManager dm;
-		std::stringstream ss;
-		ss << "X: " << camXpos << " " << " Y: " << camYpos << " " << " Z: " << camZpos << " ";
-		dm.RenderString(10,10,GLUT_BITMAP_HELVETICA_18, (const char*) ss.str().c_str());
-		glPushMatrix();
-	glPopMatrix();
-	
-	// Reset Perspective Projection
-	glMatrixMode(GL_MODELVIEW);
-	//glPopMatrix();
-	//glMatrixMode(GL_PROJECTION);
-	glPopMatrix();*/
+	//Draw Infos in corner (Timer) here
 }
-
-int test = 0;
-bool c = false;
 
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!)
 { 
 	int index = -1;
-	if (cd.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), index, 100))
+	if (mCollision.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), index, 100))
 	{ 
-		std::cout << "collision changed: " << c << std::endl;
-		test++;
+		std::cout << "collision changed: " << std::endl;
 	}
-	c = (cd.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), index, 100));
 	if (levelTime<=0)
 		StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture()));
-	//NEED TO CHANGE TO DETECT TRANSITION LOCATION - use collision?
-	//if ((camXpos > 400) && (camXpos < 700) && (camZpos < -4300) && (camZpos > -4500)) 
-	//	StateMachine::setBushCourtController();
-	
-	//if ((cam.GetLR() > 400) && (cam.GetLR() < 700) && (cam.GetFB() < -4300) && (cam.GetFB() > -4500)) 
-	//	StateMachine::setBushCourtController();
-	//else if ((cam.GetFB() > -2000) && (!insertedLevel)) {
-	//	cam.Position(2500.0, 1500.0, 550.0, 180.0);
-	//	insertedLevel = true;
-	//}
-}
-
-void GameController::Reshape() 
-{
-	Reshape(width, height);
 }
 
 void GameController::Reshape(int w, int h) 
 {
-	width = w;		
-	height = h;
-	// Prevent a divide by zero, when window is too short		
-	// (you cant make a window of zero width).
-	if (h == 0) h = 1;
-	ratio = 1.0f * w / h;
-
-	// Reset the coordinate system before modifying
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glViewport(0, 0, w, h);
-	gluPerspective(60,ratio,1,250000);	
-	glMatrixMode(GL_MODELVIEW);
+	BasisGameController::Reshape(w,h);
 }
 
 //--------------------------------------------------------------------------------------
@@ -184,47 +86,38 @@ void GameController::Reshape(int w, int h)
 //--------------------------------------------------------------------------------------
 void GameController::SpecialKey(int key, int x, int y) 
 {
-
+	BasisGameController::SpecialKey(key, x, y);
 }
 
 //---------------------------------------------------------
 void GameController::SpecialKeyUp(int key, int x, int y) 
 {
-
+	BasisGameController::SpecialKeyUp(key, x, y);
 }
-
-//--------------------------------------------------------------------------------------
 
 void GameController::Keyboard(unsigned char key, int x, int y)
 {
-	mCamera.Keyboard(key,x,y);
+	BasisGameController::Keyboard(key, x, y);
 }
 
 //--------------------------------------------------------------------------------------
 void GameController::KeyboardUp(unsigned char key, int x, int y)
 {
-	mCamera.KeyboardUp(key,x,y);
+	BasisGameController::KeyboardUp(key, x, y);
 }
 
-//--------------------------------------------------------------------------------------
-//  Mouse Buttons
-//--------------------------------------------------------------------------------------
 void GameController::Mouse(int button, int state, int x, int y)
 {
-	mCamera.Mouse(button,state, x,y);
+	BasisGameController::Mouse(button, state, x, y);
 }
 
-//--------------------------------------------------------------------------------------
-//  Mouse Movements (NOT USED)
-//  Can be used to rotate around screen using mouse, but keyboard used instead
-//--------------------------------------------------------------------------------------
-void GameController::PassiveMotion(int x, int y) 
+void GameController::PassiveMotion(int x, int y) //maybe we can delete that?
 {
 }
 
 void GameController::MouseMotion(int x, int y)
 {
-	mCamera.MouseMotion(x, y);
+	BasisGameController::MouseMotion(x, y);
 }
 
 //--------------------------------------------------------------------------------------
@@ -232,40 +125,16 @@ void GameController::MouseMotion(int x, int y)
 //--------------------------------------------------------------------------------------
 void GameController::DrawObjects() 
 {
+	//that Push is important!
 	glPushMatrix();
-		glTranslatef(2000, 0, 3500);
-		glScalef(0.75, 1.0, 0.75);
-		//GetModel()->drawModel(mBox, tp.GetTexture(BOX));
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(4250, 500, 750);
-		glScalef(0.75, 1.0, 0.75);
-		//GetModel()->drawModel(mBox, tp.GetTexture(BOX));
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(750, 500, 750);
-		//GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(4250, 500, 1250);
-		//GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(4250, 500, 4250);
-		//GetModel()->drawModel(mButton, tp.GetTexture(BUTTON));
-	glPopMatrix();
-
-	//glBindTexture(GL_TEXTURE_2D, tp.GetTexture(BOMB));
-		glPushMatrix();
-		glTranslatef(750, 500, 4250);
-		//GetModel()->drawModel(mButton, tp.GetTexture(BUTTON)); //ray, jon, don't do it like this!
+		DrawGameObjects();
+		
+		//Draw objects
+		//Draw3DModels();
+		//DrawOuterWalls();
+		//DrawArchitecture();
 	glPopMatrix();
 }
-
 
 //--------------------------------------------------------------------------------------
 //  Draw the 3D Models
@@ -273,34 +142,53 @@ void GameController::DrawObjects()
 void GameController::Draw3DModels()
 {
 	glPushMatrix();
-		glTranslatef(4250, 0, 2500);
-		glRotatef(90, 0, 1, 0);
-		GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
+		glTranslatef(2000, 0, 3500);
+		glScalef(0.75, 1.0, 0.75);
+		GetModel()->drawModel(mBox, GetTexture()->getTextureID(taBox));
 	glPopMatrix();
 
 	glPushMatrix();
-		//glBindTexture(GL_TEXTURE_2D, tp.GetTexture(PLATFORM4X1));
+		glTranslatef(4250, 500, 750);
+		glScalef(0.75, 1.0, 0.75);
+		GetModel()->drawModel(mBox, GetTexture()->getTextureID(taBox));
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(750, 500, 750);
+		GetModel()->drawModel(mButton, GetTexture()->getTextureID(taButton));
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(4250, 500, 1250);
+		GetModel()->drawModel(mButton, GetTexture()->getTextureID(taButton));
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(4250, 500, 4250);
+		GetModel()->drawModel(mButton, GetTexture()->getTextureID(taButton));
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(750, 500, 4250);
+		GetModel()->drawModel(mButton, GetTexture()->getTextureID(taButton));
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(4250, 0, 2500);
+		glRotatef(90, 0, 1, 0);
+		GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(ta4x1platform));
+	glPopMatrix();
+
+	glPushMatrix();
 		glTranslatef(2500, 0, 4250);
-		GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
+		GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(ta4x1platform));
 	glPopMatrix();
 
 	glPushMatrix();
 		glTranslatef(2250, 450, 1500);
 		glRotatef(90, 0, 1, 0);
-		//GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(PLATFORM4X1)); //*JW
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(500, 0, -1250);
-		glRotatef(180, 0, 1, 0);
-		GetModel()->drawModel(mConsole, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONSOLE)); //*JW
-	glPopMatrix();
-
-	glPushMatrix();
-		glTranslatef(500, 0, -4450);
-		glScalef(0.5, 1, 1);	
-		GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(RUSTYWALL));
-	glPopMatrix();
+		GetModel()->drawModel(m4x1platform, GetTexture()->getTextureID(ta4x1platform));
+	glPopMatrix();	
 }
 
 //------------------------------------------------- -------------------------------------
@@ -308,83 +196,82 @@ void GameController::Draw3DModels()
 //--------------------------------------------------------------------------------------
 void GameController::DrawOuterWalls()
 {
-		//floor
-		glBindTexture(GL_TEXTURE_2D,GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEFLOOR));
-		glBegin(GL_QUADS);
-			glTexCoord2f (5.0, 5.0);		glVertex3f(0, 0, 0);
-			glTexCoord2f (0.0, 5.0);		glVertex3f(0, 0, 5000);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(5000, 0,	5000);
-			glTexCoord2f (5.0, 0.0);		glVertex3f(5000, 0, 0);
-		glEnd();
+	//floor
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor));
+	glBegin(GL_QUADS);
+		glTexCoord2f (5.0, 5.0);		glVertex3f(0, 0, 0);
+		glTexCoord2f (0.0, 5.0);		glVertex3f(0, 0, 5000);
+		glTexCoord2f (0.0, 0.0);		glVertex3f(5000, 0,	5000);
+		glTexCoord2f (5.0, 0.0);		glVertex3f(5000, 0, 0);
+	glEnd();
 
-		//ceiling
-		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(TILEFLOOR));
-		glBegin(GL_QUADS);
-			glTexCoord2f (5.0, 5.0);		glVertex3f(0, 2000,	0);
-			glTexCoord2f (0.0, 5.0);		glVertex3f(0, 2000, 5000);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(5000, 2000, 5000);
-			glTexCoord2f (5.0, 0.0);		glVertex3f(5000, 2000, 0);
-		glEnd();
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor));
+	glBegin(GL_QUADS);
+		glTexCoord2f (5.0, 5.0);		glVertex3f(0, 2000,	0);
+		glTexCoord2f (0.0, 5.0);		glVertex3f(0, 2000, 5000);
+		glTexCoord2f (0.0, 0.0);		glVertex3f(5000, 2000, 5000);
+		glTexCoord2f (5.0, 0.0);		glVertex3f(5000, 2000, 0);
+	glEnd();
 
-		//walls
-		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEWALL));
-		glBegin(GL_QUADS);
-			glTexCoord2f (10.0, 1.0);		glVertex3f(0, 0, 0);
-			glTexCoord2f (0.0, 1.0);		glVertex3f(0, 0, 5000);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(0, 1000, 5000);
-			glTexCoord2f (10.0, 0.0);		glVertex3f(0, 1000,	0);
-		glEnd();
+	//walls
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilewall));
+	glBegin(GL_QUADS);
+		glTexCoord2f (10.0, 1.0);		glVertex3f(0, 0, 0);
+		glTexCoord2f (0.0, 1.0);		glVertex3f(0, 0, 5000);
+		glTexCoord2f (0.0, 0.0);		glVertex3f(0, 1000, 5000);
+		glTexCoord2f (10.0, 0.0);		glVertex3f(0, 1000,	0);
+	glEnd();
 		
-		glBegin(GL_QUADS);
-			glTexCoord2f (10.0, 1.0);		glVertex3f(0, 0, 5000);
-			glTexCoord2f (0.0, 1.0);		glVertex3f(5000, 0, 5000);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(5000, 1000, 5000);
-			glTexCoord2f (10.0, 0.0);		glVertex3f(0, 1000, 5000);
-		glEnd();
+	glBegin(GL_QUADS);
+		glTexCoord2f (10.0, 1.0);		glVertex3f(0, 0, 5000);
+		glTexCoord2f (0.0, 1.0);		glVertex3f(5000, 0, 5000);
+		glTexCoord2f (0.0, 0.0);		glVertex3f(5000, 1000, 5000);
+		glTexCoord2f (10.0, 0.0);		glVertex3f(0, 1000, 5000);
+	glEnd();
 		
-		glBegin(GL_QUADS);
-			glTexCoord2f(10.0, 1.0);		glVertex3f(5000, 0, 5000);
-			glTexCoord2f (0.0, 1.0);		glVertex3f(5000, 0, 0);
-			glTexCoord2f(0.0, 0.0);			glVertex3f(5000, 1000, 0);
-			glTexCoord2f(10.0, 0.0);		glVertex3f(5000, 1000, 5000);
-		glEnd();
+	glBegin(GL_QUADS);
+		glTexCoord2f(10.0, 1.0);		glVertex3f(5000, 0, 5000);
+		glTexCoord2f (0.0, 1.0);		glVertex3f(5000, 0, 0);
+		glTexCoord2f(0.0, 0.0);			glVertex3f(5000, 1000, 0);
+		glTexCoord2f(10.0, 0.0);		glVertex3f(5000, 1000, 5000);
+	glEnd();
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(10.0, 1.0);		glVertex3f(5000, 0, 0);
-			glTexCoord2f(0.0, 1.0);			glVertex3f(0, 0, 0);
-			glTexCoord2f(0.0, 0.0);			glVertex3f(0, 1000, 0);
-			glTexCoord2f(10.0, 0.0);		glVertex3f(5000, 1000, 0);
-		glEnd();
+	glBegin(GL_QUADS);
+		glTexCoord2f(10.0, 1.0);		glVertex3f(5000, 0, 0);
+		glTexCoord2f(0.0, 1.0);			glVertex3f(0, 0, 0);
+		glTexCoord2f(0.0, 0.0);			glVertex3f(0, 1000, 0);
+		glTexCoord2f(10.0, 0.0);		glVertex3f(5000, 1000, 0);
+	glEnd();
 
-		//2nd story walls
-		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
-		glBegin(GL_QUADS);
-			glTexCoord2f (10.0, 1.0);		glVertex3f(0, 1000, 0);
-			glTexCoord2f (0.0, 1.0);		glVertex3f(0, 1000, 5000);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(0, 2000, 5000);
-			glTexCoord2f (10.0, 0.0);		glVertex3f(0, 2000,	0);
-		glEnd();
+	//2nd story walls
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall));
+	glBegin(GL_QUADS);
+		glTexCoord2f (10.0, 1.0);		glVertex3f(0, 1000, 0);
+		glTexCoord2f (0.0, 1.0);		glVertex3f(0, 1000, 5000);
+		glTexCoord2f (0.0, 0.0);		glVertex3f(0, 2000, 5000);
+		glTexCoord2f (10.0, 0.0);		glVertex3f(0, 2000,	0);
+	glEnd();
 		
-		glBegin(GL_QUADS);
-			glTexCoord2f (10.0, 1.0);		glVertex3f(0, 1000, 5000);
-			glTexCoord2f (0.0, 1.0);		glVertex3f(5000, 1000, 5000);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(5000, 2000, 5000);
-			glTexCoord2f (10.0, 0.0);		glVertex3f(0, 2000, 5000);
-		glEnd();
-		
-		glBegin(GL_QUADS);
-			glTexCoord2f(10.0, 1.0);		glVertex3f(5000, 1000, 5000);
-			glTexCoord2f (0.0, 1.0);		glVertex3f(5000, 1000, 0);
-			glTexCoord2f(0.0, 0.0);			glVertex3f(5000, 2000, 0);
-			glTexCoord2f(10.0, 0.0);		glVertex3f(5000, 2000, 5000);
-		glEnd();
+	glBegin(GL_QUADS);
+		glTexCoord2f (10.0, 1.0);		glVertex3f(0, 1000, 5000);
+		glTexCoord2f (0.0, 1.0);		glVertex3f(5000, 1000, 5000);
+		glTexCoord2f (0.0, 0.0);		glVertex3f(5000, 2000, 5000);
+		glTexCoord2f (10.0, 0.0);		glVertex3f(0, 2000, 5000);
+	glEnd();
+	
+	glBegin(GL_QUADS);
+		glTexCoord2f(10.0, 1.0);		glVertex3f(5000, 1000, 5000);
+		glTexCoord2f (0.0, 1.0);		glVertex3f(5000, 1000, 0);
+		glTexCoord2f(0.0, 0.0);			glVertex3f(5000, 2000, 0);
+		glTexCoord2f(10.0, 0.0);		glVertex3f(5000, 2000, 5000);
+	glEnd();
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(10.0, 1.0);		glVertex3f(5000, 1000, 0);
-			glTexCoord2f(0.0, 1.0);			glVertex3f(0, 1000, 0);
-			glTexCoord2f(0.0, 0.0);			glVertex3f(0, 2000, 0);
-			glTexCoord2f(10.0, 0.0);		glVertex3f(5000, 2000, 0);
-		glEnd();
+	glBegin(GL_QUADS);
+		glTexCoord2f(10.0, 1.0);		glVertex3f(5000, 1000, 0);
+		glTexCoord2f(0.0, 1.0);			glVertex3f(0, 1000, 0);
+		glTexCoord2f(0.0, 0.0);			glVertex3f(0, 2000, 0);
+		glTexCoord2f(10.0, 0.0);		glVertex3f(5000, 2000, 0);
+	glEnd();
 }
 
 //--------------------------------------------------------------------------------------
@@ -392,9 +279,8 @@ void GameController::DrawOuterWalls()
 //--------------------------------------------------------------------------------------
 void GameController::DrawArchitecture()
 {
-
-		//solid platform tops
-		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(TILEFLOOR));
+	//solid platform tops
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor)); 
 		glBegin(GL_QUADS);
 			glTexCoord2f (1.5, 1.5);		glVertex3f(0, 500, 0);
 			glTexCoord2f (0.0, 1.5);		glVertex3f(0, 500, 1500);
@@ -427,7 +313,7 @@ void GameController::DrawArchitecture()
 		glEnd();
 
 		//platform sides
-		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall));
 		glBegin(GL_QUADS);
 			glTexCoord2f (4.0, 0.25);		glVertex3f(1500, 0, 500);
 			glTexCoord2f (0.0, 0.25);		glVertex3f(3500, 0, 500);
@@ -483,7 +369,7 @@ void GameController::DrawArchitecture()
 		glEnd();
 
 		//high inside walls - lowersection
-		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(CONCWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall));
 		glBegin(GL_QUADS);
 			glTexCoord2f (1.0, 4.0);		glVertex3f(1500, 500, 0);
 			glTexCoord2f (0.0, 4.0);		glVertex3f(1500, 500, 500);
@@ -504,7 +390,7 @@ void GameController::DrawArchitecture()
 		glEnd();
 
 		//high inside walls - uppersection
-		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall));
 		glBegin(GL_QUADS);
 			glTexCoord2f (1.0, 4.0);		glVertex3f(1500, 0, 1000);
 			glTexCoord2f (0.0, 4.0);		glVertex3f(1500, 0, 2000);
@@ -531,124 +417,21 @@ void GameController::DrawArchitecture()
 		glEnd();
 
 	 //stairs
-	DrawManager drawMan; //jon, we should not create the drawmanager in the draw function! use the drawmanager provided in the base class!
-	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEFLOOR));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor)); 
 
 	glPushMatrix();
 		glTranslatef(0, 0, 2000);
-		drawMan.DrawStairs(500, 500, -500, 5);
+		GetDrawManager()->DrawStairs(500, 500, -500, 5);
 		glTranslatef(500, 0, 0);
-		drawMan.DrawStairs(500, 500, -500, 5);
+		GetDrawManager()->DrawStairs(500, 500, -500, 5);
 		glTranslatef(500, 0, 0);
-		drawMan.DrawStairs(500, 500, -500, 5);
+		GetDrawManager()->DrawStairs(500, 500, -500, 5);
 	glPopMatrix();
 
 	
 	glPushMatrix(); //more stairs!
 		glTranslatef(1500, 0, 2000);
 		glRotatef(270, 0, 1, 0);
-		drawMan.DrawStairs(500, 500, -500, 5);
-	glPopMatrix();
-
-	/*
-	Stairs stairs;
-	glPushMatrix();
-		stairs.SetStairDimensions(500, 500, 500, 5);
-		stairs.DrawStairs(1550, 0, 2000, 0, 270, 0, 1, CONCWALL, CONCWALL);
-	glPopMatrix();*/
-}
-
-
-//--------------------------------------------------------------------------------------
-//  Draw the Level Architecture
-//--------------------------------------------------------------------------------------
-void GameController::DrawControlRoom()
-{
-
-	glBindTexture(GL_TEXTURE_2D,GetTexture()->getTextureID(taWelcome)); // tp.GetTexture(TILEFLOOR));
-	//floor
-	glBegin(GL_QUADS);
-		glTexCoord2f (1.0, 1.0);		glVertex3f(0, 0, -4000);
-		glTexCoord2f (0.0, 1.0);		glVertex3f(0, 0, -1000);
-		glTexCoord2f (0.0, 0.0);		glVertex3f(1000, 0, -1000);
-		glTexCoord2f (1.0, 0.0);		glVertex3f(1000, 0, -4000);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f (0.25, 0.25);		glVertex3f(300, 0, -4500);
-		glTexCoord2f (0.0, 0.25);		glVertex3f(300, 0, -4000);
-		glTexCoord2f (0.0, 0.0);		glVertex3f(700, 0, -4000);
-		glTexCoord2f (0.25, 0.0);		glVertex3f(700, 0, -4500);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f (1.0, 1.0);		glVertex3f(0, 1000, -4000);
-		glTexCoord2f (0.0, 1.0);		glVertex3f(0, 1000, -1000);
-		glTexCoord2f (0.0, 0.0);		glVertex3f(1000, 1000, -1000);
-		glTexCoord2f (1.0, 0.0);		glVertex3f(1000, 1000, -4000);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f (0.25, 0.25);		glVertex3f(300, 1000, -4000);
-		glTexCoord2f (0.0, 0.25);		glVertex3f(300, 1000, -4500);
-		glTexCoord2f (0.0, 0.0);		glVertex3f(700, 1000, -4500);
-		glTexCoord2f (0.25, 0.0);		glVertex3f(700, 1000, -4000);
-	glEnd();
-
-	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(CONCWALL));
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(0, 0, -4000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(0, 0, -1000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(0, 1000, -1000);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(0, 1000, -4000);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(0, 0, -1000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(1000, 0, -1000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(1000, 1000, -1000);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(0, 1000, -1000);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(1000, 0, -1000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(1000, 0, -4000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(1000, 1000, -4000);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(1000, 1000, -1000);
-	glEnd();
-
-	glBegin(GL_QUADS);
-		glTexCoord2f(0.5, 1.0);			glVertex3f(0, 0, -4000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(300, 0, -4000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(300, 1000, -4000);
-		glTexCoord2f(0.5, 0.0);			glVertex3f(0, 1000, -4000);
-	glEnd();	
-	glBegin(GL_QUADS);
-		glTexCoord2f(0.5, 1.0);			glVertex3f(700, 0, -4000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(1000, 0, -4000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(1000, 1000, -4000);
-		glTexCoord2f(0.5, 0.0);			glVertex3f(700, 1000, -4000);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f(0.5, 1.0);			glVertex3f(300, 0, -4500);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(700, 0, -4500);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(700, 1000, -4500);
-		glTexCoord2f(0.5, 0.0);			glVertex3f(300, 1000, -4500);
-	glEnd();
-
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(300, 0, -4500);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(300, 0, -4000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(300, 1000, -4000);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(300, 1000, -4500);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(700, 0, -4000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(700, 0, -4500);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(700, 1000, -4500);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(700, 1000, -4000);
-	glEnd();
-	
-	DrawManager drawMan; //jon, don't create that object over and over again!
-	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taWelcome)); //tp.GetTexture(TILEFLOOR));
-	glPushMatrix();
-		glTranslatef(700, 0, -4000);
-		glRotatef(180, 0, 1, 0);
-		drawMan.DrawStairs(400, 250, 500, 5);
+		GetDrawManager()->DrawStairs(500, 500, -500, 5);
 	glPopMatrix();
 }

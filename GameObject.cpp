@@ -3,9 +3,7 @@
 GameObject::GameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex):
 	mPosition(pPosition), mMovement(pMovement), mScale(pScale), mModelIndex(pModelIndex), mTextureIndex(pTextureIndex), mCollisionIndex(pCollisionIndex)
 {
-	/*position.x = 0;
-	position.y = 0;
-	position.z = 0;*/
+	mPositionOriginal = mPosition;
 }
 
 float GameObject::GetXPosition()
@@ -46,4 +44,11 @@ eModels GameObject::getModelIndex()
 eTextures GameObject::getTextureIndex()
 {
 	return mTextureIndex;
+}
+
+void GameObject::Transform(float x, float y, float z)
+{
+	mPosition.x = mPositionOriginal.x + x;
+	mPosition.y = mPositionOriginal.y + y;
+	mPosition.z = mPositionOriginal.z + z;
 }

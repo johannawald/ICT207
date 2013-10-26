@@ -19,7 +19,7 @@ class ModelManager;
 class TextureManager;
 class BasisGameController : public BasisController {
 private:	
-	
+	std::vector<GameObject*> mGameObject;
 protected:
 	MoveController mCamera;
 	CollisionDetection mCollision;
@@ -31,9 +31,12 @@ protected:
 	virtual void Keyboard(unsigned char key, int x, int y);
 	virtual void KeyboardUp(unsigned char key, int x, int y);
 	virtual void Mouse(int button, int state, int x, int y);
-
+	virtual void DrawGameObjects();
 	virtual void CollisionWithObject(GameObject* pGameObject) = 0;
 	virtual void CheckCollision();
+
+	void translateGameObjects(float x, float y, float z);
+	void addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex);
 public:	
 	BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager);
 };
