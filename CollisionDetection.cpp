@@ -18,13 +18,13 @@ bool CollisionDetection::CollisionZ(int pIndex, GLfloat z)
 	return ((z <= static_box[pIndex]->max.z) && (z>= static_box[pIndex]->min.z));
 }
 
-bool CollisionDetection::Collision(GLfloat x, GLfloat y, GLfloat z, int &pIndex)
+bool CollisionDetection::Collision(GLfloat x, GLfloat y, GLfloat z, int &pIndex, const int pSize)
 {
 	bool collisionResult = false;
 	bool collision = false;
 	for (int i = 0; i<static_box.size(); i++) 
 	{
-		collision = Collision(static_box[i], x, y, z, 10, false);
+		collision = Collision(static_box[i], x, y, z, pSize, false);
 		if (collision)
 			pIndex=i;
 		collisionResult = collisionResult || collision;
@@ -32,28 +32,74 @@ bool CollisionDetection::Collision(GLfloat x, GLfloat y, GLfloat z, int &pIndex)
 	return collisionResult;
 }
 
-bool CollisionDetection::Collision(BoundingBox *b, GLfloat x, GLfloat y, GLfloat z, GLfloat size, bool pShowPosition)
+bool CollisionDetection::Collision(BoundingBox *b, GLfloat px, GLfloat py, GLfloat pz, GLfloat size, bool pShowPosition)
 {
 	if (pShowPosition)
 	{
-		if ((x!=x_old) || (y!=y_old) || (z!=z_old)) 
-			std::cout << "x: " << x << " y: " << y << " z: " << z << std::endl;
-		x_old = x;
-		y_old = y;
-		z_old = z;
+		if ((px!=x_old) || (py!=y_old) || (pz!=z_old)) 
+			std::cout << "x: " << px << " y: " << py << " z: " << pz << std::endl;
+		x_old = px;
+		y_old = py;
+		z_old = pz;
 	}
 
-	GLfloat x1 = x - (b->max.x-b->OriginalMax.x);
-	GLfloat y1 = y - (b->max.y-b->OriginalMax.y);
-	GLfloat z1 = z - (b->max.z-b->OriginalMax.z);
+	//not only one point a cube! 
 
-	bool collision1 = ((x1 <= b->max.x) && (x1>= b->min.x) 
+	GLfloat xCenter = (px - (b->max.x-b->OriginalMax.x));
+	GLfloat yCenter = (py - (b->max.y-b->OriginalMax.y));
+	GLfloat zCenter = (pz - (b->max.z-b->OriginalMax.z));
 
-						&& (y1<= b->max.y) && (y1>= b->min.y) 
-						&& (z1<= b->max.z) && (z1 >= b->min.z));
+	GLfloat x[8];
+	GLfloat y[8];
+	GLfloat z[8];
 
-    return (collision1 || false);
+	x[0] = xCenter + size/2.0;
+	y[0] = yCenter + size/2.0;
+	z[0] = zCenter + size/2.0;
+
+	x[1] = xCenter + size/2.0;
+	y[1] = yCenter + size/2.0;
+	z[1] = zCenter - size/2.0;
+
+	x[2] = xCenter + size/2.0;
+	y[2] = yCenter - size/2.0;
+	z[2] = zCenter + size/2.0;
+
+	x[3] = xCenter + size/2.0;
+	y[3] = yCenter - size/2.0;
+	z[3] = zCenter - size/2.0;
+
+	x[4] = xCenter - size/2.0;
+	y[4] = yCenter + size/2.0;
+	z[4] = zCenter + size/2.0;
+
+	x[5] = xCenter - size/2.0;
+	y[5] = yCenter + size/2.0;
+	z[5] = zCenter - size/2.0;
+
+	x[6] = xCenter - size/2.0;
+	y[6] = yCenter - size/2.0;
+	z[6] = zCenter + size/2.0;
+
+	x[7] = xCenter - size/2.0;
+	y[7] = yCenter - size/2.0;
+	z[7] = zCenter - size/2.0;
+	bool collision1 = false;
+	bool newc = false;
+
+	for (int i = 0; i<8; i++)
+	{
+		newc = (PointCollision(b, x[i], y[i], z[i]));
+		collision1 = collision1 || newc;
+		if (collision1)
+			return true;
+	}
     return false;
+}
+
+bool CollisionDetection::PointCollision(BoundingBox *b, GLfloat x, GLfloat y, GLfloat z)
+{
+	return ((x <= b->max.x) && (x>= b->min.x) && (y<= b->max.y) && (y>= b->min.y) && (z<= b->max.z) && (z >= b->min.z));
 }
 
 void CollisionDetection::translateBoundingBox(int i, const GLfloat x, const GLfloat y, const GLfloat z)

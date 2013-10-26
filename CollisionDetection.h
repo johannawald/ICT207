@@ -15,13 +15,14 @@ private:
 	GLfloat z_old;
 
 	//BoundingBox* CreateCollisionBox();
-	bool Collision(BoundingBox *b, GLfloat x, GLfloat y, GLfloat z, GLfloat size, bool pShowPosition);
+	bool PointCollision(BoundingBox *b, GLfloat x, GLfloat y, GLfloat z);
+	bool Collision(BoundingBox *b, GLfloat px, GLfloat py, GLfloat pz, GLfloat size, bool pShowPosition);
 	void translateBoundingBox(int i, const GLfloat x, const GLfloat y, const GLfloat z);
 public:
 	void Draw(DrawManager* dm);
 
 	void translateBoundingBoxes(const GLfloat x, const GLfloat y, const GLfloat z);
-	bool Collision(GLfloat x, GLfloat y, GLfloat z, int &pIndex);
+	bool Collision(GLfloat x, GLfloat y, GLfloat z, int &pIndex, const int pSize);
 	bool CollisionX(int pIndex, GLfloat x);
 	bool CollisionY(int pIndex, GLfloat y);
 	bool CollisionZ(int pIndex, GLfloat z);

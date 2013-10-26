@@ -17,8 +17,6 @@ GameController::GameController(AudioManager* am, ModelManager* mm, TextureManage
 {
 	SetGameObject(); //*JW
 	Init();
-	// copies bounding boxes from array to linked lists (one fopr each quadrant)
-
 	loaded = true;
 }
 
@@ -44,8 +42,8 @@ void GameController::Init()
 	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 	Reshape();
 	
-	//GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
-	//GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
+	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
+	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
 	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 100, 0, -200, 200, 400, 200); 
 }
 
@@ -136,12 +134,12 @@ bool c = false;
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!)
 { 
 	int index = -1;
-	if (cd.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), index))
+	if (cd.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), index, 100))
 	{ 
 		std::cout << "collision changed: " << c << std::endl;
 		test++;
 	}
-	c = (cd.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), index));
+	c = (cd.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), index, 100));
 	
 	//NEED TO CHANGE TO DETECT TRANSITION LOCATION - use collision?
 	//if ((camXpos > 400) && (camXpos < 700) && (camZpos < -4300) && (camZpos > -4500)) 

@@ -111,7 +111,7 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 	glPushMatrix();
 		glRotatef(90, 1, 0, 0);
 		glColor3f(1.0f, 0.0f, 0.0f);
-		glutSolidSphere(100, 12, 12); //Our character to follow - WILL CHANGE TO CHARACTER
+		glutSolidCube(100); //Our character to follow - WILL CHANGE TO CHARACTER
 	glPopMatrix();
     
 	glRotatef(mYrot,0.0,1.0,0.0);  //rotate the camera on the y-axis (up and down)

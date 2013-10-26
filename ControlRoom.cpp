@@ -60,7 +60,7 @@ void ControlRoom::Draw()
 void ControlRoom::CheckCollision()
 {	
 	int IndexCollision = -1;
-	if (cd.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), IndexCollision))
+	if (cd.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), IndexCollision, 100))
 	{
 		float DiffX = mCamera.GetXposDiff();
 		float DiffY = mCamera.GetYposDiff();
