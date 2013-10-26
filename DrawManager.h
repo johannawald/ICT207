@@ -14,6 +14,7 @@
 #include <string>
 #include <Windows.h>
 #include <GL/GL.h>
+#include "Stairs.h"
 
 class BoundingBox;
 class CollisionDetection;
@@ -22,7 +23,8 @@ class DrawManager {
 //please don't use a static function!!
 //maybe set function for the staris (ray, please make another constructor with parameters for the whole stair length, etc.)
 //ray, change the drawing in the LevelOneController, please (because the DrawManager is created over and over again)
-
+private:
+	Stairs stairs;
 public:
 	DrawManager();	
 	~DrawManager();

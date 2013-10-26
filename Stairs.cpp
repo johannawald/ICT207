@@ -155,7 +155,7 @@ void Stairs::DrawStep(GLuint htex, GLuint dtex)
 }
 
 
-static void Stairs::drawStairs(float stairWidth, float stairHeight, float stairDepth, float numSteps)
+void Stairs::DrawStairs(const float stairWidth, const float stairHeight, const float stairDepth, const float numSteps) const
 {
 	//work out step dimensions
 	float stepHeight, stepDepth;

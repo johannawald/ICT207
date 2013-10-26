@@ -31,56 +31,7 @@ void DrawManager::RenderString(const float x, const float y, void *font, const c
 
 void DrawManager::DrawStairs(const float stairWidth, const float stairHeight, const float stairDepth, const float numSteps) const
 {
-	//work out step dimensions
-	float stepHeight, stepDepth;
-	stepHeight = stairHeight / numSteps;
-	stepDepth = stairDepth / numSteps;
-
-	//draw vertical step faces
-	for (int i = 0; i < numSteps; i++)
-	{
-		glBegin(GL_QUADS);
-			glTexCoord2f (0.125, 0.5);		glVertex3f(0.0, stepHeight * i, stepDepth * i);
-			glTexCoord2f (0.0, 0.5);		glVertex3f(0.0, stepHeight * (i + 1), stepDepth * i);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(stairWidth, stepHeight * (i + 1), stepDepth * i);
-			glTexCoord2f (0.125, 0.0);		glVertex3f(stairWidth, stepHeight * i, stepDepth * i);
-		glEnd();
-	}
-
-	//draw horizontal step faces
-	for (int i = 0; i < numSteps; i++)
-	{
-		glBegin(GL_QUADS);
-			glTexCoord2f (0.125, 0.5);		glVertex3f(0.0, stepHeight * (i + 1), stepDepth * i);
-			glTexCoord2f (0.0, 0.5);		glVertex3f(0.0, stepHeight * (i + 1), stepDepth * (i + 1));
-			glTexCoord2f (0.0, 0.0);		glVertex3f(stairWidth, stepHeight * (i + 1), stepDepth * (i + 1));
-			glTexCoord2f (0.125, 0.0);		glVertex3f(stairWidth, stepHeight * (i + 1), stepDepth * i);
-		glEnd();
-	}
-
-	//draw sides of staircase
-	for (int i = 0; i < numSteps; i++)
-	{
-		glBegin(GL_QUADS);
-			glTexCoord2f (0.125, 0.125);	glVertex3f(0.0, 0.0, stepDepth * i);
-			glTexCoord2f (0.0, 0.125);		glVertex3f(0.0, 0.0, stepDepth * (i + 1));
-			glTexCoord2f (0.0, 0.0);		glVertex3f(0.0, stepHeight * (i + 1), stepDepth * (i + 1));
-			glTexCoord2f (0.125, 0.0);		glVertex3f(0.0, stepHeight * (i + 1), stepDepth * i);
-
-			glTexCoord2f (0.125, 0.125);	glVertex3f(stairWidth, 0.0, stepDepth * i);
-			glTexCoord2f (0.0, 0.125);		glVertex3f(stairWidth, 0.0, stepDepth * (i + 1));
-			glTexCoord2f (0.0, 0.0);		glVertex3f(stairWidth, stepHeight * (i + 1), stepDepth * (i + 1));
-			glTexCoord2f (0.125, 0.0);		glVertex3f(stairWidth, stepHeight * (i + 1), stepDepth * i);
-		glEnd();
-	}
-
-	//draw rear of staircase
-		glBegin(GL_QUADS);
-			glTexCoord2f (0.5, 0.5);		glVertex3f(0.0, 0.0, stairDepth);
-			glTexCoord2f (0.0, 0.5);		glVertex3f(stairWidth, 0.0, stairDepth);
-			glTexCoord2f (0.0, 0.0);		glVertex3f(stairWidth, stairHeight, stairDepth);
-			glTexCoord2f (0.5, 0.0);		glVertex3f(0.0, stairHeight, stairDepth);
-		glEnd();
+	stairs.DrawStairs(stairWidth, stairHeight, stairDepth, numSteps);
 }
 
 void DrawManager::DrawRect(const GLint pTexture, 

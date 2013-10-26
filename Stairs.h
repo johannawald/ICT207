@@ -9,6 +9,7 @@
  * @date 18/09/2013 Raymond Forster - Started
  * @date 20/09/2013 Jon Mace - Added function to draw a set of stairs with derived step 
  *							   height and step width
+ * @date 26/10/2013 Johanna Wald - changed function to not static + const
  */
 
 //--------------------------------------------------------------------------------------
@@ -106,8 +107,8 @@ class Stairs
 			 * @param float stairDepth - the total depth of the area
 			 * @param float numSteps - the number of steps to be drawn
 			 */
-		void DrawStairs(float stairWidth, float stairHeight, 
-							   float stairDepth, float numSteps);
+		void DrawStairs(const float stairWidth, const float stairHeight, 
+							  const float stairDepth, const float numSteps) const;
 };
 
 #endif //end of Stairs class

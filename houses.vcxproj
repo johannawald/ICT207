@@ -151,6 +151,7 @@
     <ClCompile Include="BushCourtController.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundTime.cpp" />
+    <ClCompile Include="Stairs.cpp" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="texturedPolygons.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="BushCourtController.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundTime.h" />
+    <ClInclude Include="Stairs.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="TextureCodes.h" />
     <ClInclude Include="texturedPolygons.h" />
