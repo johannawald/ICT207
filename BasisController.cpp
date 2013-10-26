@@ -2,42 +2,84 @@
 #include "DrawManager.h"
 #include "AudioManager.h"
 
-BasisController::BasisController(AudioManager* audiomanager, ModelManager* modelmanager, TextureManager* texturemanager): audio(audiomanager), model(modelmanager), texture(texturemanager)
+BasisController::BasisController(AudioManager* pAudioManager, ModelManager* pModelManager, TextureManager* pTextureManager): 
+	mAudioManager(pAudioManager), mModelManager(pModelManager), mTextureManager(pTextureManager), pLoaded(false)
 {	
-	drawmanager = new DrawManager();
+	mDrawManager = new DrawManager();
+	Init();
+	pLoaded = true;	
+}
+
+void BasisController::Reshape(int pWidth, int pHeight) 
+{
+	mScreenWidth = pWidth;
+	mScreenHeight = pHeight;
+	// Prevent a divide by zero, when window is too short		
+	// (you cant make a window of zero width).
+	if (pHeight== 0) 
+		pHeight = 1;
+	mRatio = 1.0f * pWidth / pHeight;
+
+	// Reset the coordinate system before modifying
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glViewport(0, 0, pWidth, pHeight);
+	gluPerspective(45,mRatio,1,250000);	
+	glMatrixMode(GL_MODELVIEW);
+}
+
+void BasisController::Draw()
+{
+	if (pLoaded) 
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glPushMatrix();
+			glLoadIdentity();
+			//Move camera:
+			glEnable(GL_TEXTURE_2D);
+			glPushMatrix();	
+				DrawObjects();
+			glPopMatrix();
+			glDisable(GL_TEXTURE_2D);
+		glPopMatrix();
+		// clear buffers
+		glFlush();
+		glutSwapBuffers();
+	}
+}
+
+void BasisController::Reshape()
+{
+	Reshape(mScreenWidth, mScreenHeight);
+}
+
+void BasisController::Init()
+{
+	glClearColor(0, 0, 0, 0);
+	gluLookAt(0.0, 1.75, 0.0, 
+		      0.0, 1.75, -1,
+			  0.0f,1.0f,0.0f);
+	glEnable(GL_DEPTH_TEST); 
+	glShadeModel(GL_SMOOTH);
+	Reshape();
 }
 
 AudioManager* BasisController::GetAudio() const
 {	
-	return audio;
+	return mAudioManager;
 }
 
 ModelManager* BasisController::GetModel() const
 {	
-	return model;
+	return mModelManager;
 }
 
 TextureManager* BasisController::GetTexture() const
 {	
-	return texture;
-}
-
-void BasisController::SetAudio(AudioManager* am)
-{	
-	audio = am;
-}
-
-void BasisController::SetModel(ModelManager* mm)
-{	
-	model = mm;
-}
-
-void BasisController::SetTexture(TextureManager* tm)
-{	
-	texture = tm;
+	return mTextureManager;
 }
 
 DrawManager* BasisController::GetDrawManager()
 {	
-	return drawmanager;
+	return mDrawManager;
 }

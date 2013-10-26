@@ -16,6 +16,7 @@
 #include "TextureManager.h"
 #include "AudioManager.h"
 #include "ControlRoom.h"
+#include "GameOverController.h"
 
 StateMachine* StateMachine::statemachine = nullptr;
 IStateController* StateMachine::bushcourtcontroller = nullptr;
@@ -31,8 +32,8 @@ StateMachine::StateMachine(IStateController* controller) {
 	}
 	if (controller==NULL)
 		//state = bushcourtcontroller;
-		state = new GameController(audiomanager, modelmanager, texturemanager);
-		//state = new ControlRoom(audiomanager, modelmanager, texturemanager);
+		state = new LevelOneController(audiomanager, modelmanager, texturemanager);
+		//state = new GameOverController(audiomanager, modelmanager, texturemanager);
 	else
 		state = controller;
 }

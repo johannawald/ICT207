@@ -6,10 +6,9 @@
 //--------------------------------------------------------------------------------------
 //  Constructor
 //--------------------------------------------------------------------------------------
-ControlRoom::ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), loaded(false)
+ControlRoom::ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm): 
+	BasisGameController(am,mm,tm)
 {
-	Init();
-	loaded = true;	
 }
 
 //--------------------------------------------------------------------------------------
@@ -17,151 +16,76 @@ ControlRoom::ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm)
 //--------------------------------------------------------------------------------------
 void ControlRoom::Init() 
 {	
-	glClearColor(0, 0, 0, 0); //background/sky colour	
-	gluLookAt(0.0, 1.75, 0.0, 
-		      0.0, 1.75, -1,
-			  0.0f,1.0f,0.0f);
-	Reshape();
+	BasisGameController::Init();
 
-
-	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
-	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
-	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 100, 0, -200, 200, 400, 200); 
-	
+	GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
+	GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
+	GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 1, 1, 100, 0, -200, 200, 400, 200); 
 	//Jon, can you change this to Collision-quads?
-	GetDrawManager()->DrawCollisionCube(&cd, -1, 10, 10, 0, 0, 1000, 4000, 3000, 100); 
+	GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 10, 10, 0, 0, 1000, 4000, 3000, 100); 
 }
 
-//--------------------------------------------------------------------------------------
-//  Initialize Settings
-//------------------'t'--------------------------------------------------------------------
 void ControlRoom::Draw()
 {
-	if (loaded) 
-	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glPushMatrix();
-			glLoadIdentity();
-			//Move camera:
-			mCamera.PrepareMovement();
-			CheckCollision();
-			mCamera.MoveCamera();
-			glEnable(GL_TEXTURE_2D);
-			glPushMatrix();
-				//Set camera position:
-				mCamera.SetCameraPosition(-500, -250, 3000, 0);
+	BasisGameController::Draw();
+}
 
-				cd.translateBoundingBoxes(-500, -250, 3000);
-				glPushMatrix();
-
-					cd.Draw(GetDrawManager());
-
-
-
-					//Draw objects
-					DrawWalls();
-					DrawFloor();
-					DrawStairs();
-					DrawLadder();
-					DrawConsole(); //the last one is always not working
-				glPopMatrix();
-			glPopMatrix();
-			glDisable (GL_TEXTURE_2D);
-		glPopMatrix();
-		// clear buffers
-		glFlush();
-		glutSwapBuffers();
-	}
+void ControlRoom::DrawObjects()
+{		
+	//that Push is important!
+	glPushMatrix();
+		mCollision.Draw(GetDrawManager());
+		//Draw objects
+		DrawWalls();
+		DrawFloor();
+		DrawStairs();
+		DrawLadder();
+		DrawConsole();
+	glPopMatrix();
 }
 
 void ControlRoom::CheckCollision()
 {	
-	int IndexCollision = -1;
-	if (cd.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), IndexCollision, 100))
-	{
-		std::cout << "collision" << std::endl;
-		float DiffX = mCamera.GetXposDiff();
-		float DiffY = mCamera.GetYposDiff();
-		float DiffZ = mCamera.GetZposDiff();
+	//here collision with objects 
+}
 
-		/*if ((cd.CollisionX(IndexCollision, mCamera.GetXpos())) && (cd.CollisionY(IndexCollision, mCamera.GetYpos())) && (cd.CollisionZ(IndexCollision, mCamera.GetZpos())))
-		{
-			if (cd.CollisionX(IndexCollision, mCamera.GetXpos()+mCamera.GetXposDiff()))
-				DiffX = 0;*/
-		/*if
-			if (cd.CollisionY(IndexCollision, mCamera.GetYpos()+mCamera.GetYposDiff()))
-				DiffY = 0;
-		if (cd.CollisionZ(IndexCollision, mCamera.GetZpos()))
-			if (cd.CollisionZ(IndexCollision, mCamera.GetZpos()+mCamera.GetZposDiff()))
-				DiffZ = 0;
-		}*/
-		
-		/*if (cd.CollisionX(IndexCollision, mCamera.GetXpos()))
-			if (cd.CollisionX(IndexCollision, mCamera.GetXpos()+mCamera.GetXposDiff()))
-				DiffX = 0;
-		if (cd.CollisionY(IndexCollision, mCamera.GetYpos()))
-			if (cd.CollisionY(IndexCollision, mCamera.GetYpos()+mCamera.GetYposDiff()))
-				DiffY = 0;
-		if (cd.CollisionZ(IndexCollision, mCamera.GetZpos()))
-			if (cd.CollisionZ(IndexCollision, mCamera.GetZpos()+mCamera.GetZposDiff()))
-				DiffZ = 0;*/
-
-		if (cd.Collision(mCamera.GetXpos()+DiffX, mCamera.GetYpos()+DiffY, mCamera.GetZpos()+DiffZ, IndexCollision, 100))
-			mCamera.SetDiffValues(0, 0, 0);
-	}
+void ControlRoom::CollisionWithObject(GameObject* pGameObject)
+{
 }
 
 void ControlRoom::Update()
 { 
-	
-
 	if (IsAtComputerPosition())
 		StateMachine::setController(new GameController(GetAudio(), GetModel(), GetTexture()));
 }
 
-bool ControlRoom::IsAtComputerPosition()
-{ 
+bool ControlRoom::IsAtComputerPosition() 
+{
 	return (false);  //(mCamera.GetZpos() > -2000); Jon, insert here position of computer
 }
 
-void ControlRoom::Reshape() {
-	Reshape(width, height);
-}
-
 void ControlRoom::Reshape(int w, int h) {
-	width = w;		
-	height = h;
-	// Prevent a divide by zero, when window is too short		
-	// (you cant make a window of zero width).
-	if (h == 0) h = 1;
-	ratio = 1.0f * w / h;
-
-	// Reset the coordinate system before modifying
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glViewport(0, 0, w, h);
-	gluPerspective(45,ratio,1,250000);	
-	glMatrixMode(GL_MODELVIEW);
+	BasisGameController::Reshape(w, h);
 }
 
 void ControlRoom::MouseMotion(int x, int y)
 {
-	mCamera.MouseMotion(x, y);
+	BasisGameController::MouseMotion(x, y);
 }
 
 void ControlRoom::SpecialKey(int key, int x, int y) 
 {
-	mCamera.SpecialKey(key,x,y);
+	BasisGameController::SpecialKey(key,x,y);
 }
 
 void ControlRoom::SpecialKeyUp(int key, int x, int y) 
 {
-	mCamera.SpecialKeyUp(key, x, y);
+	BasisGameController::SpecialKeyUp(key,x,y);
 }
 
 void ControlRoom::Keyboard(unsigned char key, int x, int y)
 {
-	mCamera.Keyboard(key, x, y);
+	BasisGameController::Keyboard(key,x,y);
 	if (key=='t')
 		StateMachine::setController(new GameController(GetAudio(), GetModel(), GetTexture()));
 }
@@ -169,12 +93,12 @@ void ControlRoom::Keyboard(unsigned char key, int x, int y)
 //--------------------------------------------------------------------------------------
 void ControlRoom::KeyboardUp(unsigned char key, int x, int y)
 {
-	mCamera.KeyboardUp(key, x, y);
+	BasisGameController::KeyboardUp(key,x,y);
 }
 
 void ControlRoom::Mouse(int button, int state, int x, int y)
 {
-	mCamera.Mouse(button, state, x, y);
+	BasisGameController::Mouse(button, state, x, y);
 }
 
 void ControlRoom::PassiveMotion(int x, int y)

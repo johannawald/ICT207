@@ -19,20 +19,10 @@
 #include <windows.h>
 
 #include "IStateController.h"
-#include "BasisController.h"
-#include "MoveController.h"
-#include "CollisionDetection.h"
+#include "BasisGameController.h"
 
-class ControlRoom : public IStateController, BasisController {
+class ControlRoom : public IStateController, BasisGameController {
 private:
-	MoveController mCamera;
-	CollisionDetection cd;
-
-	bool loaded;
-	// ratio of screen
-	float ratio;
-	// screen width and height
-	int width, height;
 	void DrawFloor();
 	void DrawWalls();
 	void DrawStairs();
@@ -41,11 +31,12 @@ private:
 
 	bool IsAtComputerPosition();
 	void CheckCollision();
+	void CollisionWithObject(GameObject* pGameObject);
 public:
 	ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm);
 	void Init();
 	void Draw();
-	void Reshape();
+	void DrawObjects();
 	void Update();
 	void Reshape(int w, int h);
 	void SpecialKey(int key, int x, int y);

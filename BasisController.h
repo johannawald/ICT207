@@ -18,11 +18,24 @@
 
 class BasisController {
 private:
-	DrawManager* drawmanager; /**<  Provides help functions to draw (such as drawing Text)*/
-	AudioManager* audio; /**<  Stores a list of audios and allows to play them */
-	ModelManager* model; /**< Stores a list of models and allows to draw them */
-	TextureManager* texture; /**< Stores a list of textures and provides a function that returns the TextureID */
+	// ratio of screen
+	float mRatio;
+	// screen width and height
+	int mScreenWidth, mScreenHeight;
+
+	DrawManager* mDrawManager; /**<  Provides help functions to draw (such as drawing Text)*/
+	AudioManager* mAudioManager; /**<  Stores a list of audios and allows to play them */
+	ModelManager* mModelManager; /**< Stores a list of models and allows to draw them */
+	TextureManager* mTextureManager; /**< Stores a list of textures and provides a function that returns the TextureID */
 protected:
+	bool pLoaded; //not sure if we can change that
+
+	virtual void Reshape(int pWidth, int pHeight);
+	virtual void Reshape();
+	virtual void Init();
+	virtual void Draw();
+	virtual void DrawObjects() = 0;
+
 	/**
 		* @brief GetMethod of the AudioManager member variable
 		*
@@ -50,34 +63,6 @@ protected:
 		* @return TextureManager* - the stored member variable
     */
 	TextureManager* GetTexture() const;
-
-	/**
-    * @brief SetMethod of the TextureManager member variable
-		*
-		* Sets the texturemanager member variable to the value of the parameter
-     	*
-	    * @param AudioManager* - the new value of the member variable "audio"
-		* @return void
-    */
-	void SetAudio(AudioManager* am);
-	/**
-    * @brief SetMethod of the ModelManager member variable
-		*
-		* Sets the modelmanager member variable to the value of the parameter
-     	*
-	    * @param ModelManager* - the new value of the member variable "model"
-		* @return void
-    */
-	void SetModel(ModelManager* mm);
-	/**
-    * @brief SetMethod of the TextureManager member variable
-		*
-		* Sets the texturemanager member variable to the value of the parameter
-     	*
-	    * @param TextureManager* - the new value of the member variable "texture"
-		* @return void
-    */
-	void SetTexture(TextureManager* tm);
 	/**
     * @brief GetMethod of the TextureManager member variable "drawmanager"
 		*
@@ -96,5 +81,5 @@ public:
 	    * @param AudioManager* audiomanager, ModelManager* modelmanager, TextureManager* texturemanager - the new value of the member variables
 		* @return void
     */
-	BasisController(AudioManager* audiomanager, ModelManager* modelmanager, TextureManager* texturemanager); 
+	BasisController(AudioManager* pAudioManager, ModelManager* pModelManager, TextureManager* pTextureManager); 
 };
