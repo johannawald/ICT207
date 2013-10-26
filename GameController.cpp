@@ -65,11 +65,12 @@ void GameController::Draw()  //try to avoid updating variables in the draw funct
 			cd.translateBoundingBoxes(1000, 1000, 1000);
 			glEnable (GL_TEXTURE_2D);
 			glPushMatrix();
-			cd.Draw(GetDrawManager());
-			DrawGameObjects(); //*JW
-			Draw3DModels();
-			//DrawObjects();
-			// set the movement and rotation speed according to frame count
+				cd.Draw(GetDrawManager());
+				DrawGameObjects(); //*JW
+				Draw3DModels();
+				//DrawObjects();
+				// set the movement and rotation speed according to frame count
+			glPopMatrix();
 		glPopMatrix();		
 		glDisable (GL_TEXTURE_2D);
 		glPopMatrix();

@@ -22,6 +22,8 @@ public:
 	void Draw(DrawManager* dm);
 
 	void translateBoundingBoxes(const GLfloat x, const GLfloat y, const GLfloat z);
+	void scaleBoundingBoxes(const GLfloat x, const GLfloat y, const GLfloat z);
+
 	bool Collision(GLfloat x, GLfloat y, GLfloat z, int &pIndex, const int pSize);
 	bool CollisionX(int pIndex, GLfloat x);
 	bool CollisionY(int pIndex, GLfloat y);

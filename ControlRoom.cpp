@@ -22,6 +22,14 @@ void ControlRoom::Init()
 		      0.0, 1.75, -1,
 			  0.0f,1.0f,0.0f);
 	Reshape();
+
+
+	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
+	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
+	GetDrawManager()->DrawCollisionCube(&cd, GetTexture()->getTextureID(taHallway10), 1, 1, 100, 0, -200, 200, 400, 200); 
+	
+	//Jon, can you change this to Collision-quads?
+	GetDrawManager()->DrawCollisionCube(&cd, -1, 10, 10, 0, 0, 1000, 4000, 3000, 100); 
 }
 
 //--------------------------------------------------------------------------------------
@@ -41,13 +49,22 @@ void ControlRoom::Draw()
 			glEnable(GL_TEXTURE_2D);
 			glPushMatrix();
 				//Set camera position:
-				mCamera.SetCameraPosition(-500, -250, 3000, 180);
-				//Draw objects
-				DrawWalls();
-				DrawFloor();
-				DrawStairs();
-				DrawLadder();
-				DrawConsole(); //the last one is always not working
+				mCamera.SetCameraPosition(-500, -250, 3000, 0);
+
+				cd.translateBoundingBoxes(-500, -250, 3000);
+				glPushMatrix();
+
+					cd.Draw(GetDrawManager());
+
+
+
+					//Draw objects
+					DrawWalls();
+					DrawFloor();
+					DrawStairs();
+					DrawLadder();
+					DrawConsole(); //the last one is always not working
+				glPopMatrix();
 			glPopMatrix();
 			glDisable (GL_TEXTURE_2D);
 		glPopMatrix();
@@ -62,6 +79,7 @@ void ControlRoom::CheckCollision()
 	int IndexCollision = -1;
 	if (cd.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), IndexCollision, 100))
 	{
+		std::cout << "collision" << std::endl;
 		float DiffX = mCamera.GetXposDiff();
 		float DiffY = mCamera.GetYposDiff();
 		float DiffZ = mCamera.GetZposDiff();
@@ -69,8 +87,8 @@ void ControlRoom::CheckCollision()
 		/*if ((cd.CollisionX(IndexCollision, mCamera.GetXpos())) && (cd.CollisionY(IndexCollision, mCamera.GetYpos())) && (cd.CollisionZ(IndexCollision, mCamera.GetZpos())))
 		{
 			if (cd.CollisionX(IndexCollision, mCamera.GetXpos()+mCamera.GetXposDiff()))
-				DiffX = 0;
-		if
+				DiffX = 0;*/
+		/*if
 			if (cd.CollisionY(IndexCollision, mCamera.GetYpos()+mCamera.GetYposDiff()))
 				DiffY = 0;
 		if (cd.CollisionZ(IndexCollision, mCamera.GetZpos()))
@@ -197,12 +215,6 @@ void ControlRoom::DrawFloor()
 
 void ControlRoom::DrawWalls()
 {
-	//Jon, can you change this to Collision-quads?
-	GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 100, 100, 10, 100, 200, 300); 
-	GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 10, 50, 200, 100, 20, 30);
-	GetDrawManager()->DrawCollisionCube(&cd, -1, 1, 1, 100, 10, -200, 200, 4000, 200);
-	//walls
-	GetDrawManager()->DrawCollisionCube(&cd, -1, 10, 10, 0, 0, 1000, 4000, 3000, 100); 
 	
 	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall));
 	glBegin(GL_QUADS);
