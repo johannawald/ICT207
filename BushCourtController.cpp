@@ -92,6 +92,11 @@ void BushCourtController::SetCamPosition(GLdouble const & tempX, GLdouble const 
 	cam.Position(tempX, tempY, tempZ, tempAngle);
 }
 
+void BushCourtController::DrawObjects()
+{
+
+}
+
 //--------------------------------------------------------------------------------------
 //  Initialize Settings
 //--------------------------------------------------------------------------------------

@@ -10,6 +10,7 @@
 #include <GL/freeglut.h>
 #include "CollisionDetection.h"
 #include "BoundingBox.h"
+#include "Vector3D.h"
 
 DrawManager::DrawManager() {	
 }
@@ -110,12 +111,18 @@ void DrawManager::DrawCube(const GLint pTexture,
 
 void DrawManager::DrawCollisionCube(CollisionDetection* collision, const GLint pTexture, 
 				const int pTexCoordX, const int pTexCoordY, 
-				const int pPositionX, const int pPositionY, const int pPositionZ, 
-				const GLdouble pWidth, const GLdouble pHeight, const GLdouble pDepth)
+				const Vector3D& pPosition,
+				const Vector3D& pSize)
 {
+//pSize.x = Height
+//pSize.y = Width
+//pSize.z = Depth
 	glPushMatrix();
-		DrawCube(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pHeight, pDepth);
-		collision->addCollisionBox(pPositionX, pPositionY, pPositionZ-pDepth, pPositionX+pWidth, pPositionY+pHeight, pPositionZ);
+		DrawCube(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pSize.x, pSize.y, pSize.z);
+		Vector3D position = pPosition;
+		position.z -= pSize.z;
+		Vector3D size(pPosition.x+pSize.x, pPosition.y+pSize.y, pPosition.z);
+		collision->addCollisionBox(position, size);
 	glPopAttrib();
 }
 
@@ -126,7 +133,7 @@ void DrawManager::DrawCollisionRect(CollisionDetection* collision, const GLint p
 {
 	glPushMatrix();
 		//DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pHeight);
-		collision->addCollisionBox(pPositionX, pPositionY, pPositionZ, pPositionX+pWidth, pPositionY+pHeight, pPositionZ+100); 
+		collision->addCollisionBox(Vector3D(pPositionX, pPositionY, pPositionZ), Vector3D(pPositionX+pWidth, pPositionY+pHeight, pPositionZ+100));
 	glPopAttrib();
 }
 

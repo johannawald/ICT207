@@ -54,6 +54,17 @@ void BasisGameController::Mouse(int button, int state, int x, int y)
 	mCamera.Mouse(button, state, x, y);
 }
 
+void BasisGameController::addCollisionGameObject(const Vector3D& pPosition, const Vector3D& pSize, const eModels pModel, const eTextures pTexture, int& pCollisionIndex)
+//pSize.x - Width
+//pSize.y - Height
+//pSize.z - Depth
+{
+	pCollisionIndex = mCollision.addCollisionBox(Vector3D(pPosition.x, pPosition.y, pPosition.z - pSize.z), 
+							   Vector3D(pPosition.x + pSize.x, pPosition.y + pPosition.y, pPosition.z));
+	
+	addGameObject(Vector3D(pPosition.x, pPosition.y, pPosition.z), Vector3D(0, 0, 0), Vector3D(1, 1, 1), pModel, pTexture, pCollisionIndex);
+}
+
 void BasisGameController::Draw()
 {
 	if (pLoaded) 
@@ -68,10 +79,10 @@ void BasisGameController::Draw()
 			glEnable(GL_TEXTURE_2D);
 			glPushMatrix();
 				//Set camera position:
-				mCamera.SetCameraPosition(-500, -250, 3000, 0);
-				mCollision.translateBoundingBoxes(-500, -250, 3000);		
+				mCamera.SetCameraPosition(-500, -250, 30, 0);
+				mCollision.translateBoundingBoxes(Vector3D(-500, -250, 30));		
 				mCollision.Draw(GetDrawManager());
-				translateGameObjects(-500, -250, 3000);
+				//translateGameObjects(-500, -250, 30); //do i need that
 				DrawObjects();
 			glPopMatrix();
 			glDisable(GL_TEXTURE_2D);
@@ -88,20 +99,24 @@ void BasisGameController::addGameObject(Vector3D& pPosition, Vector3D& pMovement
 	mGameObject.push_back(gameobject);
 }
 
-void BasisGameController::CheckCollision()
+int BasisGameController::CheckCollision()
 {
 	//Wallcollision
 	int IndexCollision = -1;
 	int mSizeController = 100;
-	if (mCollision.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), IndexCollision, mSizeController))
+	if (mCollision.Collision(Vector3D(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos()), IndexCollision, mSizeController))
 	{
-		std::cout << "collision" << std::endl;
-
-		if (mCollision.Collision(mCamera.GetXpos()+mCamera.GetXposDiff(), 
+		BeforeCollision(IndexCollision);
+		if (mCollision.Collision(Vector3D(mCamera.GetXpos()+mCamera.GetXposDiff(), 
 						 mCamera.GetYpos()+mCamera.GetYposDiff(), 
-						 mCamera.GetZpos()+mCamera.GetZposDiff(), IndexCollision, mSizeController))
+						 mCamera.GetZpos()+mCamera.GetZposDiff()), IndexCollision, mSizeController))
 			mCamera.SetDiffValues(0, 0, 0);
 	}
+	return IndexCollision;
+}
+
+void BasisGameController::BeforeCollision(int pIndex)
+{
 }
 
 void BasisGameController::translateGameObjects(float x, float y, float z)

@@ -15,8 +15,8 @@
 #include <Windows.h>
 #include <GL/GL.h>
 #include "Stairs.h"
+#include "BoundingBox.h"
 
-class BoundingBox;
 class CollisionDetection;
 class DrawManager {
 //private: Stairs class change the drawStairs function, call the method of the class
@@ -45,6 +45,8 @@ public:
 	void RenderString(const float x, const float y, void *font, const char* str, const unsigned r = 0, const unsigned g = 0, const unsigned b = 0) const;
 	void DrawStairs(const float stairWidth, const float stairHeight, const float stairDepth, const float numSteps) const;
 	
+
+
 	void DrawRect(const GLint pTexture, 
 				  const int TexCoordX, const int TexCoordY, 
 				  const int pPositionX, const int pPositionY, const int pPositionZ, 
@@ -63,8 +65,8 @@ public:
 				const GLdouble pWidth, const GLdouble pHeight);
 	void DrawCollisionCube(CollisionDetection* collision, const GLint pTexture, 
 				const int pTexCoordX, const int pTexCoordY, 
-				const int pPositionX, const int pPositionY, const int pPositionZ, 
-				const GLdouble pWidth, const GLdouble pHeight, const GLdouble pDepth);
+				const Vector3D& pPosition,
+				const Vector3D& pSize);
 	void DrawCollisionBox(BoundingBox *b);
 
 };

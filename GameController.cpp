@@ -19,10 +19,12 @@ void Countdown(int counterStepTime)
 }
 
 GameController::GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture): 
-		BasisGameController(pAudio, pModel, pTexture)
+		BasisGameController(pAudio, pModel, pTexture), mPush(false), mPull(false)
 {
 	SetGameObject();
 	glutTimerFunc(1000, *Countdown, 0);
+
+	mBoxesCollisionIndex = new int[5]; //dynamic for each level
 }
 
 void GameController::SetGameObject()
@@ -33,22 +35,56 @@ void GameController::SetGameObject()
 void GameController::Init() 
 {
 	BasisGameController::Init();
-	int cubeSize = 200;
-	mCollision.addCollisionBox(100, 100, 100-cubeSize, 100+cubeSize, 100+cubeSize, 100);
 	InitGameObjects();
 }
 
 void GameController::InitGameObjects() 
 {
-	addGameObject(Vector3D(100,100,100), Vector3D(0, 0, 0), Vector3D(10, 10, 10), mBox, taBox, 0);
+	int cubeSize = 500; //pIndex
+	addCollisionGameObject(Vector3D(10,10,10), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[0]);
+	addCollisionGameObject(Vector3D(100,100,10), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[1]);
+	addCollisionGameObject(Vector3D(200,200,10), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[2]);
+	addCollisionGameObject(Vector3D(50,50,-100), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[3]);
+	addCollisionGameObject(Vector3D(100,150,100), Vector3D(1000,1000,1000), (eModels)-1, (eTextures)-1, mBoxesCollisionIndex[4]);
 }
 
-void GameController::CheckCollision()
+int GameController::CheckCollision()
 {	
 	//collision with walls:
-	BasisGameController::CheckCollision();
+	int pIndexCollision = BasisGameController::CheckCollision();
+	if (pIndexCollision==0)		
+	{	
+		if (mPush)
+			PushBox(pIndexCollision);
+		if (mPull)
+			PullBox(pIndexCollision);
+	}
 	//here collision with objects 
+	return pIndexCollision;
 }
+
+void GameController::BeforeCollision(int pIndex)
+{
+	//should not collide
+	//if (mCamera.GetXposDiff()>0)
+	float factor = -3.0f;
+	//mCollision.translateBoundingBoxOriginal(pIndex,  mCamera.GetXposDiff()*factor,  mCamera.GetYposDiff()*factor,  mCamera.GetZposDiff()*factor);
+	mCamera.SetPull(3);
+	mCollision.translateBoundingBoxOriginal(pIndex, Vector3D(mCamera.GetXposDiff()*factor, mCamera.GetYposDiff()*factor,  mCamera.GetZposDiff()*factor));
+}
+
+void GameController::PushBox(int pIndex)
+{
+	
+	//std::cout << "Ausgabe " << std::endl;
+}
+
+void GameController::PullBox(int pIndex)
+{
+	
+	//std::cout << "Ausgabe " << std::endl;
+}
+
 
 void GameController::Draw()
 {
@@ -68,9 +104,9 @@ void GameController::DrawTexttest()
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!)
 { 
 	int index = -1;
-	if (mCollision.Collision(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos(), index, 100))
+	if (mCollision.Collision(Vector3D(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos()), index, 100))
 	{ 
-		std::cout << "collision changed: " << std::endl;
+		//std::cout << "collision changed: " << std::endl;
 	}
 	if (levelTime<=0)
 		StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture()));
@@ -98,12 +134,18 @@ void GameController::SpecialKeyUp(int key, int x, int y)
 void GameController::Keyboard(unsigned char key, int x, int y)
 {
 	BasisGameController::Keyboard(key, x, y);
+	if (key=='p')
+		mPush = true;
+	else if (key=='o')
+		mPull = true;
 }
 
 //--------------------------------------------------------------------------------------
 void GameController::KeyboardUp(unsigned char key, int x, int y)
 {
 	BasisGameController::KeyboardUp(key, x, y);
+	mPush = false;
+	mPull = false;
 }
 
 void GameController::Mouse(int button, int state, int x, int y)

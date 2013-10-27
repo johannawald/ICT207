@@ -12,6 +12,8 @@
 #include "BasisController.h"
 #include "MoveController.h"
 #include "CollisionDetection.h"
+#include "ModelManager.h"
+#include "TextureManager.h"
 
 class GameObject;
 class AudioManager;
@@ -24,7 +26,8 @@ protected:
 	MoveController mCamera;
 	CollisionDetection mCollision;
 	virtual void Draw();
-
+	void addCollisionGameObject(const Vector3D& pPosition, const Vector3D& pSize, 
+								const eModels pModel, const eTextures pTexture, int&  pCollisionIndex);
 	virtual void MouseMotion(int x, int y);
 	virtual void SpecialKey(int key, int x, int y);
 	virtual void SpecialKeyUp(int key, int x, int y); 
@@ -33,7 +36,8 @@ protected:
 	virtual void Mouse(int button, int state, int x, int y);
 	virtual void DrawGameObjects();
 	virtual void CollisionWithObject(GameObject* pGameObject) = 0;
-	virtual void CheckCollision();
+	virtual int CheckCollision();
+	virtual void BeforeCollision(int pIndex);
 
 	void translateGameObjects(float x, float y, float z);
 	void addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex);

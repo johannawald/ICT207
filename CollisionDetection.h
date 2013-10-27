@@ -3,6 +3,7 @@
 #include "BoundingBox.h"
 #include <GL\freeglut.h>
 #include <vector>
+#include "Vector3D.h"
 
 class DrawManager;
 class CollisionDetection
@@ -10,28 +11,27 @@ class CollisionDetection
 private:
 	//BoundingBox *box_mo;
 	std::vector<BoundingBox*> static_box;
-	GLfloat x_old; //debug
-	GLfloat y_old;
-	GLfloat z_old;
+	
+	Vector3D mVold; 
 
 	//BoundingBox* CreateCollisionBox();
-	bool PointCollision(BoundingBox *b, GLfloat x, GLfloat y, GLfloat z);
-	bool Collision(BoundingBox *b, GLfloat px, GLfloat py, GLfloat pz, GLfloat size, bool pShowPosition);
-	void translateBoundingBox(int i, const GLfloat x, const GLfloat y, const GLfloat z);
+	bool PointCollision(BoundingBox *b, const Vector3D& pPoint);
+	bool Collision(BoundingBox *b, const Vector3D& pPoint, const GLfloat size, bool pShowPosition);
 public:
 	void Draw(DrawManager* dm);
 
-	void translateBoundingBoxes(const GLfloat x, const GLfloat y, const GLfloat z);
-	void scaleBoundingBoxes(const GLfloat x, const GLfloat y, const GLfloat z);
+	void translateBoundingBox(int i, const Vector3D& pTranslation);
+	void translateBoundingBoxOriginal(int i, const Vector3D& pTranslation);
+	void translateBoundingBoxes(const Vector3D& pTranslation);
+	void scaleBoundingBoxes(const Vector3D& pScale);
 
-	bool Collision(GLfloat x, GLfloat y, GLfloat z, int &pIndex, const int pSize);
+	bool Collision(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2);
+	bool Collision(const Vector3D& pPoint, int &pIndex, const GLfloat pSize);
 	bool CollisionX(int pIndex, GLfloat x);
 	bool CollisionY(int pIndex, GLfloat y);
 	bool CollisionZ(int pIndex, GLfloat z);
 
-	void addCollisionBox(const GLfloat pMinX, const GLfloat pMinY, const GLfloat pMinZ,
-						 const GLfloat pMaxX, const GLfloat pMaxY, const GLfloat pMaxZ);
-
+	int addCollisionBox(const Vector3D& pMin, const Vector3D& pMax);
 };
 
 

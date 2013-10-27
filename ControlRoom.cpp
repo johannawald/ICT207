@@ -18,11 +18,11 @@ void ControlRoom::Init()
 {	
 	BasisGameController::Init();
 
-	GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 1, 1, 0, 0, 0, 100, 200, 300); 
-	GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 1, 1, 10, 50, 200, 100, 20, 30);
-	GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 1, 1, 100, 0, -200, 200, 400, 200); 
+	GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 1, 1, Vector3D(0, 0, 0), Vector3D(100, 200, 300)); 
+	GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 1, 1, Vector3D(10, 50, 200), Vector3D(100, 20, 30));
+	GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 1, 1, Vector3D(100, 0, -200), Vector3D(200, 400, 200)); 
 	//Jon, can you change this to Collision-quads?
-	GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 10, 10, 0, 0, 1000, 4000, 3000, 100); 
+	GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 10, 10, Vector3D(0, 0, 1000), Vector3D(4000, 3000, 100)); 
 }
 
 void ControlRoom::Draw()
@@ -44,10 +44,10 @@ void ControlRoom::DrawObjects()
 	glPopMatrix();
 }
 
-void ControlRoom::CheckCollision()
+int ControlRoom::CheckCollision()
 {	
 	//collision with walls:
-	BasisGameController::CheckCollision();
+	return BasisGameController::CheckCollision();
 	//here collision with objects 
 }
 

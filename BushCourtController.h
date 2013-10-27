@@ -77,6 +77,7 @@ public:
 				   GLdouble const & tempAngle);
 
 	void Init();
+	void DrawObjects();
 	void Draw();
 	void Reshape();
 	void Update();

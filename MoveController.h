@@ -19,19 +19,22 @@
 #include <GL\glut.h>
 #include <stdlib.h>
 #include <math.h>
+#include "Vector3D.h"
 
 class MoveController
 {
 	private:
 		float mSpeed;
 		// angle of rotation values
-		float mXpos;  
+		Vector3D mPos;
+		/*float mXpos;  
 		float mYpos;  
-		float mZpos;  
+		float mZpos;*/ 
 
-		float mXposDiff;  
+		Vector3D mPosDiff;
+		/*float mXposDiff;  
 		float mYposDiff;  
-		float mZposDiff;  
+		float mZposDiff; */
 
 		float mXrot; 
 		float mYrot; 
@@ -72,5 +75,6 @@ class MoveController
 		void Keyboard(unsigned char key, int x, int y);
 		void Mouse(int button, int state, int x, int y);
 		void MouseMotion(int x, int y);
+		void SetPull(const int pFactor = -1);
 };
 #endif //end of MoveController class

@@ -30,7 +30,7 @@ private:
 	void DrawLadder();
 
 	bool IsAtComputerPosition();
-	void CheckCollision();
+	int CheckCollision();
 	void CollisionWithObject(GameObject* pGameObject);
 public:
 	ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm);

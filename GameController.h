@@ -30,6 +30,14 @@
 class GameController : public IStateController, BasisGameController
 {
 private:
+	bool mPush;
+	bool mPull;
+	
+	int* mBoxesCollisionIndex;
+
+	void PullBox(int pIndex);
+	void PushBox(int pIndex);
+
 	void DrawTexttest();
 	void SetGameObject();
 
@@ -44,7 +52,8 @@ public:
     */
 	GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture);
 	void CollisionWithObject(GameObject* pGameObject);
-	void CheckCollision();
+	int CheckCollision();
+	void BeforeCollision(int pIndex);
 	void Init();
 	void Draw();
 	void Update();
