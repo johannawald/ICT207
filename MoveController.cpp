@@ -9,11 +9,17 @@
 //--------------------------------------------------------------------------------------
 
 #include "MoveController.h"
+#include "DrawManager.h"
 
 MoveController::MoveController()
 {
 	// intialise camera values
-	mSpeed = 5.0;
+	mStartPosition.x = 0;
+	mStartPosition.y = 0;
+	mStartPosition.z = 0;
+	mCameraRotation = 0;
+
+	mSpeed = 1.0;
 	mPos.x = 0.0; 
 	mPos.y = 0.0; 
 	mPos.z = 0.0; 
@@ -42,9 +48,15 @@ MoveController::MoveController()
 	{
 		mSpecialKeyStates[i] = false;
 	}
+	mDrawManager = new DrawManager(); //just temp.
+	mCameraBB = new BoundingBox();
+	mCameraBB->SetBoundingBox(mPos, Vector3D(100.0f, 100.0f, 100.0f));
+	mCameraTranslation.x = 0;
+	mCameraTranslation.y = 0;
+	mCameraTranslation.z = 0;
 }
 
-
+/*
 float MoveController::GetXpos()
 {
 	return mPos.x;
@@ -75,16 +87,20 @@ float MoveController::GetYposDiff()
 float MoveController::GetZposDiff()
 {
 	return mPosDiff.z;
+}*/
+
+void MoveController::SetCameraPosition()
+{
+	glRotatef(mCameraRotation, 0.0, 1.0, 0.0); //rotate camera 180 degrees
+	glTranslatef(mStartPosition.x, mStartPosition.y, mStartPosition.z); //translate camera starting position
 }
 
-void MoveController::SetCameraPosition(float xpos, float ypos, float zpos, float rotation)
+void MoveController::PrepareMovement(float xpos, float ypos, float zpos, float rotation) //const
 {
-	glRotatef(rotation, 0.0, 1.0, 0.0); //rotate camera 180 degrees
-	glTranslatef(xpos, ypos, zpos); //translate camera starting position
-}
-
-void MoveController::PrepareMovement()
-{
+	mStartPosition.x = xpos;
+	mStartPosition.y = ypos;
+	mStartPosition.z = zpos;
+	mCameraRotation = rotation;
 	// enable depth testing, lighting and shading
 	Enable();
 	// check for movement
@@ -106,8 +122,10 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 
 	ResetDiffValues();
 	glTranslatef(0.0f, -100.0f, -mRadius);
+	
 	glRotatef(mXrot,1.0,0.0,0.0);
 
+	//mDrawManager->DrawCollisionBox(mCameraBB);
 	glPushMatrix();
 		glRotatef(90, 1, 0, 0);
 		glColor3f(1.0f, 0.0f, 0.0f);
@@ -121,7 +139,9 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 		mYpos = 0;
 	if (!pMoveZ) 
 		mZpos = 0;*/
-
+	
+	mCameraTranslation += mPos;
+	mCameraBB->Translate(-mPos);
 	glTranslated(-mPos.x,-mPos.y,-mPos.z); //translate the screen to the position of our camera
 	glColor3f(1.0f, 1.0f, 1.0f);	
 }
@@ -235,7 +255,6 @@ void MoveController::Enable(void)
 	glEnable(GL_DEPTH_TEST); //enable the depth testing
 	glShadeModel(GL_SMOOTH); //set the shader to smooth shader
 }
-
 
 void MoveController::KeyOperations(void)
 {
@@ -362,4 +381,23 @@ void MoveController::ResetDiffValues()
 void MoveController::SetPull(const int pFactor)
 {
 	mPosDiff *= pFactor*-1.0f;
+}
+
+const Vector3D& MoveController::GetposDiff() const
+{
+	return mPosDiff; 
+}
+
+const Vector3D& MoveController::Getpos() const
+{
+	return mPos;
+}
+
+BoundingBox* MoveController::GetCameraBB() const
+{
+	BoundingBox* bb = new BoundingBox();
+	bb->SetBoundingBox(mPos, Vector3D(100.0f, 100.0f, 100.0f));
+	bb->Translate(mStartPosition);
+	//bb->Translate(
+	return bb;
 }

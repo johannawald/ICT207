@@ -15,12 +15,14 @@
 #include "ModelManager.h"
 #include "TextureManager.h"
 
+class BoundingBox;
 class GameObject;
 class AudioManager;
 class ModelManager;
 class TextureManager;
 class BasisGameController : public BasisController {
-private:	
+private:
+	BoundingBox* mCameraBB;
 	std::vector<GameObject*> mGameObject;
 protected:
 	MoveController mCamera;

@@ -57,7 +57,7 @@ public:
 				  const GLdouble pWidth, const GLdouble pHeight, const float angleX, const float angleY, const float angleZ) const;
 	void DrawCube(const GLint pTexture, 
 				  const int pTexCoordX, const int pTexCoordY, 
-				  const int pPositionX, const int pPositionY, const int pPositionZ, 
+				  const Vector3D& pPosition,  
 				  const GLdouble pWidth, const GLdouble pHeight, const GLdouble pDepth) const;
 	void DrawCollisionRect(CollisionDetection* collision, const GLint pTexture, 
 				const int pTexCoordX, const int pTexCoordY, 
@@ -68,5 +68,6 @@ public:
 				const Vector3D& pPosition,
 				const Vector3D& pSize);
 	void DrawCollisionBox(BoundingBox *b);
+	void DrawCollisionBoxColored(BoundingBox *b);
 
 };

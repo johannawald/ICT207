@@ -8,8 +8,9 @@
 #include "Stairs.h"
 #include <sstream>
 #include "GameOverController.h"
+#include <iostream>
 
-int levelTime = 60;
+int levelTime = 120;
 
 void Countdown(int counterStepTime)
 {
@@ -41,36 +42,38 @@ void GameController::Init()
 void GameController::InitGameObjects() 
 {
 	int cubeSize = 500; //pIndex
-	addCollisionGameObject(Vector3D(10,10,10), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[0]);
-	addCollisionGameObject(Vector3D(100,100,10), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[1]);
-	addCollisionGameObject(Vector3D(200,200,10), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[2]);
-	addCollisionGameObject(Vector3D(50,50,-100), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[3]);
-	addCollisionGameObject(Vector3D(100,150,100), Vector3D(1000,1000,1000), (eModels)-1, (eTextures)-1, mBoxesCollisionIndex[4]);
+	//addCollisionGameObject(Vector3D(100,100,100), Vector3D(500,500,500), mBox, taBox, mBoxesCollisionIndex[0]);
+	//addCollisionGameObject(Vector3D(100,100,10), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[1]);
+	//addCollisionGameObject(Vector3D(200,200,10), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[2]);
+	//addCollisionGameObject(Vector3D(50,50,-100), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[3]);
+	//saddCollisionGameObject(Vector3D(100,150,100), Vector3D(1000,1000,1000), (eModels)-1, (eTextures)-1, mBoxesCollisionIndex[4]);
 }
 
 int GameController::CheckCollision()
 {	
 	//collision with walls:
 	int pIndexCollision = BasisGameController::CheckCollision();
-	if (pIndexCollision==0)		
+	/*if (pIndexCollision==0)		
 	{	
+		std::cout << "collision" << std::endl;
 		if (mPush)
 			PushBox(pIndexCollision);
 		if (mPull)
 			PullBox(pIndexCollision);
 	}
-	//here collision with objects 
+	//here collision with objects */
 	return pIndexCollision;
 }
 
 void GameController::BeforeCollision(int pIndex)
 {
 	//should not collide
-	//if (mCamera.GetXposDiff()>0)
-	float factor = -3.0f;
-	//mCollision.translateBoundingBoxOriginal(pIndex,  mCamera.GetXposDiff()*factor,  mCamera.GetYposDiff()*factor,  mCamera.GetZposDiff()*factor);
-	mCamera.SetPull(3);
-	mCollision.translateBoundingBoxOriginal(pIndex, Vector3D(mCamera.GetXposDiff()*factor, mCamera.GetYposDiff()*factor,  mCamera.GetZposDiff()*factor));
+	float factor = 3.0f;
+	
+	//if (mCamera.GetposDiff().x>0)
+		mCollision.translateBoundingBoxOriginal(pIndex, mCamera.GetposDiff()*factor);
+	//mCamera.SetPull(3);
+	//mCollision.translateBoundingBoxOriginal(pIndex, Vector3D(mCamera.GetXposDiff()*factor, mCamera.GetYposDiff()*factor,  mCamera.GetZposDiff()*factor));
 }
 
 void GameController::PushBox(int pIndex)
@@ -104,7 +107,7 @@ void GameController::DrawTexttest()
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!)
 { 
 	int index = -1;
-	if (mCollision.Collision(Vector3D(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos()), index, 100))
+	//if (mCollision.Collision(&mCamera.GetCameraBB(), &mCam)) //mCamera.Getpos(), index, 100))
 	{ 
 		//std::cout << "collision changed: " << std::endl;
 	}

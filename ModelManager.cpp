@@ -1,5 +1,6 @@
 #include "ModelManager.h"
 #include "ModelLoader.h"
+#include <iostream>
 
 ModelManager::ModelManager()
 {
@@ -22,6 +23,7 @@ void ModelManager::init()
 	mModels[3]->load("models/ladder.obj");
 	mModels[4]->load("models/box.obj");
 	mModels[5]->load("models/button.obj");
+	std::cout << "Models Loaded." << std::endl;
 }
 
 void ModelManager::reload()

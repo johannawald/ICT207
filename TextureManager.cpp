@@ -1,4 +1,5 @@
 #include "TextureManager.h"
+#include <iostream>
 
 TextureManager::TextureManager()
 {
@@ -56,6 +57,7 @@ void TextureManager::init()
 	mTextures[taTilewall] = Loadimage("textures/tilewall.bmp");
 	mTextures[taConcWall] = Loadimage("textures/concwall.bmp");
 	mTextures[taRustyWall] = Loadimage("textures/rustywall.png");
+	std::cout << "Textures Loaded." << std::endl;
 }
 
 void TextureManager::reload()

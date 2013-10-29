@@ -129,9 +129,6 @@
     <ClCompile Include="MoveController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BasisGameController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameOverController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -139,6 +136,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BoundingBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BasisGameController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -248,13 +248,13 @@
     <ClInclude Include="MoveController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BasisGameController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameOverController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Stairs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BasisGameController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

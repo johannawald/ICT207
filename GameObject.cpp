@@ -46,9 +46,7 @@ eTextures GameObject::getTextureIndex()
 	return mTextureIndex;
 }
 
-void GameObject::Transform(float x, float y, float z)
+void GameObject::Transform(Vector3D pTransform)
 {
-	mPosition.x = mPositionOriginal.x + x;
-	mPosition.y = mPositionOriginal.y + y;
-	mPosition.z = mPositionOriginal.z + z;
+	mPosition = mPositionOriginal + pTransform;
 }

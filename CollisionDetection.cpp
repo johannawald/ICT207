@@ -4,28 +4,13 @@
 #include "DrawManager.h"
 #include "Vector3D.h"
 
-bool CollisionDetection::CollisionX(int pIndex, GLfloat x)
-{
-	return ((x <= static_box[pIndex]->max.x) && (x>= static_box[pIndex]->min.x));
-}
-
-bool CollisionDetection::CollisionY(int pIndex, GLfloat y)
-{
-	return  ((y <= static_box[pIndex]->max.y) && (y>= static_box[pIndex]->min.y));
-}
-
-bool CollisionDetection::CollisionZ(int pIndex, GLfloat z)
-{
-	return ((z <= static_box[pIndex]->max.z) && (z>= static_box[pIndex]->min.z));
-}
-
-bool CollisionDetection::Collision(const Vector3D& pPoint, int &pIndex, const GLfloat pSize)
+bool CollisionDetection::Collision(const Vector3D& pPoint, int &pIndex, const BoundingBox* bb) 
 {
 	bool collisionResult = false;
 	bool collision = false;
 	for (unsigned int i = 0; i<static_box.size(); i++) 
 	{
-		collision = Collision(static_box[i], pPoint, pSize, true);
+		collision = Collision2(static_box[i], static_box[i]);
 		if (collision)
 			pIndex=i;
 		collisionResult = collisionResult || collision;
@@ -33,15 +18,43 @@ bool CollisionDetection::Collision(const Vector3D& pPoint, int &pIndex, const GL
 	return collisionResult;
 }
 
-bool CollisionDetection::Collision(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2)
+bool CollisionDetection::Collisions(BoundingBox* pBoundingBox1, int& pIndex)
 {
-	Vector3D vDistance = pBoundingBox1->GetCenter() - pBoundingBox2->GetCenter();
-	Vector3D vMaxDistance = pBoundingBox1->GetSize() + pBoundingBox2->GetSize();
-	return (abs(vDistance.x) <= vMaxDistance.x && abs(vDistance.y) <= vMaxDistance.y && abs(vDistance.z) <= vMaxDistance.z);
+	bool collisionResult = false;
+	bool collision = false;
+	pIndex = -1;
+	for (unsigned int i = 0; i<static_box.size(); i++) 
+	{
+		collision = Collision2(pBoundingBox1, static_box[i]);
+		if (collision)
+			pIndex=i;
+		collisionResult = collisionResult || collision;
+	}
+	return collisionResult;
+}
+
+bool CollisionDetection::Collision(BoundingBox* pBoundingBox1, const int pIndex)
+{
+	return false; //Collision(pBoundingBox1, static_box[pIndex]);
+}
+
+bool CollisionDetection::Collision2(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2)
+{	
+	//return false;	
+	Vector3D pBB2Center = pBoundingBox2->GetCenter();
+	Vector3D pBB1Center = pBoundingBox1->GetCenter();
+	
+	Vector3D vDistance = pBB1Center.GetDistance(pBB2Center);
+	Vector3D vMaxDistance = (pBoundingBox1->GetSize()/2.0f) + (pBoundingBox2->GetSize()/2.0f);
+
+	return (abs(vDistance.x) <= vMaxDistance.x &&
+		    abs(vDistance.y) <= vMaxDistance.y && 
+			abs(vDistance.z) <= vMaxDistance.z);
 }
 
 bool CollisionDetection::Collision(BoundingBox *b, const Vector3D& pPoint, const GLfloat size, bool pShowPosition)
 {
+	//old collision function
 	if (pShowPosition)
 	{
 		if (pPoint!=mVold) 
@@ -49,12 +62,7 @@ bool CollisionDetection::Collision(BoundingBox *b, const Vector3D& pPoint, const
 		mVold = pPoint;
 	}
 
-	//not only one point a cube! 
-
-	Vector3D Center = pPoint - b->max - b->OriginalMax;
-	/*GLfloat xCenter = (pPoint.x - (b->max.x-b->OriginalMax.x));
-	GLfloat yCenter = (pPoint.y - (b->max.y-b->OriginalMax.y));
-	GLfloat zCenter = (pPoint.z - (b->max.z-b->OriginalMax.z));*/
+	Vector3D Center = pPoint - b->GetMax() - b->OriginalMax;
 
 	GLfloat x[8];
 	GLfloat y[8];
@@ -106,15 +114,17 @@ bool CollisionDetection::Collision(BoundingBox *b, const Vector3D& pPoint, const
 
 bool CollisionDetection::PointCollision(BoundingBox *b, const Vector3D& pPoint)
 {
-	return ((pPoint.x <= b->max.x) && (pPoint.x>= b->min.x) && 
-			(pPoint.y<= b->max.y) && (pPoint.y>= b->min.y) && 
-			(pPoint.z<= b->max.z) && (pPoint.z >= b->min.z));
+	return ((pPoint.x <= b->GetMax().x) && (pPoint.x>= b->GetMin().x) && 
+			(pPoint.y<= b->GetMax().y) && (pPoint.y>= b->GetMin().y) && 
+			(pPoint.z<= b->GetMax().z) && (pPoint.z >= b->GetMin().z));
 }
 
 void CollisionDetection::translateBoundingBox(int i, const Vector3D& pTranslation)
 {
-	static_box[i]->max = static_box[i]->OriginalMax + pTranslation;
-	static_box[i]->min = static_box[i]->OriginalMin + pTranslation;
+	static_box[i]->Translate(pTranslation);
+
+	//SetMax(static_box[i]->OriginalMax + pTranslation);
+	//static_box[i]->SetMin(static_box[i]->OriginalMin + pTranslation);
 }
 
 void CollisionDetection::translateBoundingBoxOriginal(int i, const Vector3D& pTranslation)
@@ -129,17 +139,23 @@ void CollisionDetection::translateBoundingBoxes(const Vector3D& pTranslation)
 		translateBoundingBox(i, pTranslation);
 }
 
-int CollisionDetection::addCollisionBox(const Vector3D& pMin, 
-										const Vector3D& pMax) 
+BoundingBox& CollisionDetection::getCollisionBox(const Vector3D& pMin, const Vector3D& pMax)
+{
+	BoundingBox bb; //not working... :/
+	/*bb.max = pMax;
+	bb.min = pMin;
+
+	bb.OriginalMax = pMax;
+	bb.OriginalMin = pMin;*/
+	return bb;
+}
+
+int CollisionDetection::addCollisionBox(const Vector3D& pMin, const Vector3D& pMax) 
 {
 	BoundingBox* bb;
-	bb = new BoundingBox;
-	bb->max = pMax;
-	bb->min = pMin;
-
+	bb = new BoundingBox(pMin, pMax);
 	bb->OriginalMax = pMax;
 	bb->OriginalMin = pMin;
-
 	static_box.push_back(bb);
 	return (static_box.size()-1);
 }
@@ -151,12 +167,11 @@ void CollisionDetection::Draw(DrawManager* dm)
 	for (unsigned int i = 0; i<static_box.size(); i++) 
 	{
 		glColor3f(1.0f, 0.0f, 0.0f);
-		dm->DrawCollisionBox(static_box[i]);
+		//dm->DrawCollisionBox(static_box[i]);
+		//glColor3f(0.0f, 0.0f, 0.0f);
+		dm->DrawCollisionBoxColored(static_box[i]);
 		//glColor3f();
 		//depth = static_box[i]->max.z-static_box[i]->min.z;
-		/*dm->DrawCube(-1, 1, 1, static_box[i]->min.x, static_box[i]->min.y, static_box[i]->min.z+depth,
-							   static_box[i]->max.x-static_box[i]->min.x,
-							   static_box[i]->max.y-static_box[i]->min.y,
-							   static_box[i]->max.z-static_box[i]->min.z);*/
+	
 	}
 }

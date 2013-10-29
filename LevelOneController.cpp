@@ -38,16 +38,18 @@ void LevelOneController::Draw()  //try to avoid updating variables in the draw f
 		// prepare for camera manipulation
 		glPushMatrix();
 		glLoadIdentity();
-
+		
 		// move the camera
+		mCamera.PrepareMovement(-500.0, -250.0, 3000.0, 180.0);
 		mCamera.MoveCamera();
 
 		// DISPLAY TEXTURES
 		//enable texture mapping
 		glEnable (GL_TEXTURE_2D);
 		glPushMatrix();
+			
 			//set camera to start position
-			mCamera.SetCameraPosition(-500.0, -250.0, 3000.0, 180.0); 
+			mCamera.SetCameraPosition(); 
 			// displays the exit screen
 			DrawControlRoom();
 			DrawOuterWalls();

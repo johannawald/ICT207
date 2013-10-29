@@ -12,7 +12,8 @@ public:
 	Vector3D(float x, float y, float z);
 	Vector3D(void);
 	~Vector3D(void);
-
+	Vector3D& GetDistance(const Vector3D& pPoint) const;
+	//float GetDistance(const Vector3D& pPoint) const;
     Vector3D& Set(float r, float s, float t);
       
         float& operator [](long k);

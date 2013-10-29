@@ -4,10 +4,17 @@
 #include "TextureManager.h"
 #include <iostream>
 #include "GameObject.h"
+#include "BoundingBox.h"
 
 BasisGameController::BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager): 
 	BasisController(pAudiomanager, pModelmanager, pTexturemanager)
 {	
+	mCollision.addCollisionBox(Vector3D(0, 0, 0), Vector3D(200, 200, 600));
+	mCollision.addCollisionBox(Vector3D(-100, -100, -100), Vector3D(2000, 2000, 60));
+	mCollision.addCollisionBox(Vector3D(20, 20, 20), Vector3D(250, 20, 60));
+	mCollision.addCollisionBox(Vector3D(10, 200, 30), Vector3D(250, 100, 600));
+	mCollision.addCollisionBox(Vector3D(-1000, -2000, -300), Vector3D(-250, -100, -600));
+	mCollision.addCollisionBox(Vector3D(-100, 2000, -300), Vector3D(-250, -100, 600));
 }
 
 void BasisGameController::DrawGameObjects() 
@@ -62,7 +69,7 @@ void BasisGameController::addCollisionGameObject(const Vector3D& pPosition, cons
 	pCollisionIndex = mCollision.addCollisionBox(Vector3D(pPosition.x, pPosition.y, pPosition.z - pSize.z), 
 							   Vector3D(pPosition.x + pSize.x, pPosition.y + pPosition.y, pPosition.z));
 	
-	addGameObject(Vector3D(pPosition.x, pPosition.y, pPosition.z), Vector3D(0, 0, 0), Vector3D(1, 1, 1), pModel, pTexture, pCollisionIndex);
+	//addGameObject(Vector3D(pPosition.x, pPosition.y, pPosition.z), Vector3D(0, 0, 0), Vector3D(1, 1, 1), pModel, pTexture, pCollisionIndex);
 }
 
 void BasisGameController::Draw()
@@ -73,16 +80,16 @@ void BasisGameController::Draw()
 		glPushMatrix();
 			glLoadIdentity();
 			//Move camera:
-			mCamera.PrepareMovement();
+			mCamera.PrepareMovement(0, 0, 0, 0);
 			CheckCollision();
 			mCamera.MoveCamera();
 			glEnable(GL_TEXTURE_2D);
 			glPushMatrix();
 				//Set camera position:
-				mCamera.SetCameraPosition(-500, -250, 30, 0);
-				mCollision.translateBoundingBoxes(Vector3D(-500, -250, 30));		
+				mCamera.SetCameraPosition();
+				//mCollision.translateBoundingBoxes(); //Vector3D(-500, -250, 30));		
 				mCollision.Draw(GetDrawManager());
-				//translateGameObjects(-500, -250, 30); //do i need that
+				translateGameObjects(0, 0, 0); //do i need that
 				DrawObjects();
 			glPopMatrix();
 			glDisable(GL_TEXTURE_2D);
@@ -104,13 +111,18 @@ int BasisGameController::CheckCollision()
 	//Wallcollision
 	int IndexCollision = -1;
 	int mSizeController = 100;
-	if (mCollision.Collision(Vector3D(mCamera.GetXpos(), mCamera.GetYpos(), mCamera.GetZpos()), IndexCollision, mSizeController))
+	if (mCollision.Collisions(mCamera.GetCameraBB(), IndexCollision)) //IndexCollisions should be a list with all the IDs of objects that collided
 	{
-		BeforeCollision(IndexCollision);
-		if (mCollision.Collision(Vector3D(mCamera.GetXpos()+mCamera.GetXposDiff(), 
-						 mCamera.GetYpos()+mCamera.GetYposDiff(), 
-						 mCamera.GetZpos()+mCamera.GetZposDiff()), IndexCollision, mSizeController))
-			mCamera.SetDiffValues(0, 0, 0);
+		BeforeCollision(IndexCollision); //list!!
+		std::cout << "collision" << std::endl;
+		mCamera.SetDiffValues(0, 0, 0);
+
+		//mCamera.GetposDiff();
+		//BoundingBox* bb = mCamera.GetCameraBB();
+		//bb->Translate(mCamera.GetposDiff());
+		//if (mCollision.Collision(bb, IndexCollision)) 
+		//std::cout << " - test - " << std::endl;
+		//mCamera.SetDiffValues(0, 0, 0);
 	}
 	return IndexCollision;
 }
@@ -123,6 +135,6 @@ void BasisGameController::translateGameObjects(float x, float y, float z)
 { 
 	for (std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) 
 	{
-		(*it)->Transform(x,y,z);
+		(*it)->Transform(Vector3D(x,y,z));
 	}
 }

@@ -1,5 +1,6 @@
 #include "AudioManager.h"
 #include "EasySound.h"
+#include <iostream>
 
 AudioManager::AudioManager()
 {
@@ -20,6 +21,7 @@ void AudioManager::init()
 	mSounds[sIncorrectCode] = mSound->GetSound(mSound->Load("sounds/131657__bertrof__game-sound-wrong.wav"));
 	mSounds[sBgMusic] = mSound->GetSound(mSound->Load("sounds/BackgroundMusic.wav"));
 	mSounds[sBomb] = mSound->GetSound(mSound->Load("sounds/TimeBomb.wav"));
+	std::cout << "Sounds Loaded." << std::endl;
 }
 
 void AudioManager::reload()

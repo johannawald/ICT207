@@ -76,7 +76,7 @@ void DrawManager::DrawRect(const GLint pTexture,
 
 void DrawManager::DrawCube(const GLint pTexture, 
 						   const int pTexCoordX, const int pTexCoordY, 
-						   const int pPositionX, const int pPositionY, const int pPositionZ, 
+						   const Vector3D& pPosition, 
 						   const GLdouble pWidth, const GLdouble pHeight, const GLdouble pDepth) const
 {	
 	//z is reversed!
@@ -84,25 +84,25 @@ void DrawManager::DrawCube(const GLint pTexture,
 	glPushAttrib(GL_CURRENT_BIT);
 		glBindTexture(GL_TEXTURE_2D, -1);
 		//glDisable(GL_LIGHTING);
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, 10, 10);
+		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, 10, 10);
 		//draw the front
 		//glColor3f(0.3f, 0.0f, 0.0f);
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pHeight); 
+		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pWidth, pHeight); 
 		//draw the back
 		//glColor3f(0.0f, 0.5f, 0.0f);
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ-pDepth, pWidth, pHeight);
+		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z-pDepth, pWidth, pHeight);
 		//draw the side
 		//glColor3f(0.0f, 0.0f, 0.5f);
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pDepth, pHeight, 0, 90, 0);
+		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pDepth, pHeight, 0, 90, 0);
 		glTranslatef(pWidth,0,-pDepth);
 		//glColor3f(0.0f, 0.0f, 0.5f);
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pDepth, pHeight, 0, 270, 0);
+		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pDepth, pHeight, 0, 270, 0);
 		glTranslatef(-pWidth,0,pDepth);
 		//draw the top / bottom
 		//glColor3f(0.5f, 0.5f, 0.0f);
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pDepth, -90, 0, 0);
+		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pWidth, pDepth, -90, 0, 0);
 		glTranslatef(0,pHeight,0);
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pDepth, -90, 0, 0);
+		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pWidth, pDepth, -90, 0, 0);
 		glTranslatef(0,-pHeight,0);
 		//glEnable(GL_LIGHTING); 
 	glPopAttrib();
@@ -118,7 +118,7 @@ void DrawManager::DrawCollisionCube(CollisionDetection* collision, const GLint p
 //pSize.y = Width
 //pSize.z = Depth
 	glPushMatrix();
-		DrawCube(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pSize.x, pSize.y, pSize.z);
+		DrawCube(pTexture, pTexCoordX, pTexCoordY, pPosition, pSize.x, pSize.y, pSize.z);
 		Vector3D position = pPosition;
 		position.z -= pSize.z;
 		Vector3D size(pPosition.x+pSize.x, pPosition.y+pSize.y, pPosition.z);
@@ -132,39 +132,78 @@ void DrawManager::DrawCollisionRect(CollisionDetection* collision, const GLint p
 				const GLdouble pWidth, const GLdouble pHeight)
 {
 	glPushMatrix();
-		//DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pHeight);
+		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pHeight);
 		collision->addCollisionBox(Vector3D(pPositionX, pPositionY, pPositionZ), Vector3D(pPositionX+pWidth, pPositionY+pHeight, pPositionZ+100));
 	glPopAttrib();
 }
 
+void DrawManager::DrawCollisionBoxColored(BoundingBox *b)
+{
+	glColor3f(1,1,1);
+	glBegin(GL_QUADS);
+    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMin().z);
+    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMin().z);
+    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMin().z);
+    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMin().z);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMax().z);
+    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMax().z);
+    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMax().z);
+    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMax().z);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMin().z);
+    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMax().z);
+    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMax().z);
+    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMin().z);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMax().z);
+    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMax().z);
+    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMin().z);
+    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMin().z);
+    glEnd();
+
+	glPopAttrib();
+	glColor3f(0,1,0);
+}
+
 void DrawManager::DrawCollisionBox(BoundingBox *b)
 {
-    glColor3f(1,1,1);
+	glPushAttrib(GL_CURRENT_BIT);
+	glColor3f(1,0,0);
     glBegin(GL_LINE_LOOP);
-    glVertex3f(b->max.x,b->max.y,b->min.z);
-    glVertex3f(b->min.x,b->max.y,b->min.z);
-    glVertex3f(b->min.x,b->min.y,b->min.z);
-    glVertex3f(b->max.x,b->min.y,b->min.z);
+    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMin().z);
+    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMin().z);
+    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMin().z);
+    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMin().z);
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-    glVertex3f(b->max.x,b->min.y,b->max.z);
-    glVertex3f(b->max.x,b->max.y,b->max.z);
-    glVertex3f(b->min.x,b->max.y,b->max.z);
-    glVertex3f(b->min.x,b->min.y,b->max.z);
+    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMax().z);
+    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMax().z);
+    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMax().z);
+    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMax().z);
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-    glVertex3f(b->max.x,b->max.y,b->min.z);
-    glVertex3f(b->max.x,b->max.y,b->max.z);
-    glVertex3f(b->min.x,b->max.y,b->max.z);
-    glVertex3f(b->min.x,b->max.y,b->min.z);
+    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMin().z);
+    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMax().z);
+    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMax().z);
+    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMin().z);
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-    glVertex3f(b->max.x,b->min.y,b->max.z);
-    glVertex3f(b->min.x,b->min.y,b->max.z);
-    glVertex3f(b->min.x,b->min.y,b->min.z);
-    glVertex3f(b->max.x,b->min.y,b->min.z);
+    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMax().z);
+    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMax().z);
+    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMin().z);
+    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMin().z);
     glEnd();
+	glColor3f(1,1,1);
+	glPopAttrib();
+	glColor3f(1,1,1);
 }

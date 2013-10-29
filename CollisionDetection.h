@@ -25,12 +25,16 @@ public:
 	void translateBoundingBoxes(const Vector3D& pTranslation);
 	void scaleBoundingBoxes(const Vector3D& pScale);
 
-	bool Collision(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2);
-	bool Collision(const Vector3D& pPoint, int &pIndex, const GLfloat pSize);
-	bool CollisionX(int pIndex, GLfloat x);
-	bool CollisionY(int pIndex, GLfloat y);
-	bool CollisionZ(int pIndex, GLfloat z);
+	bool Collision2(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2);
+	bool Collision(BoundingBox* pBoundingBox1, const int pIndex); //collision between camerea and index
+	bool Collisions(BoundingBox* pBoundingBox1, int& pIndex);
+	//bool Collision(const Vector3D& pPoint, int &pIndex, const GLfloat pSize);
+	bool Collision(const Vector3D& pPoint, int &pIndex, const BoundingBox* bb);
+	//bool CollisionX(int pIndex, GLfloat x);
+	//bool CollisionY(int pIndex, GLfloat y);
+	//bool CollisionZ(int pIndex, GLfloat z);
 
+	BoundingBox& getCollisionBox(const Vector3D& pMin, const Vector3D& pMax);
 	int addCollisionBox(const Vector3D& pMin, const Vector3D& pMax);
 };
 

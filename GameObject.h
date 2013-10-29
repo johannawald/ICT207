@@ -39,7 +39,7 @@ class GameObject
 		float GetYScale();
 		float GetZScale();
 
-		void Transform(float x, float y, float z);
+		void Transform(Vector3D pTransform);
 
 		eModels getModelIndex();
 		eTextures getTextureIndex();
