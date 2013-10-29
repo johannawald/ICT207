@@ -56,39 +56,38 @@ MoveController::MoveController(): mJump(true)
 	mCameraTranslation.y = 0;
 	mCameraTranslation.z = 0;
 }
-
-/*
-float MoveController::GetXpos()
-{
-	return mPos.x;
-}
-
-
-float MoveController::GetYpos()
-{
-	return mPos.y;
-}
-
-
-float MoveController::GetZpos()
-{
-	return mPos.z;
-}
-
-float MoveController::GetXposDiff()
-{
-	return mPosDiff.x;
-}
-
-float MoveController::GetYposDiff()
-{
-	return mPosDiff.y;
-}
-
-float MoveController::GetZposDiff()
-{
-	return mPosDiff.z;
-}*/
+//
+//float MoveController::GetXpos()
+//{
+//	return mPos.x;
+//}
+//
+//
+//float MoveController::GetYpos()
+//{
+//	return mPos.y;
+//}
+//
+//
+//float MoveController::GetZpos()
+//{
+//	return mPos.z;
+//}
+//
+//float MoveController::GetXposDiff()
+//{
+//	return mPosDiff.x;
+//}
+//
+//float MoveController::GetYposDiff()
+//{
+//	return mPosDiff.y;
+//}
+//
+//float MoveController::GetZposDiff()
+//{
+//	return mPosDiff.z;
+//}
 
 void MoveController::SetCameraPosition()
 {

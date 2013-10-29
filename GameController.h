@@ -46,6 +46,13 @@ private:
 	void Draw3DModels();
 	void DrawObjects();
 	void InitGameObjects();
+
+	void DrawTimer();
+	void RenderBitmapString(float x, float y, float z, void *font, char *string);
+	void RenderStrokeFontString(float x, float y, float z, void *font, char *string);
+	void SetOrthographicProjection();
+	void RestorePerspectiveProjection();
+
 public:
 	/**
         * @brief constructor creates a new GameController object.

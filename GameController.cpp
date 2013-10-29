@@ -15,7 +15,7 @@ int levelTime = 120;
 void Countdown(int counterStepTime)
 {
 	levelTime -=1;
-	cout << "Timer: " << levelTime << "\n";
+	//cout << "Timer: " << levelTime << "\n";
 	glutTimerFunc(1000, *Countdown, 0);
 }
 
@@ -173,7 +173,7 @@ void GameController::DrawObjects()
 	//that Push is important!
 	glPushMatrix();
 		DrawGameObjects();
-		
+		DrawTimer();
 		//Draw objects
 		//Draw3DModels();
 		//DrawOuterWalls();
@@ -479,4 +479,91 @@ void GameController::DrawArchitecture()
 		glRotatef(270, 0, 1, 0);
 		GetDrawManager()->DrawStairs(500, 500, -500, 5);
 	glPopMatrix();
+}
+
+
+void GameController::DrawTimer()
+{
+	glBindTexture(GL_TEXTURE_2D, -1);
+	void *font;
+	char s[255];
+
+	SetOrthographicProjection();
+
+	glPushMatrix();
+	glLoadIdentity();
+
+	sprintf(s, "Time Remaining: %d", levelTime); //get timer
+	glColor3f(1.0, 0.0, 0.0);
+	font = GLUT_BITMAP_TIMES_ROMAN_24;
+	RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
+
+	sprintf(s, "Camera x: %f y: %f z: %f", mCamera.Getpos().x, mCamera.Getpos().y, mCamera.Getpos().z); //get camera position
+	glColor3f(1.0, 0.5, 0.5);
+	font = GLUT_BITMAP_8_BY_13;
+	RenderBitmapString(1.0,10.5,0.0,font, s); //display camera position
+
+	glPopMatrix();
+
+	RestorePerspectiveProjection();
+}
+
+
+void GameController::RenderBitmapString(float x, float y, float z, void *font, char *string) 
+{
+	char *c;
+
+	glRasterPos3f(x, y, z);
+
+	for (c=string; *c != '\0'; c++) 
+	{
+		glutBitmapCharacter(font, *c);
+	}
+}
+
+
+void GameController::RenderStrokeFontString(float x, float y, float z, void *font, char *string) 
+{
+	char *c;
+
+	glPushMatrix();
+	glTranslatef(x, y, z);
+	glScalef(0.002f, 0.002f, 0.002f);
+
+	for(c=string; *c != '\0'; c++) 
+	{
+		glutStrokeCharacter(font, *c);
+	}
+	glPopMatrix();
+}
+
+
+void GameController::SetOrthographicProjection()
+{
+	// switch to projection mode
+	glMatrixMode(GL_PROJECTION);
+
+	// save previous matrix which contains the
+	//settings for the perspective projection
+	glPushMatrix();
+
+	// reset matrix
+	glLoadIdentity();
+
+	// set a 2D orthographic projection
+	gluOrtho2D(0, GLUT_WINDOW_WIDTH, GLUT_WINDOW_HEIGHT, 0);
+
+	// switch back to modelview mode
+	glMatrixMode(GL_MODELVIEW);
+}
+
+
+void GameController::RestorePerspectiveProjection() 
+{
+	glMatrixMode(GL_PROJECTION);
+	// restore previous projection matrix
+	glPopMatrix();
+
+	// get back to modelview mode
+	glMatrixMode(GL_MODELVIEW);
 }

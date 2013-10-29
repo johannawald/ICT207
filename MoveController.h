@@ -67,7 +67,7 @@ class MoveController
 		void ResetDiffValues();
 	public:
 		MoveController();
-		/*float GetXpos();
+	/*	float GetXpos();
 		float GetYpos();
 		float GetZpos();
 		float GetXposDiff();
