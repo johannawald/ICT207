@@ -52,11 +52,14 @@ void TextureManager::init()
 	mTextures[taButton] = Loadimage("textures/button.bmp");
 	mTextures[taBomb] = Loadimage("textures/bomb.bmp");
 	mTextures[ta4x1platform] = Loadimage("textures/4x1platform.png");
-	mTextures[taConsole] = Loadimage("textures/console.png");
 	mTextures[taTilefloor] = Loadimage("textures/tilefloor.bmp");
 	mTextures[taTilewall] = Loadimage("textures/tilewall.bmp");
 	mTextures[taConcWall] = Loadimage("textures/concwall.bmp");
 	mTextures[taRustyWall] = Loadimage("textures/rustywall.png");
+	mTextures[taConsole] = Loadimage("textures/console.bmp");
+	//gameover
+	mTextures[taGameOver] = Loadimage("textures/gameover.png"); //updated 29.10 *JM
+	mTextures[taGameWin] = Loadimage("textures/gamewin.png");
 	std::cout << "Textures Loaded." << std::endl;
 }
 

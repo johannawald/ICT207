@@ -27,7 +27,7 @@
 #include "GameObject.h"
 #include "MoveController.h"
 
-class GameController : public IStateController, BasisGameController
+class GameController : public IStateController, public BasisGameController
 {
 private:
 	bool mPush;
@@ -44,8 +44,9 @@ private:
 	void DrawOuterWalls();
 	void DrawArchitecture();
 	void Draw3DModels();
-	void DrawObjects();
-	void InitGameObjects();
+	
+	virtual void DrawObjects();
+	virtual void InitGameObjects();
 
 	void DrawTimer();
 	void RenderBitmapString(float x, float y, float z, void *font, char *string);

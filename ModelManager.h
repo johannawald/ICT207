@@ -15,7 +15,7 @@
 #include "IAssetManager.h"
 #include <GL/freeglut.h>
 
-enum eModels { mAdvertisement, m4x1platform, mConsole, mLadder, mBox, mButton,
+enum eModels { mAdvertisement, m4x1platform, mConsole, mLadder, mBox, mButton, //mBox2,
 			   MODELS_SIZE };
 
 class ModelLoader;

@@ -50,7 +50,7 @@ public:
 	void DrawRect(const GLint pTexture, 
 				  const int TexCoordX, const int TexCoordY, 
 				  const int pPositionX, const int pPositionY, const int pPositionZ, 
-				  const GLdouble pWidth, const GLdouble pHeight) const;
+				  const GLdouble pWidth, const GLdouble pDepth, const GLdouble pHeight) const;
 	void DrawRect(const GLint pTexture, 
 				  const int TexCoordX, const int TexCoordY, 
 				  const int pPositionX, const int pPositionY, const int pPositionZ, 
@@ -62,7 +62,7 @@ public:
 	void DrawCollisionRect(CollisionDetection* collision, const GLint pTexture, 
 				const int pTexCoordX, const int pTexCoordY, 
 				const int pPositionX, const int pPositionY, const int pPositionZ, 
-				const GLdouble pWidth, const GLdouble pHeight);
+				const GLdouble pWidth, const GLdouble pDepth, const GLdouble pHeight);
 	void DrawCollisionCube(CollisionDetection* collision, const GLint pTexture, 
 				const int pTexCoordX, const int pTexCoordY, 
 				const Vector3D& pPosition,

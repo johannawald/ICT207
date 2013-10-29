@@ -4,13 +4,13 @@
 #include "DrawManager.h"
 #include "Vector3D.h"
 
-bool CollisionDetection::Collision(const Vector3D& pPoint, int &pIndex, const BoundingBox* bb) 
+bool CollisionDetection::Collision(const Vector3D& pPoint, int &pIndex, const BoundingBox* bb, const bool pCY) 
 {
 	bool collisionResult = false;
 	bool collision = false;
 	for (unsigned int i = 0; i<static_box.size(); i++) 
 	{
-		collision = Collision2(static_box[i], static_box[i]);
+		collision = Collision2(static_box[i], static_box[i], pCY);
 		if (collision)
 			pIndex=i;
 		collisionResult = collisionResult || collision;
@@ -18,14 +18,14 @@ bool CollisionDetection::Collision(const Vector3D& pPoint, int &pIndex, const Bo
 	return collisionResult;
 }
 
-bool CollisionDetection::Collisions(BoundingBox* pBoundingBox1, int& pIndex)
+bool CollisionDetection::Collisions(BoundingBox* pBoundingBox1, int& pIndex, const bool pCY)
 {
 	bool collisionResult = false;
 	bool collision = false;
 	pIndex = -1;
 	for (unsigned int i = 0; i<static_box.size(); i++) 
 	{
-		collision = Collision2(pBoundingBox1, static_box[i]);
+		collision = Collision2(pBoundingBox1, static_box[i], pCY);
 		if (collision)
 			pIndex=i;
 		collisionResult = collisionResult || collision;
@@ -33,12 +33,40 @@ bool CollisionDetection::Collisions(BoundingBox* pBoundingBox1, int& pIndex)
 	return collisionResult;
 }
 
-bool CollisionDetection::Collision(BoundingBox* pBoundingBox1, const int pIndex)
+bool CollisionDetection::CollisionX(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2)
 {
-	return false; //Collision(pBoundingBox1, static_box[pIndex]);
+	Vector3D pBB2Center = pBoundingBox2->GetCenter(); //we don't need that!
+	Vector3D pBB1Center = pBoundingBox1->GetCenter();
+	
+	Vector3D vDistance = pBB1Center.GetDistance(pBB2Center);
+	Vector3D vMaxDistance = (pBoundingBox1->GetSize()/2.0f) + (pBoundingBox2->GetSize()/2.0f);
+
+	return (abs(vDistance.x) <= vMaxDistance.x); 
 }
 
-bool CollisionDetection::Collision2(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2)
+bool CollisionDetection::CollisionY(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2)
+{
+	Vector3D pBB2Center = pBoundingBox2->GetCenter(); //we don't need that!
+	Vector3D pBB1Center = pBoundingBox1->GetCenter();
+	
+	Vector3D vDistance = pBB1Center.GetDistance(pBB2Center);
+	Vector3D vMaxDistance = (pBoundingBox1->GetSize()/2.0f) + (pBoundingBox2->GetSize()/2.0f);
+
+	return (abs(vDistance.y) <= vMaxDistance.y); 
+}
+
+bool CollisionDetection::CollisionZ(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2)
+{
+	Vector3D pBB2Center = pBoundingBox2->GetCenter(); //we don't need that!
+	Vector3D pBB1Center = pBoundingBox1->GetCenter();
+	
+	Vector3D vDistance = pBB1Center.GetDistance(pBB2Center);
+	Vector3D vMaxDistance = (pBoundingBox1->GetSize()/2.0f) + (pBoundingBox2->GetSize()/2.0f);
+
+	return (abs(vDistance.z) <= vMaxDistance.z); 
+}
+
+bool CollisionDetection::Collision2(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2, bool pCX, bool pCY, bool pCZ)
 {	
 	//return false;	
 	Vector3D pBB2Center = pBoundingBox2->GetCenter();
@@ -47,9 +75,27 @@ bool CollisionDetection::Collision2(BoundingBox* pBoundingBox1, BoundingBox* pBo
 	Vector3D vDistance = pBB1Center.GetDistance(pBB2Center);
 	Vector3D vMaxDistance = (pBoundingBox1->GetSize()/2.0f) + (pBoundingBox2->GetSize()/2.0f);
 
-	return (abs(vDistance.x) <= vMaxDistance.x &&
+	
+	if (pCX && pCY && pCZ)
+		return (abs(vDistance.x) <= vMaxDistance.x &&
 		    abs(vDistance.y) <= vMaxDistance.y && 
 			abs(vDistance.z) <= vMaxDistance.z);
+	//all axis
+	if (pCX && !pCY && pCZ)
+		return (abs(vDistance.x) <= vMaxDistance.x &&
+				abs(vDistance.z) <= vMaxDistance.z);
+
+	/*Vector3D pBB2Center = pBoundingBox2->GetCenter();
+	Vector3D pBB1Center = pBoundingBox1->GetCenter();
+	
+	Vector3D vDistance = pBB1Center.GetDistance(pBB2Center);
+	Vector3D vMaxDistance = (pBoundingBox1->GetSize()/2.0f) + (pBoundingBox2->GetSize()/2.0f);
+
+	//bool* returnValue = new bool[3];
+	returnValue[0] = abs(vDistance.x) <= vMaxDistance.x;
+	returnValue[1] = abs(vDistance.x) <= vMaxDistance.x;
+	returnValue[2] = abs(vDistance.x) <= vMaxDistance.x;
+	return returnValue;*/
 }
 
 bool CollisionDetection::Collision(BoundingBox *b, const Vector3D& pPoint, const GLfloat size, bool pShowPosition)

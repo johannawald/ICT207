@@ -11,12 +11,18 @@
 #include <iostream>
 
 int levelTime = 120;
+bool stopTimer = false;
 
 void Countdown(int counterStepTime)
 {
-	levelTime -=1;
-	//cout << "Timer: " << levelTime << "\n";
-	glutTimerFunc(1000, *Countdown, 0);
+if (!stopTimer)
+	{
+		levelTime -=1;
+		cout << "Timer: " << levelTime << "\n";
+		glutTimerFunc(1000, *Countdown, 0);
+	}
+	else
+		cout << "Timer stopped at " << levelTime << "\n";
 }
 
 GameController::GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture): 
@@ -42,7 +48,10 @@ void GameController::Init()
 void GameController::InitGameObjects() 
 {
 	int cubeSize = 500; //pIndex
-	//addCollisionGameObject(Vector3D(100,100,100), Vector3D(500,500,500), mBox, taBox, mBoxesCollisionIndex[0]);
+	addCollisionGameObject(Vector3D(1000,1000,1000), Vector3D(0,0,0), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), mBox, taBox, mBoxesCollisionIndex[0]);
+	addCollisionGameObject(Vector3D(1000,1500,1000), Vector3D(0,0,0), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), mBox, taBox, mBoxesCollisionIndex[1]);
+	
+
 	//addCollisionGameObject(Vector3D(100,100,10), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[1]);
 	//addCollisionGameObject(Vector3D(200,200,10), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[2]);
 	//addCollisionGameObject(Vector3D(50,50,-100), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[3]);
@@ -104,7 +113,7 @@ void GameController::DrawTexttest()
 	//Draw Infos in corner (Timer) here
 }
 
-void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!)
+void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!) //updated 29.10 *JM
 { 
 	int index = -1;
 	//if (mCollision.Collision(&mCamera.GetCameraBB(), &mCam)) //mCamera.Getpos(), index, 100))
@@ -112,7 +121,11 @@ void GameController::Update()  //this function should be used for updating varia
 		//std::cout << "collision changed: " << std::endl;
 	}
 	if (levelTime<=0)
+	{
+		stopTimer = true;
+		//StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture()));
 		StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture()));
+	}
 }
 
 void GameController::Reshape(int w, int h) 

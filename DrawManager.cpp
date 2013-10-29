@@ -38,21 +38,38 @@ void DrawManager::DrawStairs(const float stairWidth, const float stairHeight, co
 void DrawManager::DrawRect(const GLint pTexture, 
 				const int TexCoordX, const int TexCoordY, 
 				const int pPositionX, const int pPositionY, const int pPositionZ, 
-				const GLdouble pWidth, const GLdouble pHeight) const
+				const GLdouble pWidth, const GLdouble pDepth, const GLdouble pHeight ) const
 {
 	glPushMatrix();
-		glBindTexture(GL_TEXTURE_2D, pTexture);
+	glBindTexture(GL_TEXTURE_2D, pTexture);
+	if (pWidth == 0)
+	{
 		glBegin(GL_QUADS);
-			glTexCoord2f(TexCoordX, TexCoordX);		
-			glVertex3f(pPositionX, pPositionY, pPositionZ);
-			glTexCoord2f (0.0, TexCoordX);		
-			glVertex3f(pPositionX+pWidth, pPositionY, pPositionZ);
-			glTexCoord2f (0.0, 0.0);		
-			glVertex3f(pPositionX+pWidth, pPositionY+pHeight, pPositionZ);
-			glTexCoord2f (TexCoordX, 0.0);		
-			glVertex3f(pPositionX, pPositionY+pHeight, pPositionZ);
+			glTexCoord2f(TexCoordX, TexCoordY);		glVertex3f(pPositionX, pPositionY, pPositionZ);
+			glTexCoord2f (0.0, TexCoordY);			glVertex3f(pPositionX, pPositionY, pPositionZ+pDepth);
+			glTexCoord2f (0.0, 0.0);				glVertex3f(pPositionX, pPositionY+pHeight, pPositionZ+pDepth);
+			glTexCoord2f (TexCoordX, 0.0);			glVertex3f(pPositionX, pPositionY+pHeight, pPositionZ);
 		glEnd();
-		glBindTexture(GL_TEXTURE_2D, -1);
+	}
+	else if (pDepth == 0)
+	{
+		glBegin(GL_QUADS);
+			glTexCoord2f(TexCoordX, TexCoordY);		glVertex3f(pPositionX, pPositionY, pPositionZ);
+			glTexCoord2f (0.0, TexCoordY);			glVertex3f(pPositionX+pWidth, pPositionY, pPositionZ);
+			glTexCoord2f (0.0, 0.0);				glVertex3f(pPositionX+pWidth, pPositionY+pHeight, pPositionZ);
+			glTexCoord2f (TexCoordX, 0.0);			glVertex3f(pPositionX, pPositionY+pHeight, pPositionZ);
+		glEnd();
+	}
+	else if (pHeight == 0)
+	{
+		glBegin(GL_QUADS);
+			glTexCoord2f(TexCoordX, TexCoordY);		glVertex3f(pPositionX, pPositionY, pPositionZ);
+			glTexCoord2f (0.0, TexCoordY);			glVertex3f(pPositionX, pPositionY, pPositionZ+pDepth);
+			glTexCoord2f (0.0, 0.0);				glVertex3f(pPositionX+pWidth, pPositionY, pPositionZ+pDepth);
+			glTexCoord2f (TexCoordX, 0.0);			glVertex3f(pPositionX+pWidth, pPositionY, pPositionZ);
+		glEnd();
+	}
+	glBindTexture(GL_TEXTURE_2D, -1);
 	glPopMatrix();
 }
 
@@ -68,7 +85,7 @@ void DrawManager::DrawRect(const GLint pTexture,
 		glRotatef(angleY,0,1,0);
 		glRotatef(angleZ,0,0,1);
 		glTranslatef(-pPositionX, -pPositionY, -pPositionZ);
-		DrawRect(pTexture, TexCoordX, TexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pHeight);
+		//DrawRect(pTexture, TexCoordX, TexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pHeight);
 	glPopMatrix();
 }
 
@@ -84,13 +101,13 @@ void DrawManager::DrawCube(const GLint pTexture,
 	glPushAttrib(GL_CURRENT_BIT);
 		glBindTexture(GL_TEXTURE_2D, -1);
 		//glDisable(GL_LIGHTING);
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, 10, 10);
+	//	DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, 10, 10);
 		//draw the front
 		//glColor3f(0.3f, 0.0f, 0.0f);
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pWidth, pHeight); 
+	//	DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pWidth, pHeight); 
 		//draw the back
 		//glColor3f(0.0f, 0.5f, 0.0f);
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z-pDepth, pWidth, pHeight);
+	//	DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z-pDepth, pWidth, pHeight);
 		//draw the side
 		//glColor3f(0.0f, 0.0f, 0.5f);
 		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pDepth, pHeight, 0, 90, 0);
@@ -129,11 +146,11 @@ void DrawManager::DrawCollisionCube(CollisionDetection* collision, const GLint p
 void DrawManager::DrawCollisionRect(CollisionDetection* collision, const GLint pTexture, 
 				const int pTexCoordX, const int pTexCoordY, 
 				const int pPositionX, const int pPositionY, const int pPositionZ, 
-				const GLdouble pWidth, const GLdouble pHeight)
+				const GLdouble pWidth, const GLdouble pDepth, const GLdouble pHeight)
 {
 	glPushMatrix();
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pHeight);
-		collision->addCollisionBox(Vector3D(pPositionX, pPositionY, pPositionZ), Vector3D(pPositionX+pWidth, pPositionY+pHeight, pPositionZ+100));
+		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pDepth, pHeight);
+		//collision->addCollisionBox(Vector3D(pPositionX, pPositionY, pPositionZ), Vector3D(pPositionX+pWidth, pPositionY+pHeight, pPositionZ+pDepth));
 	glPopAttrib();
 }
 

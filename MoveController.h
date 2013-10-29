@@ -26,9 +26,13 @@ class DrawManager;
 class MoveController
 {
 	private:
-		const bool mJump;
+		bool mJump;
+		float mJumpHeight;
+		const float mMaxJumpHeight;
+
 		DrawManager* mDrawManager;
 		BoundingBox* mCameraBB; //we need that later!
+		
 		float mSpeed;
 		// angle of rotation values
 		Vector3D mPos;

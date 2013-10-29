@@ -142,6 +142,7 @@
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameOverController.cpp" />
+    <ClCompile Include="GameWinController.cpp" />
     <ClCompile Include="LevelOneController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="ControlRoom.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameOverController.h" />
+    <ClInclude Include="GameWinController.h" />
     <ClInclude Include="IAssetManager.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="BasisController.h" />

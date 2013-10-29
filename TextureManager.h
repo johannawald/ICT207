@@ -29,6 +29,8 @@ enum eTextures { tAdOreo,
 				 //LevelOneController:
 				 taBox, taButton, taBomb, ta4x1platform, taConsole, 
 				 taTilefloor, taTilewall, taConcWall, taRustyWall,
+				 //Game over screens
+				 taGameOver, taGameWin,								//updated 29.10 *JM
 				 TEXTURE_SIZE };
 
 class TextureManager: public IAssetManager {

@@ -12,8 +12,9 @@
 #include "DrawManager.h"
 #include <iostream>
 
-MoveController::MoveController(): mJump(true)
+MoveController::MoveController(): mJump(false), mMaxJumpHeight(50)
 {
+	mJumpHeight = mMaxJumpHeight;
 	// intialise camera values
 	mStartPosition.x = 0;
 	mStartPosition.y = 0;
@@ -116,6 +117,17 @@ void MoveController::SetDiffValues(float x, float y, float z)
 
 void MoveController::MoveCamera()  //try to avoid updating variables in the draw function! -> do that in the update-funciton
 {		
+	//if (mJumpHeight)
+	//mJumpHeight--;
+
+	if (mJump)
+		mJumpHeight--; //value animation framecount
+	if (mJumpHeight==0)
+	{	
+		mJump = false;
+		mJumpHeight = mMaxJumpHeight;
+	}
+
 	mPos.x += mPosDiff.x;
 	mPos.y += mPosDiff.y;
 	mPos.z += mPosDiff.z;
@@ -127,7 +139,7 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 
 	//mDrawManager->DrawCollisionBox(mCameraBB);
 	glPushMatrix();
-		glRotatef(90, 1, 0, 0);
+		glRotatef(0, 1, 0, 0);
 		glColor3f(1.0f, 0.0f, 0.0f);
 		glutSolidCube(100); //Our character to follow - WILL CHANGE TO CHARACTER
 	glPopMatrix();
@@ -142,7 +154,7 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 	
 	mCameraTranslation += mPos;
 	mCameraBB->Translate(-mPos);
-	glTranslated(-mPos.x,-mPos.y,-mPos.z); //translate the screen to the position of our camera
+	glTranslated(-mPos.x, -mPos.y, -mPos.z); //translate the screen to the position of our camera
 	glColor3f(1.0f, 1.0f, 1.0f);	
 }
 
@@ -258,9 +270,18 @@ void MoveController::Enable(void)
 
 void MoveController::KeyOperations(void)
 {
-	if(mKeyStates[' ']) //jump
-		std::cout << "jump";
+	if (mJump)
+		mPosDiff.y += 1.0f * mSpeed;
+	else 
+		mPosDiff.y = 0; //falling
 
+	if(mKeyStates[' ']) //jump
+	{
+		//std::cout << "jump";
+		mJump=true;
+		
+		mKeyStates[' '] = false;
+	}
 	if(mKeyStates['q'])
 	{
 		mYrotrad = (mYrot / 180 * 3.141592654f);

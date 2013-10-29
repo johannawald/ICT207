@@ -1,35 +1,33 @@
-#include "GameOverController.h"
+#include "GameWinController.h"
 #include "StateMachine.h"
 #include "GameController.h"
 #include "ControlRoom.h"
 
-GameOverController::GameOverController(AudioManager* am, ModelManager* mm, TextureManager* tm): 
+GameWinController::GameWinController(AudioManager* am, ModelManager* mm, TextureManager* tm): 
 	BasisController(am,mm,tm)
 {
 }
 
-void GameOverController::Init() 
+void GameWinController::Init() 
 {	
 	BasisController::Init();
 }
 
-void GameOverController::Draw()
+void GameWinController::Draw()
 {
 	BasisController::Draw();
 }
 
-void GameOverController::DrawObjects()		//updated 29.10 *JM
+void GameWinController::DrawObjects()
 {		
 	glPushMatrix();
-		//jon, Draw objects here
-		//trigger explosion, wait a second, then show this tex?
-		//or explosion in background?
+		//trigger something - needs to be a cool win state - fireworks?
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable (GL_TEXTURE_2D);
 		
 		
 		glColor3f(1, 1, 1);
-		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taGameOver));
+		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taGameWin));
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -46,27 +44,27 @@ void GameOverController::DrawObjects()		//updated 29.10 *JM
 	glPopMatrix();
 }
 
-void GameOverController::Update()
+void GameWinController::Update()
 { 
 }
 
-void GameOverController::Reshape(int w, int h) {
+void GameWinController::Reshape(int w, int h) {
 	BasisController::Reshape(w, h);
 }
 
-void GameOverController::MouseMotion(int x, int y)
+void GameWinController::MouseMotion(int x, int y)
 {
 }
 
-void GameOverController::SpecialKey(int key, int x, int y) 
+void GameWinController::SpecialKey(int key, int x, int y) 
 {
 }
 
-void GameOverController::SpecialKeyUp(int key, int x, int y) 
+void GameWinController::SpecialKeyUp(int key, int x, int y) 
 {
 }
 
-void GameOverController::Keyboard(unsigned char key, int x, int y)		//updated 29.10 *JM
+void GameWinController::Keyboard(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
@@ -77,14 +75,14 @@ void GameOverController::Keyboard(unsigned char key, int x, int y)		//updated 29
 }
 
 //--------------------------------------------------------------------------------------
-void GameOverController::KeyboardUp(unsigned char key, int x, int y)
+void GameWinController::KeyboardUp(unsigned char key, int x, int y)
 {
 }
 
-void GameOverController::Mouse(int button, int state, int x, int y)
+void GameWinController::Mouse(int button, int state, int x, int y)
 {
 }
 
-void GameOverController::PassiveMotion(int x, int y)
+void GameWinController::PassiveMotion(int x, int y)
 {
 }

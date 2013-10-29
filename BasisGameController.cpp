@@ -9,12 +9,7 @@
 BasisGameController::BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager): 
 	BasisController(pAudiomanager, pModelmanager, pTexturemanager)
 {	
-	mCollision.addCollisionBox(Vector3D(2000, 2000, 2000), Vector3D(200, 200, 600));
-	/*mCollision.addCollisionBox(Vector3D(1000, 1000, 1000), Vector3D(2000, 2000, 60));
-	mCollision.addCollisionBox(Vector3D(2000, 1200, 1200), Vector3D(250, 20, 60));
-	mCollision.addCollisionBox(Vector3D(100, 2000, 1300), Vector3D(250, 100, 600));
-	mCollision.addCollisionBox(Vector3D(10000, 20000, 3000), Vector3D(-250, -100, -600));
-	mCollision.addCollisionBox(Vector3D(1000, 20000, 3000), Vector3D(-250, -100, 600));*/
+
 }
 
 void BasisGameController::DrawGameObjects() 
@@ -61,15 +56,19 @@ void BasisGameController::Mouse(int button, int state, int x, int y)
 	mCamera.Mouse(button, state, x, y);
 }
 
-void BasisGameController::addCollisionGameObject(const Vector3D& pPosition, const Vector3D& pSize, const eModels pModel, const eTextures pTexture, int& pCollisionIndex)
+void BasisGameController::addCollisionGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, eModels pModel, eTextures pTexture, int& pCollisionIndex)
 //pSize.x - Width
 //pSize.y - Height
 //pSize.z - Depth
 {
-	pCollisionIndex = mCollision.addCollisionBox(Vector3D(pPosition.x, pPosition.y, pPosition.z - pSize.z), 
-							   Vector3D(pPosition.x + pSize.x, pPosition.y + pPosition.y, pPosition.z));
-	
-	//addGameObject(Vector3D(pPosition.x, pPosition.y, pPosition.z), Vector3D(0, 0, 0), Vector3D(1, 1, 1), pModel, pTexture, pCollisionIndex);
+	Vector3D min = pPosition;
+	Vector3D max = pPosition;
+	max.x += pSize.x;
+	max.y += pSize.y;
+	max.z -= pSize.z;
+
+	pCollisionIndex = mCollision.addCollisionBox(min, max);	
+	addGameObject(pPosition, pMovement, pSize, pScale, pModel, pTexture, pCollisionIndex);
 }
 
 void BasisGameController::Draw()
@@ -83,13 +82,12 @@ void BasisGameController::Draw()
 			mCamera.PrepareMovement(0, 0, 0, 0);
 			CheckCollision();
 			mCamera.MoveCamera();
+			//mCollision.translateBoundingBoxes(mCamera.Getpos()); //Vector3D(-500, -250, 30));		
 			glEnable(GL_TEXTURE_2D);
 			glPushMatrix();
 				//Set camera position:
 				mCamera.SetCameraPosition();
-				//mCollision.translateBoundingBoxes(); //Vector3D(-500, -250, 30));		
 				mCollision.Draw(GetDrawManager());
-				translateGameObjects(0, 0, 0); //do i need that
 				DrawObjects();
 			glPopMatrix();
 			glDisable(GL_TEXTURE_2D);
@@ -100,21 +98,20 @@ void BasisGameController::Draw()
 	}
 }
 
-void BasisGameController::addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex)
+void BasisGameController::addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex)
 {
-	GameObject* gameobject = new GameObject(Vector3D(100,100,100), Vector3D(0, 0, 0), Vector3D(1, 1, 1), mBox, taBox, 0);
+	GameObject* gameobject = new GameObject(pPosition, pMovement, pSize, pScale, pModelIndex, pTextureIndex, pCollisionIndex);
 	mGameObject.push_back(gameobject);
 }
 
 void BasisGameController::WallCollision(int pIndex)
 {
-
 		std::cout << "collision" << std::endl;
 		BoundingBox* bb = new BoundingBox();
 		bb = mCamera.GetCameraBB();
 		bb->Translate(mCamera.GetposDiff());
 
-		if (mCollision.Collisions(bb, pIndex))
+		if (mCollision.Collisions(bb, pIndex, false))
 			mCamera.SetDiffValues(0, mCamera.GetposDiff().y, 0); //not sure if we need that
 
 		//mCamera.GetposDiff();
@@ -125,6 +122,12 @@ void BasisGameController::WallCollision(int pIndex)
 		//mCamera.SetDiffValues(0, 0, 0);
 }
 
+void BasisGameController::PhysicCollision(int pIndex)
+{	
+	//falling and stuff
+	//mCamera.SetDiffValues(0, mCamera.GetposDiff().y, 0); //not sure if we need that
+}
+
 int BasisGameController::CheckCollision()
 {	
 	int IndexCollision = -1;
@@ -133,6 +136,7 @@ int BasisGameController::CheckCollision()
 	{
 		BeforeCollision(IndexCollision); //list!!
 		WallCollision(IndexCollision); //Wallcollision
+		PhysicCollision(IndexCollision);
 	}
 	return IndexCollision;
 }

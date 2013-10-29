@@ -20,6 +20,7 @@ class GameObject
 		Vector3D mPositionOriginal;
 		Vector3D mPosition;
 		Vector3D mScale;
+		Vector3D mSize;
 		Vector3D mMovement;
 
 		eModels mModelIndex;
@@ -29,7 +30,7 @@ class GameObject
 		//void (Class::*collisionMethod)(void);
 	public:
 		//void (GameController::*c
-		GameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex);
+		GameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex);
 
 		float GetXPosition();
 		float GetYPosition();
@@ -38,6 +39,8 @@ class GameObject
 		float GetXScale();
 		float GetYScale();
 		float GetZScale();
+
+		Vector3D& GetSize();
 
 		void Transform(Vector3D pTransform);
 

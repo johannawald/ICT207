@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
-GameObject::GameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex):
-	mPosition(pPosition), mMovement(pMovement), mScale(pScale), mModelIndex(pModelIndex), mTextureIndex(pTextureIndex), mCollisionIndex(pCollisionIndex)
+GameObject::GameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex):
+	mPosition(pPosition), mMovement(pMovement), mScale(pScale), mSize(pSize), mModelIndex(pModelIndex), mTextureIndex(pTextureIndex), mCollisionIndex(pCollisionIndex)
 {
 	mPositionOriginal = mPosition;
 }
@@ -18,7 +18,7 @@ float GameObject::GetYPosition()
 
 float GameObject::GetZPosition()
 {
-	return mScale.z;
+	return mPosition.z;
 }
 
 float GameObject::GetXScale()
@@ -34,6 +34,11 @@ float GameObject::GetYScale()
 float GameObject::GetZScale()
 {
 	return mScale.z;
+}
+
+Vector3D& GameObject::GetSize()
+{
+	return mSize;
 }
 
 eModels GameObject::getModelIndex()
