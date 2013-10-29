@@ -21,6 +21,7 @@ void AudioManager::init()
 	mSounds[sIncorrectCode] = mSound->GetSound(mSound->Load("sounds/131657__bertrof__game-sound-wrong.wav"));
 	mSounds[sBgMusic] = mSound->GetSound(mSound->Load("sounds/BackgroundMusic.wav"));
 	mSounds[sBomb] = mSound->GetSound(mSound->Load("sounds/TimeBomb.wav"));
+	mSounds[sTextMsg] = mSound->GetSound(mSound->Load("sounds/TextMsg.wav"));
 	std::cout << "Sounds Loaded." << std::endl;
 }
 
