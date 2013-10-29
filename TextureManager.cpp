@@ -57,6 +57,9 @@ void TextureManager::init()
 	mTextures[taTilewall] = Loadimage("textures/tilewall.bmp");
 	mTextures[taConcWall] = Loadimage("textures/concwall.bmp");
 	mTextures[taRustyWall] = Loadimage("textures/rustywall.png");
+	mTextures[taRoberWelcome1] = Loadimage("textures/ROBERWelcome01.png");
+	mTextures[taRoberWelcome2] = Loadimage("textures/ROBERWelcome02.png");
+	mTextures[taRoberConsoleSreen] = Loadimage("textures/ROBERControlScreen.png");
 	std::cout << "Textures Loaded." << std::endl;
 }
 
