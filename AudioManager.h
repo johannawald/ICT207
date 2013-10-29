@@ -16,7 +16,7 @@
 #include "IAssetManager.h"
 
 enum eSounds { sStep, sMetalicCrash, sIncorrectCode,
-			   sBgMusic, sBomb,
+			   sBgMusic, sBomb, sTextMsg,
 			   AUDIOSOUNDS_SIZE };
 
 class CSound;

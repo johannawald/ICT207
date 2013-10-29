@@ -493,7 +493,7 @@ void GameController::DrawTimer()
 	glPushMatrix();
 	glLoadIdentity();
 
-	sprintf(s, "Time Remaining: %d", levelTime); //get timer
+	sprintf(s, "Time: %d", levelTime); //get timer
 	glColor3f(1.0, 0.0, 0.0);
 	font = GLUT_BITMAP_TIMES_ROMAN_24;
 	RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
