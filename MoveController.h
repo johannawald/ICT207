@@ -26,6 +26,7 @@ class DrawManager;
 class MoveController
 {
 	private:
+		const bool mJump;
 		DrawManager* mDrawManager;
 		BoundingBox* mCameraBB; //we need that later!
 		float mSpeed;

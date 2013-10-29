@@ -9,12 +9,12 @@
 BasisGameController::BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager): 
 	BasisController(pAudiomanager, pModelmanager, pTexturemanager)
 {	
-	mCollision.addCollisionBox(Vector3D(0, 0, 0), Vector3D(200, 200, 600));
-	mCollision.addCollisionBox(Vector3D(-100, -100, -100), Vector3D(2000, 2000, 60));
-	mCollision.addCollisionBox(Vector3D(20, 20, 20), Vector3D(250, 20, 60));
-	mCollision.addCollisionBox(Vector3D(10, 200, 30), Vector3D(250, 100, 600));
-	mCollision.addCollisionBox(Vector3D(-1000, -2000, -300), Vector3D(-250, -100, -600));
-	mCollision.addCollisionBox(Vector3D(-100, 2000, -300), Vector3D(-250, -100, 600));
+	mCollision.addCollisionBox(Vector3D(2000, 2000, 2000), Vector3D(200, 200, 600));
+	/*mCollision.addCollisionBox(Vector3D(1000, 1000, 1000), Vector3D(2000, 2000, 60));
+	mCollision.addCollisionBox(Vector3D(2000, 1200, 1200), Vector3D(250, 20, 60));
+	mCollision.addCollisionBox(Vector3D(100, 2000, 1300), Vector3D(250, 100, 600));
+	mCollision.addCollisionBox(Vector3D(10000, 20000, 3000), Vector3D(-250, -100, -600));
+	mCollision.addCollisionBox(Vector3D(1000, 20000, 3000), Vector3D(-250, -100, 600));*/
 }
 
 void BasisGameController::DrawGameObjects() 
@@ -106,16 +106,16 @@ void BasisGameController::addGameObject(Vector3D& pPosition, Vector3D& pMovement
 	mGameObject.push_back(gameobject);
 }
 
-int BasisGameController::CheckCollision()
+void BasisGameController::WallCollision(int pIndex)
 {
-	//Wallcollision
-	int IndexCollision = -1;
-	int mSizeController = 100;
-	if (mCollision.Collisions(mCamera.GetCameraBB(), IndexCollision)) //IndexCollisions should be a list with all the IDs of objects that collided
-	{
-		BeforeCollision(IndexCollision); //list!!
+
 		std::cout << "collision" << std::endl;
-		mCamera.SetDiffValues(0, 0, 0);
+		BoundingBox* bb = new BoundingBox();
+		bb = mCamera.GetCameraBB();
+		bb->Translate(mCamera.GetposDiff());
+
+		if (mCollision.Collisions(bb, pIndex))
+			mCamera.SetDiffValues(0, mCamera.GetposDiff().y, 0); //not sure if we need that
 
 		//mCamera.GetposDiff();
 		//BoundingBox* bb = mCamera.GetCameraBB();
@@ -123,6 +123,16 @@ int BasisGameController::CheckCollision()
 		//if (mCollision.Collision(bb, IndexCollision)) 
 		//std::cout << " - test - " << std::endl;
 		//mCamera.SetDiffValues(0, 0, 0);
+}
+
+int BasisGameController::CheckCollision()
+{	
+	int IndexCollision = -1;
+	int mSizeController = 100;
+	if (mCollision.Collisions(mCamera.GetCameraBB(), IndexCollision)) //IndexCollisions should be a list with all the IDs of objects that collided
+	{
+		BeforeCollision(IndexCollision); //list!!
+		WallCollision(IndexCollision); //Wallcollision
 	}
 	return IndexCollision;
 }

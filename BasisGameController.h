@@ -39,6 +39,7 @@ protected:
 	virtual void DrawGameObjects();
 	virtual void CollisionWithObject(GameObject* pGameObject) = 0;
 	virtual int CheckCollision();
+	virtual void WallCollision(int pIndex); //*JW
 	virtual void BeforeCollision(int pIndex);
 
 	void translateGameObjects(float x, float y, float z);

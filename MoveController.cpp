@@ -10,8 +10,9 @@
 
 #include "MoveController.h"
 #include "DrawManager.h"
+#include <iostream>
 
-MoveController::MoveController()
+MoveController::MoveController(): mJump(true)
 {
 	// intialise camera values
 	mStartPosition.x = 0;
@@ -258,6 +259,9 @@ void MoveController::Enable(void)
 
 void MoveController::KeyOperations(void)
 {
+	if(mKeyStates[' ']) //jump
+		std::cout << "jump";
+
 	if(mKeyStates['q'])
 	{
 		mYrotrad = (mYrot / 180 * 3.141592654f);
