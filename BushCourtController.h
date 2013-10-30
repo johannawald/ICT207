@@ -159,4 +159,6 @@ public:
 	void CreatePlains();
 	// deletes image and clears memory
 	void DeleteImageFromMemory(unsigned char* tempImage);
+	// draw ROBER welcome screen
+	void DrawRoberWelcome();
 };

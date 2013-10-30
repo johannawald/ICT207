@@ -114,8 +114,10 @@ void BushCourtController::Draw()
 		glEnable (GL_TEXTURE_2D);
 		glPushMatrix();
 			// displays the welcome screen
-			if (DisplayWelcome) 
-				cam.DisplayWelcomeScreen(width, height, 1, tp.GetTexture(WELCOME));
+			if (DisplayWelcome)
+				cam.DisplayWelcomeScreen(width, height, 1, GetTexture()->getTextureID(taRoberWelcome1));
+				//DrawRoberWelcome();
+				//cam.DisplayWelcomeScreen(width, height, 1, tp.GetTexture(WELCOME));
 			// *JW: display the vending machine (with the "buy"-button on it)
 			if (transition.getstate() == tsVendingMachine)
 				cam.DisplayGameEntryScreen(1, tp.GetTexture(VENDING_MACHINE), "");
@@ -5919,7 +5921,8 @@ void BushCourtController::DrawAdPosterModels()
 void BushCourtController::Draw2DImages () //*JW
 {
 	tp.CreateDisplayList (0, 448, 256.0, 256.0, 10.0, 10.0, 0.0, 0.855, 1.0); // map
-	tp.CreateDisplayList (0, 449, 512.0, 512.0, 0.0, 0.0, 0.0, 1.0, 1.0);	  // welcome screen
+	tp.CreateDisplayList (0, 449, 512.0, 403.0, 0.0, 0.0, 0.0, 1.0, 1.0);	  // welcome screen
+	//tp.CreateDisplayList (0, 449, 512.0, 512.0, 0.0, 0.0, 0.0, 1.0, 1.0);	  // welcome screen
 	tp.CreateDisplayList (0, 450, 792, 492, 0.0, 0.0, 0.0, 1.0, 1.0);		  // vending machine
 	tp.CreateDisplayList (0, 454, 256.0, 64.0, 0.0, 0.0, 0.0, 1.0, 1.0);	  // welcome screen
 }
@@ -5970,4 +5973,30 @@ void BushCourtController::IncrementFrameCount()
 		frameCount = 0;
 		lastClock = clock();
 	}
+}
+
+
+
+void BushCourtController::DrawRoberWelcome() 
+{
+	//GetDrawManager()->SetOrthographicProjection();
+
+	//glPushMatrix();
+	//glLoadIdentity();
+
+	//glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taRoberWelcome1));
+	//
+	//glBegin(GL_QUADS);
+	//	glTexCoord2d(0, 0);
+	//	glVertex3f(256, 256, 0);
+	//	glTexCoord2d(1, 0);
+	//	glVertex3f(512, 256, 0);
+	//	glTexCoord2d(1, 1);
+	//	glVertex3f(512, 512, 0);
+	//	glTexCoord2d(0, 1);
+	//	glVertex3f(256, 512, 0);
+	//glEnd();
+
+	//glPopMatrix();
+	//GetDrawManager()->RestorePerspectiveProjection();
 }

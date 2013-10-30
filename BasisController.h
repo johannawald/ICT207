@@ -63,6 +63,7 @@ protected:
 		* @return TextureManager* - the stored member variable
     */
 	TextureManager* GetTexture() const;
+
 	/**
     * @brief GetMethod of the TextureManager member variable "drawmanager"
 		*
@@ -72,6 +73,7 @@ protected:
 		* @return DrawManager*: the membervariable DrawManager*
     */
 	DrawManager* GetDrawManager();
+
 public:	
 	/**
     * @brief constructor of the BasisController

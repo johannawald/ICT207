@@ -224,3 +224,63 @@ void DrawManager::DrawCollisionBox(BoundingBox *b)
 	glPopAttrib();
 	glColor3f(1,1,1);
 }
+
+
+void DrawManager::RenderBitmapString(const float x, const float y, const float z, void *font, const char *string) const 
+{
+	const char *c;
+
+	glRasterPos3f(x, y, z);
+
+	for (c=string; *c != '\0'; c++) 
+	{
+		glutBitmapCharacter(font, *c);
+	}
+}
+
+
+void DrawManager::RenderStrokeFontString(const float x, const float y, const float z, void *font, const char *string) const 
+{
+	const char *c;
+
+	glPushMatrix();
+	glTranslatef(x, y, z);
+	glScalef(0.002f, 0.002f, 0.002f);
+
+	for(c=string; *c != '\0'; c++) 
+	{
+		glutStrokeCharacter(font, *c);
+	}
+	glPopMatrix();
+}
+
+
+void DrawManager::SetOrthographicProjection() const 
+{
+	// switch to projection mode
+	glMatrixMode(GL_PROJECTION);
+
+	// save previous matrix which contains the
+	//settings for the perspective projection
+	glPushMatrix();
+
+	// reset matrix
+	glLoadIdentity();
+
+	// set a 2D orthographic projection
+	gluOrtho2D(0, GLUT_WINDOW_WIDTH, GLUT_WINDOW_HEIGHT, 0);
+
+	// switch back to modelview mode
+	glMatrixMode(GL_MODELVIEW);
+}
+
+
+void DrawManager::RestorePerspectiveProjection() const 
+{
+	glMatrixMode(GL_PROJECTION);
+	// restore previous projection matrix
+	glPopMatrix();
+
+	// get back to modelview mode
+	glMatrixMode(GL_MODELVIEW);
+}

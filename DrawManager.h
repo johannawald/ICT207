@@ -70,4 +70,8 @@ public:
 	void DrawCollisionBox(BoundingBox *b);
 	void DrawCollisionBoxColored(BoundingBox *b);
 
+	void RenderBitmapString(const float x, const float y, const float z, void *font, const char *string) const;
+	void RenderStrokeFontString(const float x, const float y, const float z, void *font, const char *string) const;
+	void SetOrthographicProjection() const;
+	void RestorePerspectiveProjection() const;
 };
