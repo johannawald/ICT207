@@ -21,7 +21,7 @@ void ModelManager::init()
 	mModels[m4x1platform]->load("models/4x1platform.obj");
 	mModels[mConsole]->load("models/console.obj");
 	mModels[mLadder]->load("models/ladder.obj");
-	mModels[mBox]->load("models/box.obj");
+	mModels[mBox]->load("models/robot.obj"); //box
 	mModels[mButton]->load("models/button.obj");
 	//mModels[mBox2]->load("models/box4.obj");
 	std::cout << "Models Loaded." << std::endl;

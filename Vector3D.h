@@ -4,6 +4,8 @@
 
 class Vector3D
 {
+private:
+	//static Vector3D s_vZero;
 public:
 	float x;
 	float y;

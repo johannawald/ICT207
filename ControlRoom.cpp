@@ -251,8 +251,9 @@ void ControlRoom::DrawConsole()
 void ControlRoom::DrawLadder()
 {
 	glPushMatrix();
-		glTranslatef(0, 0, -6750); //Jon, can you please locate that + Texture
+		glTranslatef(0, 0, -6750);
 		glScalef(1.5, 3, 3);	
-		GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taRustyWall));
+		addCollisionGameObject(Vector3D(0, 0, -6750), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, mIndexLadder);
+		//GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taRustyWall));
 	glPopMatrix();
 }

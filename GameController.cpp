@@ -12,17 +12,15 @@
 
 int levelTime = 120;
 bool stopTimer = false;
+bool DebugCollision = false;
 
 void Countdown(int counterStepTime)
 {
-if (!stopTimer)
+	if (!stopTimer)
 	{
 		levelTime -=1;
-		cout << "Timer: " << levelTime << "\n";
-		glutTimerFunc(1000, *Countdown, 0);
+		glutTimerFunc(1000, *Countdown, 0); //static?
 	}
-	else
-		cout << "Timer stopped at " << levelTime << "\n";
 }
 
 GameController::GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture): 
@@ -49,9 +47,8 @@ void GameController::InitGameObjects()
 {
 	int cubeSize = 500; //pIndex
 	//cubes
-	addCollisionGameObject(Vector3D(200,200,200), Vector3D(0,0,0), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), mBox, taBox, mBoxesCollisionIndex[0]);
-	addCollisionGameObject(Vector3D(700,200,200), Vector3D(0,0,0), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), mBox, taBox, mBoxesCollisionIndex[1]);
-	
+	addCollisionGameObject(Vector3D(200,200,200), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, mBoxesCollisionIndex[0]);
+	addCollisionGameObject(Vector3D(700,200,200), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, mBoxesCollisionIndex[1]);	
 }
 
 int GameController::CheckCollision()
@@ -60,17 +57,17 @@ int GameController::CheckCollision()
 	int pIndexCollision = BasisGameController::CheckCollision();
 	if (pIndexCollision>=0)		
 	{	
-		std::cout << "collision" << std::endl;
+		DebugCollision = true;
 		if (mPush)
 			PushBox(pIndexCollision);
 		if (mPull)
 			PullBox(pIndexCollision);
 	}
-	//here collision with objects */
+	else DebugCollision = false;
 	return pIndexCollision;
 }
 
-void GameController::BeforeCollision(int pIndex)
+void GameController::BeforeCollision(int pIndex) //just for boxes
 {
 	//should not collide
 	bool Move = false;
@@ -196,7 +193,7 @@ void GameController::DrawObjects()
 {
 	//that Push is important!
 	glPushMatrix();
-		DrawGameObjects();
+		
 		DrawTimer();
 		//Draw objects
 		//Draw3DModels();
@@ -526,6 +523,20 @@ void GameController::DrawTimer()
 	glColor3f(1.0, 0.5, 0.5);
 	font = GLUT_BITMAP_8_BY_13;
 	RenderBitmapString(1.0,10.5,0.0,font, s); //display camera position
+
+	sprintf(s, "Time: %d", levelTime); //get timer
+	glColor3f(1.0, 0.0, 0.0);
+	font = GLUT_BITMAP_TIMES_ROMAN_24;
+	RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
+
+	//Collision
+	if (DebugCollision)
+	{
+		sprintf(s, "Collision", mCamera.Getpos().x, mCamera.Getpos().y, mCamera.Getpos().z); //get camera position
+		glColor3f(1.0, 0.5, 0.5);
+		font = GLUT_BITMAP_8_BY_13;
+		RenderBitmapString(1.0, 15.5, 0.0, font, s); //display camera position
+	}
 
 	glPopMatrix();
 

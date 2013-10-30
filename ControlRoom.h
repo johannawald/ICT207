@@ -23,6 +23,9 @@
 
 class ControlRoom : public IStateController, BasisGameController {
 private:
+	int mIndexLadder;
+
+
 	void DrawFloor();
 	void DrawWalls();
 	void DrawStairs();

@@ -17,10 +17,7 @@ void BasisGameController::DrawGameObjects()
 	for (std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) 
 	{
 		glPushMatrix();
-			glTranslatef((*it)->GetXPosition(), (*it)->GetYPosition(), (*it)->GetZPosition());
-			glScalef((*it)->GetXScale(), (*it)->GetXScale(), (*it)->GetXScale()); 
-			if ((*it)->getModelIndex()>=0)
-				GetModel()->drawModel((*it)->getModelIndex(), (*it)->getTextureIndex());
+			(*it)->Draw(GetModel());
 		glPopMatrix();
 	}
 }
@@ -56,7 +53,9 @@ void BasisGameController::Mouse(int button, int state, int x, int y)
 	mCamera.Mouse(button, state, x, y);
 }
 
-void BasisGameController::addCollisionGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, eModels pModel, eTextures pTexture, int& pCollisionIndex)
+void BasisGameController::addCollisionGameObject(Vector3D& pPosition, Vector3D& pMovement, 
+												Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation,
+												eModels pModel, eTextures pTexture, int& pCollisionIndex)
 //pSize.x - Width
 //pSize.y - Height
 //pSize.z - Depth
@@ -68,7 +67,7 @@ void BasisGameController::addCollisionGameObject(Vector3D& pPosition, Vector3D& 
 	max.z -= pSize.z;
 
 	pCollisionIndex = mCollision.addCollisionBox(min, max);	
-	addGameObject(pPosition, pMovement, pSize, pScale, pModel, pTexture, pCollisionIndex);
+	addGameObject(pPosition, pMovement, pSize, pScale, pRotation, pModel, pTexture, pCollisionIndex);
 }
 
 void BasisGameController::Draw()
@@ -88,6 +87,7 @@ void BasisGameController::Draw()
 				//Set camera position:
 				mCamera.SetCameraPosition();
 				mCollision.Draw(GetDrawManager());
+				//DrawGameObjects();
 				DrawObjects();
 			glPopMatrix();
 			glDisable(GL_TEXTURE_2D);
@@ -98,9 +98,9 @@ void BasisGameController::Draw()
 	}
 }
 
-void BasisGameController::addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex)
+void BasisGameController::addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex)
 {
-	GameObject* gameobject = new GameObject(pPosition, pMovement, pSize, pScale, pModelIndex, pTextureIndex, pCollisionIndex);
+	GameObject* gameobject = new GameObject(pPosition, pMovement, pSize, pScale, pRotation, pModelIndex, pTextureIndex, pCollisionIndex);
 	mGameObject.push_back(gameobject);
 }
 

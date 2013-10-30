@@ -22,6 +22,7 @@ class GameObject
 		Vector3D mScale;
 		Vector3D mSize;
 		Vector3D mMovement;
+		Vector3D mRotation;
 
 		eModels mModelIndex;
 		eTextures mTextureIndex;
@@ -30,15 +31,18 @@ class GameObject
 		//void (Class::*collisionMethod)(void);
 	public:
 		//void (GameController::*c
-		GameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex);
+		GameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, 
+				   eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex);
+		
+		void Draw(ModelManager* pModelManager);
 
 		float GetXPosition();
 		float GetYPosition();
 		float GetZPosition();
 
-		float GetXScale();
+		/*float GetXScale();
 		float GetYScale();
-		float GetZScale();
+		float GetZScale();*/
 
 		Vector3D& GetSize();
 

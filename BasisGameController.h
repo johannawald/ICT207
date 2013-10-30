@@ -28,7 +28,7 @@ protected:
 	MoveController mCamera;
 	CollisionDetection mCollision;
 	virtual void Draw();
-	void addCollisionGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, //Vector3D& pOffset,
+	void addCollisionGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation,
 								eModels pModel, eTextures pTexture, int& pCollisionIndex);
 	virtual void MouseMotion(int x, int y);
 	virtual void SpecialKey(int key, int x, int y);
@@ -46,7 +46,8 @@ protected:
 	GameObject* GetGameObject(const int pIndex) const;
 	void translateGameObject(GameObject* gobj, const Vector3D& pTranslation);
 	void translateGameObjects(const Vector3D& pTranslation);
-	void addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex);
+	void addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, 
+					   eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex);
 public:	
 	BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager);
 };
