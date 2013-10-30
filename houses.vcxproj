@@ -169,6 +169,7 @@
     <ClInclude Include="BoundingBox.h" />
     <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="ControlRoom.h" />
+    <ClInclude Include="GameController.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameOverController.h" />
     <ClInclude Include="GameWinController.h" />
@@ -182,7 +183,6 @@
     <ClInclude Include="collision.h" />
     <ClInclude Include="DrawManager.h" />
     <ClInclude Include="EasySound.h" />
-    <ClInclude Include="GameController.h" />
     <ClInclude Include="IStateController.h" />
     <ClInclude Include="LevelOneController.h" />
     <ClInclude Include="ModelLoader.h" />
