@@ -39,6 +39,9 @@ BushCourtController::BushCourtController(AudioManager* am, ModelManager* mm, Tex
 	// load texture images and create display lists
 	CreateTextureList();
 	CreateTextures();
+
+	//glutFullScreen();
+
 	loaded = true;	
 }
 
@@ -57,6 +60,7 @@ void BushCourtController::ResetTransition()
 //  Initialize Settings
 //--------------------------------------------------------------------------------------
 void BushCourtController::Init() {
+	txtmsgtimer=0;
 	// set background (sky colour)
 	ResetTransition(); //*JW
 
@@ -104,6 +108,9 @@ void BushCourtController::Draw()
 {
 	if (loaded) 
 	{
+		if(txtmsgtimer<252)
+			txtmsgtimer++;
+		cout << "txt time: " << txtmsgtimer << endl;
 		// check for movement
 		cam.CheckCamera();
 		//ansition.CheckNumberpad();
@@ -115,9 +122,18 @@ void BushCourtController::Draw()
 		glPushMatrix();
 			// displays the welcome screen
 			if (DisplayWelcome)
-				cam.DisplayWelcomeScreen(width, height, 1, GetTexture()->getTextureID(taRoberWelcome1));
-				//DrawRoberWelcome();
-				//cam.DisplayWelcomeScreen(width, height, 1, tp.GetTexture(WELCOME));
+			{
+				if(txtmsgtimer < 250)
+					cam.DisplayWelcomeScreen(width, height, 1, GetTexture()->getTextureID(taRoberWelcome1));
+					//DrawRoberWelcome();
+					//cam.DisplayWelcomeScreen(width, height, 1, tp.GetTexture(WELCOME));
+				else
+				{
+					cam.DisplayWelcomeScreen(width, height, 1, GetTexture()->getTextureID(taRoberWelcome2));
+					if(txtmsgtimer < 251)
+						GetAudio()->playSound(sTextMsg);
+				}
+			}
 			// *JW: display the vending machine (with the "buy"-button on it)
 			if (transition.getstate() == tsVendingMachine)
 				cam.DisplayGameEntryScreen(1, tp.GetTexture(VENDING_MACHINE), "");
@@ -5921,7 +5937,7 @@ void BushCourtController::DrawAdPosterModels()
 void BushCourtController::Draw2DImages () //*JW
 {
 	tp.CreateDisplayList (0, 448, 256.0, 256.0, 10.0, 10.0, 0.0, 0.855, 1.0); // map
-	tp.CreateDisplayList (0, 449, 512.0, 403.0, 0.0, 0.0, 0.0, 1.0, 1.0);	  // welcome screen
+	tp.CreateDisplayList (0, 449, 1024.0, 768.0, 0.0, 0.0, 0.0, 1.0, 1.0);	  // welcome screen
 	//tp.CreateDisplayList (0, 449, 512.0, 512.0, 0.0, 0.0, 0.0, 1.0, 1.0);	  // welcome screen
 	tp.CreateDisplayList (0, 450, 792, 492, 0.0, 0.0, 0.0, 1.0, 1.0);		  // vending machine
 	tp.CreateDisplayList (0, 454, 256.0, 64.0, 0.0, 0.0, 0.0, 1.0, 1.0);	  // welcome screen

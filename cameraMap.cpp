@@ -67,7 +67,7 @@ void CameraMap::DisplayWelcomeScreen (const int & screenWidth, const int & scree
 		
 	// move to centre of screen
 	//glTranslatef(screenWidth/2 -256.0, -screenHeight/2 -256.0, 0);
-	glTranslatef(screenWidth/2 -256.0, -screenHeight/2 -201.5, 0);
+	glTranslatef(screenWidth/2 -512.0, -screenHeight/2 -384, 0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();	
 	

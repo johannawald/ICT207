@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100,100);
-	glutInitWindowSize(800,500);
+	glutInitWindowSize(GLUT_SCREEN_WIDTH,GLUT_SCREEN_HEIGHT);
 	glutCreateWindow("Murdoch University Campus Tour");
 	//initialize the State of the StateMachine (Bush court is set as the first state)
 	StateMachine::getInstance();

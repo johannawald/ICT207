@@ -42,6 +42,7 @@ private:
 	GLdouble angleIncrement;
 	int frameCount;
 	clock_t lastClock;
+	int txtmsgtimer;
 
 	unsigned char* BushCourtController::image;
 	// ratio of screen
