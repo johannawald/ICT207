@@ -39,9 +39,9 @@ protected:
 	virtual void DrawGameObjects();
 	virtual void CollisionWithObject(GameObject* pGameObject) = 0;
 	virtual int CheckCollision();
-	virtual void WallCollision(int pIndex); //*JW
-	virtual void PhysicCollision(int pIndex);
-	virtual void BeforeCollision(int pIndex);
+	virtual void WallCollision(int pIndex, float pCollisionValue); //*JW
+	virtual void PhysicCollision(int pIndex, float pCollisionValue);
+	virtual void BeforeCollision(int pIndex, float pCollisionValue);
 	void MoveGameObject(const int pIndex, const Vector3D& pTranslate);
 	GameObject* GetGameObject(const int pIndex) const;
 	void translateGameObject(GameObject* gobj, const Vector3D& pTranslation);

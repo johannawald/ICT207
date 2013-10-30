@@ -74,16 +74,16 @@ void GameController::BeforeCollision(int pIndex) //just for boxes
 	float factor = 10.0f;
 	//if not collision
 	int pCollisionIndex = -1;
+	
 	if (!mCollision.Collisions(pIndex, pCollisionIndex, true))
 		Move = true;
 	else 
 	{
-		BoundingBox* bb;
-		bb = mCollision.GetCollisionBox(pIndex);
-		bb->Translate(mCamera.GetposDiff()*factor);
-		if (!mCollision.Collisions(bb, pCollisionIndex, true, pIndex))
+		BoundingBox bb;
+		bb = *mCollision.GetCollisionBox(pIndex);
+		bb.Translate(mCamera.GetposDiff()*factor);
+		if (!mCollision.Collisions(&bb, pCollisionIndex, true, pIndex))
 			Move = true;
-		delete bb;
 	}
 	if (Move)
 	{

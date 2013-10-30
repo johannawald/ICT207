@@ -87,7 +87,7 @@ void BasisGameController::Draw()
 				//Set camera position:
 				mCamera.SetCameraPosition();
 				mCollision.Draw(GetDrawManager());
-				//DrawGameObjects();
+				DrawGameObjects();
 				DrawObjects();
 			glPopMatrix();
 			glDisable(GL_TEXTURE_2D);
@@ -104,25 +104,22 @@ void BasisGameController::addGameObject(Vector3D& pPosition, Vector3D& pMovement
 	mGameObject.push_back(gameobject);
 }
 
-void BasisGameController::WallCollision(int pIndex)
+void BasisGameController::WallCollision(int pIndex, float pCollisionValue)
 {
-		std::cout << "collision" << std::endl;
-		BoundingBox* bb = new BoundingBox();
-		bb = mCamera.GetCameraBB();
-		bb->Translate(mCamera.GetposDiff());
-
-		if (mCollision.Collisions(bb, pIndex, false))
-			mCamera.SetDiffValues(0, mCamera.GetposDiff().y, 0); //not sure if we need that
-
-		//mCamera.GetposDiff();
-		//BoundingBox* bb = mCamera.GetCameraBB();
-		//bb->Translate(mCamera.GetposDiff());
-		//if (mCollision.Collision(bb, IndexCollision)) 
-		//std::cout << " - test - " << std::endl;
-		//mCamera.SetDiffValues(0, 0, 0);
+	BoundingBox bb;
+	bb = *mCamera.GetCameraBB();
+	bb.Translate(mCamera.GetposDiff());
+	float ChangedCollisionValue = mCollision.Collisions(&bb, pIndex);
+	//float ChangedCollisionValue = mCollision.Collisions(mCamera.GetCameraBB(), pIndex, false); 
+								  //mCollision.Collisions(mCamera.GetCameraBB(), pIndex); 
+	if (pCollisionValue>0)
+	{
+		if (ChangedCollisionValue>pCollisionValue)
+			mCamera.SetDiffValues(0, 0, 0); //not sure if we need that
+	}
 }
 
-void BasisGameController::PhysicCollision(int pIndex)
+void BasisGameController::PhysicCollision(int pIndex, float pCollisionValue)
 {	
 	//falling and stuff
 	//mCamera.SetDiffValues(0, mCamera.GetposDiff().y, 0); //not sure if we need that
@@ -132,16 +129,17 @@ int BasisGameController::CheckCollision()
 {	
 	int IndexCollision = -1;
 	int mSizeController = 100;
-	if (mCollision.Collisions(mCamera.GetCameraBB(), IndexCollision)) //IndexCollisions should be a list with all the IDs of objects that collided
+	float CollisionValue = mCollision.Collisions(mCamera.GetCameraBB(), IndexCollision); 
+	if (CollisionValue>0) //IndexCollisions should be a list with all the IDs of objects that collided
 	{
-		BeforeCollision(IndexCollision); //list!!
-		WallCollision(IndexCollision); //Wallcollision
-		PhysicCollision(IndexCollision);
+		BeforeCollision(IndexCollision, CollisionValue); //list!!
+		WallCollision(IndexCollision, CollisionValue); //Wallcollision
+		PhysicCollision(IndexCollision, CollisionValue);
 	}
 	return IndexCollision;
 }
 
-void BasisGameController::BeforeCollision(int pIndex)
+void BasisGameController::BeforeCollision(int pIndex, float pCollisionValue)
 {
 }
 

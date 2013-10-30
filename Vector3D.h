@@ -18,7 +18,7 @@ public:
 	//float GetDistance(const Vector3D& pPoint) const;
     Vector3D& Set(float r, float s, float t);
       
-        float& operator [](long k);
+    float& operator [](long k);
     
         const float& operator [](long k) const;
 
