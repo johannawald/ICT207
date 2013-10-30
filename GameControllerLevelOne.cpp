@@ -7,7 +7,6 @@
 
 GameControllerLevelOne::GameControllerLevelOne(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture): GameController(pAudio, pModel, pTexture)
 {
-	
 }
 
 

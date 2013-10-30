@@ -120,12 +120,12 @@ void ControlRoom::DrawFloor()
 	//maybe create a variable "factor" to change the size of everything easily
 
 	//floor
-	/*GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, -4000, 0, -6000, 8000, 12000, 0);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, -4000, 0, -6000, 8000, 12000, 0);
 	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 1, 1, -2000, 0, -8000, 4000, 2000, 0);
 	//roof
 	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, -4000, 4000, -6000, 8000, 12000, 0);
 	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 1, 1, -2000, 4000, -8000, 4000, 2000, 0);
-	*/
+	
 	/*
 	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor));
 	glBegin(GL_QUADS);
@@ -240,8 +240,9 @@ void ControlRoom::DrawStairs()
 
 void ControlRoom::DrawConsole()
 {
+	//console is 500x250?
 	glPushMatrix();
-		glTranslatef(0, 0, 5000);
+		glTranslatef(1000, 0, 4500);
 		glRotatef(180, 0, 1, 0);
 		glScalef(2, 2, 2);
 		GetModel()->drawModel(mConsole, GetTexture()->getTextureID(taConsole));
@@ -251,9 +252,9 @@ void ControlRoom::DrawConsole()
 void ControlRoom::DrawLadder()
 {
 	glPushMatrix();
-		glTranslatef(0, 0, -6750);
+		//glTranslatef(-500, 0, -6750);
 		glScalef(1.5, 3, 3);	
-		addCollisionGameObject(Vector3D(0, 0, -6750), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, mIndexLadder);
+		addCollisionGameObject(Vector3D(-250, 0, -6560), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, mIndexLadder);
 		//GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taRustyWall));
 	glPopMatrix();
 }
