@@ -101,9 +101,9 @@ float CollisionDetection::Collision2(BoundingBox* pBoundingBox1, BoundingBox* pB
 	
 	if (pCX && pCY && pCZ) 
 	{	
-		if (!(abs(vDistance.x) <= vMaxDistance.x &&
+		if (!((abs(vDistance.x) <= vMaxDistance.x &&
 		    abs(vDistance.y) <= vMaxDistance.y && 
-			abs(vDistance.z) <= vMaxDistance.z))
+			abs(vDistance.z) <= vMaxDistance.z)))
 			return 0;
 		else 
 			return (vMaxDistance.x - vDistance.x) + (vMaxDistance.y - vDistance.y) + (vMaxDistance.z - vDistance.z);

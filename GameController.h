@@ -61,7 +61,7 @@ public:
 	GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture);
 	void CollisionWithObject(GameObject* pGameObject);
 	int CheckCollision();
-	void BeforeCollision(int pIndex);
+	void BeforeCollision(int pIndex, float pCollisionValue);
 	void Init();
 	void Draw();
 	void Update();

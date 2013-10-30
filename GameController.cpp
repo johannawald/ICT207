@@ -67,24 +67,39 @@ int GameController::CheckCollision()
 	return pIndexCollision;
 }
 
-void GameController::BeforeCollision(int pIndex) //just for boxes
+void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just for boxes
 {
 	//should not collide
 	bool Move = false;
-	float factor = 10.0f;
+	float factor = 1.0f;
 	//if not collision
 	int pCollisionIndex = -1;
 	
-	if (!mCollision.Collisions(pIndex, pCollisionIndex, true))
-		Move = true;
+	float CollisionValue = mCollision.Collisions(pIndex, pCollisionIndex, true);
+
+	if (CollisionValue==0)
+	{	
+		BoundingBox bb;
+		bb = *mCamera.GetCameraBB();
+		bb.Translate(mCamera.GetposDiff()*factor);
+		//collision of moved camera:
+		float CollisionValueMoved = mCollision.Collisions(&bb, pCollisionIndex, true);
+
+		if (CollisionValueMoved<=pCollisionValue)
+			Move = false;
+		else 
+			Move = true;
+	}
 	else 
 	{
 		BoundingBox bb;
 		bb = *mCollision.GetCollisionBox(pIndex);
 		bb.Translate(mCamera.GetposDiff()*factor);
-		if (!mCollision.Collisions(&bb, pCollisionIndex, true, pIndex))
+		float CollisionValueMoved = mCollision.Collisions(&bb, pCollisionIndex, true, pIndex);
+		if (CollisionValueMoved<=CollisionValue) //pull
 			Move = true;
 	}
+	//Move = true;
 	if (Move)
 	{
 		mCollision.translateBoundingBoxOriginal(pIndex, mCamera.GetposDiff()*factor);
