@@ -55,3 +55,9 @@ void GameObject::Transform(Vector3D pTransform)
 {
 	mPosition = mPositionOriginal + pTransform;
 }
+
+void GameObject::Move(Vector3D pTransform)
+{
+	mPositionOriginal = mPositionOriginal + pTransform;
+	mPosition = mPositionOriginal + pTransform;
+}

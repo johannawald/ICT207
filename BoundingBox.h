@@ -6,8 +6,7 @@
 class BoundingBox
 {
 private:
-	Vector3D mMax;
-    Vector3D mMin;
+	
 public:
 	BoundingBox(Vector3D pMin, Vector3D pMax);
 	BoundingBox(Vector3D pPosition, float pSize);
@@ -22,6 +21,8 @@ public:
 	//void SetMin(const Vector3D& pValue);
 	void SetBoundingBox(Vector3D pPosition, Vector3D pSize);
 
+	Vector3D mMax;
+    Vector3D mMin;
     Vector3D OriginalMax;
     Vector3D OriginalMin;
 

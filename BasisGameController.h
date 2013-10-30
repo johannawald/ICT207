@@ -42,8 +42,10 @@ protected:
 	virtual void WallCollision(int pIndex); //*JW
 	virtual void PhysicCollision(int pIndex);
 	virtual void BeforeCollision(int pIndex);
-
-	void translateGameObjects(float x, float y, float z);
+	void MoveGameObject(const int pIndex, const Vector3D& pTranslate);
+	GameObject* GetGameObject(const int pIndex) const;
+	void translateGameObject(GameObject* gobj, const Vector3D& pTranslation);
+	void translateGameObjects(const Vector3D& pTranslation);
 	void addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex);
 public:	
 	BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager);

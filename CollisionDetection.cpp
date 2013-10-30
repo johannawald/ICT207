@@ -18,13 +18,25 @@ bool CollisionDetection::Collision(const Vector3D& pPoint, int &pIndex, const Bo
 	return collisionResult;
 }
 
-bool CollisionDetection::Collisions(BoundingBox* pBoundingBox1, int& pIndex, const bool pCY)
+bool CollisionDetection::Collisions(const int pBBIndex, int& pIndex, const bool pCY)
+{
+	return Collisions(static_box[pBBIndex], pIndex, true, pBBIndex);
+}
+
+BoundingBox* CollisionDetection::GetCollisionBox(const int pIndex)
+{
+	return static_box[pIndex];
+}
+
+bool CollisionDetection::Collisions(BoundingBox* pBoundingBox1, int& pIndex, const bool pCY, const int pSkip)
 {
 	bool collisionResult = false;
 	bool collision = false;
 	pIndex = -1;
 	for (unsigned int i = 0; i<static_box.size(); i++) 
 	{
+		if (i==pSkip)
+			continue;
 		collision = Collision2(pBoundingBox1, static_box[i], pCY);
 		if (collision)
 			pIndex=i;
@@ -177,6 +189,8 @@ void CollisionDetection::translateBoundingBoxOriginal(int i, const Vector3D& pTr
 {
 	static_box[i]->OriginalMax += pTranslation;
 	static_box[i]->OriginalMin += pTranslation;
+	static_box[i]->mMin += pTranslation;
+	static_box[i]->mMax += pTranslation;
 }
 
 void CollisionDetection::translateBoundingBoxes(const Vector3D& pTranslation)

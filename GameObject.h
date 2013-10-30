@@ -43,6 +43,7 @@ class GameObject
 		Vector3D& GetSize();
 
 		void Transform(Vector3D pTransform);
+		void Move(Vector3D pTransform); //call the transformoriginal in collisionbox also move
 
 		eModels getModelIndex();
 		eTextures getTextureIndex();

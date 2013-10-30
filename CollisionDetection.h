@@ -25,6 +25,8 @@ public:
 	void translateBoundingBoxes(const Vector3D& pTranslation);
 	void scaleBoundingBoxes(const Vector3D& pScale);
 
+	BoundingBox* GetCollisionBox(const int pIndex);
+
 	bool CollisionX(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2);
 	bool CollisionY(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2);
 	bool CollisionZ(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2);
@@ -33,7 +35,8 @@ public:
 	//bool* CollisionSeperate(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2);
 	bool Collision2(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2, bool pCX = true, bool pCY = true, bool pCZ = true);
 	//bool Collision(BoundingBox* pBoundingBox1, const int pIndex); //collision between camerea and index
-	bool Collisions(BoundingBox* pBoundingBox1, int& pIndex, const bool pCY = true);
+	bool Collisions(const int pBBIndex, int& pIndex, const bool pCY);
+	bool Collisions(BoundingBox* pBoundingBox1, int& pIndex, const bool pCY = true, const int pSkip = -1);
 	//bool Collision(const Vector3D& pPoint, int &pIndex, const GLfloat pSize);
 	bool Collision(const Vector3D& pPoint, int &pIndex, const BoundingBox* bb, const bool pCY = true);
 	//bool CollisionX(int pIndex, GLfloat x);

@@ -145,10 +145,26 @@ void BasisGameController::BeforeCollision(int pIndex)
 {
 }
 
-void BasisGameController::translateGameObjects(float x, float y, float z)
+void BasisGameController::MoveGameObject(const int pIndex, const Vector3D& pTranslate)
+{
+	mGameObject[pIndex]->Move(pTranslate);
+}
+
+
+GameObject* BasisGameController::GetGameObject(const int pIndex) const
+{
+	return mGameObject[pIndex];
+}
+
+void BasisGameController::translateGameObject(GameObject* gobj, const Vector3D& pTranslation)
+{
+	 gobj->Transform(pTranslation);
+}
+
+void BasisGameController::translateGameObjects(const Vector3D& pTranslation)
 { 
 	for (std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) 
 	{
-		(*it)->Transform(Vector3D(x,y,z));
+		translateGameObject((*it), pTranslation);
 	}
 }

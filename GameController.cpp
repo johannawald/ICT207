@@ -48,21 +48,17 @@ void GameController::Init()
 void GameController::InitGameObjects() 
 {
 	int cubeSize = 500; //pIndex
-	addCollisionGameObject(Vector3D(1000,1000,1000), Vector3D(0,0,0), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), mBox, taBox, mBoxesCollisionIndex[0]);
-	addCollisionGameObject(Vector3D(1000,1500,1000), Vector3D(0,0,0), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), mBox, taBox, mBoxesCollisionIndex[1]);
+	//cubes
+	addCollisionGameObject(Vector3D(200,200,200), Vector3D(0,0,0), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), mBox, taBox, mBoxesCollisionIndex[0]);
+	addCollisionGameObject(Vector3D(700,200,200), Vector3D(0,0,0), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), mBox, taBox, mBoxesCollisionIndex[1]);
 	
-
-	//addCollisionGameObject(Vector3D(100,100,10), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[1]);
-	//addCollisionGameObject(Vector3D(200,200,10), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[2]);
-	//addCollisionGameObject(Vector3D(50,50,-100), Vector3D(10,100,100), mBox, taBox, mBoxesCollisionIndex[3]);
-	//saddCollisionGameObject(Vector3D(100,150,100), Vector3D(1000,1000,1000), (eModels)-1, (eTextures)-1, mBoxesCollisionIndex[4]);
 }
 
 int GameController::CheckCollision()
 {	
 	//collision with walls:
 	int pIndexCollision = BasisGameController::CheckCollision();
-	/*if (pIndexCollision==0)		
+	if (pIndexCollision>=0)		
 	{	
 		std::cout << "collision" << std::endl;
 		if (mPush)
@@ -77,12 +73,27 @@ int GameController::CheckCollision()
 void GameController::BeforeCollision(int pIndex)
 {
 	//should not collide
-	float factor = 3.0f;
-	
-	//if (mCamera.GetposDiff().x>0)
+	bool Move = false;
+	float factor = 10.0f;
+	//if not collision
+	int pCollisionIndex = -1;
+	if (!mCollision.Collisions(pIndex, pCollisionIndex, true))
+		Move = true;
+	else 
+	{
+		BoundingBox* bb;
+		bb = mCollision.GetCollisionBox(pIndex);
+		bb->Translate(mCamera.GetposDiff()*factor);
+		if (!mCollision.Collisions(bb, pCollisionIndex, true, pIndex))
+			Move = true;
+		delete bb;
+	}
+	if (Move)
+	{
 		mCollision.translateBoundingBoxOriginal(pIndex, mCamera.GetposDiff()*factor);
-	//mCamera.SetPull(3);
-	//mCollision.translateBoundingBoxOriginal(pIndex, Vector3D(mCamera.GetXposDiff()*factor, mCamera.GetYposDiff()*factor,  mCamera.GetZposDiff()*factor));
+		//gameobject has to have the same index (collision) work with a map - ask ray
+		MoveGameObject(pIndex, mCamera.GetposDiff()*factor);
+	}
 }
 
 void GameController::PushBox(int pIndex)
