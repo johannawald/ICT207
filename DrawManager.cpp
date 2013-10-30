@@ -150,7 +150,7 @@ void DrawManager::DrawCollisionRect(CollisionDetection* collision, const GLint p
 {
 	glPushMatrix();
 		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pDepth, pHeight);
-		//collision->addCollisionBox(Vector3D(pPositionX, pPositionY, pPositionZ), Vector3D(pPositionX+pWidth, pPositionY+pHeight, pPositionZ+pDepth));
+		collision->addCollisionBox(Vector3D(pPositionX, pPositionY, pPositionZ), Vector3D(pPositionX+pWidth, pPositionY+pHeight, pPositionZ+pDepth));
 	glPopAttrib();
 }
 

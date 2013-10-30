@@ -55,7 +55,7 @@ void TextureManager::init()
 	mTextures[taTilefloor] = Loadimage("textures/tilefloor.bmp");
 	mTextures[taTilewall] = Loadimage("textures/tilewall.bmp");
 	mTextures[taConcWall] = Loadimage("textures/concwall.bmp");
-	mTextures[taRustyWall] = Loadimage("textures/rustywall.png");
+	mTextures[taRustyWall] = Loadimage("textures/rustywall.bmp");
 	mTextures[taConsole] = Loadimage("textures/console.bmp");
 	//gameover
 	mTextures[taGameOver] = Loadimage("textures/gameover.png"); //updated 29.10 *JM

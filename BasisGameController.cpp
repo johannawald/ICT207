@@ -86,7 +86,7 @@ void BasisGameController::Draw()
 			glPushMatrix();
 				//Set camera position:
 				mCamera.SetCameraPosition();
-				mCollision.Draw(GetDrawManager());
+				//mCollision.Draw(GetDrawManager());
 				DrawGameObjects();
 				DrawObjects();
 			glPopMatrix();

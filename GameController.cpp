@@ -28,7 +28,7 @@ GameController::GameController(AudioManager* pAudio, ModelManager* pModel, Textu
 {
 	SetGameObject();
 	glutTimerFunc(1000, *Countdown, 0);
-
+	mCamera.mSpeed = 3;
 	mBoxesCollisionIndex = new int[5]; //dynamic for each level
 }
 
@@ -47,8 +47,8 @@ void GameController::InitGameObjects()
 {
 	int cubeSize = 500; //pIndex
 	//cubes
-	addCollisionGameObject(Vector3D(200,200,200), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, mBoxesCollisionIndex[0]);
-	addCollisionGameObject(Vector3D(700,200,200), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, mBoxesCollisionIndex[1]);	
+	addCollisionGameObject(Vector3D(20,20,20), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, mBoxesCollisionIndex[0]);
+	addCollisionGameObject(Vector3D(-70,-20,-20), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, mBoxesCollisionIndex[1]);	
 }
 
 int GameController::CheckCollision()

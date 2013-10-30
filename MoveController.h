@@ -33,7 +33,7 @@ class MoveController
 		DrawManager* mDrawManager;
 		BoundingBox* mCameraBB; //we need that later!
 		
-		float mSpeed;
+
 		// angle of rotation values
 		Vector3D mPos;
 		Vector3D mStartPosition;
@@ -70,6 +70,8 @@ class MoveController
 		void KeyOperations(void);
 		void ResetDiffValues();
 	public:
+		float mSpeed;
+
 		MoveController();
 	/*	float GetXpos();
 		float GetYpos();

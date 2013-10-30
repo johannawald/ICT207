@@ -252,9 +252,9 @@ void ControlRoom::DrawConsole()
 void ControlRoom::DrawLadder()
 {
 	glPushMatrix();
-		//glTranslatef(-500, 0, -6750);
+		glTranslatef(-500, 0, -6750);
 		glScalef(1.5, 3, 3);	
-		addCollisionGameObject(Vector3D(-250, 0, -6560), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, mIndexLadder);
-		//GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taRustyWall));
+		//addCollisionGameObject(Vector3D(-250, 0, -6560), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, mIndexLadder);
+		GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taRustyWall));
 	glPopMatrix();
 }

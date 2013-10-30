@@ -40,7 +40,7 @@ BushCourtController::BushCourtController(AudioManager* am, ModelManager* mm, Tex
 	CreateTextureList();
 	CreateTextures();
 
-	//glutFullScreen();
+	glutFullScreen();
 
 	loaded = true;	
 }
