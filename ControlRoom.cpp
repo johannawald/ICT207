@@ -18,11 +18,6 @@ void ControlRoom::Init()
 {	
 	BasisGameController::Init();
 
-	//GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 1, 1, Vector3D(0, 0, 0), Vector3D(100, 200, 300)); 
-	//GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 1, 1, Vector3D(10, 50, 200), Vector3D(100, 20, 30));
-	//GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 1, 1, Vector3D(100, 0, -200), Vector3D(200, 400, 200)); 
-	//Jon, can you change this to Collision-quads?
-	//GetDrawManager()->DrawCollisionCube(&mCollision, GetTexture()->getTextureID(taHallway10), 10, 10, Vector3D(0, 0, 1000), Vector3D(4000, 3000, 100));
 }
 
 void ControlRoom::Draw()
@@ -31,14 +26,10 @@ void ControlRoom::Draw()
 }
 
 void ControlRoom::DrawObjects()
-{
-
-		
+{		
 	//that Push is important!
 	glPushMatrix();
 		glEnable(GL_TEXTURE_2D);
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glColor3f(1, 1, 1);
 		//mCollision.Draw(GetDrawManager());
 		//Draw objects
@@ -231,7 +222,7 @@ void ControlRoom::DrawStairs()
 {
 	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor));
 	glPushMatrix();
-		glTranslatef(2000, 0, -6000);
+		//glTranslatef(2000, 0, -6000);
 		glRotatef(180, 0, 1, 0);
 		GetDrawManager()->DrawStairs(4000, 1000, 2000, 5);
 	glPopMatrix();
@@ -242,9 +233,9 @@ void ControlRoom::DrawConsole()
 {
 	//console is 500x250?
 	glPushMatrix();
-		glTranslatef(1000, 0, 4500);
+		//glTranslatef(1000, 0, 4500);
 		glRotatef(180, 0, 1, 0);
-		glScalef(2, 2, 2);
+		//glScalef(2, 2, 2);
 		GetModel()->drawModel(mConsole, GetTexture()->getTextureID(taConsole));
 	glPopMatrix();
 }
@@ -252,9 +243,9 @@ void ControlRoom::DrawConsole()
 void ControlRoom::DrawLadder()
 {
 	glPushMatrix();
-		glTranslatef(-500, 0, -6750);
-		glScalef(1.5, 3, 3);	
-		//addCollisionGameObject(Vector3D(-250, 0, -6560), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, mIndexLadder);
-		GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taRustyWall));
+		//glTranslatef(-500, 0, -6750);
+		//glScalef(1.5, 3, 3);	
+		addCollisionGameObject(Vector3D(-250, 0, -6560), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, mIndexLadder);
+		//GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taRustyWall));
 	glPopMatrix();
 }

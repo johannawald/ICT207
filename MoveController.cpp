@@ -21,7 +21,7 @@ MoveController::MoveController(): mJump(false), mMaxJumpHeight(50)
 	mStartPosition.z = 0;
 	mCameraRotation = 0;
 
-	mSpeed = 20.0;
+	mSpeed = 350.0; //min bouncing box
 	mPos.x = 0.0; 
 	mPos.y = 0.0; 
 	mPos.z = 0.0; 
@@ -31,7 +31,7 @@ MoveController::MoveController(): mJump(false), mMaxJumpHeight(50)
 	mPosDiff.y= 0.0;  
 	mPosDiff.z = 0.0;
 	mRadius = 500.0f;
-	mMaxAngle = 35.0;
+	mMaxAngle = 120.0;
 	mMinAngle = 0.0;
 	mYrotrad;
 	mXrotrad;
@@ -119,6 +119,7 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 {		
 	//if (mJumpHeight)
 	//mJumpHeight--;
+
 
 	if (mJump)
 		mJumpHeight--; //value animation framecount

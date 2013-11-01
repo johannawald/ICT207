@@ -48,12 +48,13 @@ private:
 	virtual void DrawObjects();
 	virtual void InitGameObjects();
 
-	void DrawTimer();
+	
 	void RenderBitmapString(float x, float y, float z, void *font, char *string);
 	void RenderStrokeFontString(float x, float y, float z, void *font, char *string);
 	void SetOrthographicProjection();
 	void RestorePerspectiveProjection();
-
+protected:
+	void DrawTimer();
 public:
 	/**
         * @brief constructor creates a new GameController object.

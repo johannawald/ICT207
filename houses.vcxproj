@@ -140,6 +140,7 @@
     <ClCompile Include="DrawManager.cpp" />
     <ClCompile Include="EasySound.cpp" />
     <ClCompile Include="GameController.cpp" />
+    <ClCompile Include="GameControllerLevelOne.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameOverController.cpp" />
     <ClCompile Include="GameWinController.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="ControlRoom.h" />
     <ClInclude Include="GameController.h" />
+    <ClInclude Include="GameControllerLevelOne.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameOverController.h" />
     <ClInclude Include="GameWinController.h" />

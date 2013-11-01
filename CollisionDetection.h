@@ -39,11 +39,7 @@ public:
 	float Collisions(BoundingBox* pBoundingBox1, int& pIndex, const bool pCY = true, const int pSkip = -1);
 	//bool Collision(const Vector3D& pPoint, int &pIndex, const GLfloat pSize);
 	float Collision(const Vector3D& pPoint, int &pIndex, const BoundingBox* bb, const bool pCY = true);
-	//bool CollisionX(int pIndex, GLfloat x);
-	//bool CollisionY(int pIndex, GLfloat y);
-	//bool CollisionZ(int pIndex, GLfloat z);
 
-	BoundingBox& getCollisionBox(const Vector3D& pMin, const Vector3D& pMax);
 	int addCollisionBox(const Vector3D& pMin, const Vector3D& pMax);
 };
 

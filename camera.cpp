@@ -420,6 +420,7 @@ void Camera::CheckCamera()
 void Camera::callGLLookAt()
 {
 	glLoadIdentity();
+	
 	gluLookAt(m_x, m_y, m_z, 
 		      m_x + m_lookX, m_y + m_lookY, m_z + m_lookZ,
 			  0.0f, 1.0f, 0.0f);

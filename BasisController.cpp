@@ -34,6 +34,8 @@ void BasisController::Draw()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glPushMatrix();
+
+
 			glLoadIdentity();
 			//Move camera:
 			glEnable(GL_TEXTURE_2D);
@@ -51,14 +53,13 @@ void BasisController::Draw()
 void BasisController::Reshape()
 {
 	Reshape(mScreenWidth, mScreenHeight);
+
 }
 
 void BasisController::Init()
 {
 	glClearColor(0, 0, 0, 0);
-	gluLookAt(0.0, 1.75, 0.0, 
-		      0.0, 1.75, -1,
-			  0.0f,1.0f,0.0f);
+	
 	glEnable(GL_DEPTH_TEST); 
 	glShadeModel(GL_SMOOTH);
 	Reshape();
