@@ -24,13 +24,17 @@
 class ControlRoom : public IStateController, BasisGameController {
 private:
 	int mIndexLadder;
-
+	bool mShowConsole;
 
 	void DrawFloor();
 	void DrawWalls();
 	void DrawStairs();
 	void DrawConsole();
 	void DrawLadder();
+
+	void DrawConsoleScreen(const GLdouble &xImgSize, const GLdouble &yImgSize, 
+						   const GLdouble &xStart, const GLdouble &yStart, const GLdouble &zStart,
+						   const GLdouble &xTimes, const GLdouble &yTimes, const bool &flip);
 
 	bool IsAtComputerPosition();
 	int CheckCollision();

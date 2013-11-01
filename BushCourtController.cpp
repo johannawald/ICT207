@@ -40,8 +40,6 @@ BushCourtController::BushCourtController(AudioManager* am, ModelManager* mm, Tex
 	CreateTextureList();
 	CreateTextures();
 
-	glutFullScreen();
-
 	loaded = true;	
 }
 
@@ -5992,27 +5990,3 @@ void BushCourtController::IncrementFrameCount()
 }
 
 
-
-void BushCourtController::DrawRoberWelcome() 
-{
-	//GetDrawManager()->SetOrthographicProjection();
-
-	//glPushMatrix();
-	//glLoadIdentity();
-
-	//glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taRoberWelcome1));
-	//
-	//glBegin(GL_QUADS);
-	//	glTexCoord2d(0, 0);
-	//	glVertex3f(256, 256, 0);
-	//	glTexCoord2d(1, 0);
-	//	glVertex3f(512, 256, 0);
-	//	glTexCoord2d(1, 1);
-	//	glVertex3f(512, 512, 0);
-	//	glTexCoord2d(0, 1);
-	//	glVertex3f(256, 512, 0);
-	//glEnd();
-
-	//glPopMatrix();
-	//GetDrawManager()->RestorePerspectiveProjection();
-}

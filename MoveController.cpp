@@ -14,7 +14,6 @@
 
 MoveController::MoveController(): mJump(false), mMaxJumpHeight(50)
 {
-	mJumpHeight = mMaxJumpHeight;
 	// intialise camera values
 	mStartPosition.x = 0;
 	mStartPosition.y = 0;
@@ -31,7 +30,7 @@ MoveController::MoveController(): mJump(false), mMaxJumpHeight(50)
 	mPosDiff.y= 0.0;  
 	mPosDiff.z = 0.0;
 	mRadius = 500.0f;
-	mMaxAngle = 120.0;
+	mMaxAngle = 90.0;
 	mMinAngle = 0.0;
 	mYrotrad;
 	mXrotrad;
@@ -117,18 +116,6 @@ void MoveController::SetDiffValues(float x, float y, float z)
 
 void MoveController::MoveCamera()  //try to avoid updating variables in the draw function! -> do that in the update-funciton
 {		
-	//if (mJumpHeight)
-	//mJumpHeight--;
-
-
-	if (mJump)
-		mJumpHeight--; //value animation framecount
-	if (mJumpHeight==0)
-	{	
-		mJump = false;
-		mJumpHeight = mMaxJumpHeight;
-	}
-
 	mPos.x += mPosDiff.x;
 	mPos.y += mPosDiff.y;
 	mPos.z += mPosDiff.z;
@@ -271,18 +258,6 @@ void MoveController::Enable(void)
 
 void MoveController::KeyOperations(void)
 {
-	if (mJump)
-		mPosDiff.y += 1.0f * mSpeed;
-	else 
-		mPosDiff.y = 0; //falling
-
-	if(mKeyStates[' ']) //jump
-	{
-		//std::cout << "jump";
-		mJump=true;
-		
-		mKeyStates[' '] = false;
-	}
 	if(mKeyStates['q'])
 	{
 		mYrotrad = (mYrot / 180 * 3.141592654f);

@@ -7,7 +7,7 @@
 //  Constructor
 //--------------------------------------------------------------------------------------
 ControlRoom::ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm): 
-	BasisGameController(am,mm,tm)
+	BasisGameController(am,mm,tm),mShowConsole(true)
 {
 }
 
@@ -26,20 +26,26 @@ void ControlRoom::Draw()
 }
 
 void ControlRoom::DrawObjects()
-{		
+{	
 	//that Push is important!
 	glPushMatrix();
 		glEnable(GL_TEXTURE_2D);
 		glColor3f(1, 1, 1);
 		//mCollision.Draw(GetDrawManager());
 		//Draw objects
+		if (mShowConsole)
+			DrawConsoleScreen(1024.0, 768.0, 0.0, 0.0, 0.0, 1.0, 1.0, false);
 		DrawWalls();
 		DrawFloor();
 		DrawStairs();
 		DrawLadder();
 		DrawConsole();
+		
 		glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
+
+	
+
 
 }
 
@@ -89,6 +95,8 @@ void ControlRoom::Keyboard(unsigned char key, int x, int y)
 	BasisGameController::Keyboard(key,x,y);
 	if (key=='t')
 		StateMachine::setController(new GameController(GetAudio(), GetModel(), GetTexture()));
+	if(key == ' ')
+		mShowConsole = !mShowConsole;
 }
 
 void ControlRoom::KeyboardUp(unsigned char key, int x, int y)
@@ -248,4 +256,44 @@ void ControlRoom::DrawLadder()
 		addCollisionGameObject(Vector3D(-250, 0, -6560), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, mIndexLadder);
 		//GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taRustyWall));
 	glPopMatrix();
+}
+
+
+void  ControlRoom::DrawConsoleScreen(const GLdouble &xImgSize, const GLdouble &yImgSize, 
+							         const GLdouble &xStart, const GLdouble &yStart, const GLdouble &zStart,
+							         const GLdouble &xTimes, const GLdouble &yTimes, const bool &flip)
+{
+	glPushMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0, GetWindowWidth(), 0, GetWindowHeight());
+	glScalef(1, -1, 1);
+		
+	// move to centre of screen
+	//glTranslatef(screenWidth/2 -256.0, -screenHeight/2 -256.0, 0);
+	glTranslatef(GetWindowWidth()/2 -512.0, -GetWindowHeight()/2 -384, 0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();	
+	
+	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taRoberConsoleSreen));
+
+	// display image
+	glBegin(GL_QUADS);
+		glTexCoord2f(0, 0.0);
+		glVertex3f(xStart, yStart, zStart);
+		glTexCoord2f(0, yTimes);   
+		glVertex3f(xStart, yStart + (yImgSize * yTimes), zStart);
+		glTexCoord2f(xTimes, yTimes);
+		glVertex3f(xStart + (xImgSize * xTimes), yStart + (yImgSize * yTimes), zStart);
+		glTexCoord2f(xTimes, 0.0);
+		glVertex3f(xStart + (xImgSize * xTimes), yStart, zStart);
+	glEnd();
+
+	// Reset Perspective Projection
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+
 }

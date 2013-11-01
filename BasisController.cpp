@@ -84,3 +84,14 @@ DrawManager* BasisController::GetDrawManager()
 {	
 	return mDrawManager;
 }
+
+
+int BasisController::GetWindowWidth()
+{
+	return mScreenWidth;
+}
+
+int BasisController::GetWindowHeight()
+{
+	return mScreenHeight;
+}

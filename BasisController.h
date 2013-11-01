@@ -74,6 +74,9 @@ protected:
     */
 	DrawManager* GetDrawManager();
 
+	int GetWindowWidth();
+	int GetWindowHeight();
+
 public:	
 	/**
     * @brief constructor of the BasisController
