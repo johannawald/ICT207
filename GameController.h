@@ -7,7 +7,10 @@
  *
  * @author Johanna Wald
  * @version 01
- * @date 15/09/2013
+ * @date 15/09/2013 Johanna Wald - set up class
+ * @date 01/10/2013 Johanna Wald - added all the gamecontroller basic functions
+ * @date 10/10/2013 Johanna Wald - changed base class to BasisGameController
+
  */
 
 #pragma once
@@ -19,25 +22,27 @@
 #include <math.h>
 #include <time.h>
 
-//#include "camera.h"
 #include "texturedPolygons.h"
 #include "IStateController.h"
 #include "BasisGameController.h"
 #include "CollisionDetection.h"
 #include "GameObject.h"
 #include "MoveController.h"
+#include "Explosion.h"
 
 class GameController : public IStateController, public BasisGameController
 {
 private:
+	Explosion mExplosion;
 	bool mPush;
 	bool mPull;
 	const bool mSoundOn;
+
 	bool mLostAnimation;
 	bool mBombSoundPlaying; 
 	bool mLost;
 
-	bool ObjectIsBox(const int pIndex);
+	bool ObjectIsBox(const int pIndex) const;
 	void PullBox(int pIndex);
 	void PushBox(int pIndex);
 
@@ -56,16 +61,23 @@ private:
 	void SetOrthographicProjection();
 	void RestorePerspectiveProjection();
 protected:
+	const int mGround;
+	int mCollisionIndex; //placeholder
 	int* mBoxesCollisionIndex;
 	void DrawTimer();
+	void SetNewExplosion(const float x, const float y, const float z);
+	
 public:
+	void WinGame() const;
 	/**
         * @brief constructor creates a new GameController object.
     */
 	GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture);
+
 	void CollisionWithObject(GameObject* pGameObject);
 	int CheckCollision();
 	void BeforeCollision(int pIndex, float pCollisionValue);
+	
 	void Init();
 	void Draw();
 	void Update();

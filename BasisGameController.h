@@ -5,6 +5,7 @@
  * @author Johanna Wald
  * @version 01
  * @date 25/10/2013 Johanna Wald - Basic Implementation
+ * @date 25/10/2013 Johanna Wald - Added various methods and member variables (mCameraBB, mGameObjects...) for the game mechanics
  */
 
 #pragma once
@@ -29,7 +30,7 @@ protected:
 	CollisionDetection mCollision;
 	virtual void Draw();
 	void addCollisionGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation,
-								eModels pModel, eTextures pTexture, int& pCollisionIndex);
+								int pModel, GLuint pTexture, int pTexCoordX, int pTexCoordY, int& pCollisionIndex, void (*pCollisionMethod)(void) = nullptr);
 	virtual void MouseMotion(int x, int y);
 	virtual void SpecialKey(int key, int x, int y);
 	virtual void SpecialKeyUp(int key, int x, int y); 
@@ -47,7 +48,7 @@ protected:
 	void translateGameObject(GameObject* gobj, const Vector3D& pTranslation);
 	void translateGameObjects(const Vector3D& pTranslation);
 	void addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, 
-					   eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex);
+					   int pModelIndex, GLuint pTextureIndex, int pTexCoordX, int pTexCoordY, int pCollisionIndex, void (*pCollisionMethod)(void) = nullptr);
 public:	
 	BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager);
 };

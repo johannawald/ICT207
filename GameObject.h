@@ -4,6 +4,8 @@
  * @author Johanna Wald, GameObject, 12/10/2013
  * @version 1
  * @date 12/10/2013 Johanna Wald - Started
+ * @date 20/10/2013 Johanna Wald - Added more member variables for the texture-coordinates
+
  */
 
 #pragma once
@@ -12,7 +14,8 @@
 #include "Vector3D.h"
 #include "BoundingBox.h"
 #include "ModelManager.h"
-#include "TextureManager.h"
+#include "DrawManager.h"
+#include "GameController.h"
 
 class GameObject 
 {
@@ -25,32 +28,18 @@ class GameObject
 		Vector3D mRotation;
 
 		eModels mModelIndex;
-		eTextures mTextureIndex;
+		GLuint mTextureIndex;
 		int mTexCoordX;
 		int mTexCoordY;
 		int mCollisionIndex;
-
-		//void (Class::*collisionMethod)(void);
-	public:
-		//void (GameController::*c
-		GameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, 
-				   eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex);
 		
-		void Draw(ModelManager* pModelManager);
+		//void (GameController::*mCollisionMethod)(void) ; //*JW
+	public:
+		GameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, 
+				   int pModelIndex, GLuint pTextureIndex, int pTexCoordX, int pTexCoordY, int pCollisionIndex);
+				  // , void (GameController::*pCollisionMethod)(void) = nullptr);
 
-		float GetXPosition();
-		float GetYPosition();
-		float GetZPosition();
-
-		/*float GetXScale();
-		float GetYScale();
-		float GetZScale();*/
-
-		Vector3D& GetSize();
-
-		void Transform(Vector3D pTransform);
-		void Move(Vector3D pTransform); //call the transformoriginal in collisionbox also move
-
-		eModels getModelIndex();
-		eTextures getTextureIndex();
+		void Draw(ModelManager& pModelManager, DrawManager& pDrawManger, CollisionDetection& pCollision);
+		void Transform(const Vector3D& pTransform);
+		void Move(const Vector3D& pTransform);
 };

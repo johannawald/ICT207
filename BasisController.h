@@ -7,6 +7,7 @@
  * @author Johanna Wald
  * @version 01
  * @date 20/09/2013 Johanna Wald - Basic Implementation
+  * @date 25/10/2013 Johanna Wald - Added consts and detailed doxygen comments
  */
 
 #pragma once
@@ -29,13 +30,43 @@ private:
 	TextureManager* mTextureManager; /**< Stores a list of textures and provides a function that returns the TextureID */
 protected:
 	bool pLoaded; //not sure if we can change that
-
+	/**
+		* @brief reshape-function (called by glut) that contains all the basic functionallity a controller needs for reshape
+     	*
+	    * @param pWidth - width of the screen
+		* @param pHeight - height of the screen
+		* @return none
+    */
 	virtual void Reshape(int pWidth, int pHeight);
+	/**
+		* @brief reshape-function calls the Reshape-function with the pWidth, and pHeight-Parameters set with the member-variables "mScreenWidth", "mScreenHeight"
+     	*
+	    * @param pWidth - width of the screen
+		* @param pHeight - height of the screen
+		* @return none
+    */
 	virtual void Reshape();
+	/**
+		* @brief init-function calls (called by glut) that contains all the basic functionallity a controleler needs for init
+     	*
+	    * @param none
+		* @return none
+    */
 	virtual void Init();
+	/**
+		* @brief draw-function calls (called by glut) that contains all the basic functionallity a controleler needs for draw
+     	*
+	    * @param none
+		* @return none
+    */
 	virtual void Draw();
+	/**
+		* @brief abstract function that is called in the draw function. It should create the specific objects for each class
+     	*
+	    * @param none
+		* @return none
+    */
 	virtual void DrawObjects() = 0;
-
 	/**
 		* @brief GetMethod of the AudioManager member variable
 		*
@@ -74,9 +105,8 @@ protected:
     */
 	DrawManager* GetDrawManager();
 
-	int GetWindowWidth();
-	int GetWindowHeight();
-
+	const int GetWindowWidth() const;
+	const int GetWindowHeight() const;
 public:	
 	/**
     * @brief constructor of the BasisController

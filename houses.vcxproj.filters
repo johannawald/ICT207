@@ -13,9 +13,6 @@
       <UniqueIdentifier>{8e51d401-2bfa-44e7-b905-ea7c0816cb10}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
-    <Filter Include="Header Files\Collision">
-      <UniqueIdentifier>{e4969879-6734-49b0-a9dc-9e9f514406f5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Sound">
       <UniqueIdentifier>{24803ef8-0d32-4b13-8e97-2df484d6410f}</UniqueIdentifier>
     </Filter>
@@ -24,9 +21,6 @@
     </Filter>
     <Filter Include="Header Files\GamePlay">
       <UniqueIdentifier>{50e1dda5-62c4-4b7b-a541-00e39cdd3d42}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Collision">
-      <UniqueIdentifier>{642552b5-9c5a-4c03-ac37-c6bd3fe8035e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Basic">
       <UniqueIdentifier>{04eeaaed-dc9c-4f3b-9cd3-add73293f128}</UniqueIdentifier>
@@ -37,49 +31,40 @@
     <Filter Include="Source Files\Sound">
       <UniqueIdentifier>{a30a15a7-2998-4b63-b26c-b3bef34ff8ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ShaysCode">
+      <UniqueIdentifier>{5db4fbe8-0563-4ea1-bd08-995d9fb30b5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ShaysCode\Collision">
+      <UniqueIdentifier>{e4969879-6734-49b0-a9dc-9e9f514406f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ShaysCode">
+      <UniqueIdentifier>{93dddca3-1be4-44e5-bf02-9832338d35d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ShaysCode\Collision">
+      <UniqueIdentifier>{642552b5-9c5a-4c03-ac37-c6bd3fe8035e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cameraMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlainLinkedList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlainNode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="texturedPolygons.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Transition.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AABB.CPP">
-      <Filter>Source Files\Collision</Filter>
+      <Filter>Source Files\ShaysCode\Collision</Filter>
     </ClCompile>
     <ClCompile Include="AABBLinkedList.cpp">
-      <Filter>Source Files\Collision</Filter>
+      <Filter>Source Files\ShaysCode\Collision</Filter>
     </ClCompile>
     <ClCompile Include="AABBNode.cpp">
-      <Filter>Source Files\Collision</Filter>
+      <Filter>Source Files\ShaysCode\Collision</Filter>
     </ClCompile>
     <ClCompile Include="collision.cpp">
-      <Filter>Source Files\Collision</Filter>
+      <Filter>Source Files\ShaysCode\Collision</Filter>
     </ClCompile>
     <ClCompile Include="AudioManager.cpp">
       <Filter>Source Files\Basic</Filter>
     </ClCompile>
     <ClCompile Include="BasisController.cpp">
       <Filter>Source Files\Basic</Filter>
-    </ClCompile>
-    <ClCompile Include="BushCourtController.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EasySound.cpp">
       <Filter>Source Files\Sound</Filter>
@@ -102,9 +87,6 @@
     <ClCompile Include="StateMachine.cpp">
       <Filter>Source Files\Basic</Filter>
     </ClCompile>
-    <ClCompile Include="TextureLoader.cpp">
-      <Filter>Source Files\Basic</Filter>
-    </ClCompile>
     <ClCompile Include="TextureManager.cpp">
       <Filter>Source Files\Basic</Filter>
     </ClCompile>
@@ -114,76 +96,76 @@
     <ClCompile Include="ModelManager.cpp">
       <Filter>Source Files\Basic</Filter>
     </ClCompile>
-    <ClCompile Include="Vector3D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionDetection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ControlRoom.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameOverController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Stairs.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="BasisGameController.cpp">
+      <Filter>Source Files\GamePlay</Filter>
     </ClCompile>
     <ClCompile Include="BoundingBox.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Basic</Filter>
     </ClCompile>
-    <ClCompile Include="BasisGameController.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="BushCourtController.cpp">
+      <Filter>Source Files\ShaysCode</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files\ShaysCode</Filter>
+    </ClCompile>
+    <ClCompile Include="cameraMap.cpp">
+      <Filter>Source Files\ShaysCode</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionDetection.cpp">
+      <Filter>Source Files\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverController.cpp">
+      <Filter>Source Files\GamePlay</Filter>
     </ClCompile>
     <ClCompile Include="GameWinController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameController.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GamePlay</Filter>
     </ClCompile>
     <ClCompile Include="GameControllerLevelOne.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="GameController.cpp">
+      <Filter>Source Files\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlRoom.cpp">
+      <Filter>Source Files\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="PlainLinkedList.cpp">
+      <Filter>Source Files\ShaysCode</Filter>
+    </ClCompile>
+    <ClCompile Include="PlainNode.cpp">
+      <Filter>Source Files\ShaysCode</Filter>
+    </ClCompile>
+    <ClCompile Include="texturedPolygons.cpp">
+      <Filter>Source Files\ShaysCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Explosion.cpp">
+      <Filter>Source Files\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveController.cpp">
+      <Filter>Source Files\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="Stairs.cpp">
+      <Filter>Source Files\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="Transition.cpp">
+      <Filter>Source Files\ShaysCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3D.cpp">
+      <Filter>Source Files\Basic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cameraMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlainLinkedList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlainNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="texturedPolygons.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Transition.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BushCourtController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureCodes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AABB.H">
-      <Filter>Header Files\Collision</Filter>
+      <Filter>Header Files\ShaysCode\Collision</Filter>
     </ClInclude>
     <ClInclude Include="AABBLinkedList.h">
-      <Filter>Header Files\Collision</Filter>
+      <Filter>Header Files\ShaysCode\Collision</Filter>
     </ClInclude>
     <ClInclude Include="AABBNode.h">
-      <Filter>Header Files\Collision</Filter>
+      <Filter>Header Files\ShaysCode\Collision</Filter>
     </ClInclude>
     <ClInclude Include="collision.h">
-      <Filter>Header Files\Collision</Filter>
+      <Filter>Header Files\ShaysCode\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Header Files\Sound</Filter>
@@ -198,12 +180,6 @@
       <Filter>Header Files\Basic</Filter>
     </ClInclude>
     <ClInclude Include="BasisController.h">
-      <Filter>Header Files\Basic</Filter>
-    </ClInclude>
-    <ClInclude Include="BasisModel.h">
-      <Filter>Header Files\Basic</Filter>
-    </ClInclude>
-    <ClInclude Include="BasisView.h">
       <Filter>Header Files\Basic</Filter>
     </ClInclude>
     <ClInclude Include="IStateController.h">
@@ -233,41 +209,65 @@
     <ClInclude Include="StateMachine.h">
       <Filter>Header Files\Basic</Filter>
     </ClInclude>
-    <ClInclude Include="TextureLoader.h">
-      <Filter>Header Files\Basic</Filter>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files\ShaysCode</Filter>
     </ClInclude>
-    <ClInclude Include="BoundingBox.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="cameraMap.h">
+      <Filter>Header Files\ShaysCode</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3D.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PlainLinkedList.h">
+      <Filter>Header Files\ShaysCode</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionDetection.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PlainNode.h">
+      <Filter>Header Files\ShaysCode</Filter>
     </ClInclude>
-    <ClInclude Include="ControlRoom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameOverController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Stairs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BasisGameController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameWinController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameController.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="texturedPolygons.h">
+      <Filter>Header Files\ShaysCode</Filter>
     </ClInclude>
     <ClInclude Include="GameControllerLevelOne.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverController.h">
+      <Filter>Header Files\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWinController.h">
+      <Filter>Header Files\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveController.h">
+      <Filter>Header Files\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="BasisGameController.h">
+      <Filter>Header Files\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingBox.h">
+      <Filter>Header Files\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionDetection.h">
+      <Filter>Header Files\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlRoom.h">
+      <Filter>Header Files\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.h">
+      <Filter>Header Files\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureCodes.h">
+      <Filter>Header Files\ShaysCode</Filter>
+    </ClInclude>
+    <ClInclude Include="BushCourtController.h">
+      <Filter>Header Files\ShaysCode</Filter>
+    </ClInclude>
+    <ClInclude Include="GameController.h">
+      <Filter>Header Files\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="Stairs.h">
+      <Filter>Header Files\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="Transition.h">
+      <Filter>Header Files\ShaysCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3D.h">
+      <Filter>Header Files\Basic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

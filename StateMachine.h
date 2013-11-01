@@ -4,11 +4,10 @@
  * @author Johanna Wald, StateMachine, 16/09/2013
  * @version 1
  * @date 16/09/2013 Johanna Wald - Started
+ * @date 01/10/2013 Johanna Wald - Added forward declaration for faster compiling
  */
 
 #pragma once
-
-#include <vector>
 
 class IStateController;
 class ModelManager;
@@ -51,7 +50,7 @@ public:
 
 		/**
          * @brief Calls the Init() function of the appropriate State.
-         */
+        */
 	void Init();
 
 		/**

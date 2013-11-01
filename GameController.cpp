@@ -9,8 +9,9 @@
 #include <sstream>
 #include "GameOverController.h"
 #include <iostream>
+#include "GameWinController.h"
 
-int levelTime = 10;
+int levelTime = 100;
 //bool stopTimer = false;
 bool DebugCollision = false;
 
@@ -25,13 +26,14 @@ void Countdown(int counterStepTime)
 }
 
 GameController::GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture): 
-	BasisGameController(pAudio, pModel, pTexture), mPush(false), mPull(false), mSoundOn(true), mLost(false), mBombSoundPlaying(false), mLostAnimation(false)
+	BasisGameController(pAudio, pModel, pTexture), mGround(-65), mPush(false), mPull(false), mSoundOn(true), mLost(false), mBombSoundPlaying(false), mLostAnimation(false)
 {
 	SetGameObject();
 	glutTimerFunc(1000, *Countdown, 0);
 	mBoxesCollisionIndex = new int[5]; //dynamic for each level
 	for (int i = 0; i<5; i++)
 		mBoxesCollisionIndex[i] = -1;
+	//mExplosion.mSpeed = 10;
 }
 
 void GameController::SetGameObject()
@@ -49,10 +51,6 @@ void GameController::Init()
 
 void GameController::InitGameObjects() 
 {
-	int cubeSize = 500; //pIndex
-	//cubes
-	//addCollisionGameObject(Vector3D(20,20,20), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, mBoxesCollisionIndex[0]);
-	//addCollisionGameObject(Vector3D(-70,-20,-20), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, mBoxesCollisionIndex[1]);	
 }
 
 int GameController::CheckCollision()
@@ -71,12 +69,17 @@ int GameController::CheckCollision()
 	return pIndexCollision;
 }
 
-bool GameController::ObjectIsBox(const int pIndex)
+bool GameController::ObjectIsBox(const int pIndex) const
 {
 	for (int i = 0; i<5; i++)
 		if (mBoxesCollisionIndex[i]==pIndex)
 			return true;
 	return false;
+}
+
+void GameController::WinGame() const
+{
+	StateMachine::setController(new GameWinController(GetAudio(), GetModel(), GetTexture()));
 }
 
 void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just for boxes
@@ -108,7 +111,7 @@ void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just f
 		else 
 		{
 			BoundingBox bb;
-			bb = *mCollision.GetCollisionBox(pIndex);
+			bb = mCollision.GetCollisionBox(pIndex);
 			bb.Translate(mCamera.GetposDiff()*factor);
 			float CollisionValueMoved = mCollision.Collisions(&bb, pCollisionIndex, true, pIndex);
 			if (CollisionValueMoved<=CollisionValue) //pull
@@ -117,9 +120,11 @@ void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just f
 		//Move = true;
 		if (Move)
 		{
-			mCollision.translateBoundingBoxOriginal(pIndex, mCamera.GetposDiff()*factor);
-			//gameobject has to have the same index (collision) work with a map - ask ray
-			MoveGameObject(pIndex, mCamera.GetposDiff()*factor);
+			Vector3D movement  = mCamera.GetposDiff()*factor;
+			movement.y = 0;
+			mCollision.translateBoundingBoxOriginal(pIndex, movement);
+				//gameobject has to have the same index (collision) work with a map - ask ray
+			MoveGameObject(pIndex,movement);
 		}
 	}
 }
@@ -141,6 +146,7 @@ void GameController::Draw()
 {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
+	//mExplosion.draw();
 	BasisGameController::Draw();
 	glDisable(GL_CULL_FACE);
 }
@@ -157,6 +163,7 @@ void GameController::DrawTexttest()
 
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!) //updated 29.10 *JM
 { 
+	//mExplosion.idle();
 	if (levelTime==3)
 		mLostAnimation = true;
 	else if (levelTime==-5)
@@ -198,6 +205,7 @@ void GameController::SpecialKeyUp(int key, int x, int y)
 
 void GameController::Keyboard(unsigned char key, int x, int y)
 {
+	SetNewExplosion(0,0,0);
 	if (!mLostAnimation) 
 	{
 		BasisGameController::Keyboard(key, x, y);
@@ -247,7 +255,7 @@ void GameController::DrawObjects()
 	//that Push is important!
 	glPushMatrix();
 		
-		DrawTimer();
+		//DrawTimer();
 		//Draw objects
 		//Draw3DModels();
 		//DrawOuterWalls();
@@ -290,9 +298,6 @@ void GameController::DrawTimer()
 
 	glPushMatrix();
 	glLoadIdentity();
-
-	
-
 
 	sprintf(s, "Time: %d", levelTime); //get timer
 	glColor3f(1.0, 0.0, 0.0);
@@ -381,4 +386,9 @@ void GameController::RestorePerspectiveProjection()
 
 	// get back to modelview mode
 	glMatrixMode(GL_MODELVIEW);
+}
+
+void GameController::SetNewExplosion(const float x, const float y, const float z)
+{
+	//mExplosion.newExplosion(x,y,z);
 }

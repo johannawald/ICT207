@@ -5,8 +5,9 @@
  * Defines the basic functions a StateController that interacts with the user should implement such as Init(), Update(), Draw()
  *
  * @author Johanna Wald
- * @version 01
+ * @version 02
  * @date 19/09/2013 Johanna Wald - Basic Implementation
+ * @date 01/10/2013 Johanna Wald - Added Mouse-Function
  */
 
 #pragma once

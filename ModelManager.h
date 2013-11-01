@@ -8,6 +8,7 @@
  * @author Johanna Wald
  * @version 01
  * @date 20/09/2013 Johanna Wald - Basic Implementation
+ * @date 01/10/2013 Johanna Wald - Added first models
  */
 
 #pragma once
@@ -15,7 +16,7 @@
 #include "IAssetManager.h"
 #include <GL/freeglut.h>
 
-enum eModels { mAdvertisement, m4x1platform, mConsole, mLadder, mBox, mButton, //mBox2,
+enum eModels { mAdvertisement, m4x1platform, mConsole, mLadder, mBox, mButton, mBomb,
 			   MODELS_SIZE };
 
 class ModelLoader;

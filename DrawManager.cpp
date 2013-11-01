@@ -2,8 +2,6 @@
 //  @ Unit : ICT207
 //  @ Author : Johanna Wald
 //
-// not used yet
-
 
 #include "DrawManager.h"
 #include <GL/glut.h>
@@ -11,12 +9,6 @@
 #include "CollisionDetection.h"
 #include "BoundingBox.h"
 #include "Vector3D.h"
-
-DrawManager::DrawManager() {	
-}
-
-DrawManager::~DrawManager() {
-}
 
 void DrawManager::RenderString(const float x, const float y, void *font, const char* str, const unsigned r, const unsigned g, const unsigned b) const
 {
@@ -30,15 +22,15 @@ void DrawManager::RenderString(const float x, const float y, void *font, const c
 	glPopAttrib();
 }
 
-void DrawManager::DrawStairs(const float stairWidth, const float stairHeight, const float stairDepth, const float numSteps) const
+void DrawManager::DrawStairs(const float pStairWidth, const float pStairHeight, const float pStairDepth, const float pNumSteps) const
 {
-	stairs.DrawStairs(stairWidth, stairHeight, stairDepth, numSteps);
+	mStairs.DrawStairs(pStairWidth, pStairHeight, pStairDepth, pNumSteps);
 }
 
 void DrawManager::DrawRect(const GLint pTexture, 
 				const int TexCoordX, const int TexCoordY, 
 				const int pPositionX, const int pPositionY, const int pPositionZ, 
-				const GLdouble pWidth, const GLdouble pDepth, const GLdouble pHeight ) const
+				const GLdouble pWidth, const GLdouble pDepth, const GLdouble pHeight) const
 {
 	glPushMatrix();
 	glBindTexture(GL_TEXTURE_2D, pTexture);
@@ -75,81 +67,58 @@ void DrawManager::DrawRect(const GLint pTexture,
 
 void DrawManager::DrawRect(const GLint pTexture, 
 				const int TexCoordX, const int TexCoordY, 
-				const int pPositionX, const int pPositionY, const int pPositionZ, 
+				const Vector3D& pPosition, 
 				const GLdouble pWidth, const GLdouble pHeight, 
-				const float angleX, const float angleY, const float angleZ) const
+				const Vector3D& pAngle) const
 {
 	glPushMatrix();
-		glTranslatef(pPositionX, pPositionY, pPositionZ);
-		glRotatef(angleX,1,0,0);
-		glRotatef(angleY,0,1,0);
-		glRotatef(angleZ,0,0,1);
-		glTranslatef(-pPositionX, -pPositionY, -pPositionZ);
-		//DrawRect(pTexture, TexCoordX, TexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pHeight);
+		glTranslatef(pPosition.x, pPosition.y, pPosition.z);
+		glRotatef(pAngle.x,1,0,0);
+		glRotatef(pAngle.y,0,1,0);
+		glRotatef(pAngle.z,0,0,1);
+		glTranslatef(-pPosition.x, -pPosition.y, -pPosition.z);
 	glPopMatrix();
 }
-
-//johanna, change stair function
 
 void DrawManager::DrawCube(const GLint pTexture, 
 						   const int pTexCoordX, const int pTexCoordY, 
 						   const Vector3D& pPosition, 
 						   const GLdouble pWidth, const GLdouble pHeight, const GLdouble pDepth) const
 {	
-	//z is reversed!
 	glPushMatrix();
-	glPushAttrib(GL_CURRENT_BIT);
-		glBindTexture(GL_TEXTURE_2D, -1);
-		//glDisable(GL_LIGHTING);
-	//	DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, 10, 10);
-		//draw the front
-		//glColor3f(0.3f, 0.0f, 0.0f);
-	//	DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pWidth, pHeight); 
-		//draw the back
-		//glColor3f(0.0f, 0.5f, 0.0f);
-	//	DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z-pDepth, pWidth, pHeight);
-		//draw the side
-		//glColor3f(0.0f, 0.0f, 0.5f);
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pDepth, pHeight, 0, 90, 0);
-		glTranslatef(pWidth,0,-pDepth);
-		//glColor3f(0.0f, 0.0f, 0.5f);
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pDepth, pHeight, 0, 270, 0);
-		glTranslatef(-pWidth,0,pDepth);
-		//draw the top / bottom
-		//glColor3f(0.5f, 0.5f, 0.0f);
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pWidth, pDepth, -90, 0, 0);
-		glTranslatef(0,pHeight,0);
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pWidth, pDepth, -90, 0, 0);
-		glTranslatef(0,-pHeight,0);
-		//glEnable(GL_LIGHTING); 
-	glPopAttrib();
+		glPushAttrib(GL_CURRENT_BIT);
+			glBindTexture(GL_TEXTURE_2D, -1);
+			DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition, pDepth, pHeight, Vector3D(0, 90, 0));
+			glTranslatef(pWidth,0,-pDepth);
+			DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition, pDepth, pHeight, Vector3D(0, 270, 0));
+			glTranslatef(-pWidth,0,pDepth);
+			DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition, pWidth, pDepth, Vector3D(-90, 0, 0));
+			glTranslatef(0,pHeight,0);
+			DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition, pWidth, pDepth, Vector3D(-90, 0, 0));
+			glTranslatef(0,-pHeight,0);
+		glPopAttrib();
 	glPopMatrix();
 }
 
 void DrawManager::DrawCollisionCube(CollisionDetection* collision, const GLint pTexture, 
-				const int pTexCoordX, const int pTexCoordY, 
-				const Vector3D& pPosition,
-				const Vector3D& pSize)
+				const int pTexCoordX, const int pTexCoordY, const Vector3D& pPosition, const Vector3D& pSize) const
 {
-//pSize.x = Height
-//pSize.y = Width
-//pSize.z = Depth
 	glPushMatrix();
 		DrawCube(pTexture, pTexCoordX, pTexCoordY, pPosition, pSize.x, pSize.y, pSize.z);
 		Vector3D position = pPosition;
 		position.z -= pSize.z;
 		Vector3D size(pPosition.x+pSize.x, pPosition.y+pSize.y, pPosition.z);
-		collision->addCollisionBox(position, size);
+		collision->AddCollisionBox(position, size);
 	glPopAttrib();
 }
 
 void DrawManager::DrawCollisionRect(CollisionDetection* collision, const GLint pTexture, 
 				const int pTexCoordX, const int pTexCoordY, 
-				const int pPositionX, const int pPositionY, const int pPositionZ, 
-				const GLdouble pWidth, const GLdouble pDepth, const GLdouble pHeight)
+				const Vector3D& pPosition, 
+				const GLdouble pWidth, const GLdouble pDepth, const GLdouble pHeight) const
 {
 	glPushMatrix();
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPositionX, pPositionY, pPositionZ, pWidth, pDepth, pHeight);
+		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pWidth, pDepth, pHeight);
 		int width = pWidth;
 		int height = pHeight;
 		int depth = pDepth;
@@ -161,96 +130,80 @@ void DrawManager::DrawCollisionRect(CollisionDetection* collision, const GLint p
 		if (depth==0)
 			depth==10;
 
-		collision->addCollisionBox(Vector3D(pPositionX, pPositionY, pPositionZ), Vector3D(pPositionX+width, pPositionY+height, pPositionZ+depth));
+		collision->AddCollisionBox(Vector3D(pPosition.x, pPosition.y, pPosition.z), Vector3D(pPosition.x+width, pPosition.y+height, pPosition.z+depth));
 	glPopAttrib();
 }
 
-void DrawManager::DrawCollisionBoxColored(BoundingBox *b)
+void DrawManager::DrawCollisionBoxColored(const BoundingBox *pBoundingBox) const
 {
-	glColor3f(1,1,1);
 	glBegin(GL_QUADS);
-    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMin().z);
-    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMin().z);
-    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMin().z);
-    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMin().z);
+		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
     glEnd();
 
     glBegin(GL_QUADS);
-    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMax().z);
-    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMax().z);
-    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMax().z);
-    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMax().z);
+		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMax().y,pBoundingBox->GetMin().z);
+		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMax().y,pBoundingBox->GetMin().z);
     glEnd();
 
     glBegin(GL_QUADS);
-    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMin().z);
-    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMax().z);
-    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMax().z);
-    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMin().z);
+		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMin().y,pBoundingBox->GetMin().z);
+		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMin().y,pBoundingBox->GetMin().z);
     glEnd();
-
-    glBegin(GL_QUADS);
-    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMax().z);
-    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMax().z);
-    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMin().z);
-    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMin().z);
-    glEnd();
-
-	glPopAttrib();
-	glColor3f(0,1,0);
 }
 
-void DrawManager::DrawCollisionBox(BoundingBox *b)
+void DrawManager::DrawCollisionBox(const BoundingBox *pBoundingBox) const
 {
-	glPushAttrib(GL_CURRENT_BIT);
-	glColor3f(1,0,0);
     glBegin(GL_LINE_LOOP);
-    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMin().z);
-    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMin().z);
-    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMin().z);
-    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMin().z);
+		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMax().y,pBoundingBox->GetMin().z);
+		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMax().y,pBoundingBox->GetMin().z);
+		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMin().y,pBoundingBox->GetMin().z);
+		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMin().y,pBoundingBox->GetMin().z);
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMax().z);
-    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMax().z);
-    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMax().z);
-    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMax().z);
+		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMin().z);
-    glVertex3f(b->GetMax().x,b->GetMax().y,b->GetMax().z);
-    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMax().z);
-    glVertex3f(b->GetMin().x,b->GetMax().y,b->GetMin().z);
+		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMax().y,pBoundingBox->GetMin().z);
+		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMax().y,pBoundingBox->GetMin().z);
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMax().z);
-    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMax().z);
-    glVertex3f(b->GetMin().x,b->GetMin().y,b->GetMin().z);
-    glVertex3f(b->GetMax().x,b->GetMin().y,b->GetMin().z);
+		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMin().y,pBoundingBox->GetMin().z);
+		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMin().y,pBoundingBox->GetMin().z);
     glEnd();
-	glColor3f(1,1,1);
-	glPopAttrib();
-	glColor3f(1,1,1);
 }
 
 
-void DrawManager::RenderBitmapString(const float x, const float y, const float z, void *font, const char *string) const 
+void DrawManager::RenderBitmapString(const float x, const float y, const float z, void *pFont, const char *pString) const 
 {
 	const char *c;
 
 	glRasterPos3f(x, y, z);
 
-	for (c=string; *c != '\0'; c++) 
+	for (c=pString; *c != '\0'; c++) 
 	{
-		glutBitmapCharacter(font, *c);
+		glutBitmapCharacter(pFont, *c);
 	}
 }
 
 
-void DrawManager::RenderStrokeFontString(const float x, const float y, const float z, void *font, const char *string) const 
+void DrawManager::RenderStrokeFontString(const float x, const float y, const float z, void *pFont, const char *pString) const 
 {
 	const char *c;
 
@@ -258,9 +211,9 @@ void DrawManager::RenderStrokeFontString(const float x, const float y, const flo
 	glTranslatef(x, y, z);
 	glScalef(0.002f, 0.002f, 0.002f);
 
-	for(c=string; *c != '\0'; c++) 
+	for(c=pString; *c != '\0'; c++) 
 	{
-		glutStrokeCharacter(font, *c);
+		glutStrokeCharacter(pFont, *c);
 	}
 	glPopMatrix();
 }
@@ -284,7 +237,6 @@ void DrawManager::SetOrthographicProjection() const
 	// switch back to modelview mode
 	glMatrixMode(GL_MODELVIEW);
 }
-
 
 void DrawManager::RestorePerspectiveProjection() const 
 {

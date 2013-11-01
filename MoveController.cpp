@@ -20,7 +20,7 @@ MoveController::MoveController(): mJump(false), mMaxJumpHeight(50)
 	mStartPosition.z = 0;
 	mCameraRotation = 0;
 
-	mSpeed = 1.0; //min bouncing box
+	mSpeed = 5.0; //min bouncing box
 	mPos.x = 0.0; 
 	mPos.y = 0.0; 
 	mPos.z = 0.0; 
@@ -51,7 +51,7 @@ MoveController::MoveController(): mJump(false), mMaxJumpHeight(50)
 	}
 	mDrawManager = new DrawManager(); //just temp.
 	mCameraBB = new BoundingBox();
-	mCameraBB->SetBoundingBox(mPos, Vector3D(100.0f, 100.0f, 100.0f));
+	mCameraBB->SetBoundingBox(mPos, Vector3D(50.0f, 50.0f, 50.0f));
 	mCameraTranslation.x = 0;
 	mCameraTranslation.y = 0;
 	mCameraTranslation.z = 0;
@@ -110,14 +110,14 @@ void MoveController::PrepareMovement(float xpos, float ypos, float zpos, float r
 void MoveController::SetDiffValues(float x, float y, float z)
 {
 	mPosDiff.x = x;
-	mPosDiff.y = y;
+	//mPosDiff.y = y;
 	mPosDiff.z = z;
 }
 
 void MoveController::MoveCamera()  //try to avoid updating variables in the draw function! -> do that in the update-funciton
 {		
 	mPos.x += mPosDiff.x;
-	mPos.y += mPosDiff.y;
+	//mPos.y += mPosDiff.y;
 	mPos.z += mPosDiff.z;
 
 	ResetDiffValues();
@@ -129,7 +129,7 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 	glPushMatrix();
 		glRotatef(0, 1, 0, 0);
 		glColor3f(1.0f, 0.0f, 0.0f);
-		glutSolidCube(100); //Our character to follow - WILL CHANGE TO CHARACTER
+		glutSolidCube(50); //Our character to follow - WILL CHANGE TO CHARACTER
 	glPopMatrix();
     
 	glRotatef(mYrot,0.0,1.0,0.0);  //rotate the camera on the y-axis (up and down)
@@ -142,7 +142,9 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 	
 	mCameraTranslation += mPos;
 	mCameraBB->Translate(-mPos);
-	glTranslated(-mPos.x, -mPos.y, -mPos.z); //translate the screen to the position of our camera
+	glTranslated(-mPos.x, 0.0f, -mPos.z); //translate the screen to the position of our camera
+	//glTranslated(-mPos.x, -mPos.y, -mPos.z); //translate the screen to the position of our camera
+	
 	glColor3f(1.0f, 1.0f, 1.0f);	
 }
 

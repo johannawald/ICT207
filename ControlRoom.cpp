@@ -119,62 +119,25 @@ void ControlRoom::DrawFloor()
 	//maybe create a variable "factor" to change the size of everything easily
 
 	//floor
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, -4000, 0, -6000, 8000, 12000, 0);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 1, 1, -2000, 0, -8000, 4000, 2000, 0);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, Vector3D(-4000, 0, -6000), 8000, 12000, 0);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 1, 1, Vector3D(-2000, 0, -8000), 4000, 2000, 0);
 	//roof
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, -4000, 4000, -6000, 8000, 12000, 0);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 1, 1, -2000, 4000, -8000, 4000, 2000, 0);
-	
-	/*
-	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor));
-	glBegin(GL_QUADS);
-		glTexCoord2f (2.0, 2.0);		glVertex3f(-4000, 0, 6000);
-		glTexCoord2f (0.0, 2.0);		glVertex3f(4000, 0, 6000);
-		glTexCoord2f (0.0, 0.0);		glVertex3f(4000, 0, -6000);
-		glTexCoord2f (2.0, 0.0);		glVertex3f(-4000, 0, -6000);
-	glEnd();
-	
-	//floor
-	
-	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor));
-	glBegin(GL_QUADS);
-		glTexCoord2f (1.0, 1.0);		glVertex3f(0, 0, -4000);
-		glTexCoord2f (0.0, 1.0);		glVertex3f(0, 0, -1000);
-		glTexCoord2f (0.0, 0.0);		glVertex3f(1000, 0, -1000);
-		glTexCoord2f (1.0, 0.0);		glVertex3f(1000, 0, -4000);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f (0.25, 0.25);		glVertex3f(300, 0, -4500);
-		glTexCoord2f (0.0, 0.25);		glVertex3f(300, 0, -4000);
-		glTexCoord2f (0.0, 0.0);		glVertex3f(700, 0, -4000);
-		glTexCoord2f (0.25, 0.0);		glVertex3f(700, 0, -4500);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f (1.0, 1.0);		glVertex3f(0, 1000, -4000);
-		glTexCoord2f (0.0, 1.0);		glVertex3f(0, 1000, -1000);
-		glTexCoord2f (0.0, 0.0);		glVertex3f(1000, 1000, -1000);
-		glTexCoord2f (1.0, 0.0);		glVertex3f(1000, 1000, -4000);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f (0.25, 0.25);		glVertex3f(300, 1000, -4000);
-		glTexCoord2f (0.0, 0.25);		glVertex3f(300, 1000, -4500);
-		glTexCoord2f (0.0, 0.0);		glVertex3f(700, 1000, -4500);
-		glTexCoord2f (0.25, 0.0);		glVertex3f(700, 1000, -4000);
-	glEnd();*/
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, Vector3D(-4000, 4000, -6000), 8000, 12000, 0);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 1, 1, Vector3D(-2000, 4000, -8000), 4000, 2000, 0);
 	
 }
 
 void ControlRoom::DrawWalls()
 {
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 4, 1, -4000, 0, 6000, 8000, 0, 4000);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, 2000, 0, -6000, 2000, 0, 4000);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, -4000, 0, -6000, 2000, 0, 4000);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 2, 1, -2000, 0, -8000, 4000, 0, 4000);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 4, 1, Vector3D(-4000, 0, 6000), 8000, 0, 4000);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(2000, 0, -6000), 2000, 0, 4000);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(-4000, 0, -6000), 2000, 0, 4000);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 2, 1, Vector3D(-2000, 0, -8000), 4000, 0, 4000);
 
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 6, 1, -4000, 0, -6000, 0, 12000, 4000);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 6, 1, 4000, 0, -6000, 0, 12000, 4000);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, -2000, 0, -8000, 0, 2000, 4000);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, 2000, 0, -8000, 0, 2000, 4000);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 6, 1, Vector3D(-4000, 0, -6000), 0, 12000, 4000);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 6, 1, Vector3D(4000, 0, -6000), 0, 12000, 4000);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(-2000, 0, -8000), 0, 2000, 4000);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(2000, 0, -8000), 0, 2000, 4000);
 
 
 	/*
@@ -253,7 +216,7 @@ void ControlRoom::DrawLadder()
 	glPushMatrix();
 		//glTranslatef(-500, 0, -6750);
 		//glScalef(1.5, 3, 3);	
-		addCollisionGameObject(Vector3D(-250, 0, -6560), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, mIndexLadder);
+		addCollisionGameObject(Vector3D(-250, 0, -6560), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, 1, 1, mIndexLadder);
 		//GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taRustyWall));
 	glPopMatrix();
 }

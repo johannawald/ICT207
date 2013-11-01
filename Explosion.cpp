@@ -12,18 +12,19 @@
 #include <time.h>
 #include <math.h>
 #include <GL\glut.h>
+#include <iostream>
 //#include <glut.h>
 
-Explosion::Explosion(){
-	particle mParticles[NUM_PARTICLES];
-	debrisData mDebris[NUM_DEBRIS];
+Explosion::Explosion(): mNumParticles(1000), mNumDebris(100) {
+	mParticles = new particle[mNumParticles];
+	mDebris = new debrisData[mNumDebris];
 	mFuel = 0;
 	mSpeed = 0.2;
 }
 
-Explosion::Explosion(float s){
-	particle mParticles[NUM_PARTICLES];
-	debrisData mDebris[NUM_DEBRIS];
+Explosion::Explosion(float s): mNumParticles(1000), mNumDebris(100) {
+	mParticles = new particle[mNumParticles];
+	mDebris = new debrisData[mNumDebris];
 	mFuel = 0;
 	mSpeed = s;
 }
@@ -49,10 +50,8 @@ void Explosion::newSpeed(float dest[3]){
 	dest[2] = z;
 }
 
-void Explosion::newExplosion(float x, float y, float z){
-	int i;
-
-	for(i = 0; i < NUM_PARTICLES; i++);
+void Explosion::newExplosion(float x, float y, float z) {
+	for(int i = 0; i < mNumParticles; i++)
 	{
 		mParticles[i].position[0] = x;
 		mParticles[i].position[1] = y;
@@ -65,7 +64,7 @@ void Explosion::newExplosion(float x, float y, float z){
 		newSpeed(mParticles[i].speed);
 	}
 
-	 for (i = 0; i < NUM_DEBRIS; i++)
+	for (int i = 0; i < mNumDebris; i++)
     {
       mDebris[i].position[0] = x;
       mDebris[i].position[1] = y;
@@ -94,15 +93,15 @@ void Explosion::newExplosion(float x, float y, float z){
 }
 
 void Explosion::draw(void){
-	int i;
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	/*glLoadIdentity();
 
 	glPushMatrix();
 
 	glBegin(GL_POINTS);
-	for(i = 0; i < NUM_PARTICLES; i++){
+	for(int i = 0; i < mNumParticles; i++)
+	{
 		glColor3fv(mParticles[i].colour);
 		glVertex3fv(mParticles[i].position);
 	}
@@ -112,7 +111,7 @@ void Explosion::draw(void){
 
 	//glNormal3f(0.0, 0.0, 1.0);
 
-	for (i = 0; i < NUM_DEBRIS; i++)
+	for (int i = 0; i < mNumDebris; i++)
 	{
 	  glColor3fv (mDebris[i].color);
 
@@ -139,15 +138,78 @@ void Explosion::draw(void){
 	  glPopMatrix ();
 	}
 
-  glutSwapBuffers (); 
+  //glutSwapBuffers (); 
   idle();
-	
+	*/
+  int    i;
+
+
+  glLoadIdentity ();
+
+  /* Place the camera */
+
+  glTranslatef (0.0, 0.0, -10.0);
+ // glRotatef (angle, 0.0, 1.0, 0.0);
+
+  /* If no explosion, draw cube */
+  glPushMatrix ();
+
+      glDisable (GL_LIGHTING);
+      glDisable (GL_DEPTH_TEST);
+
+      glBegin (GL_POINTS);
+
+	  for (i = 0; i < mNumParticles; i++)
+	  {
+		  glColor3fv (mParticles[i].colour);
+	  glVertex3fv (mParticles[i].position);
+	  }
+  
+      glEnd ();
+
+      glPopMatrix ();
+
+      glEnable (GL_LIGHTING); 
+      glEnable (GL_LIGHT0); 
+      glEnable (GL_DEPTH_TEST);
+
+      glNormal3f (0.0, 0.0, 1.0);
+
+      for (i = 0; i < mNumParticles; i++)
+	{
+		glColor3fv (mDebris[i].color);
+
+	  glPushMatrix ();
+      
+	  glTranslatef (mDebris[i].position[0],
+			mDebris[i].position[1],
+			mDebris[i].position[2]);
+
+	  glRotatef (mDebris[i].orientation[0], 1.0, 0.0, 0.0);
+	  glRotatef (mDebris[i].orientation[1], 0.0, 1.0, 0.0);
+	  glRotatef (mDebris[i].orientation[2], 0.0, 0.0, 1.0);
+
+	  glScalef (mDebris[i].scale[0],
+		    mDebris[i].scale[1],
+		    mDebris[i].scale[2]);
+
+	  glBegin (GL_TRIANGLES);
+	  glVertex3f (0.0, 0.5, 0.0);
+	  glVertex3f (-0.25, 0.0, 0.0);
+	  glVertex3f (0.25, 0.0, 0.0);
+	  glEnd ();	  
+	  
+	  glDisable (GL_LIGHTING); 
+      glDisable (GL_LIGHT0); 
+
+	  glPopMatrix ();
+	}
 }
 
 void Explosion::idle(void){
 	int i;
 	if(mFuel > 0){
-		for(i = 0; i < NUM_PARTICLES; i++){
+		for(i = 0; i < mNumParticles; i++){
 			mParticles[i].position[0] += mParticles[i].speed[0] * mSpeed;
 			mParticles[i].position[1] += mParticles[i].speed[1] * mSpeed;
 			mParticles[i].position[2] += mParticles[i].speed[2] * mSpeed;
@@ -165,7 +227,7 @@ void Explosion::idle(void){
 				mParticles[i].colour[2] = 0.0;
 		}
 
-		  for (i = 0; i < NUM_DEBRIS; i++)
+		for (i = 0; i < mNumDebris; i++)
 	    {
 	      mDebris[i].position[0] += mDebris[i].speed[0] * mSpeed;
 	      mDebris[i].position[1] += mDebris[i].speed[1] * mSpeed;

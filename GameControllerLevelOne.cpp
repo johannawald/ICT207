@@ -8,29 +8,6 @@
 GameControllerLevelOne::GameControllerLevelOne(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture): GameController(pAudio, pModel, pTexture)
 {
 	
-
-		//floor
-		GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 1, -200, 0, -200, 400, 1200, 0);
-		//roof
-		GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 1, -200, 400, -200, 400, 120, 0);
-		//walls
-		GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, -100, 0, -100, 200, 0, 400);
-		GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, -100, 0, -100, 0, 200, 400);
-		GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, 100, 0, -100, 0, 200, 400);
-		GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, -200, 0, 100, 100, 0, 400);
-		GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, 100, 0, 100, 100, 0, 400);
-
-		GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, -200, 0, 100, 0, 400, 400);
-		GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, 200, 0, 100, 0, 400, 400);
-
-		GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, -100, 0, 700, 200, 0, 400);
-		GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, -100, 0, 500, 0, 200, 400);
-		GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, 100, 0, 500, 0, 200, 400);
-
-		GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, -200, 0, 500, 100, 0, 400);
-		GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, 100, 0, 500, 100, 0, 400);
-
-
 }
 
 //--------------------------------------------------------------------------------------
@@ -40,35 +17,42 @@ void GameControllerLevelOne::DrawObjects()
 {
 	glPushMatrix();
 		DrawTimer();
-		//floor
-		GetDrawManager()->DrawRect(GetTexture()->getTextureID(taTilefloor), 3, 1, -200, 0, -200, 400, 1200, 0);
-		//roof
-		GetDrawManager()->DrawRect(GetTexture()->getTextureID(taTilefloor), 3, 1, -200, 400, -200, 400, 120, 0);
-		//walls
-		GetDrawManager()->DrawRect(GetTexture()->getTextureID(taTilewall), 1, 1, -100, 0, -100, 200, 0, 400);
-		GetDrawManager()->DrawRect(GetTexture()->getTextureID(taTilewall), 1, 1, -100, 0, -100, 0, 200, 400);
-		GetDrawManager()->DrawRect(GetTexture()->getTextureID(taTilewall), 1, 1, 100, 0, -100, 0, 200, 400);
-		GetDrawManager()->DrawRect(GetTexture()->getTextureID(taTilewall), 1, 1, -200, 0, 100, 100, 0, 400);
-		GetDrawManager()->DrawRect(GetTexture()->getTextureID(taTilewall), 1, 1, 100, 0, 100, 100, 0, 400);
-
-		GetDrawManager()->DrawRect(GetTexture()->getTextureID(taTilewall), 1, 1, -200, 0, 100, 0, 400, 400);
-		GetDrawManager()->DrawRect(GetTexture()->getTextureID(taTilewall), 1, 1, 200, 0, 100, 0, 400, 400);
-
-		GetDrawManager()->DrawRect(GetTexture()->getTextureID(taTilewall), 1, 1, -100, 0, 700, 200, 0, 400);
-		GetDrawManager()->DrawRect(GetTexture()->getTextureID(taTilewall), 1, 1, -100, 0, 500, 0, 200, 400);
-		GetDrawManager()->DrawRect(GetTexture()->getTextureID(taTilewall), 1, 1, 100, 0, 500, 0, 200, 400);
-
-		GetDrawManager()->DrawRect(GetTexture()->getTextureID(taTilewall), 1, 1, -200, 0, 500, 100, 0, 400);
-		GetDrawManager()->DrawRect(GetTexture()->getTextureID(taTilewall), 1, 1, 100, 0, 500, 100, 0, 400);
-
-
 	glPopMatrix();
 
 }
 
+void WinGame()
+{
+	std::cout << " test " << std::endl;
+}
+
+
 void GameControllerLevelOne::InitGameObjects()
 {
-	addCollisionGameObject(Vector3D(-60,20,100), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, mBoxesCollisionIndex[0]);
-	addCollisionGameObject(Vector3D(-60,-20,300), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, mBoxesCollisionIndex[1]);	
-
+	//addBomb();
+	//boxes
+	//void (GameController::*test)(void); //*JW
+	//test = &WinGame;
+	addCollisionGameObject(Vector3D(-110, mGround+10, 250), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, 1, 1, mBoxesCollisionIndex[0]);
+	addCollisionGameObject(Vector3D(0, mGround+10, 250), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, 1, 1, mBoxesCollisionIndex[0]);
+	addCollisionGameObject(Vector3D(110, mGround+10, 250), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, 1, 1, mBoxesCollisionIndex[1]);	
+	//floor
+	addCollisionGameObject(Vector3D(-200, mGround, -200), Vector3D(), Vector3D(400, 1200, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 3, 1, mCollisionIndex);
+	//roof
+	addCollisionGameObject(Vector3D(-200, 400+mGround, -200), Vector3D(), Vector3D(400, 120, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 3, 1, mCollisionIndex);
+	//walls
+	//something's wrong here:
+	addCollisionGameObject(Vector3D(-100, mGround, -100), Vector3D(), Vector3D(100, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, mCollisionIndex);
+	//addCollisionGameObject(Vector3D(-100, mGround, 100), Vector3D(), Vector3D(200, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, mCollisionIndex);
+	addCollisionGameObject(Vector3D(-200, mGround, 100), Vector3D(), Vector3D(100, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, mCollisionIndex);
+	
+	addCollisionGameObject(Vector3D(100, mGround, 100), Vector3D(), Vector3D(100, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, mCollisionIndex);
+	addCollisionGameObject(Vector3D(-200, mGround, 100), Vector3D(), Vector3D(0, 400, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, mCollisionIndex);
+	addCollisionGameObject(Vector3D(200, mGround, 100), Vector3D(), Vector3D(0, 400, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, mCollisionIndex);
+	addCollisionGameObject(Vector3D(-100, mGround, 700), Vector3D(), Vector3D(200, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, mCollisionIndex);
+	addCollisionGameObject(Vector3D(-100, mGround, 500), Vector3D(), Vector3D(0, 200, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, mCollisionIndex);
+	addCollisionGameObject(Vector3D(100, mGround, 500), Vector3D(), Vector3D(0, 200, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, mCollisionIndex);
+	addCollisionGameObject(Vector3D(-200, mGround, 500), Vector3D(), Vector3D(100, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, mCollisionIndex);
+	addCollisionGameObject(Vector3D(100, mGround, 500), Vector3D(), Vector3D(100, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, mCollisionIndex);
 }
+

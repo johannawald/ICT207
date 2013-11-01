@@ -17,7 +17,7 @@ void BasisGameController::DrawGameObjects()
 	for (std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) 
 	{
 		glPushMatrix();
-			(*it)->Draw(GetModel());
+		(*it)->Draw(*GetModel(), *GetDrawManager(), mCollision);
 		glPopMatrix();
 	}
 }
@@ -55,19 +55,25 @@ void BasisGameController::Mouse(int button, int state, int x, int y)
 
 void BasisGameController::addCollisionGameObject(Vector3D& pPosition, Vector3D& pMovement, 
 												Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation,
-												eModels pModel, eTextures pTexture, int& pCollisionIndex)
+												int pModel, GLuint pTexture, int pTexCoordX, int pTexCoordY, int& pCollisionIndex, void (*pCollisionMethod)(void))
 //pSize.x - Width
 //pSize.y - Height
 //pSize.z - Depth
 {
 	Vector3D min = pPosition;
 	Vector3D max = pPosition;
-	max.x += pSize.x;
-	max.y += pSize.y;
-	max.z -= pSize.z;
 
-	pCollisionIndex = mCollision.addCollisionBox(min, max);	
-	addGameObject(pPosition, pMovement, pSize, pScale, pRotation, pModel, pTexture, pCollisionIndex);
+	if (pModel>0)
+	{
+		max.x += pSize.x;
+		max.y += pSize.y;
+		max.z -= pSize.z;
+	}
+	else max += pSize;
+
+	pCollisionIndex = mCollision.AddCollisionBox(min, max);	
+
+	addGameObject(pPosition, pMovement, pSize, pScale, pRotation, pModel, pTexture, pTexCoordX, pTexCoordY, pCollisionIndex, pCollisionMethod);
 }
 
 void BasisGameController::Draw()
@@ -89,7 +95,7 @@ void BasisGameController::Draw()
 			glPushMatrix();
 				//Set camera position:
 				mCamera.SetCameraPosition();
-				//mCollision.Draw(GetDrawManager());
+				mCollision.Draw(*GetDrawManager());
 				DrawGameObjects();
 				DrawObjects();
 			glPopMatrix();
@@ -101,9 +107,9 @@ void BasisGameController::Draw()
 	}
 }
 
-void BasisGameController::addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, eModels pModelIndex, eTextures pTextureIndex, int pCollisionIndex)
+void BasisGameController::addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, int pModelIndex, GLuint pTextureIndex, int pTexCoordX, int pTexCoordY, int pCollisionIndex, void (*pCollisionMethod)(void))
 {
-	GameObject* gameobject = new GameObject(pPosition, pMovement, pSize, pScale, pRotation, pModelIndex, pTextureIndex, pCollisionIndex);
+	GameObject* gameobject = new GameObject(pPosition, pMovement, pSize, pScale, pRotation, pModelIndex, pTextureIndex, pTexCoordX, pTexCoordY, pCollisionIndex); //, pCollisionMethod, nullptr
 	mGameObject.push_back(gameobject);
 }
 

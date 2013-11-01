@@ -86,12 +86,12 @@ DrawManager* BasisController::GetDrawManager()
 }
 
 
-int BasisController::GetWindowWidth()
+const int BasisController::GetWindowWidth() const
 {
 	return mScreenWidth;
 }
 
-int BasisController::GetWindowHeight()
+const int BasisController::GetWindowHeight() const
 {
 	return mScreenHeight;
 }

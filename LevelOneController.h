@@ -12,6 +12,8 @@
  * @date 16/10/2013 Raymond Forster - Version2: Added 3rd Person Camera
  */
 
+//not used anymore as level one -> level two??
+
 #pragma once
 
 #include <Windows.h>

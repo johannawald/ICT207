@@ -7,8 +7,6 @@
 
 #ifndef EXPLOSION_H
 #define EXPLOSION_H
-#define NUM_PARTICLES 1000
-#define NUM_DEBRIS 100
 
 struct particle{
 		GLfloat position[3];
@@ -30,8 +28,11 @@ typedef struct debrisData;
 
 class Explosion{
 private:
-	particle mParticles[NUM_PARTICLES];
-	debrisData mDebris[NUM_DEBRIS];
+	const int mNumParticles;
+	const int mNumDebris;
+
+	particle* mParticles;
+	debrisData* mDebris;
 	int mFuel;
 	float mSpeed;
 

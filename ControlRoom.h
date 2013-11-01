@@ -7,9 +7,10 @@
  * encapsulated version of Shay's World.
  *
  * @author Daniel Manganaro
- * @version 01
+ * @version 03
  * @date 15/10/2013 Daniel Manganaro - Version1
- * @date 25/10/2013 Johanna Wald - Version2
+ * @date 20/10/2013 Johanna Wald - added some basic functionallity
+ * @date 25/10/2013 Johanna Wald - added gameobjects
  */
 
 #pragma once
@@ -41,6 +42,7 @@ private:
 	void CollisionWithObject(GameObject* pGameObject);
 public:
 	ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm);
+
 	void Init();
 	void Draw();
 	void DrawObjects();

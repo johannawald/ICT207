@@ -8,6 +8,7 @@
  * @author Johanna Wald
  * @version 01
  * @date 15/09/2013
+ * @date 10/10/2013 Johanna Wald - set up class
  */
 
 #pragma once
@@ -30,5 +31,4 @@ private:
 	virtual void InitGameObjects();
 public:
 	GameControllerLevelOne(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture);
-
 };
