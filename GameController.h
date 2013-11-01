@@ -32,9 +32,12 @@ class GameController : public IStateController, public BasisGameController
 private:
 	bool mPush;
 	bool mPull;
-	
-	int* mBoxesCollisionIndex;
+	const bool mSoundOn;
+	bool mLostAnimation;
+	bool mBombSoundPlaying; 
+	bool mLost;
 
+	bool ObjectIsBox(const int pIndex);
 	void PullBox(int pIndex);
 	void PushBox(int pIndex);
 
@@ -48,12 +51,12 @@ private:
 	virtual void DrawObjects();
 	virtual void InitGameObjects();
 
-	
 	void RenderBitmapString(float x, float y, float z, void *font, char *string);
 	void RenderStrokeFontString(float x, float y, float z, void *font, char *string);
 	void SetOrthographicProjection();
 	void RestorePerspectiveProjection();
 protected:
+	int* mBoxesCollisionIndex;
 	void DrawTimer();
 public:
 	/**

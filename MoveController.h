@@ -41,6 +41,7 @@ class MoveController
 		float mYpos;  
 		float mZpos;*/ 
 
+		float mSpeed;
 		Vector3D mPosDiff;
 		Vector3D mCameraTranslation;
 		float mCameraRotation;
@@ -70,7 +71,7 @@ class MoveController
 		void KeyOperations(void);
 		void ResetDiffValues();
 	public:
-		float mSpeed;
+
 
 		MoveController();
 	/*	float GetXpos();

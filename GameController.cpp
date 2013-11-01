@@ -10,13 +10,14 @@
 #include "GameOverController.h"
 #include <iostream>
 
-int levelTime = 120;
-bool stopTimer = false;
+int levelTime = 10;
+//bool stopTimer = false;
 bool DebugCollision = false;
 
 void Countdown(int counterStepTime)
 {
-	if (!stopTimer)
+	//if (mSoundOn)
+	if (levelTime>-5)
 	{
 		levelTime -=1;
 		glutTimerFunc(1000, *Countdown, 0); //static?
@@ -24,12 +25,13 @@ void Countdown(int counterStepTime)
 }
 
 GameController::GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture): 
-		BasisGameController(pAudio, pModel, pTexture), mPush(false), mPull(false)
+	BasisGameController(pAudio, pModel, pTexture), mPush(false), mPull(false), mSoundOn(true), mLost(false), mBombSoundPlaying(false), mLostAnimation(false)
 {
 	SetGameObject();
 	glutTimerFunc(1000, *Countdown, 0);
-	mCamera.mSpeed = 3;
 	mBoxesCollisionIndex = new int[5]; //dynamic for each level
+	for (int i = 0; i<5; i++)
+		mBoxesCollisionIndex[i] = -1;
 }
 
 void GameController::SetGameObject()
@@ -41,14 +43,16 @@ void GameController::Init()
 {
 	BasisGameController::Init();
 	InitGameObjects();
+	if (mSoundOn)
+		GetAudio()->playSound(sBgMusic);
 }
 
 void GameController::InitGameObjects() 
 {
 	int cubeSize = 500; //pIndex
 	//cubes
-	addCollisionGameObject(Vector3D(20,20,20), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, mBoxesCollisionIndex[0]);
-	addCollisionGameObject(Vector3D(-70,-20,-20), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, mBoxesCollisionIndex[1]);	
+	//addCollisionGameObject(Vector3D(20,20,20), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, mBoxesCollisionIndex[0]);
+	//addCollisionGameObject(Vector3D(-70,-20,-20), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, mBoxesCollisionIndex[1]);	
 }
 
 int GameController::CheckCollision()
@@ -67,44 +71,56 @@ int GameController::CheckCollision()
 	return pIndexCollision;
 }
 
+bool GameController::ObjectIsBox(const int pIndex)
+{
+	for (int i = 0; i<5; i++)
+		if (mBoxesCollisionIndex[i]==pIndex)
+			return true;
+	return false;
+}
+
 void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just for boxes
 {
-	//should not collide
-	bool Move = false;
-	float factor = 1.0f;
-	//if not collision
-	int pCollisionIndex = -1;
+
+	if (ObjectIsBox(pIndex))
+	{
+		//should not collide
+		bool Move = false;
+		float factor = 1.0f;
+		//if not collision
+		int pCollisionIndex = -1;
 	
-	float CollisionValue = mCollision.Collisions(pIndex, pCollisionIndex, true);
+		float CollisionValue = mCollision.Collisions(pIndex, pCollisionIndex, true);
 
-	if (CollisionValue==0)
-	{	
-		BoundingBox bb;
-		bb = *mCamera.GetCameraBB();
-		bb.Translate(mCamera.GetposDiff()*factor);
-		//collision of moved camera:
-		float CollisionValueMoved = mCollision.Collisions(&bb, pCollisionIndex, true);
+		if (CollisionValue==0)
+		{	
+			BoundingBox bb;
+			bb = *mCamera.GetCameraBB();
+			bb.Translate(mCamera.GetposDiff()*factor);
+			//collision of moved camera:
+			float CollisionValueMoved = mCollision.Collisions(&bb, pCollisionIndex, true);
 
-		if (CollisionValueMoved<=pCollisionValue)
-			Move = false;
+			if (CollisionValueMoved<=pCollisionValue)
+				Move = false;
+			else 
+				Move = true;
+		}
 		else 
-			Move = true;
-	}
-	else 
-	{
-		BoundingBox bb;
-		bb = *mCollision.GetCollisionBox(pIndex);
-		bb.Translate(mCamera.GetposDiff()*factor);
-		float CollisionValueMoved = mCollision.Collisions(&bb, pCollisionIndex, true, pIndex);
-		if (CollisionValueMoved<=CollisionValue) //pull
-			Move = true;
-	}
-	//Move = true;
-	if (Move)
-	{
-		mCollision.translateBoundingBoxOriginal(pIndex, mCamera.GetposDiff()*factor);
-		//gameobject has to have the same index (collision) work with a map - ask ray
-		MoveGameObject(pIndex, mCamera.GetposDiff()*factor);
+		{
+			BoundingBox bb;
+			bb = *mCollision.GetCollisionBox(pIndex);
+			bb.Translate(mCamera.GetposDiff()*factor);
+			float CollisionValueMoved = mCollision.Collisions(&bb, pCollisionIndex, true, pIndex);
+			if (CollisionValueMoved<=CollisionValue) //pull
+				Move = true;
+		}
+		//Move = true;
+		if (Move)
+		{
+			mCollision.translateBoundingBoxOriginal(pIndex, mCamera.GetposDiff()*factor);
+			//gameobject has to have the same index (collision) work with a map - ask ray
+			MoveGameObject(pIndex, mCamera.GetposDiff()*factor);
+		}
 	}
 }
 
@@ -123,7 +139,10 @@ void GameController::PullBox(int pIndex)
 
 void GameController::Draw()
 {
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	BasisGameController::Draw();
+	glDisable(GL_CULL_FACE);
 }
 
 void GameController::CollisionWithObject(GameObject* pGameObject)
@@ -138,15 +157,20 @@ void GameController::DrawTexttest()
 
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!) //updated 29.10 *JM
 { 
-	int index = -1;
-	//if (mCollision.Collision(&mCamera.GetCameraBB(), &mCam)) //mCamera.Getpos(), index, 100))
-	{ 
-		//std::cout << "collision changed: " << std::endl;
-	}
-	if (levelTime<=0)
+	if (levelTime==3)
+		mLostAnimation = true;
+	else if (levelTime==-5)
+		mLost = true;
+
+	if (mLostAnimation && !mBombSoundPlaying)
 	{
-		stopTimer = true;
-		//StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture()));
+		GetAudio()->playSound(sBomb);
+		mBombSoundPlaying = true;
+	}
+	int index = -1;
+
+	if (mLost) //*JW animation
+	{
 		StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture()));
 	}
 }
@@ -161,35 +185,46 @@ void GameController::Reshape(int w, int h)
 //--------------------------------------------------------------------------------------
 void GameController::SpecialKey(int key, int x, int y) 
 {
-	BasisGameController::SpecialKey(key, x, y);
+	if (!mLostAnimation)
+		BasisGameController::SpecialKey(key, x, y);
 }
 
 //---------------------------------------------------------
 void GameController::SpecialKeyUp(int key, int x, int y) 
 {
-	BasisGameController::SpecialKeyUp(key, x, y);
+	if (!mLostAnimation)
+		BasisGameController::SpecialKeyUp(key, x, y);
 }
 
 void GameController::Keyboard(unsigned char key, int x, int y)
 {
-	BasisGameController::Keyboard(key, x, y);
-	if (key=='p')
-		mPush = true;
-	else if (key=='o')
-		mPull = true;
+	if (!mLostAnimation) 
+	{
+		BasisGameController::Keyboard(key, x, y);
+		if (key=='p')
+			mPush = true;
+		else if (key=='o')
+			mPull = true;
+	}
 }
 
 //--------------------------------------------------------------------------------------
 void GameController::KeyboardUp(unsigned char key, int x, int y)
 {
-	BasisGameController::KeyboardUp(key, x, y);
-	mPush = false;
-	mPull = false;
+	if (!mLostAnimation) 
+	{
+		BasisGameController::KeyboardUp(key, x, y);
+		mPush = false;
+		mPull = false;
+	}
 }
 
 void GameController::Mouse(int button, int state, int x, int y)
 {
-	BasisGameController::Mouse(button, state, x, y);
+	if (!mLostAnimation) 
+	{
+		BasisGameController::Mouse(button, state, x, y);
+	}
 }
 
 void GameController::PassiveMotion(int x, int y) //maybe we can delete that?
@@ -198,7 +233,10 @@ void GameController::PassiveMotion(int x, int y) //maybe we can delete that?
 
 void GameController::MouseMotion(int x, int y)
 {
-	BasisGameController::MouseMotion(x, y);
+	if (!mLostAnimation) 
+	{
+		BasisGameController::MouseMotion(x, y);
+	}
 }
 
 //--------------------------------------------------------------------------------------

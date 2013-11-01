@@ -21,7 +21,7 @@ MoveController::MoveController(): mJump(false), mMaxJumpHeight(50)
 	mStartPosition.z = 0;
 	mCameraRotation = 0;
 
-	mSpeed = 350.0; //min bouncing box
+	mSpeed = 1.0; //min bouncing box
 	mPos.x = 0.0; 
 	mPos.y = 0.0; 
 	mPos.z = 0.0; 

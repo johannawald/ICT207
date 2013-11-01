@@ -26,6 +26,8 @@ class GameObject
 
 		eModels mModelIndex;
 		eTextures mTextureIndex;
+		int mTexCoordX;
+		int mTexCoordY;
 		int mCollisionIndex;
 
 		//void (Class::*collisionMethod)(void);
