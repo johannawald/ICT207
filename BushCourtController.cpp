@@ -54,6 +54,13 @@ void BushCourtController::ResetTransition()
 	cam.Position(cam.GetLR(), cam.GetUD(), cam.GetFB()-50, 180.0);
 }			
 
+void BushCourtController::Restart()
+{
+	Init();
+	SetCamPosition(-27000, 10450, 41400, 180);
+	cam.SetWorldCoordinates(36000.0, 43200.0);
+}
+
 //--------------------------------------------------------------------------------------
 //  Initialize Settings
 //--------------------------------------------------------------------------------------
@@ -108,7 +115,7 @@ void BushCourtController::Draw()
 	{
 		if(txtmsgtimer<252)
 			txtmsgtimer++;
-		cout << "txt time: " << txtmsgtimer << endl;
+
 		// check for movement
 		cam.CheckCamera();
 		//ansition.CheckNumberpad();

@@ -7,7 +7,7 @@
 #include "BoundingBox.h"
 
 BasisGameController::BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager): 
-	BasisController(pAudiomanager, pModelmanager, pTexturemanager)
+	BasisController(pAudiomanager, pModelmanager, pTexturemanager), mGroundLevel(-65)
 {	
 
 }
@@ -170,4 +170,9 @@ void BasisGameController::TranslateGameObjects(const Vector3D& pTranslation)
 	{
 		(*it)->Transform(pTranslation);
 	}
+}
+
+const int BasisGameController::GetGroundLevel() const
+{
+	return mGroundLevel;
 }

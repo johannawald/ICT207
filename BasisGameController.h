@@ -25,6 +25,8 @@ class ModelManager;
 class TextureManager;
 class BasisGameController : public BasisController {
 private:
+	const int mGroundLevel;
+
 	std::vector<GameObject*> mGameObject;
 protected:
 		/**
@@ -48,6 +50,12 @@ protected:
 	GameObject* GetGameObject(const int pIndex) const;
 	void TranslateGameObjects(const Vector3D& pTranslation);
 	
+	/**
+		* @brief get function for the ground value variable
+		* @param none
+		* @return const int ground level (member variable)
+	*/
+	const int GetGroundLevel() const;
 
 	virtual void Draw();
 

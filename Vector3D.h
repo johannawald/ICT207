@@ -40,7 +40,6 @@ public:
 		* @return Vector3D&
 	*/
 	Vector3D& GetDistance(const Vector3D& pPoint) const;
-<<<<<<< HEAD
 	//float GetDistance(const Vector3D& pPoint) const;
 	/**
 		* @brief Set 
@@ -83,8 +82,7 @@ public:
 		* @return Vector3D&
 	  */
         Vector3D& operator *=(float t);
-   
-   /**
+	 /**
 		* @brief Operator /=
 		* @params float t
 		* @return Vector3D&

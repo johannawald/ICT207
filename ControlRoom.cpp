@@ -15,17 +15,19 @@ ControlRoom::ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm)
 void ControlRoom::DrawObjects()
 {	
 	glPopMatrix();
-		if (mShowConsoleScreen)
-			DrawConsoleScreen(1024.0, 768.0, 0.0, 0.0, 0.0, 1.0, 1.0, false);
+		if (mShowConsoleScreen) DrawConsoleScreen(1024.0, 768.0, 0.0, 0.0, 0.0, 1.0, 1.0, false);
 		DrawTimer();
+		DrawStairs();
 	glPopMatrix();
 }
 
 void ControlRoom::InitGameObjects()
 {	
-	addCollisionGameObject(Vector3D(100, GetGroundLevel(), 450), Vector3D(), Vector3D(80,300,50), Vector3D(0.15,0.3,0.3), Vector3D(), mLadder, taRustyWall, 1, 1, mIndexLadder);
-	InitWalls();	
-	InitFloor();	
+	addCollisionGameObject(Vector3D(100, GetGroundLevel()+5, 450), Vector3D(), Vector3D(60,300,50), Vector3D(0.2,0.3,0.3), Vector3D(), mLadder, taConcWall, 1, 1, mIndexLadder);
+	addCollisionGameObject(Vector3D(100, GetGroundLevel()+5, -450), Vector3D(), Vector3D(200,200,100), Vector3D(0.2,0.2,0.2), Vector3D(), mConsole, taConsole, 1, 1, mIndexConsole);
+		
+	InitWalls();
+	InitFloor();
 }
 
 void ControlRoom::BeforeCollision(int pIndex, float pCollisionValue)
@@ -57,12 +59,13 @@ void ControlRoom::Keyboard(unsigned char key, int x, int y)
 void ControlRoom::InitFloor()
 {
 	//floor
-	/*GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, Vector3D(-4000, 0, -6000), Vector3D(8000, 12000, 0));
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 1, 1, Vector3D(-2000, 0, -8000), Vector3D(4000, 2000, 0));
+	int test = 0;
+	addCollisionGameObject(Vector3D(-400, 0, -600), Vector3D(), Vector3D(800, 1200, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 3, 2, test); 
+	addCollisionGameObject(Vector3D(-200, 0, -800), Vector3D(), Vector3D(400, 200, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 1, 1, test); 
+	
 	//roof
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, Vector3D(-4000, 4000, -6000), Vector3D(8000, 12000, 0));
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 1, 1, Vector3D(-2000, 4000, -8000), Vector3D(4000, 2000, 0));
-*/
+	addCollisionGameObject(Vector3D(-400, 400, -600), Vector3D(), Vector3D(800, 1200, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 3, 2, test); 
+	addCollisionGameObject(Vector3D(-200, 400, -800), Vector3D(), Vector3D(400, 200, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 1, 1, test); 
 }
 
 void ControlRoom::InitWalls()
@@ -79,38 +82,16 @@ void ControlRoom::InitWalls()
 	addCollisionGameObject(Vector3D(200, GetGroundLevel(), -800), Vector3D(), Vector3D(0, 200, 400),Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
 }
 
-/*void ControlRoom::DrawStairs()
+void ControlRoom::DrawStairs()
 {
 	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor));
 	glPushMatrix();
-		glTranslatef(2000, 0, -6000);
+		glTranslatef(200, 0, -600);
 		glRotatef(180, 0, 1, 0);
-		GetDrawManager()->DrawStairs(4000, 1000, 2000, 5);
+		GetDrawManager()->DrawStairs(400, 100, 200, 5);
 	glPopMatrix();
 	glBindTexture(GL_TEXTURE_2D, -1);
 }
-
-void ControlRoom::DrawConsole()
-{
-	glPushMatrix();
-		//glTranslatef(1000, 0, 4500);
-		glRotatef(180, 0, 1, 0);
-		//glScalef(2, 2, 2);
-		//GetModel()->drawModel(mConsole, GetTexture()->getTextureID(taConsole));
-		//addCollisionGameObject(Vector3D(1000, 0, 4500), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, 1, 1, mIndexLadder);
-		
-	glPopMatrix();
-}
-
-void ControlRoom::DrawLadder()
-{
-	glPushMatrix();
-		//glTranslatef(-500, 0, -6750);
-		//glScalef(1.5, 3, 3);	
-		//addCollisionGameObject(Vector3D(-500, 0, -6750), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, 1, 1, mIndexLadder);
-		//GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taRustyWall));
-	glPopMatrix();
-}*/
 
 void  ControlRoom::DrawConsoleScreen(const GLdouble &xImgSize, const GLdouble &yImgSize, 
 							         const GLdouble &xStart, const GLdouble &yStart, const GLdouble &zStart,

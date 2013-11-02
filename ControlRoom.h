@@ -37,6 +37,7 @@ private:
 	virtual void DrawObjects();	
 	bool ObjectIsLadder(const int pIndex);
 	bool ObjectIsConsole(const int pIndex);
+	void DrawStairs();
 public:
 	ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm);
 	virtual void BeforeCollision(int pIndex, float pCollisionValue);

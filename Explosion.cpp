@@ -94,7 +94,7 @@ void Explosion::newExplosion(float x, float y, float z) {
 void Explosion::draw(void){
   int    i;
 
-
+  glPushAttrib(GL_CURRENT_BIT);
   glLoadIdentity ();
 
   /* Place the camera */
@@ -155,6 +155,7 @@ void Explosion::draw(void){
 
 	  glPopMatrix ();
 	}
+	  glPopAttrib();
 }
 
 void Explosion::idle(void){

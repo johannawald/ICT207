@@ -91,12 +91,14 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 	glTranslatef(0.0f, -100.0f, -mRadius);
 	
 	glRotatef(mXrot,1.0,0.0,0.0);
-
-	glPushMatrix();
-		glRotatef(0, 1, 0, 0);
-		glColor3f(1.0f, 0.0f, 0.0f);
-		//glutSolidCube(50); //Our character to follow - WILL CHANGE TO CHARACTER
-	glPopMatrix();
+	
+	glPushAttrib(GL_CURRENT_BIT);
+		glPushMatrix();
+			glRotatef(0, 1, 0, 0);
+			glColor3f(1.0f, 0.0f, 0.0f);
+			//glutSolidCube(50); //Our character to follow - WILL CHANGE TO CHARACTER
+		glPopMatrix();
+	glPopAttrib();
     
 	glRotatef(mYrot,0.0,1.0,0.0);  //rotate the camera on the y-axis (up and down)
 	
@@ -105,8 +107,6 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 	mCameraBB.Move(mPosDiff);
 	glTranslated(-mPos.x, 0.0f, -mPos.z); //translate the screen to the position of our camera
 	//glTranslated(-mPos.x, -mPos.y, -mPos.z); //translate the screen to the position of our camera
-	
-	glColor3f(1.0f, 1.0f, 1.0f);	
 }
 
 

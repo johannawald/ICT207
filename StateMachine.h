@@ -14,6 +14,7 @@ class IStateController;
 class ModelManager;
 class TextureManager;
 class AudioManager;
+class BushCourtController;
 class StateMachine {
 private:
 	//save the bushcourtcontroller in a member-variable, since it takes a long time to reload it
@@ -21,7 +22,7 @@ private:
 	TextureManager* mTexturemanager;
 	AudioManager* mAudiomanager;
 
-	static IStateController* mBushcourtController; 
+	static BushCourtController* mBushcourtController; 
 	static bool mInit;
     static StateMachine* mStateMachine;
 	//private constructor since the state machine is a singelton

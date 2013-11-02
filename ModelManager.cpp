@@ -35,9 +35,10 @@ void ModelManager::reload()
 
 void ModelManager::drawModel(const eModels model, const GLuint texture) const
 {
+	glEnable(GL_TEXTURE_2D);
+	if (texture>0)
+		glBindTexture(GL_TEXTURE_2D, texture);
 	glPushMatrix();
-		if (texture>0)
-			glBindTexture(GL_TEXTURE_2D, texture);
 		mModels[model]->draw();
 		glBindTexture(GL_TEXTURE_2D, -1);
 	glPopMatrix();

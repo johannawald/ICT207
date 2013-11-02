@@ -27,8 +27,6 @@ void GameOverController::DrawObjects()		//updated 29.10 *JM
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable (GL_TEXTURE_2D);
 		
-		
-		glColor3f(1, 1, 1);
 		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taGameOver));
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		glEnable(GL_BLEND);

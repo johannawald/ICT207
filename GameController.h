@@ -33,8 +33,6 @@
 class GameController : public IStateController, public BasisGameController
 {
 private:
-	
-	const int mGroundLevel;
 	Explosion mExplosion; //member variable for the explsion-class
 	const bool mSoundOn; //const variable to active the sounds
 
@@ -49,12 +47,7 @@ private:
 	virtual void InitGameObjects();
 protected:
 	int mBombIndex;
-	/**
-		* @brief get function for the ground value variable
-		* @param none
-		* @return const int ground level (member variable)
-	*/
-	const int GetGroundLevel() const;
+
 	/**
 		* @brief placeholder / helping variable for the Collision Index in the draw functions of the derived classes
 	*/
@@ -72,8 +65,6 @@ protected:
 
 	void SetNewExplosion(const float x, const float y, const float z);
 public:
-	
-	void WinGame() const;
 	/**
         * @brief constructor creates a new GameController object.
     */

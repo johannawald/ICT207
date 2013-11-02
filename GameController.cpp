@@ -27,11 +27,6 @@ const bool GameController::ObjectIsBomb(const int pIndex) const
 	return (pIndex==mBombIndex);
 }
 
-const int GameController::GetGroundLevel() const
-{
-	return mGroundLevel;
-}
-
 void Countdown(int counterStepTime)
 {
 	//if (mSoundOn)
@@ -43,11 +38,11 @@ void Countdown(int counterStepTime)
 }
 
 GameController::GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture): 
-	BasisGameController(pAudio, pModel, pTexture), mGroundLevel(-65), c_mLostTime(-5), mSoundOn(true), mBombSoundPlaying(false), mLostAnimation(false)
+	BasisGameController(pAudio, pModel, pTexture), c_mLostTime(-5), mSoundOn(true), mBombSoundPlaying(false), mLostAnimation(false)
 {
 
 	glutTimerFunc(1000, *Countdown, 0);
-	mBoxesCollisionIndex = new int[5]; //dynamic for each level
+	mBoxesCollisionIndex = new int[3]; //dynamic for each level
 	for (int i = 0; i<5; i++)
 		mBoxesCollisionIndex[i] = -1;
 }
@@ -73,10 +68,6 @@ int GameController::CheckCollision()
 	return pIndexCollision;
 }
 
-void GameController::WinGame() const
-{
-	StateMachine::setController(new GameWinController(GetAudio(), GetModel(), GetTexture()));
-}
 
 void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just for boxes
 {
@@ -224,37 +215,39 @@ void GameController::DrawObjects()
 
 void GameController::DrawTimer()
 {
-	glBindTexture(GL_TEXTURE_2D, -1);
-	void *font;
-	char s[255];
+	glPushAttrib(GL_CURRENT_BIT);
+		glBindTexture(GL_TEXTURE_2D, -1);
+		void *font;
+		char s[255];
 
-	GetDrawManager()->SetOrthographicProjection();
+		GetDrawManager()->SetOrthographicProjection();
 
-	glPushMatrix();
-	glLoadIdentity();
+		glPushMatrix();
+		glLoadIdentity();
 
-	sprintf(s, "Time: %d", G_LEVELTIME); //get timer
-	glColor3f(1.0, 0.0, 0.0);
-	font = GLUT_BITMAP_TIMES_ROMAN_24;
-	GetDrawManager()->RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
+		sprintf(s, "Time: %d", G_LEVELTIME); //get timer
+		glColor3f(1.0, 0.0, 0.0);
+		font = GLUT_BITMAP_TIMES_ROMAN_24;
+		GetDrawManager()->RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
 
-	sprintf(s, "Camera x: %f y: %f z: %f", mCamera.Getpos().x, mCamera.Getpos().y, mCamera.Getpos().z); //get camera position
-	glColor3f(1.0, 0.5, 0.5);
-	font = GLUT_BITMAP_8_BY_13;
-	GetDrawManager()->RenderBitmapString(1.0,10.5,0.0,font, s); //display camera position
-
-	//Collision
-	if (G_DEBUGCOLLISION)
-	{
-		sprintf(s, "Collision: %f new: %f", COLLISIONVALUE, NEW_COLLISIONVALUE); //get camera position
+		sprintf(s, "Camera x: %f y: %f z: %f", mCamera.Getpos().x, mCamera.Getpos().y, mCamera.Getpos().z); //get camera position
 		glColor3f(1.0, 0.5, 0.5);
 		font = GLUT_BITMAP_8_BY_13;
-		GetDrawManager()->RenderBitmapString(1.0, 15.5, 0.0, font, s); //display camera position
-	}
+		GetDrawManager()->RenderBitmapString(1.0,10.5,0.0,font, s); //display camera position
 
-	glPopMatrix();
+		//Collision
+		if (G_DEBUGCOLLISION)
+		{
+			sprintf(s, "Collision: %f new: %f", COLLISIONVALUE, NEW_COLLISIONVALUE); //get camera position
+			glColor3f(1.0, 0.5, 0.5);
+			font = GLUT_BITMAP_8_BY_13;
+			GetDrawManager()->RenderBitmapString(1.0, 15.5, 0.0, font, s); //display camera position
+		}
 
-	GetDrawManager()->RestorePerspectiveProjection();
+		glPopMatrix();
+
+		GetDrawManager()->RestorePerspectiveProjection();
+	glPopAttrib();
 }
 
 void GameController::SetNewExplosion(const float x, const float y, const float z)

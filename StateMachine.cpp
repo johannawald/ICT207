@@ -21,7 +21,7 @@
 #include "GameControllerLevelOne.h"
 
 StateMachine* StateMachine::mStateMachine = nullptr;
-IStateController* StateMachine::mBushcourtController = nullptr;
+BushCourtController* StateMachine::mBushcourtController = nullptr;
 bool StateMachine::mInit = false;
 
 StateMachine::StateMachine(IStateController* pController) {
@@ -55,15 +55,14 @@ StateMachine* StateMachine::getInstance()
 
 void StateMachine::setBushCourtController() {	
 	setController(mBushcourtController);
-	mBushcourtController->Init();
-	//sorry for that:
-	dynamic_cast<BushCourtController*>(mBushcourtController)->SetCamPosition(-27000, 10450, 41400, 180);
+	mBushcourtController->Restart();
 }
 
 void StateMachine::setController(IStateController* pController) {	
 	if (mStateMachine!=NULL)
 		delete mStateMachine;
 	mStateMachine = new StateMachine(pController); 
+	pController->Init(); //not sure if this is not messing up everything
 }
 
 void StateMachine::Init() {

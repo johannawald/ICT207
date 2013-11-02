@@ -4,6 +4,7 @@
 //  Defines all the methods declared, but not defined, in cameraMap.h
 //
 //  Shay Leary, April 2005
+// 26/11/2013 Johanna Wald, added some Push/Pop Attribues
 //--------------------------------------------------------------------------------------
 
 #include "cameraMap.h"
@@ -103,10 +104,7 @@ void CameraMap::DisplayGameEntryScreen(const int & tempExit, const GLuint & temp
 	if (tempImage>0) 
 		glBindTexture(GL_TEXTURE_2D, tempImage);
 	else
-	{
 		glBindTexture(GL_TEXTURE_2D, -1);
-		glColor3b(1,0,0);
-	}
 	// display image
 	glCallList(450);
 	

@@ -1,3 +1,5 @@
+//Johanna Wald, added some Push/Pop Attribues
+
 #include "GameWinController.h"
 #include "StateMachine.h"
 #include "GameController.h"
@@ -24,9 +26,7 @@ void GameWinController::DrawObjects()
 		//trigger something - needs to be a cool win state - fireworks?
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable (GL_TEXTURE_2D);
-		
-		
-		glColor3f(1, 1, 1);
+
 		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taGameWin));
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		glEnable(GL_BLEND);
@@ -37,7 +37,6 @@ void GameWinController::DrawObjects()
 			glTexCoord2f (1.0, 0.0);			glVertex3f(4,4,-10);
 			glTexCoord2f (0.0, 0.0);			glVertex3f(-4,4,-10);
 		glEnd();
-
 
 		glDisable(GL_BLEND);
 		glDisable (GL_TEXTURE_2D); 
