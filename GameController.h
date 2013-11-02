@@ -33,6 +33,7 @@
 class GameController : public IStateController, public BasisGameController
 {
 private:
+	
 	const int mGroundLevel;
 	Explosion mExplosion; //member variable for the explsion-class
 	const bool mSoundOn; //const variable to active the sounds
@@ -41,11 +42,13 @@ private:
 	bool mBombSoundPlaying; //variable that saves the state of the bomb sound
 	const int c_mLostTime; //variable for showing the game over screen after x seconds (time of the animation)
 
-	bool ObjectIsBox(const int pIndex) const;
+	const bool ObjectIsBox(const int pIndex) const;
+	const bool ObjectIsBomb(const int pIndex) const;
 	
 	virtual void DrawObjects();
 	virtual void InitGameObjects();
 protected:
+	int mBombIndex;
 	/**
 		* @brief get function for the ground value variable
 		* @param none

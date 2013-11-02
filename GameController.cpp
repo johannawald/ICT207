@@ -11,16 +11,20 @@
 #include <iostream>
 #include "GameWinController.h"
 
-
 int G_LEVELTIME = 100;
 bool G_DEBUGCOLLISION = false;
 
-bool GameController::ObjectIsBox(const int pIndex) const
+const bool GameController::ObjectIsBox(const int pIndex) const
 {
 	for (int i = 0; i<5; i++)
 		if (mBoxesCollisionIndex[i]==pIndex)
 			return true;
 	return false;
+}
+
+const bool GameController::ObjectIsBomb(const int pIndex) const
+{
+	return (pIndex==mBombIndex);
 }
 
 const int GameController::GetGroundLevel() const
@@ -76,7 +80,11 @@ void GameController::WinGame() const
 
 void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just for boxes
 {
-	if (ObjectIsBox(pIndex))
+	if (ObjectIsBomb(pIndex))
+	{
+		StateMachine::setController(new GameWinController(GetAudio(), GetModel(), GetTexture()));
+	}
+	else if (ObjectIsBox(pIndex))
 	{
 		//should not collide
 		bool Move = false;
