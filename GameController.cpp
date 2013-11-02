@@ -11,6 +11,7 @@
 #include <iostream>
 #include "GameWinController.h"
 
+
 int G_LEVELTIME = 100;
 bool G_DEBUGCOLLISION = false;
 
@@ -239,7 +240,7 @@ void GameController::DrawTimer()
 	//Collision
 	if (G_DEBUGCOLLISION)
 	{
-		sprintf(s, "Collision", mCamera.Getpos().x, mCamera.Getpos().y, mCamera.Getpos().z); //get camera position
+		sprintf(s, "Collision: %f new: %f", COLLISIONVALUE, NEW_COLLISIONVALUE); //get camera position
 		glColor3f(1.0, 0.5, 0.5);
 		font = GLUT_BITMAP_8_BY_13;
 		GetDrawManager()->RenderBitmapString(1.0, 15.5, 0.0, font, s); //display camera position

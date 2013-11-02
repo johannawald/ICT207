@@ -62,12 +62,15 @@ void MoveController::PrepareMovement(float xpos, float ypos, float zpos, float r
 	Enable();
 	// check for movement
 	KeyOperations();
+	double deltaTime = mTimer.Duration();
+	mTimer.Reset();
+	SetPosDiff(deltaTime);
 }
 
 void MoveController::SetDiffValues(float x, float y, float z)
 {
 	mPosDiff.x = x;
-	//mPosDiff.y = y;
+	mPosDiff.y = y;
 	mPosDiff.z = z;
 }
 
@@ -80,9 +83,6 @@ void MoveController::SetPosDiff(const float pDeltaTime)
 
 void MoveController::MoveCamera()  //try to avoid updating variables in the draw function! -> do that in the update-funciton
 {		
-	double deltaTime = mTimer.Duration();
-	mTimer.Reset();
-	SetPosDiff(deltaTime);
 
 	mPos.x += mPosDiff.x;
 	mPos.z += mPosDiff.z;
@@ -102,6 +102,7 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 	
 	mCameraTranslation += mPos;
 	mCameraBB.Translate(mPos);
+	mCameraBB.Move(mPosDiff);
 	glTranslated(-mPos.x, 0.0f, -mPos.z); //translate the screen to the position of our camera
 	//glTranslated(-mPos.x, -mPos.y, -mPos.z); //translate the screen to the position of our camera
 	
@@ -331,6 +332,8 @@ void MoveController::KeyOperations(void)
 	{
 		mPosDiff.y -= 1.0f * mSpeed;
 	}
+	//should not be used
+	mPosDiff.y= 0.0;  
 }
 
 void MoveController::ResetDiffValues()

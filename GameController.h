@@ -69,6 +69,7 @@ protected:
 
 	void SetNewExplosion(const float x, const float y, const float z);
 public:
+	
 	void WinGame() const;
 	/**
         * @brief constructor creates a new GameController object.

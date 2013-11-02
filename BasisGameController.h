@@ -107,12 +107,23 @@ protected:
 		 * @param int y - the y position of the mouse
          */
 	virtual void Mouse(int button, int state, int x, int y);
-	
+		/**
+		* @brief Checks if there is a collision / collision handeling in general
+		* @param none
+		* @return int index of the last object that collides
+		*/
 	virtual int CheckCollision();
 	virtual void CollisionWithObject(GameObject* pGameObject) = 0;
-	virtual void WallCollision(int pIndex, float pCollisionValue); 
-	virtual void PhysicCollision(int pIndex, float pCollisionValue);
+		/**
+		* @brief collision handeling for wall avoidance
+		* @param const int pIndex wall avoidance for the bounding box at index pIndex of the array in "mCollision"
+		* @param const float pCollisionValue level of collision as a float
+		* @return void
+		*/
+	virtual void WallCollision(int pIndex, float pCollisionValue);
 	virtual void BeforeCollision(int pIndex, float pCollisionValue);
 public:	
+	float COLLISIONVALUE; //*JW not needed
+	float NEW_COLLISIONVALUE; //*JW not needed
 	BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager);
 };

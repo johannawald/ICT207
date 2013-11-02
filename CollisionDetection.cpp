@@ -56,11 +56,11 @@ float CollisionDetection::Collision(const BoundingBox& pBoundingBox1, const Boun
 	
 	Vector3D vDistance = pBB1Center.GetDistance(pBB2Center);
 	Vector3D vMaxDistance = (pBoundingBox1.GetSize()/2.0f) + (pBoundingBox2.GetSize()/2.0f);
-	if (pCY) 
+	if (true) 
 	{	
-		if (!((abs(vDistance.x) <= vMaxDistance.x &&
-		    abs(vDistance.y) <= vMaxDistance.y && 
-			abs(vDistance.z) <= vMaxDistance.z)))
+		if ((abs(vDistance.x) >= vMaxDistance.x ||
+		    abs(vDistance.y) >= vMaxDistance.y || 
+			abs(vDistance.z) >= vMaxDistance.z))
 			return 0;
 		else 
 			return (vMaxDistance.x - vDistance.x) + (vMaxDistance.y - vDistance.y) + (vMaxDistance.z - vDistance.z);
