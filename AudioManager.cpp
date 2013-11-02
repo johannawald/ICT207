@@ -31,9 +31,14 @@ void AudioManager::reload()
 	init();
 }
 
-void AudioManager::playSound(const eSounds audio) const
+void AudioManager::playSound(const eSounds mAudio) const
 {
-	mSounds[audio]->Play();
+	mSounds[mAudio]->Play();
+}
+
+void AudioManager::StopSound(const eSounds mAudio) const //why??
+{
+	mSounds[mAudio]->Stop();
 }
 
 void AudioManager::clearMemory()

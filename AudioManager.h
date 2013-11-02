@@ -58,5 +58,12 @@ public:
         * @param eSounds audio - the enum of the sound that should be played it represents the position of the file in the list the class stores
 		* @return void
 	*/
-	void playSound(const eSounds audio) const;
+	void playSound(const eSounds mAudio) const;
+	/**
+		* @brief calls the stop-function of the sound-object 
+		* stored in the list on position of the parameter audio
+        * @param eSounds audio - the enum of the sound that should be played it represents the position of the file in the list the class stores
+		* @return void
+	*/
+	void StopSound(const eSounds mAudio) const;
 };

@@ -76,8 +76,7 @@ void GameController::WinGame() const
 
 void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just for boxes
 {
-
-	if (false) //ObjectIsBox(pIndex))
+	if (ObjectIsBox(pIndex))
 	{
 		//should not collide
 		bool Move = false;
@@ -91,11 +90,10 @@ void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just f
 		{	
 			BoundingBox bb;
 			bb = mCamera.GetCameraBB();
-			bb.Translate(mCamera.GetposDiff()*factor);
-			//collision of moved camera:
+			bb.Move(mCamera.GetposDiff()*factor);
 			float CollisionValueMoved = mCollision.Collisions(bb, pCollisionIndex, true);
 
-			if (CollisionValueMoved<=pCollisionValue)
+			if (CollisionValueMoved<pCollisionValue)
 				Move = false;
 			else 
 				Move = true;
@@ -104,12 +102,11 @@ void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just f
 		{
 			BoundingBox bb;
 			bb = mCollision.GetCollisionBox(pIndex);
-			bb.Translate(mCamera.GetposDiff()*factor);
+			bb.Move(mCamera.GetposDiff()*factor);
 			float CollisionValueMoved = mCollision.Collisions(bb, pCollisionIndex, true, pIndex);
 			if (CollisionValueMoved<=CollisionValue) //pull
 				Move = true;
 		}
-		//Move = true;
 		if (Move)
 		{
 			Vector3D movement  = mCamera.GetposDiff()*factor;
@@ -145,6 +142,7 @@ void GameController::Update()  //this function should be used for updating varia
 
 	if (mLostAnimation && !mBombSoundPlaying)
 	{
+		GetAudio()->StopSound(sBgMusic);
 		GetAudio()->playSound(sBomb);
 		mBombSoundPlaying = true;
 	}

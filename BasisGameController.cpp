@@ -143,8 +143,8 @@ int BasisGameController::CheckCollision()
 	if (COLLISIONVALUE>0)
 	{
 		// Wallcollision
-		WallCollision(IndexCollision, COLLISIONVALUE); 
 		BeforeCollision(IndexCollision, COLLISIONVALUE);
+		WallCollision(IndexCollision, COLLISIONVALUE); 
 	}
 	return IndexCollision;
 }
