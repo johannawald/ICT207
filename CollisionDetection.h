@@ -9,6 +9,7 @@
  * @date 22/10/2013 Johanna Wald - a looot of bugfixing
  * @date 22/10/2013 Johanna Wald - added consts and changed variable names (naming convention)
  * @date 25/10/2013 Johanna Wald - added comments, more consts
+ * @date 26/10/2013 Johanna Wald - changed the return value of the collision methods to the volume of collision
  */
 
 #pragma once
