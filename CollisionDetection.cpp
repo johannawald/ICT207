@@ -63,13 +63,8 @@ float CollisionDetection::Collision(const BoundingBox& pBoundingBox1, const Boun
 			abs(vDistance.z) >= vMaxDistance.z))
 			return 0;
 		else 
-			return (vMaxDistance.x - vDistance.x) + (vMaxDistance.y - vDistance.y) + (vMaxDistance.z - vDistance.z);
+			return (vMaxDistance.x - vDistance.x) * (vMaxDistance.y - vDistance.y) * (vMaxDistance.z - vDistance.z);
 	}
-	if (!pCY)
-		if (!(abs(vDistance.x) <= vMaxDistance.x && abs(vDistance.z) <= vMaxDistance.z))
-			return 0;
-		else 
-			return (vMaxDistance.x - vDistance.x) + (vMaxDistance.z - vDistance.z);
 	return 0;
 }
 

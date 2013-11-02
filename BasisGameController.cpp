@@ -130,7 +130,7 @@ void BasisGameController::WallCollision(int pIndex, float pCollisionValue)
 	if (pCollisionValue>0)
 	{
 		if (NEW_COLLISIONVALUE>pCollisionValue)
-			mCamera.SetDiffValues(0, 0, 0); //not sure if we need that
+			mCamera.SetDiffValues(0, 0, 0);
 	}
 	NEW_COLLISIONVALUE = mCollision.Collisions(bb, pIndex);
 	
@@ -140,10 +140,11 @@ int BasisGameController::CheckCollision()
 {	
 	int IndexCollision = -1;
 	COLLISIONVALUE = mCollision.Collisions(mCamera.GetCameraBB(), IndexCollision); 
-	if (COLLISIONVALUE>0) //IndexCollisions should be a list with all the IDs of objects that collided
+	if (COLLISIONVALUE>0)
 	{
-		WallCollision(IndexCollision, COLLISIONVALUE); //Wallcollision
-		//BeforeCollision(IndexCollision, COLLISIONVALUE); //list!!
+		// Wallcollision
+		WallCollision(IndexCollision, COLLISIONVALUE); 
+		BeforeCollision(IndexCollision, COLLISIONVALUE);
 	}
 	return IndexCollision;
 }

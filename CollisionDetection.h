@@ -77,7 +77,7 @@ public:
 		* @param const BoundingBox& pBoundingBox1 first bounding box that should be checked
 		* @param const BoundingBox& pBoundingBox2 second bounding box that should be checked
 		* @param const bool pCY flag, if the y-axis is included in the collisino detection (default = true)
-		* @return float value how many pixel at the axis are colliding / how "bad" the collision is
+		* @return float value of the volume of the object colliding / how "bad" the collision is
 		*/
 	float Collision(const BoundingBox& pBoundingBox1, const BoundingBox& pBoundingBox2, const bool pCY = true);
 		/**
@@ -87,7 +87,7 @@ public:
 		* @param const int pBBIndex index of the bounding box for which the collision should be checked
 		* @param int& pIndex saves the index of the last object that collides
 		* @param const bool pCY flag, if the y-axis is included in the collisino detection
-		* @return float value how many pixel at the axis are colliding / how "bad" the collision is
+		* @return float value of the volume of the object colliding / how "bad" the collision is
 		*/
 	float Collisions(const int pBBIndex, int& pIndex, const bool pCY);
 		/**
@@ -98,7 +98,7 @@ public:
 		* @param int& pIndex saves the index of the last object that collides
 		* @param const bool pCY flag, if the y-axis is included in the collisino detection
 		* @param const int pSkip skips the collision for the object on index pSkip (default -1)
-		* @return float value how many pixel at the axis are colliding / how "bad" the collision is
+		* @return float value of the volume of the object colliding / how "bad" the collision is
 		*/
 	float Collisions(const BoundingBox& pBoundingBox1, int& pIndex, const bool pCY = true, const int pSkip = -1);
 };
