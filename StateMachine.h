@@ -5,6 +5,7 @@
  * @version 1
  * @date 16/09/2013 Johanna Wald - Started
  * @date 01/10/2013 Johanna Wald - Added forward declaration for faster compiling
+ * @date 10/10/2013 Johanna Wald - Added MouseMotion()-function
  */
 
 #pragma once

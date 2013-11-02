@@ -7,7 +7,7 @@
  * @author Johanna Wald
  * @version 01
  * @date 20/09/2013 Johanna Wald - Basic Implementation
-  * @date 25/10/2013 Johanna Wald - Added consts and detailed doxygen comments
+ * @date 25/10/2013 Johanna Wald - Added consts and detailed doxygen comments
  */
 
 #pragma once
@@ -104,6 +104,7 @@ protected:
 		*/
 	DrawManager* GetDrawManager();
 
+	//ray, please comment:
 	const int GetWindowWidth() const;
 	const int GetWindowHeight() const;
 public:	

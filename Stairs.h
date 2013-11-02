@@ -9,7 +9,7 @@
  * @date 18/09/2013 Raymond Forster - Started
  * @date 20/09/2013 Jon Mace - Added function to draw a set of stairs with derived step 
  *							   height and step width
- * @date 26/10/2013 Johanna Wald - changed function to not static + const
+ * @date 20/10/2013 Johanna Wald - changed function to not static + const
  */
 
 //--------------------------------------------------------------------------------------

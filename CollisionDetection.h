@@ -80,8 +80,26 @@ public:
 		* @return float value how many pixel at the axis are colliding / how "bad" the collision is
 		*/
 	float Collision(const BoundingBox& pBoundingBox1, const BoundingBox& pBoundingBox2, const bool pCY = true);
-
+		/**
+		* @brief checks if there is a collision between the bounding box at indes pBBIndex and the other bounding boxes
+		* 
+		*
+		* @param const int pBBIndex index of the bounding box for which the collision should be checked
+		* @param int& pIndex saves the index of the last object that collides
+		* @param const bool pCY flag, if the y-axis is included in the collisino detection
+		* @return float value how many pixel at the axis are colliding / how "bad" the collision is
+		*/
 	float Collisions(const int pBBIndex, int& pIndex, const bool pCY);
+		/**
+		* @brief checks if there is a collision between the bounding box at indes pBBIndex and the other bounding boxes
+		* 
+		*
+		* @param const BoundingBox& pBoundingBox1 for wich the collision should be checked
+		* @param int& pIndex saves the index of the last object that collides
+		* @param const bool pCY flag, if the y-axis is included in the collisino detection
+		* @param const int pSkip skips the collision for the object on index pSkip (default -1)
+		* @return float value how many pixel at the axis are colliding / how "bad" the collision is
+		*/
 	float Collisions(const BoundingBox& pBoundingBox1, int& pIndex, const bool pCY = true, const int pSkip = -1);
 };
 

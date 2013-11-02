@@ -3,36 +3,36 @@
 //
 //
 // Daniel manganaro
+// Johanna Wald - changed variable names - naming convention
+
 #include <GL/glut.h>
 
 #ifndef EXPLOSION_H
 #define EXPLOSION_H
 
-struct particle{
-		GLfloat position[3];
-		GLfloat speed[3];
-		GLfloat colour[3];
+struct Particle {
+	GLfloat mPosition[3];
+	GLfloat mSpeed[3];
+	GLfloat mColour[3];
 };
-typedef struct particle;
 
-struct debrisData
+struct DebrisData
 {
-  float   position[3];
-  float   speed[3];
-  float   orientation[3];       
-  float   orientationSpeed[3];
-  float   color[3];
-  float   scale[3];
+	float mPosition[3];
+	float mSpeed[3];
+	float mOrientation[3];       
+	float mOrientationSpeed[3];
+	float mColor[3];
+	float mScale[3];
 };
-typedef struct debrisData;
 
-class Explosion{
+class Explosion {
 private:
 	const int mNumParticles;
 	const int mNumDebris;
 
-	particle* mParticles;
-	debrisData* mDebris;
+	Particle* mParticles;
+	DebrisData* mDebris;
 	int mFuel;
 	float mSpeed;
 
@@ -41,8 +41,8 @@ public:
 	Explosion(float);
 	void newSpeed(float[]);
 	void newExplosion(float x, float y, float z);
-	void idle(void);
-	void draw(void);
+	void idle();
+	void draw();
 };
 
 #endif

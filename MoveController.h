@@ -33,7 +33,7 @@ class MoveController
 		Timer mTimer;	
 
 		DrawManager* mDrawManager;
-		BoundingBox mCameraBB; //we need that later!
+		BoundingBox mCameraBB;
 		float mSpeed;
 		
 		// angle of rotation values
