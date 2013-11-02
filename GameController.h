@@ -81,7 +81,7 @@ public:
 
 	void CollisionWithObject(GameObject* pGameObject);
 	int CheckCollision();
-	void BeforeCollision(int pIndex, float pCollisionValue);
+	virtual void BeforeCollision(int pIndex, float pCollisionValue);
 	
 	virtual void Init();
 	virtual void Draw();

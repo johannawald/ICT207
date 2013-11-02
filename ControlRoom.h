@@ -35,8 +35,10 @@ private:
 
 	virtual void InitGameObjects();
 	virtual void DrawObjects();	
+	bool ObjectIsLadder(const int pIndex);
+	bool ObjectIsConsole(const int pIndex);
 public:
 	ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm);
-
+	virtual void BeforeCollision(int pIndex, float pCollisionValue);
 	virtual void Keyboard(unsigned char key, int x, int y);
 };
