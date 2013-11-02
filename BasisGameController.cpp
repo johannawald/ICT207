@@ -17,7 +17,7 @@ void BasisGameController::DrawGameObjects()
 	for (std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) 
 	{
 		glPushMatrix();
-			(*it)->Draw(*GetModel(), *GetDrawManager(), mCollision);
+			(*it)->Draw(*GetModel(), *GetDrawManager());
 		glPopMatrix();
 	}
 }
@@ -68,8 +68,16 @@ void BasisGameController::addCollisionGameObject(Vector3D& pPosition, Vector3D& 
 		max.y += pSize.y;
 		max.z -= pSize.z;
 	}
-	else max += pSize;
-
+	else 
+	{
+		if (pSize.x==0)
+			pSize.x=10;
+		if (pSize.y==0)
+			pSize.y=10;
+		if (pSize.z==0)
+			pSize.z=10;
+		max = max + pSize;
+	}
 	pCollisionIndex = mCollision.AddCollisionBox(min, max);	
 
 	addGameObject(pPosition, pMovement, pSize, pScale, pRotation, pModel, pTexture, pTexCoordX, pTexCoordY, pCollisionIndex, pCollisionMethod);

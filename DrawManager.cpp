@@ -29,7 +29,7 @@ void DrawManager::DrawStairs(const float pStairWidth, const float pStairHeight, 
 
 void DrawManager::DrawRect(const GLint pTexture, 
 				const int TexCoordX, const int TexCoordY, 
-				const int pPositionX, const int pPositionY, const int pPositionZ, 
+				const Vector3D& pPosition,
 				const GLdouble pWidth, const GLdouble pDepth, const GLdouble pHeight) const
 {
 	glPushMatrix();
@@ -37,28 +37,28 @@ void DrawManager::DrawRect(const GLint pTexture,
 	if (pWidth == 0)
 	{
 		glBegin(GL_QUADS);
-			glTexCoord2f(TexCoordX, TexCoordY);		glVertex3f(pPositionX, pPositionY, pPositionZ);
-			glTexCoord2f (0.0, TexCoordY);			glVertex3f(pPositionX, pPositionY, pPositionZ+pDepth);
-			glTexCoord2f (0.0, 0.0);				glVertex3f(pPositionX, pPositionY+pHeight, pPositionZ+pDepth);
-			glTexCoord2f (TexCoordX, 0.0);			glVertex3f(pPositionX, pPositionY+pHeight, pPositionZ);
+			glTexCoord2f(TexCoordX, TexCoordY);		glVertex3f(pPosition.x, pPosition.y, pPosition.z);
+			glTexCoord2f (0.0, TexCoordY);			glVertex3f(pPosition.x, pPosition.y, pPosition.z+pDepth);
+			glTexCoord2f (0.0, 0.0);				glVertex3f(pPosition.x, pPosition.y+pHeight, pPosition.z+pDepth);
+			glTexCoord2f (TexCoordX, 0.0);			glVertex3f(pPosition.x, pPosition.y+pHeight, pPosition.z);
 		glEnd();
 	}
 	else if (pDepth == 0)
 	{
 		glBegin(GL_QUADS);
-			glTexCoord2f(TexCoordX, TexCoordY);		glVertex3f(pPositionX, pPositionY, pPositionZ);
-			glTexCoord2f (0.0, TexCoordY);			glVertex3f(pPositionX+pWidth, pPositionY, pPositionZ);
-			glTexCoord2f (0.0, 0.0);				glVertex3f(pPositionX+pWidth, pPositionY+pHeight, pPositionZ);
-			glTexCoord2f (TexCoordX, 0.0);			glVertex3f(pPositionX, pPositionY+pHeight, pPositionZ);
+			glTexCoord2f(TexCoordX, TexCoordY);		glVertex3f(pPosition.x, pPosition.y, pPosition.z);
+			glTexCoord2f (0.0, TexCoordY);			glVertex3f(pPosition.x+pWidth, pPosition.y, pPosition.z);
+			glTexCoord2f (0.0, 0.0);				glVertex3f(pPosition.x+pWidth, pPosition.y+pHeight, pPosition.z);
+			glTexCoord2f (TexCoordX, 0.0);			glVertex3f(pPosition.x, pPosition.y+pHeight, pPosition.z);
 		glEnd();
 	}
 	else if (pHeight == 0)
 	{
 		glBegin(GL_QUADS);
-			glTexCoord2f(TexCoordX, TexCoordY);		glVertex3f(pPositionX, pPositionY, pPositionZ);
-			glTexCoord2f (0.0, TexCoordY);			glVertex3f(pPositionX, pPositionY, pPositionZ+pDepth);
-			glTexCoord2f (0.0, 0.0);				glVertex3f(pPositionX+pWidth, pPositionY, pPositionZ+pDepth);
-			glTexCoord2f (TexCoordX, 0.0);			glVertex3f(pPositionX+pWidth, pPositionY, pPositionZ);
+			glTexCoord2f(TexCoordX, TexCoordY);		glVertex3f(pPosition.x, pPosition.y, pPosition.z);
+			glTexCoord2f (0.0, TexCoordY);			glVertex3f(pPosition.x, pPosition.y, pPosition.z+pDepth);
+			glTexCoord2f (0.0, 0.0);				glVertex3f(pPosition.x+pWidth, pPosition.y, pPosition.z+pDepth);
+			glTexCoord2f (TexCoordX, 0.0);			glVertex3f(pPosition.x+pWidth, pPosition.y, pPosition.z);
 		glEnd();
 	}
 	glBindTexture(GL_TEXTURE_2D, -1);
@@ -118,7 +118,7 @@ void DrawManager::DrawCollisionRect(CollisionDetection* collision, const GLint p
 				const GLdouble pWidth, const GLdouble pDepth, const GLdouble pHeight) const
 {
 	glPushMatrix();
-		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition.x, pPosition.y, pPosition.z, pWidth, pDepth, pHeight);
+		DrawRect(pTexture, pTexCoordX, pTexCoordY, pPosition, pWidth, pDepth, pHeight);
 		int width = pWidth;
 		int height = pHeight;
 		int depth = pDepth;

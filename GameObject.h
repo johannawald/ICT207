@@ -42,7 +42,7 @@ public:
 		* @brief draws the game object with it's set parameters
 
 	*/
-	void Draw(ModelManager& pModelManager, DrawManager& pDrawManger, CollisionDetection& pCollision); //don't need collision box
+	void Draw(ModelManager& pModelManager, DrawManager& pDrawManger);
 	void Transform(const Vector3D& pTransform);
 	void Move(const Vector3D& pTransform);
 };

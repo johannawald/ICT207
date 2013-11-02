@@ -3,7 +3,6 @@
 #include "BoundingBox.h"
 #include <algorithm> 
 
-
 void BoundingBox::SetBoundingBox(const Vector3D& pPosition, const Vector3D& pSize)
 {
 	mMin = pPosition-(pSize/2.0f);
@@ -50,6 +49,7 @@ const Vector3D& BoundingBox::GetSize() const
 	const float x = GetLength(mMin.x, mMax.x);
 	const float y = GetLength(mMin.y, mMax.y);
 	const float z = GetLength(mMin.z, mMax.z);
+
 	return (Vector3D(x, y, z));
 }
 
@@ -69,7 +69,7 @@ void BoundingBox::Translate(const Vector3D& pTranslate)
 	mMin = mOriginalMin + pTranslate;
 }
 
-void BoundingBox::TranslatePosition(const Vector3D& pTranslate)
+void BoundingBox::Move(const Vector3D& pTranslate)
 {
 	mMax += pTranslate;
 	mMin += pTranslate;

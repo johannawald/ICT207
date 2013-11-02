@@ -24,7 +24,7 @@ void GameObject::Move(const Vector3D& pTransform)
 	mPosition = mPositionOriginal + pTransform;
 }
 
-void GameObject::Draw(ModelManager& pModelManager, DrawManager& pDrawManger, CollisionDetection& pCollision)
+void GameObject::Draw(ModelManager& pModelManager, DrawManager& pDrawManger)
 {
 	if (mModelIndex>-1)
 	{
@@ -39,5 +39,6 @@ void GameObject::Draw(ModelManager& pModelManager, DrawManager& pDrawManger, Col
 		pModelManager.drawModel(mModelIndex, mTextureIndex);
 	}
 	else 
-		pDrawManger.DrawCollisionRect(&pCollision, mTextureIndex, mTexCoordX, mTexCoordY, mPosition, mSize.x, mSize.y, mSize.z);
+		pDrawManger.DrawRect(mTextureIndex, mTexCoordX, mTexCoordY, mPosition, mSize.x, mSize.y, mSize.z);
+		
 }

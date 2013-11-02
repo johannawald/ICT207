@@ -58,9 +58,7 @@ public:
 		* @param const GLint pTexture - the texture that should be binded for drawing the rect
 		* @param const int TexCoordX - the texture x-coordinate for the texture
 		* @param const int TexCoordY - the texture y-coordinate for the texture 
-		* @param const int pPositionX - the x position of the Rect 
-		* @param const int pPositionY - the y position of the Rect 
-		* @param const int pPositionZ - the z position of the Rect 
+		* @param const int pPosition - the position of the Rect 
 		* @param const int pWidth - the width of the Rect 
 		* @param const int pDepth - the depth of the Rect 
 		* @param const int pHeight - the height of the Rect 
@@ -68,7 +66,7 @@ public:
     */	
 	void DrawRect(const GLint pTexture, 
 				  const int TexCoordX, const int TexCoordY, 
-				  const int pPositionX, const int pPositionY, const int pPositionZ, 
+				  const Vector3D& pPosition,
 				  const GLdouble pWidth, const GLdouble pDepth, const GLdouble pHeight) const;
 	/**
         * @brief draws a rect with calling it's overloaded function (rect()) 

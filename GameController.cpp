@@ -27,7 +27,6 @@ const int GameController::GetGroundLevel() const
 	return mGroundLevel;
 }
 
-
 void Countdown(int counterStepTime)
 {
 	//if (mSoundOn)
@@ -39,7 +38,7 @@ void Countdown(int counterStepTime)
 }
 
 GameController::GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture): 
-	BasisGameController(pAudio, pModel, pTexture), mGroundLevel(0), c_mLostTime(-5), mSoundOn(true), mBombSoundPlaying(false), mLostAnimation(false)
+	BasisGameController(pAudio, pModel, pTexture), mGroundLevel(-65), c_mLostTime(-5), mSoundOn(true), mBombSoundPlaying(false), mLostAnimation(false)
 {
 
 	glutTimerFunc(1000, *Countdown, 0);
@@ -77,7 +76,7 @@ void GameController::WinGame() const
 void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just for boxes
 {
 
-	if (ObjectIsBox(pIndex))
+	if (false) //ObjectIsBox(pIndex))
 	{
 		//should not collide
 		bool Move = false;
@@ -114,7 +113,7 @@ void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just f
 		{
 			Vector3D movement  = mCamera.GetposDiff()*factor;
 			movement.y = 0;
-			mCollision.TranslateBoundingBoxOriginal(pIndex, movement);
+			mCollision.MoveBoundingBox(pIndex, movement);
 				//gameobject has to have the same index (collision) work with a map - ask ray
 			MoveGameObject(pIndex,movement);
 		}

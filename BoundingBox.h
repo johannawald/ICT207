@@ -33,6 +33,10 @@ public:
         * @param const Vector3D& pMax - size of the bounding box
 	*/
 	BoundingBox(const Vector3D& pPosition, const float pSize);
+	/**
+		* @brief default constructor, initializes the bounding box with 0
+		* @param none
+	*/
 	BoundingBox();
 	/**
 		* @brief returns the length of a bounding box
@@ -79,9 +83,9 @@ public:
 	*/
 	void Translate(const Vector3D& pTranslate);
 	/**
-		* @brief translates the original bounding box and changes the position of it
+		* @brief translates the original bounding box and changes the position of it (move)
 		* @param const Vector3D& pTranslate translation-matrix
         * @return void
 	*/
-	void TranslatePosition(const Vector3D& pTranslate);
+	void Move(const Vector3D& pTranslate);
 };
