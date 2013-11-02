@@ -119,25 +119,25 @@ void ControlRoom::DrawFloor()
 	//maybe create a variable "factor" to change the size of everything easily
 
 	//floor
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, Vector3D(-4000, 0, -6000), 8000, 12000, 0);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 1, 1, Vector3D(-2000, 0, -8000), 4000, 2000, 0);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, Vector3D(-4000, 0, -6000), Vector3D(8000, 12000, 0));
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 1, 1, Vector3D(-2000, 0, -8000), Vector3D(4000, 2000, 0));
 	//roof
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, Vector3D(-4000, 4000, -6000), 8000, 12000, 0);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 1, 1, Vector3D(-2000, 4000, -8000), 4000, 2000, 0);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, Vector3D(-4000, 4000, -6000), Vector3D(8000, 12000, 0));
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 1, 1, Vector3D(-2000, 4000, -8000), Vector3D(4000, 2000, 0));
 	
 }
 
 void ControlRoom::DrawWalls()
 {
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 4, 1, Vector3D(-4000, 0, 6000), 8000, 0, 4000);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(2000, 0, -6000), 2000, 0, 4000);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(-4000, 0, -6000), 2000, 0, 4000);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 2, 1, Vector3D(-2000, 0, -8000), 4000, 0, 4000);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 4, 1, Vector3D(-4000, 0, 6000), Vector3D(8000, 0, 4000));
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(2000, 0, -6000), Vector3D(2000, 0, 4000));
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(-4000, 0, -6000), Vector3D(2000, 0, 4000));
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 2, 1, Vector3D(-2000, 0, -8000), Vector3D(4000, 0, 4000));
 
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 6, 1, Vector3D(-4000, 0, -6000), 0, 12000, 4000);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 6, 1, Vector3D(4000, 0, -6000), 0, 12000, 4000);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(-2000, 0, -8000), 0, 2000, 4000);
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(2000, 0, -8000), 0, 2000, 4000);
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 6, 1, Vector3D(-4000, 0, -6000), Vector3D(0, 12000, 4000));
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 6, 1, Vector3D(4000, 0, -6000), Vector3D(0, 12000, 4000));
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(-2000, 0, -8000), Vector3D(0, 2000, 4000));
+	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(2000, 0, -8000), Vector3D(0, 2000, 4000));
 
 
 	/*

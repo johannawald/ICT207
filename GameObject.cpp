@@ -39,6 +39,6 @@ void GameObject::Draw(ModelManager& pModelManager, DrawManager& pDrawManger)
 		pModelManager.drawModel(mModelIndex, mTextureIndex);
 	}
 	else 
-		pDrawManger.DrawRect(mTextureIndex, mTexCoordX, mTexCoordY, mPosition, mSize.x, mSize.y, mSize.z);
+		pDrawManger.DrawRect(mTextureIndex, mTexCoordX, mTexCoordY, mPosition, mSize);
 		
 }

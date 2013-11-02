@@ -58,16 +58,14 @@ public:
 		* @param const GLint pTexture - the texture that should be binded for drawing the rect
 		* @param const int TexCoordX - the texture x-coordinate for the texture
 		* @param const int TexCoordY - the texture y-coordinate for the texture 
-		* @param const int pPosition - the position of the Rect 
-		* @param const int pWidth - the width of the Rect 
-		* @param const int pDepth - the depth of the Rect 
-		* @param const int pHeight - the height of the Rect 
+		* @param const int pPosition - the position of the rect 
+		* @param const Vector3D& pSize - the size of the rect
 		* @return void
     */	
 	void DrawRect(const GLint pTexture, 
 				  const int TexCoordX, const int TexCoordY, 
 				  const Vector3D& pPosition,
-				  const GLdouble pWidth, const GLdouble pDepth, const GLdouble pHeight) const;
+				  const Vector3D& pSize) const;
 	/**
         * @brief draws a rect with calling it's overloaded function (rect()) 
 		* at position(x,y,z) with pWidth, pHeight, pDepth and a Texture and rotation(x,y,z)
@@ -111,15 +109,13 @@ public:
 		* @param const int TexCoordX - the texture x-coordinate for the texture
 		* @param const int TexCoordY - the texture y-coordinate for the texture 
 		* @param const Vector3D& pPosition - the position of the rect and the collision box
-		* @param const int pWidth - the width of the rect and the collision box
-		* @param const int pDepth - the depth of the rect and the collision box
-		* @param const int pHeight - the height of the rect and the collision box
+		* @param const int pSize - the size of the rect and the collision box (pWidth, pHeight, pDepth)
 		* @return void
     */	
 	void DrawCollisionRect(CollisionDetection* collision, const GLint pTexture, 
 				const int pTexCoordX, const int pTexCoordY, 
 				const Vector3D& pPosition,  
-				const GLdouble pWidth, const GLdouble pDepth, const GLdouble pHeight) const;
+				const Vector3D& pSize) const;
 	/**
         * @brief draws a cube at position(x,y,z) with pWidth, pHeight, pDepth and a Texture with a collision box
 		*
