@@ -7,193 +7,63 @@
 //  Constructor
 //--------------------------------------------------------------------------------------
 ControlRoom::ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm): 
-	BasisGameController(am,mm,tm),mShowConsole(true)
+	GameController(am,mm,tm), mShowConsoleScreen(true)
 {
-}
-
-//--------------------------------------------------------------------------------------
-//  Initialize Settings
-//--------------------------------------------------------------------------------------
-void ControlRoom::Init() 
-{	
-	BasisGameController::Init();
-
-}
-
-void ControlRoom::Draw()
-{
-	BasisGameController::Draw();
 }
 
 void ControlRoom::DrawObjects()
 {	
-	//that Push is important!
-	glPushMatrix();
-		glEnable(GL_TEXTURE_2D);
-		glColor3f(1, 1, 1);
-		//mCollision.Draw(GetDrawManager());
-		//Draw objects
-		if (mShowConsole)
-			DrawConsoleScreen(1024.0, 768.0, 0.0, 0.0, 0.0, 1.0, 1.0, false);
-		DrawWalls();
-		DrawFloor();
-		DrawStairs();
-		DrawLadder();
-		DrawConsole();
-		
-		glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
-
-	
-
-
+		if (mShowConsoleScreen)
+			DrawConsoleScreen(1024.0, 768.0, 0.0, 0.0, 0.0, 1.0, 1.0, false);
+		DrawTimer();
+	glPopMatrix();
 }
 
-int ControlRoom::CheckCollision()
+void ControlRoom::InitGameObjects()
 {	
-	//collision with walls:
-	return BasisGameController::CheckCollision();
-	//here collision with objects 
-}
-
-void ControlRoom::CollisionWithObject(GameObject* pGameObject)
-{
-}
-
-void ControlRoom::Update()
-{ 
-	if (IsAtComputerPosition())
-		StateMachine::setController(new GameController(GetAudio(), GetModel(), GetTexture()));
-}
-
-bool ControlRoom::IsAtComputerPosition() 
-{
-	return (false);  //(mCamera.GetZpos() > -2000); Jon, insert here position of computer
-}
-
-void ControlRoom::Reshape(int w, int h) {
-	BasisGameController::Reshape(w, h);
-}
-
-void ControlRoom::MouseMotion(int x, int y)
-{
-	BasisGameController::MouseMotion(x, y);
-}
-
-void ControlRoom::SpecialKey(int key, int x, int y) 
-{
-	BasisGameController::SpecialKey(key,x,y);
-}
-
-void ControlRoom::SpecialKeyUp(int key, int x, int y) 
-{
-	BasisGameController::SpecialKeyUp(key,x,y);
+	addCollisionGameObject(Vector3D(100, 0, 450), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, 1, 1, mIndexLadder);
+	InitWalls();	
+	InitFloor();	
 }
 
 void ControlRoom::Keyboard(unsigned char key, int x, int y)
 {
-	BasisGameController::Keyboard(key,x,y);
-	if (key=='t')
-		StateMachine::setController(new GameController(GetAudio(), GetModel(), GetTexture()));
+	GameController::Keyboard(key,x,y);
 	if(key == ' ')
-		mShowConsole = !mShowConsole;
+		mShowConsoleScreen = !mShowConsoleScreen;
 }
 
-void ControlRoom::KeyboardUp(unsigned char key, int x, int y)
+void ControlRoom::InitFloor()
 {
-	BasisGameController::KeyboardUp(key,x,y);
-}
-
-void ControlRoom::Mouse(int button, int state, int x, int y)
-{
-	BasisGameController::Mouse(button, state, x, y);
-}
-
-void ControlRoom::PassiveMotion(int x, int y)
-{
-}
-
-void ControlRoom::DrawFloor()
-{
-	//jon, please make it bigger -> controlroom we need an window for the left
-	//maybe create a variable "factor" to change the size of everything easily
-
 	//floor
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, Vector3D(-4000, 0, -6000), Vector3D(8000, 12000, 0));
+	/*GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, Vector3D(-4000, 0, -6000), Vector3D(8000, 12000, 0));
 	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 1, 1, Vector3D(-2000, 0, -8000), Vector3D(4000, 2000, 0));
 	//roof
 	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 3, 2, Vector3D(-4000, 4000, -6000), Vector3D(8000, 12000, 0));
 	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilefloor), 1, 1, Vector3D(-2000, 4000, -8000), Vector3D(4000, 2000, 0));
-	
+*/
 }
 
-void ControlRoom::DrawWalls()
+void ControlRoom::InitWalls()
 {
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 4, 1, Vector3D(-4000, 0, 6000), Vector3D(8000, 0, 4000));
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(2000, 0, -6000), Vector3D(2000, 0, 4000));
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(-4000, 0, -6000), Vector3D(2000, 0, 4000));
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 2, 1, Vector3D(-2000, 0, -8000), Vector3D(4000, 0, 4000));
+	int test = 0;
+	addCollisionGameObject(Vector3D(-400, 600, 0), Vector3D(), Vector3D(800, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 4, 1, test);
+	addCollisionGameObject(Vector3D(200, -600, 0), Vector3D(), Vector3D(200, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
+	addCollisionGameObject(Vector3D(-400, -600, 0), Vector3D(), Vector3D(200, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
+	addCollisionGameObject(Vector3D(-200, -800, 0), Vector3D(), Vector3D(400, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 2, 1, test);
 
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 6, 1, Vector3D(-4000, 0, -6000), Vector3D(0, 12000, 4000));
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 6, 1, Vector3D(4000, 0, -6000), Vector3D(0, 12000, 4000));
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(-2000, 0, -8000), Vector3D(0, 2000, 4000));
-	GetDrawManager()->DrawCollisionRect(&mCollision, GetTexture()->getTextureID(taTilewall), 1, 1, Vector3D(2000, 0, -8000), Vector3D(0, 2000, 4000));
-
-
-	/*
-	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taConcWall));
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(0, 0, -1000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(1000, 0, -1000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(1000, 1000, -1000);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(0, 1000, -1000);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(1000, 0, -1000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(1000, 0, -4000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(1000, 1000, -4000);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(1000, 1000, -1000);
-	glEnd();
-
-	glBegin(GL_QUADS);
-		glTexCoord2f(0.5, 1.0);			glVertex3f(0, 0, -4000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(300, 0, -4000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(300, 1000, -4000);
-		glTexCoord2f(0.5, 0.0);			glVertex3f(0, 1000, -4000);
-	glEnd();	
-	glBegin(GL_QUADS);
-		glTexCoord2f(0.5, 1.0);			glVertex3f(700, 0, -4000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(1000, 0, -4000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(1000, 1000, -4000);
-		glTexCoord2f(0.5, 0.0);			glVertex3f(700, 1000, -4000);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f(0.5, 1.0);			glVertex3f(300, 0, -4500);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(700, 0, -4500);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(700, 1000, -4500);
-		glTexCoord2f(0.5, 0.0);			glVertex3f(300, 1000, -4500);
-	glEnd();
-
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(300, 0, -4500);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(300, 0, -4000);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(300, 1000, -4000);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(300, 1000, -4500);
-	glEnd();
-	glBegin(GL_QUADS);
-		glTexCoord2f(1.0, 1.0);			glVertex3f(700, 0, -4000);
-		glTexCoord2f(0.0, 1.0);			glVertex3f(700, 0, -4500);
-		glTexCoord2f(0.0, 0.0);			glVertex3f(700, 1000, -4500);
-		glTexCoord2f(1.0, 0.0);			glVertex3f(700, 1000, -4000);
-	glEnd();
-	*/
+	addCollisionGameObject(Vector3D(-400, -600, 0), Vector3D(), Vector3D(0, 1200, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 6, 1, test);
+	addCollisionGameObject(Vector3D(400, -600, 0), Vector3D(), Vector3D(0, 1200, 400),Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 6, 1, test);
+	addCollisionGameObject(Vector3D(-200, -800, 0), Vector3D(), Vector3D(0, 200, 400),Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
+	addCollisionGameObject(Vector3D(200, -800, 0), Vector3D(), Vector3D(0, 200, 400),Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
 }
 
-void ControlRoom::DrawStairs()
+/*void ControlRoom::DrawStairs()
 {
 	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor));
 	glPushMatrix();
-		//glTranslatef(2000, 0, -6000);
+		glTranslatef(2000, 0, -6000);
 		glRotatef(180, 0, 1, 0);
 		GetDrawManager()->DrawStairs(4000, 1000, 2000, 5);
 	glPopMatrix();
@@ -202,12 +72,13 @@ void ControlRoom::DrawStairs()
 
 void ControlRoom::DrawConsole()
 {
-	//console is 500x250?
 	glPushMatrix();
 		//glTranslatef(1000, 0, 4500);
 		glRotatef(180, 0, 1, 0);
 		//glScalef(2, 2, 2);
-		GetModel()->drawModel(mConsole, GetTexture()->getTextureID(taConsole));
+		//GetModel()->drawModel(mConsole, GetTexture()->getTextureID(taConsole));
+		//addCollisionGameObject(Vector3D(1000, 0, 4500), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, 1, 1, mIndexLadder);
+		
 	glPopMatrix();
 }
 
@@ -216,11 +87,10 @@ void ControlRoom::DrawLadder()
 	glPushMatrix();
 		//glTranslatef(-500, 0, -6750);
 		//glScalef(1.5, 3, 3);	
-		addCollisionGameObject(Vector3D(-250, 0, -6560), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, 1, 1, mIndexLadder);
+		//addCollisionGameObject(Vector3D(-500, 0, -6750), Vector3D(), Vector3D(100,100,100), Vector3D(1.5,3,3), Vector3D(), mLadder, taRustyWall, 1, 1, mIndexLadder);
 		//GetModel()->drawModel(mLadder, GetTexture()->getTextureID(taRustyWall));
 	glPopMatrix();
-}
-
+}*/
 
 void  ControlRoom::DrawConsoleScreen(const GLdouble &xImgSize, const GLdouble &yImgSize, 
 							         const GLdouble &xStart, const GLdouble &yStart, const GLdouble &zStart,
@@ -234,7 +104,6 @@ void  ControlRoom::DrawConsoleScreen(const GLdouble &xImgSize, const GLdouble &y
 	glScalef(1, -1, 1);
 		
 	// move to centre of screen
-	//glTranslatef(screenWidth/2 -256.0, -screenHeight/2 -256.0, 0);
 	glTranslatef(GetWindowWidth()/2 -512.0, -GetWindowHeight()/2 -384, 0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();	
@@ -258,5 +127,4 @@ void  ControlRoom::DrawConsoleScreen(const GLdouble &xImgSize, const GLdouble &y
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
-
 }

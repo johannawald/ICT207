@@ -19,40 +19,24 @@
 #include <GL/glut.h>
 #include <windows.h>
 
-#include "IStateController.h"
-#include "BasisGameController.h"
+#include "GameController.h"
 
-class ControlRoom : public IStateController, BasisGameController {
+class ControlRoom : public GameController {
 private:
+	int mIndexConsole;
 	int mIndexLadder;
-	bool mShowConsole;
+	bool mShowConsoleScreen;
 
-	void DrawFloor();
-	void DrawWalls();
-	void DrawStairs();
-	void DrawConsole();
-	void DrawLadder();
-
+	void InitWalls();
+	void InitFloor();
 	void DrawConsoleScreen(const GLdouble &xImgSize, const GLdouble &yImgSize, 
 						   const GLdouble &xStart, const GLdouble &yStart, const GLdouble &zStart,
 						   const GLdouble &xTimes, const GLdouble &yTimes, const bool &flip);
 
-	bool IsAtComputerPosition();
-	int CheckCollision();
-	void CollisionWithObject(GameObject* pGameObject);
+	virtual void InitGameObjects();
+	virtual void DrawObjects();	
 public:
 	ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm);
 
-	void Init();
-	void Draw();
-	void DrawObjects();
-	void Update();
-	void Reshape(int w, int h);
-	void SpecialKey(int key, int x, int y);
-	void SpecialKeyUp(int key, int x, int y);
-	void KeyboardUp(unsigned char key, int x, int y);
-	void Keyboard(unsigned char key, int x, int y);
-	void Mouse(int button, int state, int x, int y);
-	void PassiveMotion(int x, int y);
-	void MouseMotion(int x, int y);
+	virtual void Keyboard(unsigned char key, int x, int y);
 };

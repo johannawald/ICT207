@@ -27,7 +27,6 @@ void GameControllerLevelOne::InitGameObjects()
 	//addBomb();
 	addCollisionGameObject(Vector3D(0, GetGroundLevel()+10, 750), Vector3D(), Vector3D(50, 50, 50), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBomb, 1, 1, mBombIndex);
 	
-	
 	addCollisionGameObject(Vector3D(-115, GetGroundLevel()+10, 250), Vector3D(), Vector3D(90, 90, 90), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, 1, 1, mBoxesCollisionIndex[0]);
 	addCollisionGameObject(Vector3D(0, GetGroundLevel()+10, 250), Vector3D(), Vector3D(90, 90, 90), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, 1, 1, mBoxesCollisionIndex[1]);
 	addCollisionGameObject(Vector3D(115, GetGroundLevel()+10, 250), Vector3D(), Vector3D(90, 90, 90), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, 1, 1, mBoxesCollisionIndex[2]);	
