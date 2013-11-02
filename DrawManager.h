@@ -143,14 +143,14 @@ public:
 		* @param const BoundingBox* pBoundingBox - the bounding box that should be drawn
 		* @return void
     */	
-	void DrawCollisionBox(const BoundingBox *pBoundingBox) const;
+	void DrawCollisionBox(const BoundingBox& pBoundingBox) const;
 	/**
         * @brief draws the (parameter) collision box with filled rects
 		*
 		* @param const BoundingBox* pBoundingBox - the bounding box that should be drawn
 		* @return void
     */	
-	void DrawCollisionBoxColored(const BoundingBox *pBoundingBox) const;
+	void DrawCollisionBoxColored(const BoundingBox& pBoundingBox) const;
 	//ray, please comment:
 	void RenderBitmapString(const float x, const float y, const float z, void *pFont, const char *pString) const;
 	void RenderStrokeFontString(const float x, const float y, const float z, void *pFont, const char *pString) const;

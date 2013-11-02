@@ -7,6 +7,7 @@
  * @date 25/10/2013 Raymond Forster - Started
  * @date 20/10/2013 Johanna Wald - changed movement variables to vectors
  * @date 25/10/2013 Johanna Wald - added delta time
+ * @date 26/10/2013 Johanna Wald - deleted jump variables
  */
 
 //--------------------------------------------------------------------------------------
@@ -31,26 +32,17 @@ class MoveController
 	private:
 		Timer mTimer;	
 
-		bool mJump;
-		float mJumpHeight;
-		const float mMaxJumpHeight;
-
 		DrawManager* mDrawManager;
 		BoundingBox mCameraBB; //we need that later!
+		float mSpeed;
 		
 		// angle of rotation values
 		Vector3D mPos;
 		Vector3D mStartPosition;
-		/*float mXpos;  
-		float mYpos;  
-		float mZpos;*/ 
 
 		Vector3D mPosDiff;
 		Vector3D mCameraTranslation;
 		float mCameraRotation;
-		/*float mXposDiff;  
-		float mYposDiff;  
-		float mZposDiff; */
 
 		float mXrot; 
 		float mYrot; 
@@ -75,19 +67,12 @@ class MoveController
 		void ResetDiffValues();
 		void SetPosDiff(const float pDeltaTime);
 	public:
-		float mSpeed;
-
 		MoveController();
-	/*	float GetXpos();
-		float GetYpos();
-		float GetZpos();
-		float GetXposDiff();
-		float GetYposDiff();
-		float GetZposDiff();*/
+
 		const Vector3D& GetposDiff() const;
 		const Vector3D& Getpos() const;
 		void SetCameraPosition();
-		void MoveCamera(); //const bool pMoveX = true, const bool pMoveY = true, const bool pMoveZ = true);
+		void MoveCamera(); 
 		void PrepareMovement(float xpos, float ypos, float zpos, float rotation);
 		void SetDiffValues(float x, float y, float z);
 		void SpecialKey(int key, int x, int y);

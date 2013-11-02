@@ -62,15 +62,15 @@ public:
 	void TranslateBoundingBoxes(const Vector3D& pTranslation);
 
 
+	void TranslateBoundingBoxOriginal(const int pIndex, const Vector3D& pTranslation);
 
-	void translateBoundingBoxOriginal(int i, const Vector3D& pTranslation);
-	float CollisionX(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2);
-	float CollisionY(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2);
-	float CollisionZ(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2);
-	float Collision2(const BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2, bool pCX = true, bool pCY = true, bool pCZ = true);
+	float CollisionX(const BoundingBox& pBoundingBox1, const BoundingBox& pBoundingBox2);
+	float CollisionY(const BoundingBox& pBoundingBox1, const BoundingBox& pBoundingBox2);
+	float CollisionZ(const BoundingBox& pBoundingBox1, const BoundingBox& pBoundingBox2);
+	
+	float Collision(const BoundingBox& pBoundingBox1, BoundingBox& pBoundingBox2, bool pCX = true, bool pCY = true, bool pCZ = true);
 	float Collisions(const int pBBIndex, int& pIndex, const bool pCY);
-	float Collisions(const BoundingBox* pBoundingBox1, int& pIndex, const bool pCY = true, const int pSkip = -1);
-	float Collision(const Vector3D& pPoint, int &pIndex, const BoundingBox* bb, const bool pCY = true);
+	float Collisions(const BoundingBox& pBoundingBox1, int& pIndex, const bool pCY = true, const int pSkip = -1);
 };
 
 

@@ -2,7 +2,7 @@
 #include "DrawManager.h"
 #include <iostream>
 
-MoveController::MoveController(): mJump(false), mMaxJumpHeight(50)
+MoveController::MoveController()
 {
 	// intialise camera values
 	mStartPosition.x = 0;
@@ -10,7 +10,7 @@ MoveController::MoveController(): mJump(false), mMaxJumpHeight(50)
 	mStartPosition.z = 0;
 	mCameraRotation = 0;
 
-	mSpeed = 100.0; //min bouncing box
+	mSpeed = 100.0; 
 	mPos.x = 0.0; 
 	mPos.y = 0.0; 
 	mPos.z = 0.0; 
@@ -39,44 +39,12 @@ MoveController::MoveController(): mJump(false), mMaxJumpHeight(50)
 	{
 		mSpecialKeyStates[i] = false;
 	}
-	mDrawManager = new DrawManager(); //just temp.
+	mDrawManager = new DrawManager();
 	mCameraBB.SetBoundingBox(mPos, Vector3D(100.0f, 100.0f, 100.0f));
 	mCameraTranslation.x = 0;
 	mCameraTranslation.y = 0;
 	mCameraTranslation.z = 0;
 }
-//
-//float MoveController::GetXpos()
-//{
-//	return mPos.x;
-//}
-//
-//
-//float MoveController::GetYpos()
-//{
-//	return mPos.y;
-//}
-//
-//
-//float MoveController::GetZpos()
-//{
-//	return mPos.z;
-//}
-//
-//float MoveController::GetXposDiff()
-//{
-//	return mPosDiff.x;
-//}
-//
-//float MoveController::GetYposDiff()
-//{
-//	return mPosDiff.y;
-//}
-//
-//float MoveController::GetZposDiff()
-//{
-//	return mPosDiff.z;
-//}
 
 void MoveController::SetCameraPosition()
 {
@@ -114,8 +82,6 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 {		
 	double deltaTime = mTimer.Duration();
 	mTimer.Reset();
-
-	std::cout << deltaTime << std::endl;
 	SetPosDiff(deltaTime);
 
 	mPos.x += mPosDiff.x;
@@ -129,13 +95,13 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 	glPushMatrix();
 		glRotatef(0, 1, 0, 0);
 		glColor3f(1.0f, 0.0f, 0.0f);
-		glutSolidCube(50); //Our character to follow - WILL CHANGE TO CHARACTER
+		//glutSolidCube(50); //Our character to follow - WILL CHANGE TO CHARACTER
 	glPopMatrix();
     
 	glRotatef(mYrot,0.0,1.0,0.0);  //rotate the camera on the y-axis (up and down)
 	
 	mCameraTranslation += mPos;
-	mCameraBB.Translate(-mPos);
+	mCameraBB.Translate(mPos);
 	glTranslated(-mPos.x, 0.0f, -mPos.z); //translate the screen to the position of our camera
 	//glTranslated(-mPos.x, -mPos.y, -mPos.z); //translate the screen to the position of our camera
 	

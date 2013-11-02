@@ -10,7 +10,7 @@ void CollisionDetection::Draw(const DrawManager& pDrawManager) const
 	for (unsigned int i = 0; i<mBoundingBoxes.size(); i++) 
 	{
 		glColor3f(1.0f, 0.0f, 0.0f);
-		pDrawManager.DrawCollisionBoxColored(mBoundingBoxes[i]);
+		pDrawManager.DrawCollisionBoxColored(*mBoundingBoxes[i]);
 	}
 }
 
@@ -22,25 +22,9 @@ const int CollisionDetection::AddCollisionBox(const Vector3D& pMin, const Vector
 	return (mBoundingBoxes.size()-1);
 }
 
-float CollisionDetection::Collision(const Vector3D& pPoint, int &pIndex, const BoundingBox* bb, const bool pCY) 
-{
-	float collisionResult = 0;
-	float collision = 0;
-	for (unsigned int i = 0; i<mBoundingBoxes.size(); i++) 
-	{
-		collision = Collision2(mBoundingBoxes[i], mBoundingBoxes[i], pCY);
-		if (collision>0)
-		{
-			pIndex=i;
-		}
-		collisionResult = collisionResult + collision;
-	}
-	return collisionResult;
-}
-
 float CollisionDetection::Collisions(const int pBBIndex, int& pIndex, const bool pCY)
 {
-	return Collisions(mBoundingBoxes[pBBIndex], pIndex, true, pBBIndex);
+	return Collisions(*mBoundingBoxes[pBBIndex], pIndex, true, pBBIndex);
 }
 
 const BoundingBox& CollisionDetection::GetCollisionBox(const int pIndex) const
@@ -48,7 +32,7 @@ const BoundingBox& CollisionDetection::GetCollisionBox(const int pIndex) const
 	return *mBoundingBoxes[pIndex];
 }
 
-float CollisionDetection::Collisions(const BoundingBox* pBoundingBox1, int& pIndex, const bool pCY, const int pSkip)
+float CollisionDetection::Collisions(const BoundingBox& pBoundingBox1, int& pIndex, const bool pCY, const int pSkip)
 {
 	float collisionResult = 0;
 	float collision = 0;
@@ -57,7 +41,7 @@ float CollisionDetection::Collisions(const BoundingBox* pBoundingBox1, int& pInd
 	{
 		if (i==pSkip)
 			continue;
-		collision = Collision2(pBoundingBox1, mBoundingBoxes[i], pCY);
+		collision = Collision(pBoundingBox1, *mBoundingBoxes[i], pCY);
 		if (collision>0)
 			pIndex=i;
 		collisionResult = collisionResult + collision;
@@ -65,10 +49,10 @@ float CollisionDetection::Collisions(const BoundingBox* pBoundingBox1, int& pInd
 	return collisionResult;
 }
 
-float CollisionDetection::CollisionX(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2)
+float CollisionDetection::CollisionX(const BoundingBox& pBoundingBox1, const BoundingBox& pBoundingBox2)
 {
-	Vector3D vDistance = pBoundingBox1->GetCenter().GetDistance(pBoundingBox2->GetCenter());
-	Vector3D vMaxDistance = (pBoundingBox1->GetSize()/2.0f) + (pBoundingBox2->GetSize()/2.0f);
+	Vector3D vDistance = pBoundingBox1.GetCenter().GetDistance(pBoundingBox2.GetCenter());
+	Vector3D vMaxDistance = (pBoundingBox1.GetSize()/2.0f) + (pBoundingBox2.GetSize()/2.0f);
 
 	if (abs(vDistance.x) <= vMaxDistance.x)
 		return vMaxDistance.x - vDistance.x;
@@ -76,10 +60,10 @@ float CollisionDetection::CollisionX(BoundingBox* pBoundingBox1, BoundingBox* pB
 		return 0;
 }
 
-float CollisionDetection::CollisionY(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2)
+float CollisionDetection::CollisionY(const BoundingBox& pBoundingBox1, const BoundingBox& pBoundingBox2)
 {
-	Vector3D vDistance = pBoundingBox1->GetCenter().GetDistance(pBoundingBox2->GetCenter());
-	Vector3D vMaxDistance = (pBoundingBox1->GetSize()/2.0f) + (pBoundingBox2->GetSize()/2.0f);
+	Vector3D vDistance = pBoundingBox1.GetCenter().GetDistance(pBoundingBox2.GetCenter());
+	Vector3D vMaxDistance = (pBoundingBox1.GetSize()/2.0f) + (pBoundingBox2.GetSize()/2.0f);
 
 	if (abs(vDistance.y) <= vMaxDistance.y)
 		return vMaxDistance.y - vDistance.y;
@@ -87,13 +71,13 @@ float CollisionDetection::CollisionY(BoundingBox* pBoundingBox1, BoundingBox* pB
 		return 0;
 }
 
-float CollisionDetection::CollisionZ(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2)
+float CollisionDetection::CollisionZ(const BoundingBox& pBoundingBox1, const BoundingBox& pBoundingBox2)
 {
-	Vector3D pBB2Center = pBoundingBox2->GetCenter(); //we don't need that!
-	Vector3D pBB1Center = pBoundingBox1->GetCenter();
+	Vector3D pBB2Center = pBoundingBox2.GetCenter(); //we don't need that!
+	Vector3D pBB1Center = pBoundingBox1.GetCenter();
 	
 	Vector3D vDistance = pBB1Center.GetDistance(pBB2Center);
-	Vector3D vMaxDistance = (pBoundingBox1->GetSize()/2.0f) + (pBoundingBox2->GetSize()/2.0f);
+	Vector3D vMaxDistance = (pBoundingBox1.GetSize()/2.0f) + (pBoundingBox2.GetSize()/2.0f);
 
 	if (abs(vDistance.z) <= vMaxDistance.z)
 		return vMaxDistance.z - vDistance.z; //(abs(vDistance.x) <= vMaxDistance.x);
@@ -101,14 +85,14 @@ float CollisionDetection::CollisionZ(BoundingBox* pBoundingBox1, BoundingBox* pB
 		return 0;
 }
 
-float CollisionDetection::Collision2(const BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2, bool pCX, bool pCY, bool pCZ)
+float CollisionDetection::Collision(const BoundingBox& pBoundingBox1, BoundingBox& pBoundingBox2, bool pCX, bool pCY, bool pCZ)
 {	
 	//return false;	
-	Vector3D pBB2Center = pBoundingBox2->GetCenter();
-	Vector3D pBB1Center = pBoundingBox1->GetCenter();
+	Vector3D pBB2Center = pBoundingBox2.GetCenter();
+	Vector3D pBB1Center = pBoundingBox1.GetCenter();
 	
 	Vector3D vDistance = pBB1Center.GetDistance(pBB2Center);
-	Vector3D vMaxDistance = (pBoundingBox1->GetSize()/2.0f) + (pBoundingBox2->GetSize()/2.0f);
+	Vector3D vMaxDistance = (pBoundingBox1.GetSize()/2.0f) + (pBoundingBox2.GetSize()/2.0f);
 	if (pCX && pCY && pCZ) 
 	{	
 		if (!((abs(vDistance.x) <= vMaxDistance.x &&
@@ -138,13 +122,9 @@ void CollisionDetection::TranslateBoundingBox(const int pIndex, const Vector3D& 
 	mBoundingBoxes[pIndex]->Translate(pTranslation);
 }
 
-void CollisionDetection::translateBoundingBoxOriginal(int i, const Vector3D& pTranslation)
+void CollisionDetection::TranslateBoundingBoxOriginal(const int pIndex, const Vector3D& pTranslation)
 {
-	mBoundingBoxes[i]->TranslatePosition(pTranslation);
-	/*OriginalMax += pTranslation;
-	static_box[i]->OriginalMin += pTranslation;
-	static_box[i]->mMin += pTranslation;
-	static_box[i]->mMax += pTranslation;*/
+	mBoundingBoxes[pIndex]->TranslatePosition(pTranslation);
 }
 
 void CollisionDetection::TranslateBoundingBoxes(const Vector3D& pTranslation)
@@ -152,5 +132,3 @@ void CollisionDetection::TranslateBoundingBoxes(const Vector3D& pTranslation)
 	for (unsigned int i = 0; i<mBoundingBoxes.size(); i++) 
 		TranslateBoundingBox(i, pTranslation);
 }
-
-

@@ -93,8 +93,9 @@ void BasisGameController::Draw()
 			glEnable(GL_TEXTURE_2D);
 			glPushMatrix();
 				//Set camera position:
-				mCamera.SetCameraPosition();
 				mCollision.Draw(*GetDrawManager());
+				mCamera.SetCameraPosition();
+				GetDrawManager()->DrawCollisionBox(mCamera.GetCameraBB());
 				DrawGameObjects();
 				DrawObjects();
 			glPopMatrix();
@@ -117,7 +118,7 @@ void BasisGameController::WallCollision(int pIndex, float pCollisionValue)
 	BoundingBox bb;
 	bb = mCamera.GetCameraBB();
 	bb.Translate(mCamera.GetposDiff());
-	float ChangedCollisionValue = mCollision.Collisions(&bb, pIndex);
+	float ChangedCollisionValue = mCollision.Collisions(bb, pIndex);
 	//float ChangedCollisionValue = mCollision.Collisions(mCamera.GetCameraBB(), pIndex, false); 
 								  //mCollision.Collisions(mCamera.GetCameraBB(), pIndex); 
 	if (pCollisionValue>0)
@@ -136,7 +137,7 @@ void BasisGameController::PhysicCollision(int pIndex, float pCollisionValue)
 int BasisGameController::CheckCollision()
 {	
 	int IndexCollision = -1;
-	float CollisionValue = mCollision.Collisions(&mCamera.GetCameraBB(), IndexCollision); 
+	float CollisionValue = mCollision.Collisions(mCamera.GetCameraBB(), IndexCollision); 
 	if (CollisionValue>0) //IndexCollisions should be a list with all the IDs of objects that collided
 	{
 		BeforeCollision(IndexCollision, CollisionValue); //list!!

@@ -25,7 +25,6 @@ class ModelManager;
 class TextureManager;
 class BasisGameController : public BasisController {
 private:
-	BoundingBox* mCameraBB;
 	std::vector<GameObject*> mGameObject;
 protected:
 		/**

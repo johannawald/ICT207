@@ -10,9 +10,6 @@ GameControllerLevelOne::GameControllerLevelOne(AudioManager* pAudio, ModelManage
 	
 }
 
-//--------------------------------------------------------------------------------------
-//  Draw the Objects
-//--------------------------------------------------------------------------------------
 void GameControllerLevelOne::DrawObjects() 
 {
 	glPushMatrix();
@@ -23,7 +20,7 @@ void GameControllerLevelOne::DrawObjects()
 
 void WinGame()
 {
-	std::cout << " test " << std::endl;
+	//std::cout << " test " << std::endl;
 }
 
 
@@ -33,9 +30,9 @@ void GameControllerLevelOne::InitGameObjects()
 	//boxes
 	//void (GameController::*test)(void); //*JW
 	//test = &WinGame;
-	addCollisionGameObject(Vector3D(-110, GetGroundLevel()+10, 250), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, 1, 1, mBoxesCollisionIndex[0]);
-	addCollisionGameObject(Vector3D(0, GetGroundLevel()+10, 250), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, 1, 1, mBoxesCollisionIndex[0]);
-	addCollisionGameObject(Vector3D(110, GetGroundLevel()+10, 250), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, 1, 1, mBoxesCollisionIndex[1]);	
+	addCollisionGameObject(Vector3D(-110, GetGroundLevel(), 250), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, 1, 1, mBoxesCollisionIndex[0]);
+	//addCollisionGameObject(Vector3D(0, GetGroundLevel()+10, 250), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, 1, 1, mBoxesCollisionIndex[0]);
+	//addCollisionGameObject(Vector3D(110, GetGroundLevel()+10, 250), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, taBox, 1, 1, mBoxesCollisionIndex[1]);	
 	//floor
 	/*addCollisionGameObject(Vector3D(-200, GetGroundLevel(), -200), Vector3D(), Vector3D(400, 1200, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 3, 1, mCollisionIndex);
 	//roof

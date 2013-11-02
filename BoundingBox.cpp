@@ -47,7 +47,10 @@ const float BoundingBox::GetLength(const float pValue1, const float pValue2) con
 
 const Vector3D& BoundingBox::GetSize() const
 {
-	return (Vector3D(GetLength(mMin.x, mMax.x), GetLength(mMin.y, mMax.y), GetLength(mMin.z, mMax.z)));
+	const float x = GetLength(mMin.x, mMax.x);
+	const float y = GetLength(mMin.y, mMax.y);
+	const float z = GetLength(mMin.z, mMax.z);
+	return (Vector3D(x, y, z));
 }
 
 const Vector3D& BoundingBox::GetMin() const

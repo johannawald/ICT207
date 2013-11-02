@@ -134,58 +134,58 @@ void DrawManager::DrawCollisionRect(CollisionDetection* collision, const GLint p
 	glPopAttrib();
 }
 
-void DrawManager::DrawCollisionBoxColored(const BoundingBox *pBoundingBox) const
+void DrawManager::DrawCollisionBoxColored(const BoundingBox& pBoundingBox) const
 {
 	glBegin(GL_QUADS);
-		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
-		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
-		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
-		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox.GetMax().x,pBoundingBox.GetMin().y,pBoundingBox.GetMax().z);
+		glVertex3f(pBoundingBox.GetMax().x,pBoundingBox.GetMax().y,pBoundingBox.GetMax().z);
+		glVertex3f(pBoundingBox.GetMin().x,pBoundingBox.GetMax().y,pBoundingBox.GetMax().z);
+		glVertex3f(pBoundingBox.GetMin().x,pBoundingBox.GetMin().y,pBoundingBox.GetMax().z);
     glEnd();
 
     glBegin(GL_QUADS);
-		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMax().y,pBoundingBox->GetMin().z);
-		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
-		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
-		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMax().y,pBoundingBox->GetMin().z);
+		glVertex3f(pBoundingBox.GetMax().x,pBoundingBox.GetMax().y,pBoundingBox.GetMin().z);
+		glVertex3f(pBoundingBox.GetMax().x,pBoundingBox.GetMax().y,pBoundingBox.GetMax().z);
+		glVertex3f(pBoundingBox.GetMin().x,pBoundingBox.GetMax().y,pBoundingBox.GetMax().z);
+		glVertex3f(pBoundingBox.GetMin().x,pBoundingBox.GetMax().y,pBoundingBox.GetMin().z);
     glEnd();
 
     glBegin(GL_QUADS);
-		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
-		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
-		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMin().y,pBoundingBox->GetMin().z);
-		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMin().y,pBoundingBox->GetMin().z);
+		glVertex3f(pBoundingBox.GetMax().x,pBoundingBox.GetMin().y,pBoundingBox.GetMax().z);
+		glVertex3f(pBoundingBox.GetMin().x,pBoundingBox.GetMin().y,pBoundingBox.GetMax().z);
+		glVertex3f(pBoundingBox.GetMin().x,pBoundingBox.GetMin().y,pBoundingBox.GetMin().z);
+		glVertex3f(pBoundingBox.GetMax().x,pBoundingBox.GetMin().y,pBoundingBox.GetMin().z);
     glEnd();
 }
 
-void DrawManager::DrawCollisionBox(const BoundingBox *pBoundingBox) const
+void DrawManager::DrawCollisionBox(const BoundingBox& pBoundingBox) const
 {
     glBegin(GL_LINE_LOOP);
-		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMax().y,pBoundingBox->GetMin().z);
-		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMax().y,pBoundingBox->GetMin().z);
-		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMin().y,pBoundingBox->GetMin().z);
-		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMin().y,pBoundingBox->GetMin().z);
+		glVertex3f(pBoundingBox.GetMax().x,pBoundingBox.GetMax().y,pBoundingBox.GetMin().z);
+		glVertex3f(pBoundingBox.GetMin().x,pBoundingBox.GetMax().y,pBoundingBox.GetMin().z);
+		glVertex3f(pBoundingBox.GetMin().x,pBoundingBox.GetMin().y,pBoundingBox.GetMin().z);
+		glVertex3f(pBoundingBox.GetMax().x,pBoundingBox.GetMin().y,pBoundingBox.GetMin().z);
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
-		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
-		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
-		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
+		glVertex3f(pBoundingBox.GetMax().x,pBoundingBox.GetMin().y,pBoundingBox.GetMax().z);
+		glVertex3f(pBoundingBox.GetMax().x,pBoundingBox.GetMax().y,pBoundingBox.GetMax().z);
+		glVertex3f(pBoundingBox.GetMin().x,pBoundingBox.GetMax().y,pBoundingBox.GetMax().z);
+		glVertex3f(pBoundingBox.GetMin().x,pBoundingBox.GetMin().y,pBoundingBox.GetMax().z);
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMax().y,pBoundingBox->GetMin().z);
-		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
-		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMax().y,pBoundingBox->GetMax().z);
-		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMax().y,pBoundingBox->GetMin().z);
+		glVertex3f(pBoundingBox.GetMax().x,pBoundingBox.GetMax().y,pBoundingBox.GetMin().z);
+		glVertex3f(pBoundingBox.GetMax().x,pBoundingBox.GetMax().y,pBoundingBox.GetMax().z);
+		glVertex3f(pBoundingBox.GetMin().x,pBoundingBox.GetMax().y,pBoundingBox.GetMax().z);
+		glVertex3f(pBoundingBox.GetMin().x,pBoundingBox.GetMax().y,pBoundingBox.GetMin().z);
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
-		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMin().y,pBoundingBox->GetMax().z);
-		glVertex3f(pBoundingBox->GetMin().x,pBoundingBox->GetMin().y,pBoundingBox->GetMin().z);
-		glVertex3f(pBoundingBox->GetMax().x,pBoundingBox->GetMin().y,pBoundingBox->GetMin().z);
+		glVertex3f(pBoundingBox.GetMax().x,pBoundingBox.GetMin().y,pBoundingBox.GetMax().z);
+		glVertex3f(pBoundingBox.GetMin().x,pBoundingBox.GetMin().y,pBoundingBox.GetMax().z);
+		glVertex3f(pBoundingBox.GetMin().x,pBoundingBox.GetMin().y,pBoundingBox.GetMin().z);
+		glVertex3f(pBoundingBox.GetMax().x,pBoundingBox.GetMin().y,pBoundingBox.GetMin().z);
     glEnd();
 }
 

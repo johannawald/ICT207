@@ -39,14 +39,13 @@ void Countdown(int counterStepTime)
 }
 
 GameController::GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture): 
-	BasisGameController(pAudio, pModel, pTexture), mGroundLevel(-65), c_mLostTime(-5), mSoundOn(true), mBombSoundPlaying(false), mLostAnimation(false)
+	BasisGameController(pAudio, pModel, pTexture), mGroundLevel(0), c_mLostTime(-5), mSoundOn(true), mBombSoundPlaying(false), mLostAnimation(false)
 {
 
 	glutTimerFunc(1000, *Countdown, 0);
 	mBoxesCollisionIndex = new int[5]; //dynamic for each level
 	for (int i = 0; i<5; i++)
 		mBoxesCollisionIndex[i] = -1;
-	//mExplosion.mSpeed = 10;
 }
 
 
@@ -94,7 +93,7 @@ void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just f
 			bb = mCamera.GetCameraBB();
 			bb.Translate(mCamera.GetposDiff()*factor);
 			//collision of moved camera:
-			float CollisionValueMoved = mCollision.Collisions(&bb, pCollisionIndex, true);
+			float CollisionValueMoved = mCollision.Collisions(bb, pCollisionIndex, true);
 
 			if (CollisionValueMoved<=pCollisionValue)
 				Move = false;
@@ -106,7 +105,7 @@ void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just f
 			BoundingBox bb;
 			bb = mCollision.GetCollisionBox(pIndex);
 			bb.Translate(mCamera.GetposDiff()*factor);
-			float CollisionValueMoved = mCollision.Collisions(&bb, pCollisionIndex, true, pIndex);
+			float CollisionValueMoved = mCollision.Collisions(bb, pCollisionIndex, true, pIndex);
 			if (CollisionValueMoved<=CollisionValue) //pull
 				Move = true;
 		}
@@ -115,7 +114,7 @@ void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just f
 		{
 			Vector3D movement  = mCamera.GetposDiff()*factor;
 			movement.y = 0;
-			mCollision.translateBoundingBoxOriginal(pIndex, movement);
+			mCollision.TranslateBoundingBoxOriginal(pIndex, movement);
 				//gameobject has to have the same index (collision) work with a map - ask ray
 			MoveGameObject(pIndex,movement);
 		}
