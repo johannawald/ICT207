@@ -11,24 +11,37 @@
 #include <iostream>
 #include "GameWinController.h"
 
-int levelTime = 100;
-//bool stopTimer = false;
-bool DebugCollision = false;
+int G_LEVELTIME = 100;
+bool G_DEBUGCOLLISION = false;
+
+bool GameController::ObjectIsBox(const int pIndex) const
+{
+	for (int i = 0; i<5; i++)
+		if (mBoxesCollisionIndex[i]==pIndex)
+			return true;
+	return false;
+}
+
+const int GameController::GetGroundLevel() const
+{
+	return mGroundLevel;
+}
+
 
 void Countdown(int counterStepTime)
 {
 	//if (mSoundOn)
-	if (levelTime>-5)
+	if (G_LEVELTIME>-5)
 	{
-		levelTime -=1;
+		G_LEVELTIME -=1;
 		glutTimerFunc(1000, *Countdown, 0); //static?
 	}
 }
 
 GameController::GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture): 
-	BasisGameController(pAudio, pModel, pTexture), mGround(-65), mPush(false), mPull(false), mSoundOn(true), mLost(false), mBombSoundPlaying(false), mLostAnimation(false)
+	BasisGameController(pAudio, pModel, pTexture), mGroundLevel(-65), c_mLostTime(-5), mSoundOn(true), mBombSoundPlaying(false), mLostAnimation(false)
 {
-	SetGameObject();
+
 	glutTimerFunc(1000, *Countdown, 0);
 	mBoxesCollisionIndex = new int[5]; //dynamic for each level
 	for (int i = 0; i<5; i++)
@@ -36,10 +49,6 @@ GameController::GameController(AudioManager* pAudio, ModelManager* pModel, Textu
 	//mExplosion.mSpeed = 10;
 }
 
-void GameController::SetGameObject()
-{
-
-}
 
 void GameController::Init() 
 {
@@ -57,24 +66,8 @@ int GameController::CheckCollision()
 {	
 	//collision with walls:
 	int pIndexCollision = BasisGameController::CheckCollision();
-	if (pIndexCollision>=0)		
-	{	
-		DebugCollision = true;
-		if (mPush)
-			PushBox(pIndexCollision);
-		if (mPull)
-			PullBox(pIndexCollision);
-	}
-	else DebugCollision = false;
+	G_DEBUGCOLLISION = pIndexCollision>=0;
 	return pIndexCollision;
-}
-
-bool GameController::ObjectIsBox(const int pIndex) const
-{
-	for (int i = 0; i<5; i++)
-		if (mBoxesCollisionIndex[i]==pIndex)
-			return true;
-	return false;
 }
 
 void GameController::WinGame() const
@@ -98,7 +91,7 @@ void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just f
 		if (CollisionValue==0)
 		{	
 			BoundingBox bb;
-			bb = *mCamera.GetCameraBB();
+			bb = mCamera.GetCameraBB();
 			bb.Translate(mCamera.GetposDiff()*factor);
 			//collision of moved camera:
 			float CollisionValueMoved = mCollision.Collisions(&bb, pCollisionIndex, true);
@@ -129,18 +122,6 @@ void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just f
 	}
 }
 
-void GameController::PushBox(int pIndex)
-{
-	
-	//std::cout << "Ausgabe " << std::endl;
-}
-
-void GameController::PullBox(int pIndex)
-{
-	
-	//std::cout << "Ausgabe " << std::endl;
-}
-
 
 void GameController::Draw()
 {
@@ -156,18 +137,12 @@ void GameController::CollisionWithObject(GameObject* pGameObject)
 
 }
 
-void GameController::DrawTexttest()
-{ 
-	//Draw Infos in corner (Timer) here
-}
-
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!) //updated 29.10 *JM
 { 
-	//mExplosion.idle();
-	if (levelTime==3)
+	if (G_LEVELTIME==3)
 		mLostAnimation = true;
-	else if (levelTime==-5)
-		mLost = true;
+	else if (G_LEVELTIME==c_mLostTime)
+		StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture()));
 
 	if (mLostAnimation && !mBombSoundPlaying)
 	{
@@ -176,10 +151,6 @@ void GameController::Update()  //this function should be used for updating varia
 	}
 	int index = -1;
 
-	if (mLost) //*JW animation
-	{
-		StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture()));
-	}
 }
 
 void GameController::Reshape(int w, int h) 
@@ -209,10 +180,6 @@ void GameController::Keyboard(unsigned char key, int x, int y)
 	if (!mLostAnimation) 
 	{
 		BasisGameController::Keyboard(key, x, y);
-		if (key=='p')
-			mPush = true;
-		else if (key=='o')
-			mPull = true;
 	}
 }
 
@@ -222,8 +189,6 @@ void GameController::KeyboardUp(unsigned char key, int x, int y)
 	if (!mLostAnimation) 
 	{
 		BasisGameController::KeyboardUp(key, x, y);
-		mPush = false;
-		mPull = false;
 	}
 }
 
@@ -247,46 +212,10 @@ void GameController::MouseMotion(int x, int y)
 	}
 }
 
-//--------------------------------------------------------------------------------------
-//  Draw the Objects
-//--------------------------------------------------------------------------------------
-void GameController::DrawObjects() 
-{
-	//that Push is important!
-	glPushMatrix();
-		
-		//DrawTimer();
-		//Draw objects
-		//Draw3DModels();
-		//DrawOuterWalls();
-		//DrawArchitecture();
-	glPopMatrix();
-}
-
-//--------------------------------------------------------------------------------------
-//  Draw the 3D Models
-//--------------------------------------------------------------------------------------
-void GameController::Draw3DModels()
-{
-	
-}
-
-//------------------------------------------------- -------------------------------------
-//  Draw the Outer Walls
-//--------------------------------------------------------------------------------------
-void GameController::DrawOuterWalls()
-{
-	
-}
-
-//--------------------------------------------------------------------------------------
-//  Draw the Level Architecture
-//--------------------------------------------------------------------------------------
-void GameController::DrawArchitecture()
+void GameController::DrawObjects()
 {
 
 }
-
 
 void GameController::DrawTimer()
 {
@@ -294,98 +223,33 @@ void GameController::DrawTimer()
 	void *font;
 	char s[255];
 
-	SetOrthographicProjection();
+	GetDrawManager()->SetOrthographicProjection();
 
 	glPushMatrix();
 	glLoadIdentity();
 
-	sprintf(s, "Time: %d", levelTime); //get timer
+	sprintf(s, "Time: %d", G_LEVELTIME); //get timer
 	glColor3f(1.0, 0.0, 0.0);
 	font = GLUT_BITMAP_TIMES_ROMAN_24;
-	RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
+	GetDrawManager()->RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
 
 	sprintf(s, "Camera x: %f y: %f z: %f", mCamera.Getpos().x, mCamera.Getpos().y, mCamera.Getpos().z); //get camera position
 	glColor3f(1.0, 0.5, 0.5);
 	font = GLUT_BITMAP_8_BY_13;
-	RenderBitmapString(1.0,10.5,0.0,font, s); //display camera position
-
-	sprintf(s, "Time: %d", levelTime); //get timer
-	glColor3f(1.0, 0.0, 0.0);
-	font = GLUT_BITMAP_TIMES_ROMAN_24;
-	RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
+	GetDrawManager()->RenderBitmapString(1.0,10.5,0.0,font, s); //display camera position
 
 	//Collision
-	if (DebugCollision)
+	if (G_DEBUGCOLLISION)
 	{
 		sprintf(s, "Collision", mCamera.Getpos().x, mCamera.Getpos().y, mCamera.Getpos().z); //get camera position
 		glColor3f(1.0, 0.5, 0.5);
 		font = GLUT_BITMAP_8_BY_13;
-		RenderBitmapString(1.0, 15.5, 0.0, font, s); //display camera position
+		GetDrawManager()->RenderBitmapString(1.0, 15.5, 0.0, font, s); //display camera position
 	}
 
 	glPopMatrix();
 
-	RestorePerspectiveProjection();
-}
-
-
-void GameController::RenderBitmapString(float x, float y, float z, void *font, char *string) 
-{
-	char *c;
-
-	glRasterPos3f(x, y, z);
-
-	for (c=string; *c != '\0'; c++) 
-	{
-		glutBitmapCharacter(font, *c);
-	}
-}
-
-
-void GameController::RenderStrokeFontString(float x, float y, float z, void *font, char *string) 
-{
-	char *c;
-
-	glPushMatrix();
-	glTranslatef(x, y, z);
-	glScalef(0.002f, 0.002f, 0.002f);
-
-	for(c=string; *c != '\0'; c++) 
-	{
-		glutStrokeCharacter(font, *c);
-	}
-	glPopMatrix();
-}
-
-
-void GameController::SetOrthographicProjection()
-{
-	// switch to projection mode
-	glMatrixMode(GL_PROJECTION);
-
-	// save previous matrix which contains the
-	//settings for the perspective projection
-	glPushMatrix();
-
-	// reset matrix
-	glLoadIdentity();
-
-	// set a 2D orthographic projection
-	gluOrtho2D(0, GLUT_WINDOW_WIDTH, GLUT_WINDOW_HEIGHT, 0);
-
-	// switch back to modelview mode
-	glMatrixMode(GL_MODELVIEW);
-}
-
-
-void GameController::RestorePerspectiveProjection() 
-{
-	glMatrixMode(GL_PROJECTION);
-	// restore previous projection matrix
-	glPopMatrix();
-
-	// get back to modelview mode
-	glMatrixMode(GL_MODELVIEW);
+	GetDrawManager()->RestorePerspectiveProjection();
 }
 
 void GameController::SetNewExplosion(const float x, const float y, const float z)

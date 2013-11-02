@@ -19,27 +19,30 @@
 
 class GameObject 
 {
-	private:
-		Vector3D mPositionOriginal;
-		Vector3D mPosition;
-		Vector3D mScale;
-		Vector3D mSize;
-		Vector3D mMovement;
-		Vector3D mRotation;
+private:
+	Vector3D mPositionOriginal;
+	Vector3D mPosition;
+	Vector3D mScale;
+	Vector3D mSize;
+	Vector3D mMovement;
+	Vector3D mRotation;
 
-		eModels mModelIndex;
-		GLuint mTextureIndex;
-		int mTexCoordX;
-		int mTexCoordY;
-		int mCollisionIndex;
+	eModels mModelIndex;
+	GLuint mTextureIndex;
+	int mTexCoordX;
+	int mTexCoordY;
+	int mCollisionIndex;
 		
-		//void (GameController::*mCollisionMethod)(void) ; //*JW
-	public:
-		GameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, 
+	//void (GameController::*mCollisionMethod)(void) ; //*JW
+public:
+	GameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, 
 				   int pModelIndex, GLuint pTextureIndex, int pTexCoordX, int pTexCoordY, int pCollisionIndex);
 				  // , void (GameController::*pCollisionMethod)(void) = nullptr);
+	/**
+		* @brief draws the game object with it's set parameters
 
-		void Draw(ModelManager& pModelManager, DrawManager& pDrawManger, CollisionDetection& pCollision);
-		void Transform(const Vector3D& pTransform);
-		void Move(const Vector3D& pTransform);
+	*/
+	void Draw(ModelManager& pModelManager, DrawManager& pDrawManger, CollisionDetection& pCollision); //don't need collision box
+	void Transform(const Vector3D& pTransform);
+	void Move(const Vector3D& pTransform);
 };

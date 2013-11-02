@@ -33,40 +33,41 @@
 class GameController : public IStateController, public BasisGameController
 {
 private:
-	Explosion mExplosion;
-	bool mPush;
-	bool mPull;
-	const bool mSoundOn;
+	const int mGroundLevel;
+	Explosion mExplosion; //member variable for the explsion-class
+	const bool mSoundOn; //const variable to active the sounds
 
-	bool mLostAnimation;
-	bool mBombSoundPlaying; 
-	bool mLost;
+	bool mLostAnimation; //variable for triggering the lost animation
+	bool mBombSoundPlaying; //variable that saves the state of the bomb sound
+	const int c_mLostTime; //variable for showing the game over screen after x seconds (time of the animation)
 
 	bool ObjectIsBox(const int pIndex) const;
-	void PullBox(int pIndex);
-	void PushBox(int pIndex);
-
-	void DrawTexttest();
-	void SetGameObject();
-
-	void DrawOuterWalls();
-	void DrawArchitecture();
-	void Draw3DModels();
 	
 	virtual void DrawObjects();
 	virtual void InitGameObjects();
-
-	void RenderBitmapString(float x, float y, float z, void *font, char *string);
-	void RenderStrokeFontString(float x, float y, float z, void *font, char *string);
-	void SetOrthographicProjection();
-	void RestorePerspectiveProjection();
 protected:
-	const int mGround;
-	int mCollisionIndex; //placeholder
+	/**
+		* @brief get function for the ground value variable
+		* @param none
+		* @return const int ground level (member variable)
+	*/
+	const int GetGroundLevel() const;
+	/**
+		* @brief placeholder / helping variable for the Collision Index in the draw functions of the derived classes
+	*/
+	int mCollisionIndex;
+		/**
+         * @brief array of ints that saves the collision boxes of the boxes
+		 */
 	int* mBoxesCollisionIndex;
+		/**
+         * @brief draws the current timer in the left edge of the screen
+		 * @param none
+	  	 * @return void
+		 */
 	void DrawTimer();
+
 	void SetNewExplosion(const float x, const float y, const float z);
-	
 public:
 	void WinGame() const;
 	/**

@@ -12,12 +12,12 @@ BasisGameController::BasisGameController(AudioManager* pAudiomanager, ModelManag
 
 }
 
-void BasisGameController::DrawGameObjects() 
+void BasisGameController::DrawGameObjects()
 { 
 	for (std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) 
 	{
 		glPushMatrix();
-		(*it)->Draw(*GetModel(), *GetDrawManager(), mCollision);
+			(*it)->Draw(*GetModel(), *GetDrawManager(), mCollision);
 		glPopMatrix();
 	}
 }
@@ -42,7 +42,6 @@ void BasisGameController::Keyboard(unsigned char key, int x, int y)
 	mCamera.Keyboard(key, x, y);
 }
 
-//--------------------------------------------------------------------------------------
 void BasisGameController::KeyboardUp(unsigned char key, int x, int y)
 {
 	mCamera.KeyboardUp(key, x, y);
@@ -116,7 +115,7 @@ void BasisGameController::addGameObject(Vector3D& pPosition, Vector3D& pMovement
 void BasisGameController::WallCollision(int pIndex, float pCollisionValue)
 {
 	BoundingBox bb;
-	bb = *mCamera.GetCameraBB();
+	bb = mCamera.GetCameraBB();
 	bb.Translate(mCamera.GetposDiff());
 	float ChangedCollisionValue = mCollision.Collisions(&bb, pIndex);
 	//float ChangedCollisionValue = mCollision.Collisions(mCamera.GetCameraBB(), pIndex, false); 
@@ -137,8 +136,7 @@ void BasisGameController::PhysicCollision(int pIndex, float pCollisionValue)
 int BasisGameController::CheckCollision()
 {	
 	int IndexCollision = -1;
-	int mSizeController = 100;
-	float CollisionValue = mCollision.Collisions(mCamera.GetCameraBB(), IndexCollision); 
+	float CollisionValue = mCollision.Collisions(&mCamera.GetCameraBB(), IndexCollision); 
 	if (CollisionValue>0) //IndexCollisions should be a list with all the IDs of objects that collided
 	{
 		BeforeCollision(IndexCollision, CollisionValue); //list!!
@@ -158,21 +156,15 @@ void BasisGameController::MoveGameObject(const int pIndex, const Vector3D& pTran
 		mGameObject[pIndex]->Move(pTranslate);
 }
 
-
 GameObject* BasisGameController::GetGameObject(const int pIndex) const
 {
 	return mGameObject[pIndex];
 }
 
-void BasisGameController::translateGameObject(GameObject* gobj, const Vector3D& pTranslation)
-{
-	 gobj->Transform(pTranslation);
-}
-
-void BasisGameController::translateGameObjects(const Vector3D& pTranslation)
+void BasisGameController::TranslateGameObjects(const Vector3D& pTranslation)
 { 
 	for (std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) 
 	{
-		translateGameObject((*it), pTranslation);
+		(*it)->Transform(pTranslation);
 	}
 }

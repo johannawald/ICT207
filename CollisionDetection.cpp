@@ -48,7 +48,7 @@ const BoundingBox& CollisionDetection::GetCollisionBox(const int pIndex) const
 	return *mBoundingBoxes[pIndex];
 }
 
-float CollisionDetection::Collisions(BoundingBox* pBoundingBox1, int& pIndex, const bool pCY, const int pSkip)
+float CollisionDetection::Collisions(const BoundingBox* pBoundingBox1, int& pIndex, const bool pCY, const int pSkip)
 {
 	float collisionResult = 0;
 	float collision = 0;
@@ -101,7 +101,7 @@ float CollisionDetection::CollisionZ(BoundingBox* pBoundingBox1, BoundingBox* pB
 		return 0;
 }
 
-float CollisionDetection::Collision2(BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2, bool pCX, bool pCY, bool pCZ)
+float CollisionDetection::Collision2(const BoundingBox* pBoundingBox1, BoundingBox* pBoundingBox2, bool pCX, bool pCY, bool pCZ)
 {	
 	//return false;	
 	Vector3D pBB2Center = pBoundingBox2->GetCenter();

@@ -153,6 +153,9 @@
     <ClCompile Include="Vector3D.cpp">
       <Filter>Source Files\Basic</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB.H">
@@ -268,6 +271,9 @@
     </ClInclude>
     <ClInclude Include="Vector3D.h">
       <Filter>Header Files\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

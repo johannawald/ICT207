@@ -1,13 +1,3 @@
-//--------------------------------------------------------------------------------------
-// ModelLoader.cpp
-// Implementation file for the MoveController class
-// Controls camera using keyboard and mouse input.
-//
-// Author: Raymond Forster
-// Version: 1
-// Date 25/10/2013 Raymond Forster - Started
-//--------------------------------------------------------------------------------------
-
 #include "MoveController.h"
 #include "DrawManager.h"
 #include <iostream>
@@ -20,7 +10,7 @@ MoveController::MoveController(): mJump(false), mMaxJumpHeight(50)
 	mStartPosition.z = 0;
 	mCameraRotation = 0;
 
-	mSpeed = 5.0; //min bouncing box
+	mSpeed = 100.0; //min bouncing box
 	mPos.x = 0.0; 
 	mPos.y = 0.0; 
 	mPos.z = 0.0; 
@@ -50,8 +40,7 @@ MoveController::MoveController(): mJump(false), mMaxJumpHeight(50)
 		mSpecialKeyStates[i] = false;
 	}
 	mDrawManager = new DrawManager(); //just temp.
-	mCameraBB = new BoundingBox();
-	mCameraBB->SetBoundingBox(mPos, Vector3D(50.0f, 50.0f, 50.0f));
+	mCameraBB.SetBoundingBox(mPos, Vector3D(100.0f, 100.0f, 100.0f));
 	mCameraTranslation.x = 0;
 	mCameraTranslation.y = 0;
 	mCameraTranslation.z = 0;
@@ -114,10 +103,22 @@ void MoveController::SetDiffValues(float x, float y, float z)
 	mPosDiff.z = z;
 }
 
+void MoveController::SetPosDiff(const float pDeltaTime)
+{
+	mPosDiff.x *= pDeltaTime;
+	mPosDiff.y *= pDeltaTime;
+	mPosDiff.z *= pDeltaTime;
+}
+
 void MoveController::MoveCamera()  //try to avoid updating variables in the draw function! -> do that in the update-funciton
 {		
+	double deltaTime = mTimer.Duration();
+	mTimer.Reset();
+
+	std::cout << deltaTime << std::endl;
+	SetPosDiff(deltaTime);
+
 	mPos.x += mPosDiff.x;
-	//mPos.y += mPosDiff.y;
 	mPos.z += mPosDiff.z;
 
 	ResetDiffValues();
@@ -125,7 +126,6 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 	
 	glRotatef(mXrot,1.0,0.0,0.0);
 
-	//mDrawManager->DrawCollisionBox(mCameraBB);
 	glPushMatrix();
 		glRotatef(0, 1, 0, 0);
 		glColor3f(1.0f, 0.0f, 0.0f);
@@ -133,15 +133,9 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 	glPopMatrix();
     
 	glRotatef(mYrot,0.0,1.0,0.0);  //rotate the camera on the y-axis (up and down)
-	/*if (!pMoveX) 
-		mXpos = 0;
-	if (!pMoveY) 
-		mYpos = 0;
-	if (!pMoveZ) 
-		mZpos = 0;*/
 	
 	mCameraTranslation += mPos;
-	mCameraBB->Translate(-mPos);
+	mCameraBB.Translate(-mPos);
 	glTranslated(-mPos.x, 0.0f, -mPos.z); //translate the screen to the position of our camera
 	//glTranslated(-mPos.x, -mPos.y, -mPos.z); //translate the screen to the position of our camera
 	
@@ -395,11 +389,7 @@ const Vector3D& MoveController::Getpos() const
 	return mPos;
 }
 
-BoundingBox* MoveController::GetCameraBB() const
+const BoundingBox& MoveController::GetCameraBB() const
 {
-	BoundingBox* bb = new BoundingBox();
-	bb->SetBoundingBox(mPos, Vector3D(100.0f, 100.0f, 100.0f));
-	bb->Translate(mStartPosition);
-	//bb->Translate(
-	return bb;
+	return mCameraBB;
 }

@@ -5,6 +5,8 @@
  * @author Raymond Forster
  * @version 1
  * @date 25/10/2013 Raymond Forster - Started
+ * @date 20/10/2013 Johanna Wald - changed movement variables to vectors
+ * @date 25/10/2013 Johanna Wald - added delta time
  */
 
 //--------------------------------------------------------------------------------------
@@ -21,19 +23,21 @@
 #include <math.h>
 #include "Vector3D.h"
 #include "BoundingBox.h"
+#include "Timer.h"
 
 class DrawManager;
 class MoveController
 {
 	private:
+		Timer mTimer;	
+
 		bool mJump;
 		float mJumpHeight;
 		const float mMaxJumpHeight;
 
 		DrawManager* mDrawManager;
-		BoundingBox* mCameraBB; //we need that later!
+		BoundingBox mCameraBB; //we need that later!
 		
-
 		// angle of rotation values
 		Vector3D mPos;
 		Vector3D mStartPosition;
@@ -69,6 +73,7 @@ class MoveController
 		void Enable(void);
 		void KeyOperations(void);
 		void ResetDiffValues();
+		void SetPosDiff(const float pDeltaTime);
 	public:
 		float mSpeed;
 
@@ -92,6 +97,6 @@ class MoveController
 		void Mouse(int button, int state, int x, int y);
 		void MouseMotion(int x, int y);
 		void SetPull(const int pFactor = -1);
-		BoundingBox* GetCameraBB() const;
+		const BoundingBox& GetCameraBB() const;
 };
 #endif //end of MoveController class
