@@ -13,9 +13,9 @@ GameObject::GameObject(Vector3D& pPosition, Vector3D& pMovement,
 	mModelIndex = (eModels)pModelIndex;
 }
 
-void GameObject::Transform(const Vector3D& pTransform)
+void GameObject::Translate(const Vector3D& pTranslate)
 {
-	mPosition = mPositionOriginal + pTransform;
+	mPosition = mPositionOriginal + pTranslate;
 }
 
 void GameObject::Move(const Vector3D& pTransform)

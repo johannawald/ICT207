@@ -65,12 +65,10 @@ protected:
 
 	void SetNewExplosion(const float x, const float y, const float z);
 public:
-	/**
+		/**
         * @brief constructor creates a new GameController object.
-    */
+		*/
 	GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture);
-
-	void CollisionWithObject(GameObject* pGameObject);
 	int CheckCollision();
 	virtual void BeforeCollision(int pIndex, float pCollisionValue);
 	
