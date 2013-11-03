@@ -19,8 +19,8 @@ MoveController::MoveController()
 	mPosDiff.x = 0.0;
 	mPosDiff.y= 0.0;  
 	mPosDiff.z = 0.0;
-	mRadius = 500.0f;
-	mMaxAngle = 90.0;
+	mRadius = 300.0f;
+	mMaxAngle = 45.0;
 	mMinAngle = 0.0;
 	mYrotrad;
 	mXrotrad;
@@ -41,9 +41,6 @@ MoveController::MoveController()
 	}
 	mDrawManager = new DrawManager();
 	mCameraBB.SetBoundingBox(mPos, Vector3D(100.0f, 100.0f, 100.0f));
-	mCameraTranslation.x = 0;
-	mCameraTranslation.y = 0;
-	mCameraTranslation.z = 0;
 }
 
 void MoveController::SetCameraPosition()
@@ -88,7 +85,7 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 	mPos.z += mPosDiff.z;
 
 	ResetDiffValues();
-	glTranslatef(0.0f, -100.0f, -mRadius);
+	glTranslatef(0.0f, 0.0f, -mRadius);
 	
 	glRotatef(mXrot,1.0,0.0,0.0);
 	
@@ -101,8 +98,7 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 	glPopAttrib();
     
 	glRotatef(mYrot,0.0,1.0,0.0);  //rotate the camera on the y-axis (up and down)
-	
-	mCameraTranslation += mPos;
+
 	mCameraBB.Translate(mPos);
 	mCameraBB.Move(mPosDiff);
 	glTranslated(-mPos.x, 0.0f, -mPos.z); //translate the screen to the position of our camera
@@ -343,10 +339,6 @@ void MoveController::ResetDiffValues()
 	mPosDiff.z = 0;
 }
 
-void MoveController::SetPull(const int pFactor)
-{
-	mPosDiff *= pFactor*-1.0f;
-}
 
 const Vector3D& MoveController::GetposDiff() const
 {

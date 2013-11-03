@@ -31,7 +31,7 @@ using namespace std;
 //--------------------------------------------------------------------------------------
 // FData Structures
 
-	/*
+	/**
 	 * @struct Vector
 	 *
 	 * @brief A structure to represent 3D vectors.
@@ -44,7 +44,7 @@ typedef struct
 }
 Vector;
 
-	/*
+	/**
 	 * @struct Face
 	 *
 	 * @brief A structure to represent 3D object polygons.
