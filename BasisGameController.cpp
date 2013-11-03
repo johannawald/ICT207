@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "BoundingBox.h"
 
+
 BasisGameController::BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager): 
 	BasisController(pAudiomanager, pModelmanager, pTexturemanager), mGroundLevel(-65)
 {	
