@@ -40,13 +40,13 @@ private:
 	bool mBombSoundPlaying; //variable that saves the state of the bomb sound
 	const int c_mLostTime; //variable for showing the game over screen after x seconds (time of the animation)
 
-	const bool ObjectIsBox(const int pIndex) const;
-	const bool ObjectIsBomb(const int pIndex) const;
+	const bool ObjectIsBox(const int pIndex) const;  //checks if the object is a box
+	const bool ObjectIsBomb(const int pIndex) const; //checks if the object is the bomb
 	
 	virtual void DrawObjects();
 	virtual void InitGameObjects();
 protected:
-	int mBombIndex;
+	int mBombIndex; //the index of the bomb
 
 	/**
 		* @brief placeholder / helping variable for the Collision Index in the draw functions of the derived classes
@@ -65,7 +65,7 @@ protected:
 
 	void SetNewExplosion(const float x, const float y, const float z);
 public:
-		/**
+	/**
         * @brief constructor creates a new GameController object.
 		*/
 	GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture);

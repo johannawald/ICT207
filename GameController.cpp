@@ -133,6 +133,7 @@ void GameController::Draw()
 
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!) //updated 29.10 *JM
 { 
+	mExplosion.idle();
 	if (G_LEVELTIME==3)
 		mLostAnimation = true;
 	else if (G_LEVELTIME==c_mLostTime)

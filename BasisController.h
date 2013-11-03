@@ -20,7 +20,7 @@
 class BasisController {
 private:
 	// ratio of screen
-	float mRatio;
+	float mRatio; 
 	// screen width and height
 	int mScreenWidth, mScreenHeight;
 
