@@ -75,11 +75,7 @@ int GameController::CheckCollision()
 
 void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just for boxes
 {
-	if (ObjectIsBomb(pIndex))
-	{
-		StateMachine::setController(new GameWinController(GetAudio(), GetModel(), GetTexture()));
-	}
-	else if (ObjectIsBox(pIndex))
+	if (ObjectIsBox(pIndex))
 	{
 		//should not collide
 		bool Move = false;
