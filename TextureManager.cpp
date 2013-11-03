@@ -50,7 +50,7 @@ void TextureManager::init()
 	//LevelOneController:
 	mTextures[taBox] = Loadimage("textures/box.bmp");
 	mTextures[taButton] = Loadimage("textures/button.bmp");
-	mTextures[taBomb] = Loadimage("textures/bomb.bmp");
+	mTextures[taBomb] = Loadimage("textures/bomb.png");
 	mTextures[ta4x1platform] = Loadimage("textures/4x1platform.png");
 	mTextures[taTilefloor] = Loadimage("textures/tilefloor.bmp");
 	mTextures[taTilewall] = Loadimage("textures/tilewall.bmp");

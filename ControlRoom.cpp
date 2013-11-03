@@ -23,8 +23,8 @@ void ControlRoom::DrawObjects()
 
 void ControlRoom::InitGameObjects()
 {	
-	addCollisionGameObject(Vector3D(100, GetGroundLevel()+5, 450), Vector3D(), Vector3D(60,300,50), Vector3D(0.2,0.3,0.3), Vector3D(), mLadder, taConcWall, 1, 1, mIndexLadder);
-	addCollisionGameObject(Vector3D(100, GetGroundLevel()+5, -450), Vector3D(), Vector3D(200,200,100), Vector3D(0.2,0.2,0.2), Vector3D(), mConsole, taConsole, 1, 1, mIndexConsole);
+	addCollisionGameObject(Vector3D(100, GetGroundLevel()+5, 450), Vector3D(), Vector3D(60,300,50), Vector3D(0.2,0.3,0.3), Vector3D(), mLadder, GetTexture()->getTextureID(taRustyWall), 1, 1, mIndexLadder);
+	addCollisionGameObject(Vector3D(100, GetGroundLevel()+5, -450), Vector3D(), Vector3D(200,200,100), Vector3D(0.2,0.2,0.2), Vector3D(), mConsole,  GetTexture()->getTextureID(taConsole), 1, 1, mIndexConsole);
 		
 	InitWalls();
 	InitFloor();

@@ -40,5 +40,4 @@ void GameObject::Draw(ModelManager& pModelManager, DrawManager& pDrawManger)
 	}
 	else 
 		pDrawManger.DrawRect(mTextureIndex, mTexCoordX, mTexCoordY, mPosition, mSize);
-		
 }

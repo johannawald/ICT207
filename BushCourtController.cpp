@@ -56,9 +56,10 @@ void BushCourtController::ResetTransition()
 
 void BushCourtController::Restart()
 {
-	Init();
 	SetCamPosition(-27000, 10450, 41400, 180);
-	cam.SetWorldCoordinates(36000.0, 43200.0);
+	Init();
+	Reshape();
+	SetCamPosition(-27000, 10450, 41400, 180);
 }
 
 //--------------------------------------------------------------------------------------
@@ -92,6 +93,8 @@ void BushCourtController::Init() {
 	cam.SetNoBoundingBoxes(19);
 	// set starting position of user
 	cam.Position(32720.0, 10436.0, 17000.0, 180.0);
+	//SpecialKey(GLUT_KEY_UP, 0, 0);
+	//SpecialKeyUp(GLUT_KEY_UP, 0, 0);
 	Reshape();
 }
 

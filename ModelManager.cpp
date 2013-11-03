@@ -23,7 +23,7 @@ void ModelManager::init()
 	mModels[mLadder]->load("models/ladder.obj");
 	mModels[mBox]->load("models/box.obj"); //box
 	mModels[mButton]->load("models/button.obj");
-	mModels[mBomb]->load("models/console.obj");
+	mModels[mBomb]->load("models/bomb.obj");
 	std::cout << "Models Loaded." << std::endl;
 }
 

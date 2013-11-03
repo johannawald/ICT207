@@ -3,7 +3,7 @@
 #include "AudioManager.h"
 
 BasisController::BasisController(AudioManager* pAudioManager, ModelManager* pModelManager, TextureManager* pTextureManager): 
-	mAudioManager(pAudioManager), mModelManager(pModelManager), mTextureManager(pTextureManager), pLoaded(false)
+	mAudioManager(pAudioManager), mModelManager(pModelManager), mTextureManager(pTextureManager), pLoaded(false), mScreenWidth(0), mScreenHeight(0)
 {	
 	mDrawManager = new DrawManager();
 	Init();
@@ -62,7 +62,11 @@ void BasisController::Init()
 	
 	glEnable(GL_DEPTH_TEST); 
 	glShadeModel(GL_SMOOTH);
-	Reshape();
+	//Reshape();
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
 }
 
 AudioManager* BasisController::GetAudio() const
