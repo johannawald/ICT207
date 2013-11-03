@@ -18,7 +18,7 @@ Explosion::Explosion(): mNumParticles(10000), mNumDebris(100) {
 	//mParticles = new Particle[mNumParticles];
 	//mDebris = new DebrisData[mNumDebris];
 	mFuel = 0;
-	mSpeed = 0.1;
+	mSpeed = 0.5;
 }
 
 Explosion::Explosion(float s): mNumParticles(10000), mNumDebris(100) {
@@ -93,7 +93,7 @@ void Explosion::newExplosion(float x, float y, float z) {
       newSpeed (mDebris[i].mOrientationSpeed);
     }
 
-	mFuel = 100;
+	mFuel = 900;
 }
 
 void Explosion::Draw()
@@ -170,15 +170,15 @@ void Explosion::Update(void){
 			mParticles[i].mPosition[1] += mParticles[i].mSpeed[1] * mSpeed;
 			mParticles[i].mPosition[2] += mParticles[i].mSpeed[2] * mSpeed;
 
-			mParticles[i].mColour[0] -= 1.0 / 500.0;
+			mParticles[i].mColour[0] -= 1.0 / 5000.0;
 			if(mParticles[i].mColour[0] < 0.0)
 				mParticles[i].mColour[0] = 0.0;
 
-			mParticles[i].mColour[1] -= 1.0 / 100.0;
+			mParticles[i].mColour[1] -= 1.0 / 1000.0;
 			if(mParticles[i].mColour[1] < 0.0)
 				mParticles[i].mColour[1] = 0.0;
 
-			mParticles[i].mColour[2] -= 1.0 / 50.0;
+			mParticles[i].mColour[2] -= 1.0 / 500.0;
 			if(mParticles[i].mColour[2] < 0.0)
 				mParticles[i].mColour[2] = 0.0;
 		}

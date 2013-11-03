@@ -23,8 +23,9 @@ void ControlRoom::DrawObjects()
 
 void ControlRoom::InitGameObjects()
 {	
-	addCollisionGameObject(Vector3D(100, GetGroundLevel()+5, 450), Vector3D(), Vector3D(60,300,50), Vector3D(0.2,0.3,0.3), Vector3D(), mLadder, GetTexture()->getTextureID(taRustyWall), 1, 1, mIndexLadder);
-	addCollisionGameObject(Vector3D(100, GetGroundLevel()+5, -450), Vector3D(), Vector3D(200,200,100), Vector3D(0.2,0.2,0.2), Vector3D(), mConsole,  GetTexture()->getTextureID(taConsole), 1, 1, mIndexConsole);
+	addCollisionGameObject(Vector3D(-40, GetGroundLevel()+65, 750), Vector3D(), Vector3D(60,300,50), Vector3D(0.2,0.3,0.3), Vector3D(), mLadder, GetTexture()->getTextureID(taRustyWall), 1, 1, mIndexLadder);
+	addCollisionGameObject(Vector3D(-40, GetGroundLevel()+350, 750), Vector3D(), Vector3D(60,300,50), Vector3D(0.2,0.3,0.3), Vector3D(), mLadder, GetTexture()->getTextureID(taRustyWall), 1, 1, mIndexLadder);
+	addCollisionGameObject(Vector3D(-100, GetGroundLevel()+5, -700), Vector3D(), Vector3D(200,200,100), Vector3D(0.2,0.2,0.2), Vector3D(), mConsole,  GetTexture()->getTextureID(taConsole), 1, 1, mIndexConsole);
 		
 	InitWalls();
 	InitFloor();
@@ -58,36 +59,46 @@ void ControlRoom::Keyboard(unsigned char key, int x, int y)
 
 void ControlRoom::InitFloor()
 {
-	//floor
 	int test = 0;
-	addCollisionGameObject(Vector3D(-400, 0, -600), Vector3D(), Vector3D(800, 1200, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 3, 2, test); 
-	addCollisionGameObject(Vector3D(-200, 0, -800), Vector3D(), Vector3D(400, 200, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 1, 1, test); 
-	
-	//roof
-	addCollisionGameObject(Vector3D(-400, 400, -600), Vector3D(), Vector3D(800, 1200, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 3, 2, test); 
-	addCollisionGameObject(Vector3D(-200, 400, -800), Vector3D(), Vector3D(400, 200, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 1, 1, test); 
+	addCollisionGameObject(Vector3D(-400, GetGroundLevel(), -600), Vector3D(), Vector3D(800, 0, 1200), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 2, 2, test); //floor
+	addCollisionGameObject(Vector3D(-200, GetGroundLevel(), -800), Vector3D(), Vector3D(400, 0, 200), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 1, 0.5, test);
+	//addCollisionGameObject(Vector3D(-200, GetGroundLevel(), 600), Vector3D(), Vector3D(400, 0, 200), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 1, 1, test);
+	//position, movement, size, size, scale, rotation, model, texure
+
+
+	//FLOOR			x,		y = 0,	z,		positive size
+	//RIGHTWALL		x = 0,	y,		z,		0, +ve, +ve
+	//LEFTWALL		x = 0,	y,		z,		0, +ve, -ve
+	//FARWALL		x,		y = 0,		z,	+ve, +ve, 0
+	//CLOSEWALL		x,		y = 0,		z,	-ve, +ve, 0
 }
 
 void ControlRoom::InitWalls()
 {
 	int test = 0;
-	addCollisionGameObject(Vector3D(-400, GetGroundLevel(), 600), Vector3D(), Vector3D(800, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 4, 1, test);
-	addCollisionGameObject(Vector3D(200, GetGroundLevel(), -600), Vector3D(), Vector3D(200, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
-	addCollisionGameObject(Vector3D(-400, GetGroundLevel(), -600), Vector3D(), Vector3D(200, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
-	addCollisionGameObject(Vector3D(-200, GetGroundLevel(),-800), Vector3D(), Vector3D(400, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 2, 1, test);
+	int height = 700;
+	addCollisionGameObject(Vector3D(400, GetGroundLevel(), -600), Vector3D(), Vector3D(0, height, 1200), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 2, 1, test); //rightwall
+	addCollisionGameObject(Vector3D(-400, GetGroundLevel(), 600), Vector3D(), Vector3D(0, height, -1200), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 2, 1, test); //leftwall
 
-	addCollisionGameObject(Vector3D(-400, GetGroundLevel(),-600), Vector3D(), Vector3D(0, 1200, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 6, 1, test);
-	addCollisionGameObject(Vector3D(400, GetGroundLevel(),-600), Vector3D(), Vector3D(0, 1200, 400),Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 6, 1, test);
-	addCollisionGameObject(Vector3D(-200, GetGroundLevel(),-800), Vector3D(), Vector3D(0, 200, 400),Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
-	addCollisionGameObject(Vector3D(200, GetGroundLevel(), -800), Vector3D(), Vector3D(0, 200, 400),Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
+	addCollisionGameObject(Vector3D(-400, GetGroundLevel(), -600), Vector3D(), Vector3D(200, height, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 0.5, 1, test); //topwall
+	addCollisionGameObject(Vector3D(200, GetGroundLevel(), -600), Vector3D(), Vector3D(200, height, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 0.5, 1, test); 
+	addCollisionGameObject(Vector3D(-200, GetGroundLevel(), -800), Vector3D(), Vector3D(400, height, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
+	addCollisionGameObject(Vector3D(200, GetGroundLevel(), -800), Vector3D(), Vector3D(0, height, 200), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 0.5, 1, test);
+	addCollisionGameObject(Vector3D(-200, GetGroundLevel(), -600), Vector3D(), Vector3D(0, height, -200), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 0.5, 1, test);
+
+	addCollisionGameObject(Vector3D(400, GetGroundLevel(), 600), Vector3D(), Vector3D(-200, height, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test); //bottomwall
+	addCollisionGameObject(Vector3D(-200, GetGroundLevel(), 600), Vector3D(), Vector3D(-200, height, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
+	addCollisionGameObject(Vector3D(200, GetGroundLevel(), 800), Vector3D(), Vector3D(-400, height, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
+	addCollisionGameObject(Vector3D(200, GetGroundLevel(), 600), Vector3D(), Vector3D(0, height, 200), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 2, 1, test);
+	addCollisionGameObject(Vector3D(-200, GetGroundLevel(), 800), Vector3D(), Vector3D(0, height, -200), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 2, 1, test);
+
 }
 
 void ControlRoom::DrawStairs()
 {
 	glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taTilefloor));
 	glPushMatrix();
-		glTranslatef(200, 0, -600);
-		glRotatef(180, 0, 1, 0);
+		glTranslatef(-200, -65, 600);
 		GetDrawManager()->DrawStairs(400, 100, 200, 5);
 	glPopMatrix();
 	glBindTexture(GL_TEXTURE_2D, -1);

@@ -2,7 +2,7 @@
 
 GameObject::GameObject(Vector3D& pPosition, Vector3D& pMovement, 
 					   Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, 
-					   int pModelIndex, GLuint pTextureIndex, int pTexCoordX, int pTexCoordY, int pCollisionIndex):
+					   int pModelIndex, GLuint pTextureIndex, float pTexCoordX, float pTexCoordY, int pCollisionIndex):
 					 //  , void (GameController::*pCollisionMethod)(void)):
 		mPosition(pPosition), mMovement(pMovement), 
 		mScale(pScale), mSize(pSize), mRotation(pRotation), 

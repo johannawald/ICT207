@@ -185,6 +185,7 @@ void Stairs::DrawStairs(const float stairWidth, const float stairHeight, const f
 	}
 
 	//draw sides of staircase
+	/*
 	for (int i = 0; i < numSteps; i++)
 	{
 		glBegin(GL_QUADS);
@@ -206,5 +207,5 @@ void Stairs::DrawStairs(const float stairWidth, const float stairHeight, const f
 			glTexCoord2f (0.0, 0.5);		glVertex3f(stairWidth, 0.0, stairDepth);
 			glTexCoord2f (0.0, 0.0);		glVertex3f(stairWidth, stairHeight, stairDepth);
 			glTexCoord2f (0.5, 0.0);		glVertex3f(0.0, stairHeight, stairDepth);
-		glEnd();
+		glEnd();*/
 }

@@ -132,15 +132,19 @@ void GameController::Draw()
 
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!) //updated 29.10 *JM
 { 
-	//mExplosion.Update();
+	mExplosion.Update();
 	if (G_LEVELTIME==3)
+	{ 
 		mLostAnimation = true;
+		
+	}
 	else if (G_LEVELTIME==c_mLostTime)
 		StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture()));
 
 	if (mLostAnimation && !mBombSoundPlaying)
 	{
 		GetAudio()->StopSound(sBgMusic);
+		Sleep(4000);
 		GetAudio()->playSound(sBomb);
 		mBombSoundPlaying = true;
 	}
@@ -171,7 +175,6 @@ void GameController::SpecialKeyUp(int key, int x, int y)
 
 void GameController::Keyboard(unsigned char key, int x, int y)
 {
-	SetNewExplosion(0,0,0);
 	if (!mLostAnimation) 
 	{
 		BasisGameController::Keyboard(key, x, y);
@@ -209,7 +212,7 @@ void GameController::MouseMotion(int x, int y)
 
 void GameController::DrawObjects()
 {
-
+	
 }
 
 void GameController::DrawTimer()
@@ -251,5 +254,5 @@ void GameController::DrawTimer()
 
 void GameController::SetNewExplosion(const float x, const float y, const float z)
 {
-	//mExplosion.newExplosion(x,y,z);
+	mExplosion.newExplosion(x,y,z);
 }

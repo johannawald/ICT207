@@ -1,6 +1,10 @@
 #include "AudioManager.h"
 #include "EasySound.h"
 #include <iostream>
+#include "FMOD/inc/fmod.h"
+#include "FMOD/inc/fmod_errors.h"
+
+//FMOD::System* fmodSystem;	// the global variable for talking to FMOD
 
 AudioManager::AudioManager()
 {

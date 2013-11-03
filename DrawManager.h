@@ -56,14 +56,14 @@ public:
         * @brief draws a rect at position(x,y,z) with pWidth, pHeight, pDepth and a Texture 
 		*
 		* @param const GLint pTexture - the texture that should be binded for drawing the rect
-		* @param const int TexCoordX - the texture x-coordinate for the texture
-		* @param const int TexCoordY - the texture y-coordinate for the texture 
+		* @param const float TexCoordX - the texture x-coordinate for the texture
+		* @param const float TexCoordY - the texture y-coordinate for the texture 
 		* @param const int pPosition - the position of the rect 
 		* @param const Vector3D& pSize - the size of the rect
 		* @return void
     */	
 	void DrawRect(const GLint pTexture, 
-				  const int TexCoordX, const int TexCoordY, 
+				  const float TexCoordX, const float TexCoordY, 
 				  const Vector3D& pPosition,
 				  const Vector3D& pSize) const;
 	/**
@@ -72,25 +72,25 @@ public:
 		* it is used to draw a cube
 		*
 		* @param const GLint pTexture - the texture that should be binded for drawing the rect
-		* @param const int TexCoordX - the texture x-coordinate for the texture
-		* @param const int TexCoordY - the texture y-coordinate for the texture 
+		* @param const float TexCoordX - the texture x-coordinate for the texture
+		* @param const float TexCoordY - the texture y-coordinate for the texture 
 		* @param const int pPosition - the position of the Rect 
 		* @param const int pWidth - the width of the Rect 
 		* @param const int pDepth - the depth of the Rect 
 		* @param const int pHeight - the height of the Rect 
-		* @param const int pAngle - the rotation of the Rect 
+		* @param const int pAngle - the rotation of the Rect
 		* @return void
     */	
 	void DrawRect(const GLint pTexture, 
-				  const int TexCoordX, const int TexCoordY, 
+				  const float TexCoordX, const float TexCoordY, 
 				  const Vector3D& pPosition,  
 				  const GLdouble pWidth, const GLdouble pHeight, const Vector3D& pAngle) const;
 	/**
         * @brief draws a cube at position(x,y,z) with pWidth, pHeight, pDepth and a Texture
 		*
 		* @param const GLint pTexture - the texture that should be binded for drawing the cube
-		* @param const int TexCoordX - the texture x-coordinate for the texture
-		* @param const int TexCoordY - the texture y-coordinate for the texture 
+		* @param const float TexCoordX - the texture x-coordinate for the texture
+		* @param const float TexCoordY - the texture y-coordinate for the texture 
 		* @param const Vector3D& pPosition - the position of the cube 
 		* @param const int pWidth - the width of the cube 
 		* @param const int pDepth - the depth of the cube 
@@ -98,7 +98,7 @@ public:
 		* @return void
     */	
 	void DrawCube(const GLint pTexture, 
-				  const int pTexCoordX, const int pTexCoordY, 
+				  const float pTexCoordX, const float pTexCoordY, 
 				  const Vector3D& pPosition,  
 				  const GLdouble pWidth, const GLdouble pHeight, const GLdouble pDepth) const;
 	/**
@@ -106,14 +106,14 @@ public:
 		*
 		* @param CollisionDetection* collision - the collisionDetection-element what should be used to add the collision box to
 		* @param const GLint pTexture - the texture that should be binded for drawing the rect
-		* @param const int TexCoordX - the texture x-coordinate for the texture
-		* @param const int TexCoordY - the texture y-coordinate for the texture 
+		* @param const float TexCoordX - the texture x-coordinate for the texture
+		* @param const float TexCoordY - the texture y-coordinate for the texture 
 		* @param const Vector3D& pPosition - the position of the rect and the collision box
 		* @param const int pSize - the size of the rect and the collision box (pWidth, pHeight, pDepth)
 		* @return void
     */	
 	void DrawCollisionRect(CollisionDetection* collision, const GLint pTexture, 
-				const int pTexCoordX, const int pTexCoordY, 
+				const float pTexCoordX, const float pTexCoordY, 
 				const Vector3D& pPosition,  
 				const Vector3D& pSize) const;
 	/**
@@ -121,14 +121,14 @@ public:
 		*
 		* @param CollisionDetection* collision - the collisionDetection-element what should be used to add the collision box to
 		* @param const GLint pTexture - the texture that should be binded for drawing the rect
-		* @param const int TexCoordX - the texture x-coordinate for the texture
-		* @param const int TexCoordY - the texture y-coordinate for the texture 
+		* @param const float TexCoordX - the texture x-coordinate for the texture
+		* @param const float TexCoordY - the texture y-coordinate for the texture 
 		* @param const Vector3D& pPosition - the position of the rect and the collision box
 		* @param const int pSize - the size of the rect and the collision box (pWidth, pHeight, pDepth)
 		* @return void
     */	
 	void DrawCollisionCube(CollisionDetection* collision, const GLint pTexture, 
-				const int pTexCoordX, const int pTexCoordY, 
+				const float pTexCoordX, const float pTexCoordY, 
 				const Vector3D& pPosition,
 				const Vector3D& pSize) const;
 	/**
@@ -150,4 +150,5 @@ public:
 	void RenderStrokeFontString(const float x, const float y, const float z, void *pFont, const char *pString) const;
 	void SetOrthographicProjection() const;
 	void RestorePerspectiveProjection() const;
+
 };

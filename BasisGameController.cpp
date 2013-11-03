@@ -55,7 +55,7 @@ void BasisGameController::Mouse(int button, int state, int x, int y)
 
 void BasisGameController::addCollisionGameObject(Vector3D& pPosition, Vector3D& pMovement, 
 												Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation,
-												int pModel, GLuint pTexture, int pTexCoordX, int pTexCoordY, int& pCollisionIndex, void (*pCollisionMethod)(void))
+												int pModel, GLuint pTexture, float pTexCoordX, float pTexCoordY, int& pCollisionIndex, void (*pCollisionMethod)(void))
 //pSize.x - Width
 //pSize.y - Height
 //pSize.z - Depth
@@ -99,7 +99,7 @@ void BasisGameController::Draw()
 			glEnable(GL_TEXTURE_2D);
 			glPushMatrix();
 				//Set camera position:
-				mCollision.Draw(*GetDrawManager());
+				//mCollision.Draw(*GetDrawManager());
 				mCamera.SetCameraPosition();
 				GetDrawManager()->DrawCollisionBox(mCamera.GetCameraBB());
 				DrawGameObjects();
@@ -113,7 +113,7 @@ void BasisGameController::Draw()
 	}
 }
 
-void BasisGameController::addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, int pModelIndex, GLuint pTextureIndex, int pTexCoordX, int pTexCoordY, int pCollisionIndex, void (*pCollisionMethod)(void))
+void BasisGameController::addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, int pModelIndex, GLuint pTextureIndex, float pTexCoordX, float pTexCoordY, int pCollisionIndex, void (*pCollisionMethod)(void))
 {
 	GameObject* gameobject = new GameObject(pPosition, pMovement, pSize, pScale, pRotation, pModelIndex, pTextureIndex, pTexCoordX, pTexCoordY, pCollisionIndex); //, pCollisionMethod, nullptr
 	mGameObject.push_back(gameobject);

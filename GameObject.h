@@ -26,8 +26,8 @@ private:
 	Vector3D mRotation;  /**< roation of the model of the game object*/
 	eModels mModelIndex;  /**< index of the model of the game object, -1 if it doesn't have a model */
 	GLuint mTextureIndex;  /**< textureid of the game object*/
-	int mTexCoordX;  /**< texture x-coordinate of the texture of the game object*/
-	int mTexCoordY; /**< texture y-coordinate of the texture of the game object*/
+	float mTexCoordX;  /**< texture x-coordinate of the texture of the game object*/
+	float mTexCoordY; /**< texture y-coordinate of the texture of the game object*/
 	int mCollisionIndex; /**< collision index of the game object in the collision array*/
 public:
 		/**
@@ -44,7 +44,7 @@ public:
 		* @param int pCollisionIndex - index of the collision box of game object in the array the collision detection clas
 		*/
 	GameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, 
-				   int pModelIndex, GLuint pTextureIndex, int pTexCoordX, int pTexCoordY, int pCollisionIndex);
+				   int pModelIndex, GLuint pTextureIndex, float pTexCoordX, float pTexCoordY, int pCollisionIndex);
 		/**
 		* @brief draws the game object with it's set parameters
 		* @param ModelManager& pModelManager - a reference of the model manager as a help variable to draw the gameobject if it's a model

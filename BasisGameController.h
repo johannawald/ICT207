@@ -43,14 +43,14 @@ protected:
 		* @param Vector3D& pRotation - rotation of the game object (will be used for rotating the model)
 		* @param int pModelIndex - model-index of the game object, should be set to -1 if it is no model
 		* @param GLuint pTextureIndex - texture code that should be used to draw the game object
-		* @param int pTexCoordX - texture x-coordinate for drawing the texture of the game object
-		* @param int pTexCoordY - texture y-coordinate for drawing the texture of the game object
+		* @param float pTexCoordX - texture x-coordinate for drawing the texture of the game object
+		* @param float pTexCoordY - texture y-coordinate for drawing the texture of the game object
 		* @param int pCollisionIndex - index of the collision box of game object in the array the collision detection clas
 		* @param void (*pCollisionMethod)(void) - collision function that should be called if this game object collides with the camera
 		* @return void
 		*/	
 	void addGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation, 
-					   int pModelIndex, GLuint pTextureIndex, int pTexCoordX, int pTexCoordY, int pCollisionIndex, void (*pCollisionMethod)(void) = nullptr);
+					   int pModelIndex, GLuint pTextureIndex, float pTexCoordX, float pTexCoordY, int pCollisionIndex, void (*pCollisionMethod)(void) = nullptr);
 
 		/**
 		* @brief adds a new game object to the list "mGameObjects" with calling addGameObject and creates a collision box for it
@@ -61,14 +61,14 @@ protected:
 		* @param Vector3D& pRotation - rotation of the game object (will be used for rotating the model)
 		* @param int pModelIndex - model-index of the game object, should be set to -1 if it is no model
 		* @param GLuint pTextureIndex - texture code that should be used to draw the game object
-		* @param int pTexCoordX - texture x-coordinate for drawing the texture of the game object
-		* @param int pTexCoordY - texture y-coordinate for drawing the texture of the game object
+		* @param float pTexCoordX - texture x-coordinate for drawing the texture of the game object
+		* @param float pTexCoordY - texture y-coordinate for drawing the texture of the game object
 		* @param int pCollisionIndex - index of the collision box of game object in the array the collision detection clas
 		* @param void (*pCollisionMethod)(void) - collision function that should be called if this game object collides with the camera
 		* @return void
 		*/	
 	void addCollisionGameObject(Vector3D& pPosition, Vector3D& pMovement, Vector3D& pSize, Vector3D& pScale, Vector3D& pRotation,
-								int pModel, GLuint pTexture, int pTexCoordX, int pTexCoordY, int& pCollisionIndex, void (*pCollisionMethod)(void) = nullptr);
+								int pModel, GLuint pTexture, float pTexCoordX, float pTexCoordY, int& pCollisionIndex, void (*pCollisionMethod)(void) = nullptr);
 		/**
 		* @brief moves all the game object with index pIndex using the vector "pTranslation"
 		* @param const Vector3D& pTranslation - the vector that is used to translate all the game objects
