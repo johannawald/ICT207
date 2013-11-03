@@ -10,20 +10,21 @@
 ControlRoom::ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm, float pHeight, float pWidth): 
 	GameController(am,mm,tm, pHeight, pWidth), mShowConsoleScreen(true)
 {
-	mTimerStart = false;
+	SetLevelTime(1000);
 }
 
 void ControlRoom::DrawObjects()
 {	
-	glPopMatrix();
+	glPushMatrix();
 		if (mShowConsoleScreen) DrawConsoleScreen(1024.0, 768.0, 0.0, 0.0, 0.0, 1.0, 1.0, false);
-		DrawTimer();
+		//DrawTimer();
 		DrawStairs();
 	glPopMatrix();
 }
 
 void ControlRoom::InitGameObjects()
 {	
+	
 	addCollisionGameObject(Vector3D(-40, GetGroundLevel()+350, 750), Vector3D(), Vector3D(60,300,50), Vector3D(0.2,0.3,0.3), Vector3D(), mLadder, GetTexture()->getTextureID(taRustyWall), 1, 1, mIndexLadder);
 	addCollisionGameObject(Vector3D(-40, GetGroundLevel()+65, 750), Vector3D(), Vector3D(60,300,50), Vector3D(0.2,0.3,0.3), Vector3D(), mLadder, GetTexture()->getTextureID(taRustyWall), 1, 1, mIndexLadder);
 	addCollisionGameObject(Vector3D(-100, GetGroundLevel()+5, -700), Vector3D(), Vector3D(200,200,100), Vector3D(0.2,0.2,0.2), Vector3D(), mConsole,  GetTexture()->getTextureID(taConsole), 1, 1, mIndexConsole);

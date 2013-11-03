@@ -44,7 +44,6 @@ private:
 
 	virtual void InitGameObjects();
 protected:
-	bool mTimerStart;
 	Explosion mExplosion; //member variable for the explsion-class
 
 	int mBombIndex; //the index of the bomb
@@ -72,7 +71,7 @@ public:
 	GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture, float pHeight, float pWidth);
 	int CheckCollision();
 	virtual void BeforeCollision(int pIndex, float pCollisionValue);
-	
+	void SetLevelTime(const int pValue);
 	virtual void Init();
 	virtual void Draw();
 	virtual void Update();

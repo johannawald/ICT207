@@ -16,11 +16,6 @@ void GameControllerLevelOne::DrawObjects()
 	glPushMatrix();
 		DrawTimer();
 	glPopMatrix();
-
-}
-
-void WinGame()
-{
 }
 
 void GameControllerLevelOne::InitGameObjects()
@@ -32,11 +27,9 @@ void GameControllerLevelOne::InitGameObjects()
 	addCollisionGameObject(Vector3D(0, GetGroundLevel()+10, -250), Vector3D(), Vector3D(90, 90, 90), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, GetTexture()->getTextureID(taBox), 1, 1, mBoxesCollisionIndex[1]);
 	addCollisionGameObject(Vector3D(120, GetGroundLevel()+10, -250), Vector3D(), Vector3D(90, 90, 90), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, GetTexture()->getTextureID(taBox), 1, 1, mBoxesCollisionIndex[2]);
 	
-	
 	//floor
 	addCollisionGameObject(Vector3D(-150, GetGroundLevel(), -450), Vector3D(), Vector3D(400, 0, 700), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 1, 1, test);
 	addCollisionGameObject(Vector3D(-20, GetGroundLevel(), -800), Vector3D(), Vector3D(140, 0, 350), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 1, 1, test);
-
 
 	addCollisionGameObject(Vector3D(-20, GetGroundLevel(), -800), Vector3D(), Vector3D(150, 500, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
 	addCollisionGameObject(Vector3D(250, GetGroundLevel(), 250), Vector3D(), Vector3D(-400, 500, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
@@ -46,11 +39,8 @@ void GameControllerLevelOne::InitGameObjects()
 
 	addCollisionGameObject(Vector3D(-150, GetGroundLevel(), -450), Vector3D(), Vector3D(130, 500, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
 	addCollisionGameObject(Vector3D(120, GetGroundLevel(), -450), Vector3D(), Vector3D(130, 500, 0), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, test);
-
-
 	//passage
 	addCollisionGameObject(Vector3D(120, GetGroundLevel(), -800), Vector3D(), Vector3D(0, 500, 350), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 2, 1, test);
 	addCollisionGameObject(Vector3D(-20, GetGroundLevel(), -450), Vector3D(), Vector3D(0, 500, -350), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 2, 1, test);
-
 }
 

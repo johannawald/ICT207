@@ -11,8 +11,13 @@
 #include <iostream>
 #include "GameWinController.h"
 
-int G_LEVELTIME = 6;
+int LevelTime = 6;
 bool G_DEBUGCOLLISION = false;
+
+void GameController::SetLevelTime(const int pValue)
+{
+	LevelTime=pValue;
+}
 
 const bool GameController::ObjectIsBox(const int pIndex) const
 {
@@ -30,17 +35,17 @@ const bool GameController::ObjectIsBomb(const int pIndex) const
 void Countdown(int counterStepTime)
 {
 	//if (mSoundOn)
-	if (G_LEVELTIME>-5)
+	if (LevelTime>-5)
 	{
-		G_LEVELTIME -=1;
+		LevelTime -=1;
 		glutTimerFunc(1000, *Countdown, 0); //static?
 	}
 }
 
 GameController::GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture, float pHeight, float pWidth): 
-	BasisGameController(pAudio, pModel, pTexture, pHeight, pWidth), c_mLostTime(-5), mSoundOn(true), mBombSoundPlaying(false), mTimerStart(true), mLostAnimation(false)
+	BasisGameController(pAudio, pModel, pTexture, pHeight, pWidth), c_mLostTime(-5), mSoundOn(true), mBombSoundPlaying(false), mLostAnimation(false)
 {
-	G_LEVELTIME = 40;
+	LevelTime = 40;
 	glutTimerFunc(1000, *Countdown, 0);
 	mBoxesCollisionIndex = new int[3]; //dynamic for each level
 	for (int i = 0; i<5; i++)
@@ -51,13 +56,10 @@ GameController::GameController(AudioManager* pAudio, ModelManager* pModel, Textu
 void GameController::Init() 
 {
 	BasisGameController::Init();
+	int G_LEVELTIME = 40;
 	InitGameObjects();
 	if (mSoundOn)
 		GetAudio()->playSound(sBgMusic);
-
-
-
-
 }
 
 void GameController::InitGameObjects() 
@@ -129,16 +131,15 @@ void GameController::Draw()
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!) //updated 29.10 *JM
 { 
 	mExplosion.Update();
-	if (mTimerStart)
+
+	if (LevelTime==3)
 	{ 
-		if (G_LEVELTIME==3)
-		{ 
-			mLostAnimation = true;
+		mLostAnimation = true;
 		
-		}
-		else if (G_LEVELTIME==c_mLostTime)
-			StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth()));
 	}
+	else if (LevelTime==c_mLostTime)
+		StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth()));
+	
 	if (mLostAnimation && !mBombSoundPlaying)
 	{
 		GetAudio()->StopSound(sBgMusic);
@@ -224,13 +225,12 @@ void GameController::DrawTimer()
 
 		glPushMatrix();
 		glLoadIdentity();
-		if (mTimerStart)
-		{
-			sprintf(s, "Time: %d", G_LEVELTIME); //get timer
-			glColor3f(1.0, 0.0, 0.0);
-			font = GLUT_BITMAP_TIMES_ROMAN_24;
-			GetDrawManager()->RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
-		}
+		
+		sprintf(s, "Time: %d", LevelTime); //get timer
+		glColor3f(1.0, 0.0, 0.0);
+		font = GLUT_BITMAP_TIMES_ROMAN_24;
+		GetDrawManager()->RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
+		
 		sprintf(s, "Camera x: %f y: %f z: %f", mCamera.Getpos().x, mCamera.Getpos().y, mCamera.Getpos().z); //get camera position
 		glColor3f(1.0, 0.5, 0.5);
 		font = GLUT_BITMAP_8_BY_13;
