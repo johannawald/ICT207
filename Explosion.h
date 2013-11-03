@@ -31,18 +31,19 @@ private:
 	const int mNumParticles;
 	const int mNumDebris;
 
-	Particle* mParticles;
-	DebrisData* mDebris;
+	Particle mParticles[10000];
+	DebrisData mDebris[5000];
 	int mFuel;
 	float mSpeed;
 
 public:
 	Explosion();
 	Explosion(float);
+	void setSize(const int p, const int d);
 	void newSpeed(float[]);
 	void newExplosion(float x, float y, float z);
 	void idle();
-	void draw();
+	void draw(const GLint pTexture);
 };
 
 #endif

@@ -14,23 +14,27 @@
 #include <GL\glut.h>
 #include <iostream>
 
-Explosion::Explosion(): mNumParticles(1000), mNumDebris(100) {
-	mParticles = new Particle[mNumParticles];
-	mDebris = new DebrisData[mNumDebris];
+Explosion::Explosion(): mNumParticles(10000), mNumDebris(100) {
+	//mParticles = new Particle[mNumParticles];
+	//mDebris = new DebrisData[mNumDebris];
 	mFuel = 0;
 	mSpeed = 0.2;
 }
 
-Explosion::Explosion(float s): mNumParticles(1000), mNumDebris(100) {
-	mParticles = new Particle[mNumParticles];
-	mDebris = new DebrisData[mNumDebris];
+Explosion::Explosion(float s): mNumParticles(10000), mNumDebris(100) {
+	//mParticles = new Particle[mNumParticles];
+	//mDebris = new DebrisData[mNumDebris];
 	mFuel = 0;
 	mSpeed = s;
 }
 
+void Explosion::setSize(const int p, const int d){
+	//mParticles = new Particle[p];
+	//mDebris = new DebrisData[d];
+}
+
 void Explosion::newSpeed(float dest[3]){
 	float x, y, z, len;
-	srand (time(NULL));
 
 	x = (2.0 * ((GLfloat) rand()) / ((GLfloat) RAND_MAX)) - 1.0;
 	y = (2.0 * ((GLfloat) rand()) / ((GLfloat) RAND_MAX)) - 1.0;
@@ -50,6 +54,7 @@ void Explosion::newSpeed(float dest[3]){
 }
 
 void Explosion::newExplosion(float x, float y, float z) {
+	srand (time (NULL));
 	for(int i = 0; i < mNumParticles; i++)
 	{
 		mParticles[i].mPosition[0] = x;
@@ -75,7 +80,7 @@ void Explosion::newExplosion(float x, float y, float z) {
 
       mDebris[i].mColor[0] = 0.7;
       mDebris[i].mColor[1] = 0.7;
-      mDebris[i].mColor[2] = 0.7;
+      mDebris[i].mColor[2] = 0.0;
 
       mDebris[i].mScale[0] = (2.0 * 
 			    ((GLfloat) rand ()) / ((GLfloat) RAND_MAX)) - 1.0;
@@ -91,71 +96,71 @@ void Explosion::newExplosion(float x, float y, float z) {
 	mFuel = 100;
 }
 
-void Explosion::draw(void){
-  int    i;
+void Explosion::draw(const GLint pTexture){
+	
 
-  glPushAttrib(GL_CURRENT_BIT);
-  glLoadIdentity ();
-
-  /* Place the camera */
-
-  glTranslatef (0.0, 0.0, -10.0);
- // glRotatef (angle, 0.0, 1.0, 0.0);
-
-  /* If no explosion, draw cube */
-  glPushMatrix ();
-
-      glDisable (GL_LIGHTING);
-      glDisable (GL_DEPTH_TEST);
-
-      glBegin (GL_POINTS);
-
-	  for (i = 0; i < mNumParticles; i++)
-	  {
-		  glColor3fv (mParticles[i].mColour);
-	  glVertex3fv (mParticles[i].mPosition);
-	  }
+	int i;
   
-      glEnd ();
+	glPushAttrib(GL_CURRENT_BIT);
+		glLoadIdentity ();
+ 
+		/* Place the camera */
+	
+		glTranslatef (0.0, 0.0, -30.0);
+		// glRotatef (angle, 0.0, 1.0, 0.0);
 
-      glPopMatrix ();
+		glPushMatrix ();
 
-      glEnable (GL_LIGHTING); 
-      glEnable (GL_LIGHT0); 
-      glEnable (GL_DEPTH_TEST);
+			glDisable (GL_LIGHTING);
+			glDisable (GL_DEPTH_TEST);
+			glBindTexture(GL_TEXTURE_2D, -1);
+			
+			
+			glBegin (GL_POINTS);
+				  for (i = 0; i < mNumParticles; i++)
+				  {
+					  glColor3fv (mParticles[i].mColour);
+					  glVertex3fv (mParticles[i].mPosition);
+				  }
+			glEnd ();
 
-      glNormal3f (0.0, 0.0, 1.0);
 
-      for (i = 0; i < mNumParticles; i++)
-	{
-		glColor3fv (mDebris[i].mColor);
+		glPopMatrix ();
 
-	  glPushMatrix ();
-      
-	  glTranslatef (mDebris[i].mPosition[0],
-			mDebris[i].mPosition[1],
-			mDebris[i].mPosition[2]);
+		glBindTexture(GL_TEXTURE_2D, pTexture);
 
-	  glRotatef (mDebris[i].mOrientation[0], 1.0, 0.0, 0.0);
-	  glRotatef (mDebris[i].mOrientation[1], 0.0, 1.0, 0.0);
-	  glRotatef (mDebris[i].mOrientation[2], 0.0, 0.0, 1.0);
+		for (i = 0; i < mNumDebris; i++)
+		{
+			glColor3f(1,1,1);
+			//glColor3fv (mDebris[i].mColor);
+			//glColor3f (1,0,0);
 
-	  glScalef (mDebris[i].mScale[0],
-		    mDebris[i].mScale[1],
-		    mDebris[i].mScale[2]);
+			glPushMatrix ();
+			
+				glTranslatef (mDebris[i].mPosition[0],
+					mDebris[i].mPosition[1],
+					mDebris[i].mPosition[2]);
 
-	  glBegin (GL_TRIANGLES);
-	  glVertex3f (0.0, 0.5, 0.0);
-	  glVertex3f (-0.25, 0.0, 0.0);
-	  glVertex3f (0.25, 0.0, 0.0);
-	  glEnd ();	  
+				glRotatef (mDebris[i].mOrientation[0], 1.0, 0.0, 0.0);
+				glRotatef (mDebris[i].mOrientation[1], 0.0, 1.0, 0.0);
+				glRotatef (mDebris[i].mOrientation[2], 0.0, 0.0, 1.0);
+
+				glScalef (mDebris[i].mScale[0],
+					mDebris[i].mScale[1],
+					mDebris[i].mScale[2]);
+
+				glBegin (GL_TRIANGLES);
+					glTexCoord2f(0.0, 0.0); glVertex3f (0.0, 0.5, 0.0);
+					glTexCoord2f(1.0, 0.0); glVertex3f (-0.25, 0.0, 0.0);
+					glTexCoord2f(0.0, 0.0); glVertex3f (0.25, 0.0, 0.0);
+				glEnd ();	  
 	  
-	  glDisable (GL_LIGHTING); 
-      glDisable (GL_LIGHT0); 
+				//glDisable (GL_LIGHTING); 
+				//glDisable (GL_LIGHT0); 
 
-	  glPopMatrix ();
-	}
-	  glPopAttrib();
+			glPopMatrix ();
+		} 
+	 glPopAttrib();
 }
 
 void Explosion::idle(void){
