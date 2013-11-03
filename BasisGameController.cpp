@@ -90,10 +90,6 @@ void BasisGameController::Draw()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glPushMatrix();
-			glLoadIdentity();
-			gluLookAt(0, 400, 700.0, 
-				0.0, 0.0, 0.0,
-				0.0f, 1.0f, 0.0f);
 			//Move camera:
 			mCamera.PrepareMovement(0, 0, 0, 0);
 			CheckCollision();
