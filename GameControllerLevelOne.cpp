@@ -14,6 +14,7 @@ void GameControllerLevelOne::DrawObjects()
 {
 	glPushMatrix();
 		DrawTimer();
+	//mExplosion.Draw(); //member variable for the explsion-class
 	glPopMatrix();
 
 }
@@ -47,5 +48,6 @@ void GameControllerLevelOne::InitGameObjects()
 	addCollisionGameObject(Vector3D(100, GetGroundLevel(), 500), Vector3D(), Vector3D(0, 200, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, mCollisionIndex);
 	addCollisionGameObject(Vector3D(-200, GetGroundLevel(), 500), Vector3D(), Vector3D(100, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, mCollisionIndex);
 	addCollisionGameObject(Vector3D(100, GetGroundLevel(), 500), Vector3D(), Vector3D(100, 0, 400), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 1, 1, mCollisionIndex);
+
 }
 

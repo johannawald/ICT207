@@ -18,7 +18,7 @@ Explosion::Explosion(): mNumParticles(10000), mNumDebris(100) {
 	//mParticles = new Particle[mNumParticles];
 	//mDebris = new DebrisData[mNumDebris];
 	mFuel = 0;
-	mSpeed = 0.2;
+	mSpeed = 0.1;
 }
 
 Explosion::Explosion(float s): mNumParticles(10000), mNumDebris(100) {
@@ -96,7 +96,8 @@ void Explosion::newExplosion(float x, float y, float z) {
 	mFuel = 100;
 }
 
-void Explosion::draw(const GLint pTexture){
+void Explosion::Draw()
+{
 	
 
 	int i;
@@ -127,11 +128,9 @@ void Explosion::draw(const GLint pTexture){
 
 		glPopMatrix ();
 
-		glBindTexture(GL_TEXTURE_2D, pTexture);
-
 		for (i = 0; i < mNumDebris; i++)
 		{
-			glColor3f(1,1,1);
+			//glColor3f(1,1,1);
 			//glColor3fv (mDebris[i].mColor);
 			//glColor3f (1,0,0);
 
@@ -163,7 +162,7 @@ void Explosion::draw(const GLint pTexture){
 	 glPopAttrib();
 }
 
-void Explosion::idle(void){
+void Explosion::Update(void){
 	int i;
 	if(mFuel > 0){
 		for(i = 0; i < mNumParticles; i++){

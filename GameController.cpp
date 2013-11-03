@@ -126,14 +126,13 @@ void GameController::Draw()
 {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	mExplosion.draw();
 	BasisGameController::Draw();
 	glDisable(GL_CULL_FACE);
 }
 
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!) //updated 29.10 *JM
 { 
-	mExplosion.idle();
+	//mExplosion.Update();
 	if (G_LEVELTIME==3)
 		mLostAnimation = true;
 	else if (G_LEVELTIME==c_mLostTime)
@@ -172,7 +171,7 @@ void GameController::SpecialKeyUp(int key, int x, int y)
 
 void GameController::Keyboard(unsigned char key, int x, int y)
 {
-	SetNewExplosion(10,10,10);
+	SetNewExplosion(0,0,0);
 	if (!mLostAnimation) 
 	{
 		BasisGameController::Keyboard(key, x, y);

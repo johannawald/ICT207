@@ -121,6 +121,8 @@ public:
 	// display no exit
 	void DisplayNoExit (const int & screenWidth, const int & screenHeight, 
 						const GLuint & tempImage);
+	// display new view
+	void callGLLookAt();
 private:
 
 	//steep incline increments
@@ -168,8 +170,7 @@ private:
 
 	// resets camera
 	void ResetXYZ();
-	// display new view
-	void callGLLookAt();
+
 
 	bool m_CollisionDetectionOn;
 

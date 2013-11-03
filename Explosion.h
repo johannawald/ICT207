@@ -42,8 +42,8 @@ public:
 	void setSize(const int p, const int d);
 	void newSpeed(float[]);
 	void newExplosion(float x, float y, float z);
-	void idle();
-	void draw(const GLint pTexture);
+	void Update();
+	void Draw();
 };
 
 #endif
