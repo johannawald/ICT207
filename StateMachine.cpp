@@ -33,8 +33,8 @@ StateMachine::StateMachine(IStateController* pController) {
 		mBushcourtController = new BushCourtController(mAudiomanager, mModelmanager, mTexturemanager);
 	}
 	if (pController==NULL)
-		mState = mBushcourtController;
-		//mState = new ControlRoom(mAudiomanager, mModelmanager, mTexturemanager);
+		//mState = mBushcourtController;
+		mState = new ControlRoom(mAudiomanager, mModelmanager, mTexturemanager);
 		//mState = new GameControllerLevelOne(mAudiomanager, mModelmanager, mTexturemanager);
 		//mState = new GameController(mAudiomanager, mModelmanager, mTexturemanager);
 		//mState = new GameOverController(mAudiomanager, mModelmanager, mTexturemanager);
@@ -55,6 +55,7 @@ StateMachine* StateMachine::getInstance()
 
 void StateMachine::setBushCourtController() {	
 	setController(mBushcourtController);
+	mBushcourtController->SetCamPosition(-27000, 10450, 41400, 180);
 	mBushcourtController->Restart();
 }
 

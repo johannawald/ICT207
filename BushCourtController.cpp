@@ -52,14 +52,15 @@ void BushCourtController::ResetTransition()
 	transition.Update(tsNone);
 	Reshape();
 	cam.Position(cam.GetLR(), cam.GetUD(), cam.GetFB()-50, 180.0);
-}			
+}		
+
+int counter = 0;
+int moved = false;
 
 void BushCourtController::Restart()
 {
 	SetCamPosition(-27000, 10450, 41400, 180);
-	Init();
-	Reshape();
-	SetCamPosition(-27000, 10450, 41400, 180);
+	cam.DirectionFB(-1);
 }
 
 //--------------------------------------------------------------------------------------
@@ -114,8 +115,17 @@ void BushCourtController::DrawObjects()
 //--------------------------------------------------------------------------------------
 void BushCourtController::Draw() 
 {
+	
+	if ((counter==1) && (!moved))
+	{
+		cam.DirectionFB(0);
+		moved = true;
+	}
+	else counter++;
+
 	if (loaded) 
 	{
+
 		if(txtmsgtimer<252)
 			txtmsgtimer++;
 
@@ -129,7 +139,7 @@ void BushCourtController::Draw()
 		glEnable (GL_TEXTURE_2D);
 		glPushMatrix();
 			// displays the welcome screen
-			if (DisplayWelcome)
+			if (false)
 			{
 				if(txtmsgtimer < 250)
 					cam.DisplayWelcomeScreen(width, height, 1, GetTexture()->getTextureID(taRoberWelcome1));
@@ -179,6 +189,7 @@ void BushCourtController::Update() {
 	//there should be a difference between update (all the data) and draw (the objects)
 	//this method has to be defined since it's an abstract-function; our game-state will make a differnece between update and draw
 	//trigger the transistion:
+	
 	if (transition.IsCorrectCode()) {
 		if (transition.IsPlayMechanicSound())
 			GetAudio()->playSound(sMetalicCrash);
@@ -288,7 +299,7 @@ void BushCourtController::Keyboard(unsigned char key, int x, int y)
 	{
 		//debug-stuff:
 		case 'g': 
-			ResetTransition();
+			SetCamPosition(-27000, 10450, 41400, 180);
 			break;
 		// step left
 		case 'Z':
@@ -360,6 +371,10 @@ void BushCourtController::KeyboardUp(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
+	/*case 'g': {
+		cam.Position
+			  }
+		*/	 
 		// step left or right
 		case 'x' :
 		case 'X' :
