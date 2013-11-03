@@ -56,7 +56,7 @@ class MoveController
 		bool mSpecialKeyStates[4]; /**< Tracks the states of special arrow keys (true = key pressed, false = key not pressed*/
 		
 			/**
-             * @brief Enables Depth Test and Shading.
+             * @brief Enables Depth Test and Shading
              *
              * @param none
 			 * @return void

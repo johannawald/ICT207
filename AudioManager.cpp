@@ -12,15 +12,6 @@ AudioManager::~AudioManager()
 	clearMemory();
 }
 
-void AudioManager::FmodErrorCheck(FMOD_RESULT pResult)	// this is an error handling function
-{						// for FMOD errors
-	if (pResult != FMOD_OK)
-	{
-		printf("FMOD error! (%d) %s\n", pResult, FMOD_ErrorString(pResult));
-		exit(-1);
-	}
-}
-
 void AudioManager::init()
 {
 	/*FMOD_RESULT result;
