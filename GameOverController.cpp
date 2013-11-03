@@ -28,9 +28,9 @@ void GameOverController::DrawObjects()		//updated 29.10 *JM
 		glEnable (GL_TEXTURE_2D);
 		
 		glBindTexture(GL_TEXTURE_2D, GetTexture()->getTextureID(taGameOver));
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		//glEnable(GL_BLEND);
+		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glBegin(GL_QUADS);
 			glTexCoord2f (0.0, 1.0);			glVertex3f(-4,-4,-10);
 			glTexCoord2f (1.0, 1.0);			glVertex3f(4,-4,-10);
@@ -38,8 +38,7 @@ void GameOverController::DrawObjects()		//updated 29.10 *JM
 			glTexCoord2f (0.0, 0.0);			glVertex3f(-4,4,-10);
 		glEnd();
 
-
-		glDisable(GL_BLEND);
+		//glDisable(GL_BLEND);
 		glDisable (GL_TEXTURE_2D); 
 	glPopMatrix();
 }
