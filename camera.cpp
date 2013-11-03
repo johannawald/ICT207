@@ -16,15 +16,24 @@ void Camera::SetAABB(const int tempIndex,
 				const GLdouble MinY, const GLdouble MaxY, 
 				const GLdouble MinZ, const GLdouble MaxZ) 
 {
-	m_colDetect.SetAABB(tempIndex, MaxX, MinX, MaxY, MinY, MaxZ, MinZ);
+	m_colDetect.SetAABBMaxX(tempIndex, MaxX);
+	m_colDetect.SetAABBMinX(tempIndex, MinX);
+	m_colDetect.SetAABBMaxY(tempIndex, MaxY);
+	m_colDetect.SetAABBMinY(tempIndex, MinY);
+	m_colDetect.SetAABBMaxZ(tempIndex, MaxZ);
+	m_colDetect.SetAABBMinZ(tempIndex, MinZ);
 }
 
 void Camera::SetAABB(const int tempIndex, 
 				const GLdouble MinX, const GLdouble MaxX, 
 				const GLdouble MinZ, const GLdouble MaxZ)
 {
-	m_colDetect.SetAABB(tempIndex, MaxX, MinX, MaxZ, MinZ);
+	m_colDetect.SetAABBMaxX(tempIndex, MaxX);
+	m_colDetect.SetAABBMinX(tempIndex, MinX);
+	m_colDetect.SetAABBMaxZ(tempIndex, MaxZ);
+	m_colDetect.SetAABBMinZ(tempIndex, MinZ);
 }
+
 
 //--------------------------------------------------------------------------------------
 // Set initial values

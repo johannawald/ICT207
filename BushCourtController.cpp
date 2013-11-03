@@ -430,7 +430,7 @@ void BushCourtController::MouseMotion(int x, int y)
 //--------------------------------------------------------------------------------------
 void BushCourtController::CreateBoundingBoxes()
 {
-	/*// chanc block
+	// chanc block
 	cam.SetAABBMaxX(0, 35879.0);
 	cam.SetAABBMinX(0, 33808.0);
 	cam.SetAABBMaxZ(0, 22096.0);
@@ -525,7 +525,7 @@ void BushCourtController::CreateBoundingBoxes()
 	cam.SetAABBMinX(16, 31444.0);
 	cam.SetAABBMaxZ(16, 10395.0);
 	cam.SetAABBMinZ(16, 4590.0);
-*/
+
 
 	//everyone, there is a bug - we have to compare the bb
 	//everyone, it would be better to say collision -> "a cube 400x400x200 on position (x/y/z)", same with a rect

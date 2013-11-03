@@ -3,8 +3,7 @@
 //  Stores details for each bounding box used for collsion detection.  Each node is stored
 //  in each link of the AABB Linked List
 
-// Shay Leary, March 2005
-// Johanna Wald
+//  Shay Leary, March 2005
 //--------------------------------------------------------------------------------------
 
 #ifndef AABBNODE_H
@@ -23,7 +22,7 @@ public:
 
 	//----------------------------------------------------------------------------------
 
-	void  Clear  ();
+	void  Clear   ();
 
 	//----------------------------------------------------------------------------------
 	//  Get Methods
