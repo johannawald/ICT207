@@ -35,7 +35,7 @@ StateMachine::StateMachine(IStateController* pController) {
 	if (pController==NULL)
 		//mState = mBushcourtController;
 		mState = new GameControllerLevelOne(mAudiomanager, mModelmanager, mTexturemanager);
-		//mState = new GameControllerLevelOne(mAudiomanager, mModelmanager, mTexturemanager);
+		//mState = new ControlRoom(mAudiomanager, mModelmanager, mTexturemanager);
 		//mState = new GameController(mAudiomanager, mModelmanager, mTexturemanager);
 		//mState = new GameOverController(mAudiomanager, mModelmanager, mTexturemanager);
 	else

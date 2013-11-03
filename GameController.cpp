@@ -251,5 +251,5 @@ void GameController::DrawTimer()
 
 void GameController::SetNewExplosion(const float x, const float y, const float z)
 {
-	mExplosion.newExplosion(x,y,z);
+	//mExplosion.newExplosion(x,y,z);
 }
