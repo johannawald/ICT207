@@ -54,6 +54,10 @@ void GameController::Init()
 	InitGameObjects();
 	if (mSoundOn)
 		GetAudio()->playSound(sBgMusic);
+
+
+
+
 }
 
 void GameController::InitGameObjects() 
@@ -122,14 +126,9 @@ void GameController::Draw()
 {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	//mExplosion.draw();
+	mExplosion.draw();
 	BasisGameController::Draw();
 	glDisable(GL_CULL_FACE);
-}
-
-void GameController::CollisionWithObject(GameObject* pGameObject)
-{ 
-
 }
 
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!) //updated 29.10 *JM
@@ -172,7 +171,7 @@ void GameController::SpecialKeyUp(int key, int x, int y)
 
 void GameController::Keyboard(unsigned char key, int x, int y)
 {
-	SetNewExplosion(0,0,0);
+	SetNewExplosion(10,10,10);
 	if (!mLostAnimation) 
 	{
 		BasisGameController::Keyboard(key, x, y);
@@ -252,5 +251,5 @@ void GameController::DrawTimer()
 
 void GameController::SetNewExplosion(const float x, const float y, const float z)
 {
-	//mExplosion.newExplosion(x,y,z);
+	mExplosion.newExplosion(x,y,z);
 }
