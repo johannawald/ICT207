@@ -59,7 +59,7 @@ int moved = false;
 void BushCourtController::Restart()
 {
 	SetCamPosition(-27000, 10450, 41400, 180);
-	cam.DirectionFB(-1);
+	//cam.DirectionFB(-1);
 }
 
 //--------------------------------------------------------------------------------------
