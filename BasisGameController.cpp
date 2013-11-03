@@ -165,7 +165,7 @@ void BasisGameController::TranslateGameObjects(const Vector3D& pTranslation)
 { 
 	for (std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) 
 	{
-		(*it)->Transform(pTranslation);
+		(*it)->Translate(pTranslation);
 	}
 }
 
