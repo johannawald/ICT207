@@ -145,7 +145,6 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameOverController.cpp" />
     <ClCompile Include="GameWinController.cpp" />
-    <ClCompile Include="LevelOneController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="ModelManager.cpp" />
@@ -186,7 +185,6 @@
     <ClInclude Include="DrawManager.h" />
     <ClInclude Include="EasySound.h" />
     <ClInclude Include="IStateController.h" />
-    <ClInclude Include="LevelOneController.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="MoveController.h" />

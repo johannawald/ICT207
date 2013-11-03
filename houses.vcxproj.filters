@@ -72,9 +72,6 @@
     <ClCompile Include="DrawManager.cpp">
       <Filter>Source Files\Basic</Filter>
     </ClCompile>
-    <ClCompile Include="LevelOneController.cpp">
-      <Filter>Source Files\GamePlay</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\GamePlay</Filter>
     </ClCompile>
@@ -198,9 +195,6 @@
       <Filter>Header Files\Basic</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Header Files\GamePlay</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelOneController.h">
       <Filter>Header Files\GamePlay</Filter>
     </ClInclude>
     <ClInclude Include="DrawManager.h">
