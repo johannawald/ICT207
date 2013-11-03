@@ -235,20 +235,6 @@ void GameController::DrawTimer()
 			font = GLUT_BITMAP_TIMES_ROMAN_24;
 			GetDrawManager()->RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
 		}
-		/*sprintf(s, "Camera x: %f y: %f z: %f", mCamera.Getpos().x, mCamera.Getpos().y, mCamera.Getpos().z); //get camera position
-		glColor3f(1.0, 0.5, 0.5);
-		font = GLUT_BITMAP_8_BY_13;
-		GetDrawManager()->RenderBitmapString(1.0,10.5,0.0,font, s); //display camera position
-		
-		//Collision
-		if (G_DEBUGCOLLISION)
-		{
-			sprintf(s, "Collision: %f new: %f", COLLISIONVALUE, NEW_COLLISIONVALUE); //get camera position
-			glColor3f(1.0, 0.5, 0.5);
-			font = GLUT_BITMAP_8_BY_13;
-			GetDrawManager()->RenderBitmapString(1.0, 15.5, 0.0, font, s); //display camera position
-		}
-		*/
 		glPopMatrix();
 
 		GetDrawManager()->RestorePerspectiveProjection();

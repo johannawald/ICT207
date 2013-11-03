@@ -48,6 +48,4 @@ void ModelManager::drawModel(const eModels model, const GLuint texture) const
 
 void ModelManager::clearMemory()
 {
-	//work in progress
-	//delete Models[5]; ?
 }

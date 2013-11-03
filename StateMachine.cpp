@@ -32,11 +32,7 @@ StateMachine::StateMachine(IStateController* pController) {
 		mBushcourtController = new BushCourtController(mAudiomanager, mModelmanager, mTexturemanager, 1024, 1024);
 	}
 	if (pController==NULL)
-		//mState = mBushcourtController;
-		mState = new GameControllerLevelOne(mAudiomanager, mModelmanager, mTexturemanager, 1024, 1024);
-		//mState = new ControlRoom(mAudiomanager, mModelmanager, mTexturemanager, GetWindowHeight(), GetWindowWidth());
-		//mState = new GameController(mAudiomanager, mModelmanager, mTexturemanager);
-		//mState = new GameOverController(mAudiomanager, mModelmanager, mTexturemanager);
+		mState = mBushcourtController;
 	else
 		mState = pController;
 }
@@ -62,7 +58,7 @@ void StateMachine::setController(IStateController* pController) {
 	if (mStateMachine!=NULL)
 		delete mStateMachine;
 	mStateMachine = new StateMachine(pController); 
-	pController->Init(); //not sure if this is not messing up everything
+	pController->Init();
 }
 
 void StateMachine::Init() {

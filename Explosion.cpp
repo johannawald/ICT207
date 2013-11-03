@@ -15,15 +15,11 @@
 #include <iostream>
 
 Explosion::Explosion(): mNumParticles(10000), mNumDebris(100) {
-	//mParticles = new Particle[mNumParticles];
-	//mDebris = new DebrisData[mNumDebris];
 	mFuel = 0;
 	mSpeed = 0.5;
 }
 
 Explosion::Explosion(float s): mNumParticles(10000), mNumDebris(100) {
-	//mParticles = new Particle[mNumParticles];
-	//mDebris = new DebrisData[mNumDebris];
 	mFuel = 0;
 	mSpeed = s;
 }

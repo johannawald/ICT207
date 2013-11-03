@@ -66,25 +66,7 @@ void DrawManager::DrawRect(const GLint pTexture,
 				glTexCoord2f (0.0, TexCoordY);			glVertex3f(pPosition.x + pSize.x,	pPosition.y,				pPosition.z);
 				glTexCoord2f (0.0, 0.0);				glVertex3f(pPosition.x + pSize.x,	pPosition.y + pSize.y,		pPosition.z);
 				glTexCoord2f (TexCoordX, 0.0);			glVertex3f(pPosition.x,				pPosition.y + pSize.y,		pPosition.z);
-			glEnd();
-
-
-			/*
-			std::cout << pPosition.x << " " << pPosition.y << " " << pPosition.z << std::endl;
-			std::cout << pPosition.x << " " << pPosition.y+pSize.y << " " << pPosition.z << std::endl;
-			std::cout << pPosition.x+pSize.x << " " << pPosition.y+pSize.y << " " << pPosition.z << std::endl;
-			std::cout << pPosition.x+pSize.x << " " << pPosition.y << " " << pPosition.z << std::endl;
-			system("pause");
-			
-
-			glBindTexture(GL_TEXTURE_2D, 20);
-			glBegin(GL_QUADS);
-			glTexCoord2f (0.0, 0.0);				glVertex3f(-400, -65, 600);
-			glTexCoord2f (0.0, TexCoordY);			glVertex3f(-400, 500, 600);
-			glTexCoord2f (TexCoordX, TexCoordY);	glVertex3f(400, 500, 600);
-			glTexCoord2f (TexCoordX, 0.0);			glVertex3f(400, -65, 600);
-			glEnd();*/
-			
+			glEnd();			
 		}
 	glBindTexture(GL_TEXTURE_2D, -1);
 	glPopMatrix();

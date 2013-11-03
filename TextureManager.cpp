@@ -47,7 +47,7 @@ void TextureManager::init()
 	mTextures[taBoard2] = Loadimage("textures/board2.bmp");
 	mTextures[taBoard3] = Loadimage("textures/board3.bmp");
 	mTextures[taBoard4] = Loadimage("textures/board4.bmp");
-	//LevelOneController:
+
 	mTextures[taBox] = Loadimage("textures/box.bmp");
 	mTextures[taButton] = Loadimage("textures/button.bmp");
 	mTextures[taBomb] = Loadimage("textures/bomb.png");
@@ -82,9 +82,4 @@ GLuint TextureManager::getTextureID(const eTextures texture) const
 
 void TextureManager::clearMemory() 
 {
-	//ray, can you free the images?
-	//SOIL_free_image_data
-	/*delete tl;
-	for (int i = 0; i<TEXTURE_SIZE ;i++)
-		tl->FreeTexture(&Textures[i]);*/
 }

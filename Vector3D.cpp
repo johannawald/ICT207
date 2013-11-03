@@ -2,10 +2,6 @@
 #include <math.h>
 #include <algorithm> 
 
-//https://www.terathon.com/code/vector3d.html
-
-//Vector3D::Vector3D s_vZero(0, 0, 0);
-
 Vector3D::Vector3D(float x, float y, float z): x(x), y(y), z(z)
 {
 }
@@ -17,8 +13,6 @@ Vector3D::Vector3D(void): x(0), y(0), z(0)
 Vector3D::~Vector3D(void)
 {
 }
-
-//float Vector3D::
 
 Vector3D& Vector3D::GetDistance(const Vector3D& pPoint) const
 {
