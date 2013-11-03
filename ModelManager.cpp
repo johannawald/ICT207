@@ -24,6 +24,8 @@ void ModelManager::init()
 	mModels[mBox]->load("models/box.obj"); //box
 	mModels[mButton]->load("models/button.obj");
 	mModels[mBomb]->load("models/bomb.obj");
+	mModels[mRobot]->load("models/robot-body.obj");
+	mModels[mRobotArms]->load("models/robot-arms.obj");
 	std::cout << "Models Loaded." << std::endl;
 }
 

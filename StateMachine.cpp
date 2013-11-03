@@ -11,7 +11,6 @@
 #include <vector>
 #include "BushCourtController.h"
 #include "GameController.h"
-#include "LevelOneController.h"
 #include "ModelManager.h"
 #include "TextureManager.h"
 #include "AudioManager.h"
@@ -33,8 +32,8 @@ StateMachine::StateMachine(IStateController* pController) {
 		mBushcourtController = new BushCourtController(mAudiomanager, mModelmanager, mTexturemanager, 1024, 1024);
 	}
 	if (pController==NULL)
-		mState = mBushcourtController;
-		//mState = new GameControllerLevelOne(mAudiomanager, mModelmanager, mTexturemanager);
+		//mState = mBushcourtController;
+		mState = new GameControllerLevelOne(mAudiomanager, mModelmanager, mTexturemanager, 1024, 1024);
 		//mState = new ControlRoom(mAudiomanager, mModelmanager, mTexturemanager, GetWindowHeight(), GetWindowWidth());
 		//mState = new GameController(mAudiomanager, mModelmanager, mTexturemanager);
 		//mState = new GameOverController(mAudiomanager, mModelmanager, mTexturemanager);

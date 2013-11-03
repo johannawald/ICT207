@@ -9,10 +9,7 @@ void CollisionDetection::Draw(const DrawManager& pDrawManager) const
 	glPushAttrib(GL_CURRENT_BIT);
 		float depth = 0;
 		for (unsigned int i = 0; i<mBoundingBoxes.size(); i++) 
-		{
-			glColor3f(1.0f, 0.0f, 0.0f);
 			pDrawManager.DrawCollisionBoxColored(*mBoundingBoxes[i]);
-		}
 	glPopAttrib();
 }
 

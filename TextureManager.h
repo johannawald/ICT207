@@ -33,6 +33,7 @@ enum eTextures { tAdOreo,
 				 //Game over screens
 				 taGameOver, taGameWin,						
 				 taRoberWelcome1, taRoberWelcome2, taRoberConsoleSreen,
+				 taRobot,
 				 TEXTURE_SIZE };
 
 class TextureManager: public IAssetManager {

@@ -17,7 +17,6 @@ void ControlRoom::DrawObjects()
 {	
 	glPushMatrix();
 		if (mShowConsoleScreen) DrawConsoleScreen(1024.0, 768.0, 0.0, 0.0, 0.0, 1.0, 1.0, false);
-		//DrawTimer();
 		DrawStairs();
 	glPopMatrix();
 }

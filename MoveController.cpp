@@ -1,6 +1,9 @@
 #include "MoveController.h"
 #include "DrawManager.h"
+#include "ModelManager.h"
+#include "TextureManager.h"
 #include <iostream>
+
 
 MoveController::MoveController()
 {
@@ -40,7 +43,7 @@ MoveController::MoveController()
 		mSpecialKeyStates[i] = false;
 	}
 	mDrawManager = new DrawManager();
-	mCameraBB.SetBoundingBox(mPos, Vector3D(100.0f, 100.0f, 100.0f));
+	mCameraBB.SetBoundingBox(mPos, Vector3D(75.0f, 100.0f, 75.0f));
 }
 
 void MoveController::SetCameraPosition()
@@ -78,7 +81,7 @@ void MoveController::SetPosDiff(const float pDeltaTime)
 	mPosDiff.z *= pDeltaTime;
 }
 
-void MoveController::MoveCamera()  //try to avoid updating variables in the draw function! -> do that in the update-funciton
+void MoveController::MoveCamera(const ModelManager& pModelManager, const TextureManager& pTextureManager)  //try to avoid updating variables in the draw function! -> do that in the update-funciton
 {		
 
 	mPos.x += mPosDiff.x;
@@ -92,9 +95,8 @@ void MoveController::MoveCamera()  //try to avoid updating variables in the draw
 	glPushAttrib(GL_CURRENT_BIT);
 		glPushMatrix();
 			glRotatef(0, 1, 0, 0);
-			glColor3f(1.0f, 0.0f, 0.0f);
-			//glutSolidCube(50); //Our character to follow - WILL CHANGE TO CHARACTER
-		glPopMatrix();
+			pModelManager.drawModel(mRobot, pTextureManager.getTextureID(taRobot));
+			glPopMatrix();
 	glPopAttrib();
     
 	glRotatef(mYrot,0.0,1.0,0.0);  //rotate the camera on the y-axis (up and down)

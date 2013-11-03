@@ -1,4 +1,3 @@
-#include "LevelOneController.h"
 #include "texturedPolygons.h"
 #include "GameController.h"
 #include "StateMachine.h"
@@ -12,6 +11,7 @@
 #include "GameWinController.h"
 
 int LevelTime = 6;
+bool TimerSet = false;
 bool G_DEBUGCOLLISION = false;
 
 void GameController::SetLevelTime(const int pValue)
@@ -38,7 +38,7 @@ void Countdown(int counterStepTime)
 	if (LevelTime>-5)
 	{
 		LevelTime -=1;
-		glutTimerFunc(1000, *Countdown, 0); //static?
+		glutTimerFunc(1000, *Countdown, 0);
 	}
 }
 
@@ -46,7 +46,9 @@ GameController::GameController(AudioManager* pAudio, ModelManager* pModel, Textu
 	BasisGameController(pAudio, pModel, pTexture, pHeight, pWidth), c_mLostTime(-5), mSoundOn(true), mBombSoundPlaying(false), mLostAnimation(false)
 {
 	LevelTime = 40;
-	glutTimerFunc(1000, *Countdown, 0);
+	if (!TimerSet)
+		glutTimerFunc(1000, *Countdown, 0);
+	TimerSet = true;
 	mBoxesCollisionIndex = new int[3]; //dynamic for each level
 	for (int i = 0; i<5; i++)
 		mBoxesCollisionIndex[i] = -1;
@@ -56,7 +58,7 @@ GameController::GameController(AudioManager* pAudio, ModelManager* pModel, Textu
 void GameController::Init() 
 {
 	BasisGameController::Init();
-	int G_LEVELTIME = 40;
+	int G_LEVELTIME = 70;
 	InitGameObjects();
 	if (mSoundOn)
 		GetAudio()->playSound(sBgMusic);
@@ -75,8 +77,12 @@ int GameController::CheckCollision()
 }
 
 
-void GameController::BeforeCollision(int pIndex, float pCollisionValue) //just for boxes
+void GameController::BeforeCollision(int pIndex, float pCollisionValue)
 {
+	if (ObjectIsBomb(pIndex))
+	{
+		StateMachine::setController(new GameWinController(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth()));
+	}
 	if (ObjectIsBox(pIndex))
 	{
 		//should not collide
@@ -132,18 +138,15 @@ void GameController::Update()  //this function should be used for updating varia
 { 
 	mExplosion.Update();
 
-	if (LevelTime==3)
-	{ 
+	if (LevelTime==0)
+	{
 		mLostAnimation = true;
-		
 	}
 	else if (LevelTime==c_mLostTime)
 		StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth()));
 	
 	if (mLostAnimation && !mBombSoundPlaying)
 	{
-		GetAudio()->StopSound(sBgMusic);
-		Sleep(4000);
 		GetAudio()->playSound(sBomb);
 		mBombSoundPlaying = true;
 	}
@@ -225,12 +228,13 @@ void GameController::DrawTimer()
 
 		glPushMatrix();
 		glLoadIdentity();
-		
-		sprintf(s, "Time: %d", LevelTime); //get timer
-		glColor3f(1.0, 0.0, 0.0);
-		font = GLUT_BITMAP_TIMES_ROMAN_24;
-		GetDrawManager()->RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
-		
+		if (LevelTime>0)
+		{
+			sprintf(s, "Time: %d", LevelTime); //get timer
+			glColor3f(1.0, 0.0, 0.0);
+			font = GLUT_BITMAP_TIMES_ROMAN_24;
+			GetDrawManager()->RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
+		}
 		sprintf(s, "Camera x: %f y: %f z: %f", mCamera.Getpos().x, mCamera.Getpos().y, mCamera.Getpos().z); //get camera position
 		glColor3f(1.0, 0.5, 0.5);
 		font = GLUT_BITMAP_8_BY_13;

@@ -94,14 +94,14 @@ void BasisGameController::Draw()
 			glLoadIdentity();
 			mCamera.PrepareMovement(0, 0, 0, 0);
 			CheckCollision();
-			mCamera.MoveCamera();
+			mCamera.MoveCamera(*GetModel(), *GetTexture());
 			//mCollision.translateBoundingBoxes(mCamera.Getpos()); //Vector3D(-500, -250, 30));		
 			glEnable(GL_TEXTURE_2D);
 			glPushMatrix();
 				//Set camera position:
 				//mCollision.Draw(*GetDrawManager());
 				mCamera.SetCameraPosition();
-				GetDrawManager()->DrawCollisionBox(mCamera.GetCameraBB());
+				//GetDrawManager()->DrawCollisionBox(mCamera.GetCameraBB());
 				DrawGameObjects();
 				DrawObjects();
 			glPopMatrix();

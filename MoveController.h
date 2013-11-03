@@ -25,6 +25,8 @@
 #include "Vector3D.h"
 #include "BoundingBox.h"
 #include "Timer.h"
+#include "ModelManager.h"
+#include "TextureManager.h"
 
 class DrawManager;
 class MoveController
@@ -130,7 +132,8 @@ class MoveController
 			 * @param none
 			 * @return void
              */
-		void MoveCamera();
+		void MoveCamera(const ModelManager& pModelManager, const TextureManager& pTextureManager);
+
 
 			/**
              * @brief Prepares the camera for movement
