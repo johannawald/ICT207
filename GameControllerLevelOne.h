@@ -30,5 +30,5 @@ private:
 	virtual void DrawObjects();	
 	virtual void InitGameObjects();
 public:
-	GameControllerLevelOne(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture);
+	GameControllerLevelOne(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture, float pHeight, float pWidth);
 };

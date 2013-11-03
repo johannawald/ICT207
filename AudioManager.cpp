@@ -1,10 +1,6 @@
 #include "AudioManager.h"
 #include "EasySound.h"
 #include <iostream>
-#include "FMOD/inc/fmod.h"
-#include "FMOD/inc/fmod_errors.h"
-
-//FMOD::System* fmodSystem;	// the global variable for talking to FMOD
 
 AudioManager::AudioManager()
 {
@@ -16,8 +12,25 @@ AudioManager::~AudioManager()
 	clearMemory();
 }
 
+void AudioManager::FmodErrorCheck(FMOD_RESULT pResult)	// this is an error handling function
+{						// for FMOD errors
+	if (pResult != FMOD_OK)
+	{
+		printf("FMOD error! (%d) %s\n", pResult, FMOD_ErrorString(pResult));
+		exit(-1);
+	}
+}
+
 void AudioManager::init()
 {
+	/*FMOD_RESULT result;
+	result = FMOD_System_Create(&mFMOD);
+	FmodErrorCheck(result);*/
+
+	//result = mFMOD->init();
+	//->init(32, FMOD_INIT_NORMAL, 0);
+	//FmodErrorCheck(result);
+
 	// sound objects - later we should not work with the CEasySound
 	mSound = CEasySound::Instance();
 	mSounds[sStep] = mSound->GetSound(mSound->Load("sounds/step.wav"));

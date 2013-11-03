@@ -13,7 +13,13 @@
 
 #pragma once
 
+#include "FMOD/inc/fmod.h"
+#include "FMOD/inc/fmod_errors.h"
+#include "FMOD/inc/fmod.h" //FMOD Ex
 #include "IAssetManager.h"
+
+//FMOD_System* fmodSystem; System_Create 
+//System_Create
 
 enum eSounds { sStep, sMetalicCrash, sIncorrectCode,
 			   sBgMusic, sBomb, sTextMsg,
@@ -23,8 +29,11 @@ class CSound;
 class CEasySound;
 class AudioManager: public IAssetManager {
 private:
+	FMOD_SYSTEM* mFMOD;	
+
 	CEasySound* mSound; /**< Helps the class to load and store the sounds in the list */
-	CSound* mSounds[AUDIOSOUNDS_SIZE];  /**< Array that stores the sounds */	
+	CSound* mSounds[AUDIOSOUNDS_SIZE];  /**< Array that stores the sounds */
+	void FmodErrorCheck(FMOD_RESULT pResult);
 public:
 	/**
 		* @brief constructor of the AudioManager

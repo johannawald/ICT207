@@ -181,5 +181,5 @@ public:
 		* @param ModelManager* pModelmanager - the model manager of the state machine
 		* @param TextureManager* pTextureManager - the texture manager of the state machine
     */
-	BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager);
+	BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager, float pHeight, float pWidth);
 };

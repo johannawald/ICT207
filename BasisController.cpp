@@ -2,8 +2,8 @@
 #include "DrawManager.h"
 #include "AudioManager.h"
 
-BasisController::BasisController(AudioManager* pAudioManager, ModelManager* pModelManager, TextureManager* pTextureManager): 
-	mAudioManager(pAudioManager), mModelManager(pModelManager), mTextureManager(pTextureManager), pLoaded(false), mScreenWidth(1024), mScreenHeight(1024)
+BasisController::BasisController(AudioManager* pAudioManager, ModelManager* pModelManager, TextureManager* pTextureManager, float pHeight, float pWidth): 
+	mAudioManager(pAudioManager), mModelManager(pModelManager), mTextureManager(pTextureManager), pLoaded(false), mScreenWidth(pWidth), mScreenHeight(pHeight)
 {	
 	mDrawManager = new DrawManager();
 	Init();

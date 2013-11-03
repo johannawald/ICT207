@@ -47,7 +47,7 @@ public:
 	/**
         * @brief constructor creates a new LevelOneController object.
     */
-	LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm);
+	LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm, float pHeight, float pWidth);
 	/**
 		* @brief Destructor destroys LevelOneController object when it goes out of scope.
         * @param none

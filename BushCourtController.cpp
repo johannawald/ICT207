@@ -11,7 +11,8 @@
 //--------------------------------------------------------------------------------------
 //  Constructor
 //--------------------------------------------------------------------------------------
-BushCourtController::BushCourtController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am, mm, tm), movementSpeed(20.0), rotationSpeed(0.005), lightsOn(true), displayECL(true), loaded(false)
+BushCourtController::BushCourtController(AudioManager* am, ModelManager* mm, TextureManager* tm, float pHeight, float pWidth): 
+	BasisController(am, mm, tm, pHeight, pWidth), movementSpeed(20.0), rotationSpeed(0.005), lightsOn(false), displayECL(true), loaded(false)
 {
 	// USE THESE STTEINGS TO CHANGE SPEED (on different spec computers)
 	// Set speed (steps)
@@ -23,8 +24,6 @@ BushCourtController::BushCourtController(AudioManager* am, ModelManager* mm, Tex
 	DisplayWelcome = true;
 	// display exit screen
 	DisplayExit = false;
-	// display light fittings
-	lightsOn = true;
 	// display ECL block
 	displayECL = true;
 	// Stores raw image file
@@ -220,7 +219,7 @@ void BushCourtController::Update() {
 		cam.DirectionUD(-1);
 	}
 	if (cam.GetUD()<9000)
-		StateMachine::setController(new ControlRoom(GetAudio(), GetModel(), GetTexture()));
+		StateMachine::setController(new ControlRoom(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth()));
 }
 
 void BushCourtController::Reshape() 
@@ -266,7 +265,7 @@ void BushCourtController::SpecialKey(int key, int x, int y)
 			break;
 		case GLUT_KEY_DOWN : 
 			cam.DirectionFB(-1);
-			if (transition.getstate()>tsNone)
+			if ((transition.getstate()>tsNone) && (transition.getstate()<tsHole))
 				ResetTransition();
 			break;
 	}
@@ -525,48 +524,6 @@ void BushCourtController::CreateBoundingBoxes()
 	cam.SetAABBMinX(16, 31444.0);
 	cam.SetAABBMaxZ(16, 10395.0);
 	cam.SetAABBMinZ(16, 4590.0);
-
-
-	//everyone, there is a bug - we have to compare the bb
-	//everyone, it would be better to say collision -> "a cube 400x400x200 on position (x/y/z)", same with a rect
-	
-	// chanc block
-	cam.SetAABB(0, 33808.0, 33808.0, 4688.0, 22096.0); 
-	// between chanc block and phys sci
-	cam.SetAABB(1, 35730.0, 35999.0, 25344.0, 22096.0); 
-	// phy sci block panel 1
-	cam.SetAABB(2, 33808.0, 35879.0, 25344.0, 26752.0); 
-	// phy sci block 1st doorway
-	cam.SetAABB(3, 34256.0, 35879.0, 26752.0, 27559.0);
-	// phy sci block 2nd panel
-	cam.SetAABB(4, 33808.0, 35879.0, 27559.0, 36319.0); 
-	// phy sci block 2nd doorway
-	cam.SetAABB(5, 34260.0, 35879.0, 36319.0, 37855.0);
-	// phy sci block 3rd panel
-	cam.SetAABB(6, 33808.0, 35879.0, 37855.0, 41127.0);
-	// drinks machine
-	cam.SetAABB(7, 35004.0, 35879.0, 24996.0, 25344.0); 
-	// bottom of steps
-	cam.SetAABB(8, 0, 33808.0, 0, 4688.0); 
-	// end of phy sci block exit (top of steps)
-	cam.SetAABB(9, 35879.0, 34320.0, 41127.0, 43056.0); 
-	// library end panel
-	cam.SetAABB(10, 6514.0, 34320.0, 43036.0, 50000.0);
-	// KBLT
-	cam.SetAABB(11, 25608.0, 28104.0, 42754.0, 43046.0);
-	// Canteen block
-	cam.SetAABB(12, 27500.0, 2608.0, 0, 40900.0);
-	// Telephones
-	cam.SetAABB(13, 33872.0, 33892.0, 25173.0, 25344.0);
-	// Telephones
-	cam.SetAABB(14, 34157.0, 34277.0, 25173.0, 25344.0);
-	// Telephones
-	cam.SetAABB(15, 34541.0, 35462.0, 25173.0, 25344.0);
-	// Wall by Steps
-	cam.SetAABB(16, 31444.0, 31548.0, 4590.0, 10395.0);
-	// New West Hallway
-	cam.SetAABB(17, -30000.0, 2608.0, 43340.0, 44000.0);
-	cam.SetAABB(18, -28000.0, -27500.0, 40090.0, 43340.0);
 }
 
 //--------------------------------------------------------------------------------------

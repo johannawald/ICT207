@@ -7,9 +7,10 @@
 //--------------------------------------------------------------------------------------
 //  Constructor
 //--------------------------------------------------------------------------------------
-ControlRoom::ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm): 
-	GameController(am,mm,tm), mShowConsoleScreen(true)
+ControlRoom::ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm, float pHeight, float pWidth): 
+	GameController(am,mm,tm, pHeight, pWidth), mShowConsoleScreen(true)
 {
+	mTimerStart = false;
 }
 
 void ControlRoom::DrawObjects()
@@ -23,8 +24,8 @@ void ControlRoom::DrawObjects()
 
 void ControlRoom::InitGameObjects()
 {	
-	addCollisionGameObject(Vector3D(-40, GetGroundLevel()+65, 750), Vector3D(), Vector3D(60,300,50), Vector3D(0.2,0.3,0.3), Vector3D(), mLadder, GetTexture()->getTextureID(taRustyWall), 1, 1, mIndexLadder);
 	addCollisionGameObject(Vector3D(-40, GetGroundLevel()+350, 750), Vector3D(), Vector3D(60,300,50), Vector3D(0.2,0.3,0.3), Vector3D(), mLadder, GetTexture()->getTextureID(taRustyWall), 1, 1, mIndexLadder);
+	addCollisionGameObject(Vector3D(-40, GetGroundLevel()+65, 750), Vector3D(), Vector3D(60,300,50), Vector3D(0.2,0.3,0.3), Vector3D(), mLadder, GetTexture()->getTextureID(taRustyWall), 1, 1, mIndexLadder);
 	addCollisionGameObject(Vector3D(-100, GetGroundLevel()+5, -700), Vector3D(), Vector3D(200,200,100), Vector3D(0.2,0.2,0.2), Vector3D(), mConsole,  GetTexture()->getTextureID(taConsole), 1, 1, mIndexConsole);
 		
 	InitWalls();
@@ -37,7 +38,7 @@ void ControlRoom::BeforeCollision(int pIndex, float pCollisionValue)
 	if (ObjectIsLadder(pIndex))
 		StateMachine::setBushCourtController();
 	else if (ObjectIsConsole(pIndex))
-		StateMachine::setController(new GameControllerLevelOne(GetAudio(), GetModel(), GetTexture()));
+		StateMachine::setController(new GameControllerLevelOne(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth()));
 }
 
 bool ControlRoom::ObjectIsLadder(const int pIndex)
@@ -108,6 +109,7 @@ void  ControlRoom::DrawConsoleScreen(const GLdouble &xImgSize, const GLdouble &y
 							         const GLdouble &xStart, const GLdouble &yStart, const GLdouble &zStart,
 							         const GLdouble &xTimes, const GLdouble &yTimes, const bool &flip)
 {
+	
 	glPushMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();

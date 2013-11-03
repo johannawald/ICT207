@@ -5,8 +5,8 @@
 #include "GameController.h"
 #include "ControlRoom.h"
 
-GameWinController::GameWinController(AudioManager* am, ModelManager* mm, TextureManager* tm): 
-	BasisController(am,mm,tm)
+GameWinController::GameWinController(AudioManager* am, ModelManager* mm, TextureManager* tm, float pHeight, float pWidth): 
+	BasisController(am,mm,tm, pHeight, pWidth)
 {
 }
 
@@ -68,7 +68,7 @@ void GameWinController::Keyboard(unsigned char key, int x, int y)
 	switch (key)
 	{
 	case 27: //press esc to restart game
-		StateMachine::setController(new ControlRoom(GetAudio(), GetModel(), GetTexture()));
+		StateMachine::setController(new ControlRoom(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth()));
 		break;
 	}
 }

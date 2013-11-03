@@ -5,7 +5,8 @@
 #include <iostream>
 
 
-GameControllerLevelOne::GameControllerLevelOne(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture): GameController(pAudio, pModel, pTexture)
+GameControllerLevelOne::GameControllerLevelOne(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture, float pHeight, float pWidth): 
+	GameController(pAudio, pModel, pTexture, pHeight, pWidth)
 {
 	
 }

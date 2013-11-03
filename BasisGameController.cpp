@@ -7,8 +7,8 @@
 #include "BoundingBox.h"
 
 
-BasisGameController::BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager): 
-	BasisController(pAudiomanager, pModelmanager, pTexturemanager), mGroundLevel(-65)
+BasisGameController::BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager, float pHeight, float pWidth): 
+	BasisController(pAudiomanager, pModelmanager, pTexturemanager, pHeight, pWidth), mGroundLevel(-65)
 {	
 
 }

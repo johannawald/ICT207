@@ -39,7 +39,7 @@ private:
 	bool ObjectIsConsole(const int pIndex);
 	void DrawStairs();
 public:
-	ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm);
+	ControlRoom(AudioManager* am, ModelManager* mm, TextureManager* tm, float pHeight, float pWidth);
 	virtual void BeforeCollision(int pIndex, float pCollisionValue);
 	virtual void Keyboard(unsigned char key, int x, int y);
 };

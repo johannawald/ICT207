@@ -70,7 +70,7 @@ private:
 	void CheckNumberPad();
 	void ResetTransition();
 public:
-	BushCourtController(AudioManager* am, ModelManager* mm, TextureManager* tm);
+	BushCourtController(AudioManager* am, ModelManager* mm, TextureManager* tm, float pHeight, float pWidth);
 	virtual ~BushCourtController(void);
 	void Restart();
 	void SetCamPosition(GLdouble const & tempX,

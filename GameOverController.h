@@ -20,7 +20,7 @@
 class GameOverController : public IStateController, BasisController {
 private:
 public:
-	GameOverController(AudioManager* am, ModelManager* mm, TextureManager* tm);
+	GameOverController(AudioManager* am, ModelManager* mm, TextureManager* tm, float pHeight, float pWidth);
 	void Init();
 	void Draw();
 	void DrawObjects();

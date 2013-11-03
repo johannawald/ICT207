@@ -11,7 +11,7 @@
 #include <iostream>
 #include "GameWinController.h"
 
-int G_LEVELTIME = 100;
+int G_LEVELTIME = 6;
 bool G_DEBUGCOLLISION = false;
 
 const bool GameController::ObjectIsBox(const int pIndex) const
@@ -37,10 +37,10 @@ void Countdown(int counterStepTime)
 	}
 }
 
-GameController::GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture): 
-	BasisGameController(pAudio, pModel, pTexture), c_mLostTime(-5), mSoundOn(true), mBombSoundPlaying(false), mLostAnimation(false)
+GameController::GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture, float pHeight, float pWidth): 
+	BasisGameController(pAudio, pModel, pTexture, pHeight, pWidth), c_mLostTime(-5), mSoundOn(true), mBombSoundPlaying(false), mTimerStart(true), mLostAnimation(false)
 {
-
+	G_LEVELTIME = 40;
 	glutTimerFunc(1000, *Countdown, 0);
 	mBoxesCollisionIndex = new int[3]; //dynamic for each level
 	for (int i = 0; i<5; i++)
@@ -129,14 +129,16 @@ void GameController::Draw()
 void GameController::Update()  //this function should be used for updating variables (try to avoid updating variables in the draw function!) //updated 29.10 *JM
 { 
 	mExplosion.Update();
-	if (G_LEVELTIME==3)
+	if (mTimerStart)
 	{ 
-		mLostAnimation = true;
+		if (G_LEVELTIME==3)
+		{ 
+			mLostAnimation = true;
 		
+		}
+		else if (G_LEVELTIME==c_mLostTime)
+			StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth()));
 	}
-	else if (G_LEVELTIME==c_mLostTime)
-		StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture()));
-
 	if (mLostAnimation && !mBombSoundPlaying)
 	{
 		GetAudio()->StopSound(sBgMusic);
@@ -222,12 +224,13 @@ void GameController::DrawTimer()
 
 		glPushMatrix();
 		glLoadIdentity();
-
-		sprintf(s, "Time: %d", G_LEVELTIME); //get timer
-		glColor3f(1.0, 0.0, 0.0);
-		font = GLUT_BITMAP_TIMES_ROMAN_24;
-		GetDrawManager()->RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
-
+		if (mTimerStart)
+		{
+			sprintf(s, "Time: %d", G_LEVELTIME); //get timer
+			glColor3f(1.0, 0.0, 0.0);
+			font = GLUT_BITMAP_TIMES_ROMAN_24;
+			GetDrawManager()->RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
+		}
 		sprintf(s, "Camera x: %f y: %f z: %f", mCamera.Getpos().x, mCamera.Getpos().y, mCamera.Getpos().z); //get camera position
 		glColor3f(1.0, 0.5, 0.5);
 		font = GLUT_BITMAP_8_BY_13;

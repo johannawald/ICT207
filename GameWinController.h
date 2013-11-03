@@ -20,7 +20,7 @@
 class GameWinController : public IStateController, BasisController {
 private:
 public:
-	GameWinController(AudioManager* am, ModelManager* mm, TextureManager* tm);
+	GameWinController(AudioManager* am, ModelManager* mm, TextureManager* tm, float pHeight, float pWidth);
 	void Init();
 	void Draw();
 	void DrawObjects();

@@ -10,7 +10,7 @@
 //--------------------------------------------------------------------------------------
 //  Constructor
 //--------------------------------------------------------------------------------------
-LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm): BasisController(am,mm,tm), loaded(false)
+LevelOneController::LevelOneController(AudioManager* am, ModelManager* mm, TextureManager* tm, float pHeight, float pWidth): BasisController(am,mm,tm, pHeight, pWidth), loaded(false)
 {
 	loaded = true;
 	Init();

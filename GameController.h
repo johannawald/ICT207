@@ -33,7 +33,6 @@
 class GameController : public IStateController, public BasisGameController
 {
 private:
-	
 	const bool mSoundOn; //const variable to active the sounds
 
 	bool mLostAnimation; //variable for triggering the lost animation
@@ -45,6 +44,7 @@ private:
 
 	virtual void InitGameObjects();
 protected:
+	bool mTimerStart;
 	Explosion mExplosion; //member variable for the explsion-class
 
 	int mBombIndex; //the index of the bomb
@@ -69,7 +69,7 @@ public:
 	/**
         * @brief constructor creates a new GameController object.
 		*/
-	GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture);
+	GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture, float pHeight, float pWidth);
 	int CheckCollision();
 	virtual void BeforeCollision(int pIndex, float pCollisionValue);
 	

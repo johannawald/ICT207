@@ -116,5 +116,5 @@ public:
 	    * @param AudioManager* audiomanager, ModelManager* modelmanager, TextureManager* texturemanager - the new value of the member variables
 		* @return void
 		*/
-	BasisController(AudioManager* pAudioManager, ModelManager* pModelManager, TextureManager* pTextureManager); 
+	BasisController(AudioManager* pAudioManager, ModelManager* pModelManager, TextureManager* pTextureManager, float pHeight, float pWidth); 
 };
