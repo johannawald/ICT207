@@ -22,8 +22,29 @@ void GameController::SetLevelTime(const int pValue)
 const bool GameController::ObjectIsBox(const int pIndex) const
 {
 	for (int i = 0; i<5; i++)
-		if (mBoxesCollisionIndex[i]==pIndex)
-			return true;
+	{
+		switch (i)
+		{
+		case 0:
+			{
+				if (mBoxesCollisionIndex1==pIndex) 
+					return true;
+					break;
+			}
+		case 1:
+			{
+				if (mBoxesCollisionIndex2==pIndex) 
+					return true;
+					break;
+			}
+		case 2:
+			{
+				if (mBoxesCollisionIndex3==pIndex) 
+					return true;
+					break;
+			}
+		}
+	}
 	return false;
 }
 
@@ -43,17 +64,22 @@ void Countdown(int counterStepTime)
 }
 
 GameController::GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture, float pHeight, float pWidth): 
-	BasisGameController(pAudio, pModel, pTexture, pHeight, pWidth), c_mLostTime(-5), mSoundOn(true), mBombSoundPlaying(false), mLostAnimation(false)
+	BasisGameController(pAudio, pModel, pTexture, pHeight, pWidth), c_mLostTime(-5), mSoundOn(true), mBombSoundPlaying(false), mLostAnimation(false), mMaxLevels(3)
 {
 	LevelTime = 40;
 	if (!TimerSet)
 		glutTimerFunc(1000, *Countdown, 0);
 	TimerSet = true;
-	mBoxesCollisionIndex = new int[3]; //dynamic for each level
+	/*mBoxesCollisionIndex = new int[3]; //dynamic for each level
 	for (int i = 0; i<5; i++)
-		mBoxesCollisionIndex[i] = -1;
+		mBoxesCollisionIndex[i] = -1;*/
 }
 
+GameController::~GameController()
+{
+	/*for (int i = 0; i < 3; i++)
+		delete mBoxesCollisionIndex;*/
+}
 
 void GameController::Init() 
 {
@@ -76,14 +102,21 @@ int GameController::CheckCollision()
 	return pIndexCollision;
 }
 
+void GameController::OnBeforeWin()
+{
+	if (mLevelNr==mMaxLevels)
+		mNextState = new GameWinController(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth());
+}
 
 void GameController::BeforeCollision(int pIndex, float pCollisionValue)
 {
 	if (ObjectIsBomb(pIndex))
 	{
-		StateMachine::setController(new GameWinController(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth()));
+		//Update XML file
+		OnBeforeWin();
+		
 	}
-	if (ObjectIsBox(pIndex))
+	else if (ObjectIsBox(pIndex))
 	{
 		//should not collide
 		bool Move = false;
@@ -143,7 +176,7 @@ void GameController::Update()  //this function should be used for updating varia
 		mLostAnimation = true;
 	}
 	else if (LevelTime==c_mLostTime)
-		StateMachine::setController(new GameOverController(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth()));
+		mNextState = new GameOverController(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth());
 	
 	if (mLostAnimation && !mBombSoundPlaying)
 	{
@@ -230,11 +263,12 @@ void GameController::DrawTimer()
 		glLoadIdentity();
 		if (LevelTime>0)
 		{
-			sprintf(s, "Time: %d", LevelTime); //get timer
+			sprintf(s, "Time: %d, level %d of %d levels", LevelTime, mLevelNr+1, mMaxLevels+1); //get timer
 			glColor3f(1.0, 0.0, 0.0);
 			font = GLUT_BITMAP_TIMES_ROMAN_24;
 			GetDrawManager()->RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
 		}
+
 		glPopMatrix();
 
 		GetDrawManager()->RestorePerspectiveProjection();

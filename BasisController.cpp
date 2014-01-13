@@ -2,6 +2,11 @@
 #include "DrawManager.h"
 #include "AudioManager.h"
 
+BasisController::~BasisController()
+{	
+	delete mDrawManager;
+}
+
 BasisController::BasisController(AudioManager* pAudioManager, ModelManager* pModelManager, TextureManager* pTextureManager, float pHeight, float pWidth): 
 	mAudioManager(pAudioManager), mModelManager(pModelManager), mTextureManager(pTextureManager), pLoaded(false), mScreenWidth(pWidth), mScreenHeight(pHeight)
 {	

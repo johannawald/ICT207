@@ -68,7 +68,7 @@ void GameOverController::Keyboard(unsigned char key, int x, int y)		//updated 29
 	switch (key)
 	{
 	case 27: //press esc to restart game
-		StateMachine::setController(new ControlRoom(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth()));
+		mNextState = new ControlRoom(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth());
 		break;
 	}
 }

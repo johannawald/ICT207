@@ -16,7 +16,7 @@
 #include <GL/freeglut.h>
 #include "include\SOIL.h"
 
-enum eTextures { tAdOreo, 
+enum eTextures { tAdOreo,
 				 taSomeTexture,
 				 taAdOreo_Text, 
 				 taGrass, taGrass2, tatext,

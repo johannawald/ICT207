@@ -41,11 +41,11 @@ private:
 
 	const bool ObjectIsBox(const int pIndex) const;  //checks if the object is a box
 	const bool ObjectIsBomb(const int pIndex) const; //checks if the object is the bomb
-
 	virtual void InitGameObjects();
 protected:
+	int mLevelNr;
+	const int mMaxLevels;
 	Explosion mExplosion; //member variable for the explsion-class
-
 	int mBombIndex; //the index of the bomb
 
 	/**
@@ -55,7 +55,9 @@ protected:
 		/**
          * @brief array of ints that saves the collision boxes of the boxes
 		 */
-	int* mBoxesCollisionIndex;
+	int mBoxesCollisionIndex1;
+	int mBoxesCollisionIndex2;
+	int mBoxesCollisionIndex3;
 		/**
          * @brief draws the current timer in the left edge of the screen
 		 * @param none
@@ -64,11 +66,13 @@ protected:
 	void DrawTimer();
 	virtual void DrawObjects();
 	void SetNewExplosion(const float x, const float y, const float z);
+	virtual void OnBeforeWin(); //*JW
 public:
 	/**
         * @brief constructor creates a new GameController object.
 		*/
 	GameController(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture, float pHeight, float pWidth);
+	~GameController();
 	int CheckCollision();
 	virtual void BeforeCollision(int pIndex, float pCollisionValue);
 	void SetLevelTime(const int pValue);

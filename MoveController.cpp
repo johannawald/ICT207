@@ -42,7 +42,6 @@ MoveController::MoveController()
 	{
 		mSpecialKeyStates[i] = false;
 	}
-	mDrawManager = new DrawManager();
 	mCameraBB.SetBoundingBox(mPos, Vector3D(75.0f, 100.0f, 75.0f));
 }
 

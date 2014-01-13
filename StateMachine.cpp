@@ -4,6 +4,7 @@
  * @author Johanna Wald, StateMachine, 16/09/2013
  * @version 01
  * @date 16/09/2013 Johanna Wald
+ * @date 19/11/2013 Johanna Wald added next state function
  */
 
 #include "StateMachine.h"
@@ -18,10 +19,13 @@
 #include "GameOverController.h"
 #include "BushCourtController.h"
 #include "GameControllerLevelOne.h"
+#include "GameControllerLevelXML.h"
 
+bool StateMachine::mSetBushCourt = false;
 StateMachine* StateMachine::mStateMachine = nullptr;
 BushCourtController* StateMachine::mBushcourtController = nullptr;
 bool StateMachine::mInit = false;
+IStateController* StateMachine::mState = nullptr;
 
 StateMachine::StateMachine(IStateController* pController) {
 	if (mBushcourtController==nullptr) 
@@ -32,13 +36,17 @@ StateMachine::StateMachine(IStateController* pController) {
 		mBushcourtController = new BushCourtController(mAudiomanager, mModelmanager, mTexturemanager, 1024, 1024);
 	}
 	if (pController==NULL)
-		mState = mBushcourtController;
+		mState = new GameControllerLevelXML(mAudiomanager, mModelmanager, mTexturemanager, 1024, 1024); //mBushcourtController;
 	else
 		mState = pController;
 }
 
 StateMachine::~StateMachine() {
-
+	delete mState;
+	delete mModelmanager;
+	delete mTexturemanager;
+	delete mAudiomanager;
+	delete mBushcourtController;
 }
 
 StateMachine* StateMachine::getInstance()
@@ -55,10 +63,15 @@ void StateMachine::setBushCourtController() {
 }
 
 void StateMachine::setController(IStateController* pController) {	
-	if (mStateMachine!=NULL)
-		delete mStateMachine;
-	mStateMachine = new StateMachine(pController); 
+	//if (mStateMachine!=NULL)
+	//delete mStateMachine;
+	std::cout << mState << std::endl;
+	if (mState!=mBushcourtController)
+		delete mState;
+	std::cout << " delete after" << std::endl;
+	mState = pController; 
 	pController->Init();
+	std::cout << " end setController" << std::endl;
 }
 
 void StateMachine::Init() {
@@ -71,6 +84,17 @@ void StateMachine::Draw() {
 
 void StateMachine::Update() {
 	StateMachine::mState->Update();
+	if (StateMachine::mState->mNextState!=nullptr)
+	{
+		setController(StateMachine::mState->mNextState);
+		mBushcourtController->mNextState = nullptr;
+		//StateMachine::mState->mNextState = nullptr;
+	}
+	else if (mSetBushCourt)
+	{
+		setBushCourtController();
+		mSetBushCourt = false;
+	}
 }
 
 void StateMachine::SpecialKey(int key, int x, int y)

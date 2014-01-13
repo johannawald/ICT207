@@ -88,7 +88,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OutputFile>.\Debug\houses.exe</OutputFile>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;SOIL.lib;tinyxml.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,7 +121,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <SubSystem>Console</SubSystem>
       <OutputFile>.\Release\houses.exe</OutputFile>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -142,6 +142,7 @@
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GameControllerLevelOne.cpp" />
+    <ClCompile Include="GameControllerLevelXML.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameOverController.cpp" />
     <ClCompile Include="GameWinController.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="GameControllerLevelOne.h" />
+    <ClInclude Include="GameControllerLevelXML.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameOverController.h" />
     <ClInclude Include="GameWinController.h" />

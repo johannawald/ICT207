@@ -18,7 +18,7 @@
 //FMOD_System* fmodSystem; System_Create 
 //System_Create
 
-enum eSounds { sStep, sMetalicCrash, sIncorrectCode,
+enum eSounds { sStep=0, sMetalicCrash, sIncorrectCode,
 			   sBgMusic, sBomb, sTextMsg,
 			   AUDIOSOUNDS_SIZE };
 

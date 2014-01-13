@@ -23,14 +23,22 @@
 #include "IStateController.h"
 #include "GameObject.h"
 #include "GameController.h"
+#include "tinyxml\tinyxml.h"
 
-class GameControllerLevelOne : public GameController
+class GameControllerLevelXML : public GameController
 {
 private:
+	TiXmlDocument mDoc;
+	TiXmlNode* mRoot;
+	int GetCurrentLevel();
 	virtual void DrawObjects();	
 	virtual void InitGameObjects();
+	Vector3D GetVecFromAttr(TiXmlElement* objelem, const char* pName);
+	int GetIntAttribute(TiXmlElement* objelem, const char* pName);
+	double GetDoubleAttribute(TiXmlElement* objelem, const char* pName);
+
 protected:
-	virtual void OnBeforeWin();
+	virtual void OnBeforeWin(); //*JW
 public:
-	GameControllerLevelOne(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture, float pHeight, float pWidth);
+	GameControllerLevelXML(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture, float pHeight, float pWidth);
 };

@@ -8,17 +8,21 @@
  * @version 02
  * @date 19/09/2013 Johanna Wald - Basic Implementation
  * @date 01/10/2013 Johanna Wald - Added Mouse-Function
+ * @date 19/11/2013 Johanna Wald - Next State Controller
+
  */
 
 #pragma once
 
 class IStateController {
 public:	
+	IStateController* mNextState;
 	/**
 		* @brief empty, virtual destructor that makes sure that the class will clear the memory
 		* virtual is important since the class should be cleared even if there is there is a list of pointers of it
 	*/
 	virtual ~IStateController() {};
+	IStateController(): mNextState(nullptr) {};
 	/**
 		* @brief abstract, virtual init-function
 	*/

@@ -21,7 +21,7 @@
 
 #include "GameController.h"
 
-class ControlRoom : public GameController {
+class ControlRoom : public GameController { //IStateController
 private:
 	int mIndexConsole;
 	int mIndexLadder;

@@ -26,6 +26,7 @@ private:
 	std::vector<BoundingBox*> mBoundingBoxes;
 	const bool PointCollision(const BoundingBox *pBoundingBox, const Vector3D& pPoint) const;
 public:
+	~CollisionDetection();
 		/**
 		* @brief draws all the collision boxes
 		* @param const DrawManager& pDrawManager to draw the rects

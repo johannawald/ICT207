@@ -35,10 +35,15 @@ void ControlRoom::InitGameObjects()
 void ControlRoom::BeforeCollision(int pIndex, float pCollisionValue)
 {	
 	GameController::BeforeCollision(pIndex, pCollisionValue);
-	if (ObjectIsLadder(pIndex))
-		StateMachine::setBushCourtController();
-	else if (ObjectIsConsole(pIndex))
-		StateMachine::setController(new GameControllerLevelOne(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth()));
+	if (ObjectIsConsole(pIndex))
+	{
+		std::cout << "before enter" << std::endl;
+		mNextState = new GameControllerLevelOne(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth());
+	}
+	else if (ObjectIsLadder(pIndex))
+	{	
+		StateMachine::mSetBushCourt = true;
+	}
 }
 
 bool ControlRoom::ObjectIsLadder(const int pIndex)
@@ -56,6 +61,8 @@ void ControlRoom::Keyboard(unsigned char key, int x, int y)
 	GameController::Keyboard(key,x,y);
 	if(key == ' ')
 		mShowConsoleScreen = !mShowConsoleScreen;
+	if(key == 'z')
+		mNextState = new ControlRoom(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth());
 }
 
 void ControlRoom::InitFloor()
@@ -78,6 +85,7 @@ void ControlRoom::InitWalls()
 {
 	int test = 0;
 	int height = 700;
+
 	addCollisionGameObject(Vector3D(400, GetGroundLevel(), -600), Vector3D(), Vector3D(0, height, 1200), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 2, 1, test); //rightwall
 	addCollisionGameObject(Vector3D(-400, GetGroundLevel(), 600), Vector3D(), Vector3D(0, height, -1200), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilewall), 2, 1, test); //leftwall
 

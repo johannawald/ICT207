@@ -21,17 +21,17 @@ private:
 	ModelManager* mModelmanager;
 	TextureManager* mTexturemanager;
 	AudioManager* mAudiomanager;
-
-	static BushCourtController* mBushcourtController; 
 	static bool mInit;
     static StateMachine* mStateMachine;
 	//private constructor since the state machine is a singelton
 	StateMachine(IStateController* pController);
 public:	
+	static bool mSetBushCourt; 
+	static BushCourtController* mBushcourtController; 
 		/**
          * @brief Current state of the program (All the control functions below will call the function of this state)
 		 */
-	IStateController* mState;
+	static IStateController* mState;
 		/**
          * @brief initalization / access method for the singelton (it's the only way to create the object, since the constructor is private)
 		 */

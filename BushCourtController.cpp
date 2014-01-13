@@ -43,6 +43,7 @@ BushCourtController::BushCourtController(AudioManager* am, ModelManager* mm, Tex
 }
 
 BushCourtController::~BushCourtController() {
+	std::cout << "destroy bushcourt" << std::endl;
 }
 
 //no idea why this is neccessary
@@ -51,15 +52,12 @@ void BushCourtController::ResetTransition()
 	transition.Update(tsNone);
 	Reshape();
 	cam.Position(cam.GetLR(), cam.GetUD(), cam.GetFB()-50, 180.0);
-}		
-
-int counter = 0;
-int moved = false;
+}	
 
 void BushCourtController::Restart()
 {
 	SetCamPosition(-27000, 10450, 41400, 180);
-	cam.DirectionFB(-1);
+	//cam.DirectionFB(-1);
 }
 
 //--------------------------------------------------------------------------------------
@@ -115,12 +113,12 @@ void BushCourtController::DrawObjects()
 void BushCourtController::Draw() 
 {
 	
-	if ((counter==1) && (!moved))
+	/*if ((counter==1) && (!moved))
 	{
 		cam.DirectionFB(0);
 		moved = true;
 	}
-	else counter++;
+	else counter++;*/
 
 	if (loaded) 
 	{
@@ -219,16 +217,17 @@ void BushCourtController::Update() {
 		cam.DirectionUD(-1);
 	}
 	if (cam.GetUD()<9000)
-		StateMachine::setController(new ControlRoom(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth()));
+		mNextState = new ControlRoom(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth());
 }
 
 void BushCourtController::Reshape() 
 {
-	Reshape(width, height);
+	BasisController::Reshape();
 }
 
 void BushCourtController::Reshape(int w, int h) 
 {
+	BasisController::Reshape(w, h);
 	width = w;		
 	height = h;
 	// Prevent a divide by zero, when window is too short		

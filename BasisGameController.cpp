@@ -6,6 +6,13 @@
 #include "GameObject.h"
 #include "BoundingBox.h"
 
+BasisGameController::~BasisGameController()
+{	
+	for (std::vector<GameObject*>::iterator it = mGameObject.begin(); it != mGameObject.end(); ++it) 
+	{
+		delete *it;
+	}	
+}
 
 BasisGameController::BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager, float pHeight, float pWidth): 
 	BasisController(pAudiomanager, pModelmanager, pTexturemanager, pHeight, pWidth), mGroundLevel(-65)
@@ -143,6 +150,7 @@ int BasisGameController::CheckCollision()
 		// Wallcollision
 		BeforeCollision(IndexCollision, COLLISIONVALUE);
 		WallCollision(IndexCollision, COLLISIONVALUE); 
+		std::cout << "test 3" << std::endl;
 	}
 	return IndexCollision;
 }

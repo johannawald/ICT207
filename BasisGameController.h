@@ -169,7 +169,7 @@ protected:
 		* (this function is called if a collision is detected)
 		* @param const int pIndex of the object of the array in "mCollision" that collided and caused that function-call
 		* @param const float pCollisionValue level of collision as a float
-		* @return void
+		* @return bool if state changed
 		*/
 	virtual void BeforeCollision(int pIndex, float pCollisionValue);
 public:	
@@ -181,5 +181,6 @@ public:
 		* @param ModelManager* pModelmanager - the model manager of the state machine
 		* @param TextureManager* pTextureManager - the texture manager of the state machine
     */
+	virtual ~BasisGameController();
 	BasisGameController(AudioManager* pAudiomanager, ModelManager* pModelmanager, TextureManager* pTexturemanager, float pHeight, float pWidth);
 };

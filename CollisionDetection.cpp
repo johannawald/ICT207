@@ -21,6 +21,14 @@ const int CollisionDetection::AddCollisionBox(const Vector3D& pMin, const Vector
 	return (mBoundingBoxes.size()-1);
 }
 
+CollisionDetection::~CollisionDetection()
+{
+	for (std::vector<BoundingBox*>::iterator it = mBoundingBoxes.begin(); it != mBoundingBoxes.end(); ++it) 
+	{
+		delete *it;
+	}	
+}
+
 float CollisionDetection::Collisions(const int pBBIndex, int& pIndex, const bool pCY)
 {
 	return Collisions(*mBoundingBoxes[pBBIndex], pIndex, true, pBBIndex);
