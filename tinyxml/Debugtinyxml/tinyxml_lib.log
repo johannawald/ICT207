@@ -1,0 +1,22 @@
+﻿Build started 09.01.2014 16:24:53.
+     1>Project "C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\tinyxml_lib.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W4 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _VC80_UPGRADE=0x0600 /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\Debugtinyxml\\" /Fd"C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\Debugtinyxml\vc110.pdb" /FR"C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\Debugtinyxml\\" /Gd /TP /analyze- /errorReport:prompt tinystr.cpp tinyxml.cpp tinyxmlerror.cpp tinyxmlparser.cpp
+         tinyxmlparser.cpp
+         tinyxmlerror.cpp
+         tinyxml.cpp
+         tinystr.cpp
+         Generating Code...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\Debugtinyxml\tinyxml.lib" /NOLOGO C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\Debugtinyxml\tinystr.obj
+         C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\Debugtinyxml\tinyxml.obj
+         C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\Debugtinyxml\tinyxmlerror.obj
+         C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\Debugtinyxml\tinyxmlparser.obj
+         tinyxml_lib.vcxproj -> C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\Debugtinyxml\tinyxml.lib
+       BscMake:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\bscmake.exe /nologo /o"C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\Debugtinyxml\tinyxml.bsc" C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\Debugtinyxml\tinystr.sbr C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\Debugtinyxml\tinyxml.sbr C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\Debugtinyxml\tinyxmlerror.sbr C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\Debugtinyxml\tinyxmlparser.sbr
+     1>Done Building Project "C:\Users\Nana\Documents\GitHub\ICT207\tinyxml\tinyxml_lib.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.84
