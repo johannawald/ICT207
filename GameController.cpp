@@ -263,10 +263,13 @@ void GameController::DrawTimer()
 		glLoadIdentity();
 		if (LevelTime>0)
 		{
-			sprintf(s, "Time: %d, level %d of %d levels", LevelTime, mLevelNr+1, mMaxLevels+1); //get timer
+			//sprintf(s, "Time: %d \nLevel %d of %d", LevelTime, mLevelNr+1, mMaxLevels+1); //get timer
+			sprintf(s, "Time: %d", LevelTime); //get timer
 			glColor3f(1.0, 0.0, 0.0);
 			font = GLUT_BITMAP_TIMES_ROMAN_24;
 			GetDrawManager()->RenderBitmapString(1.0,6.5,0.0,font, s); //display timer
+			sprintf(s, "Level %d of %d",  mLevelNr+1, mMaxLevels+1);
+			GetDrawManager()->RenderBitmapString(1.0,10.5,0.0,font, s);
 		}
 
 		glPopMatrix();

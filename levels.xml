@@ -1,5 +1,5 @@
 <levels current="1">
-    <level time="80" number="1">
+    <level number="1" time="80" >
         <wall model="-1" texture="30" TextureX="2" TextureY="5">
             <position x="-100" y="-65" z="-400" />
             <movement x="0" y="0" z="0" />
@@ -135,14 +135,14 @@
         <box model="4" texture="26" TextureX="1" TextureY="1">
             <position x="-90" y="-55" z="-210" />
             <movement x="0" y="0" z="0" />
-            <size x="50" y="50" z="50" />
+            <size x="75" y="75" z="75" />
             <scale x="0.15" y="0.15" z="0.15" />
             <rotation x="0" y="0" z="0" />
         </box>
         <box model="4" texture="26" TextureX="1" TextureY="1">
             <position x="10" y="-55" z="-210" />
             <movement x="0" y="0" z="0" />
-            <size x="50" y="50" z="50" />
+            <size x="75" y="75" z="75" />
             <scale x="0.15" y="0.15" z="0.15" />
             <rotation x="0" y="0" z="0" />
         </box>
@@ -156,43 +156,173 @@
             <rotation x="0" y="0" z="0" />
         </bomb>
     </level>
-    <level number="2" time="40">
-        <wall model="-1" texture="30" TextureX="1" TextureY="1">
-            <position x="-150" y="-65" z="-450" />
+    <level number="2" time="60">
+		<wall model="-1" texture="30" TextureX="2" TextureY="5">
+            <position x="-200" y="-65" z="-600" />
             <movement x="0" y="0" z="0" />
-            <size x="400" y="0" z="700" />
+            <size x="100" y="0" z="400" />
             <scale x="1" y="1" z="1" />
             <rotation x="0" y="0" z="0" />
         </wall>
-        <wall model="-1" texture="30" TextureX="1" TextureY="1">
-            <position x="-20" y="-65" z="-800" />
+		<wall model="-1" texture="30" TextureX="2" TextureY="5">
+            <position x="-100" y="-65" z="-800" />
             <movement x="0" y="0" z="0" />
-            <size x="150" y="500" z="0" />
+            <size x="100" y="0" z="300" />
             <scale x="1" y="1" z="1" />
             <rotation x="0" y="0" z="0" />
         </wall>
-        <bomb model="6" texture="28" TextureX="1" TextureY="1">
-            <position x="10" y="-55" z="-650" />
+		<wall model="-1" texture="30" TextureX="2" TextureY="5">
+            <position x="-200" y="-65" z="-200" />
             <movement x="0" y="0" z="0" />
-            <size x="100" y="100" z="100" />
-            <scale x="0.5" y="0.5" z="0.5" />
+            <size x="300" y="0" z="300" />
+            <scale x="1" y="1" z="1" />
             <rotation x="0" y="0" z="0" />
-        </bomb>
+        </wall>
+		<wall model="-1" texture="30" TextureX="2" TextureY="5">
+            <position x="0" y="-65" z="-600" />
+            <movement x="0" y="0" z="0" />
+            <size x="200" y="0" z="200" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		<wall model="-1" texture="30" TextureX="2" TextureY="5">
+            <position x="0" y="-65" z="-400" />
+            <movement x="0" y="0" z="0" />
+            <size x="100" y="0" z="200" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		
+		<wall model="-1" texture="31" TextureX="1" TextureY="1">
+            <position x="-200" y="-65" z="-600" />
+            <movement x="0" y="0" z="0" />
+            <size x="100" y="500" z="0" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		<wall model="-1" texture="31" TextureX="1" TextureY="1">
+            <position x="-100" y="-65" z="-800" />
+            <movement x="0" y="0" z="0" />
+            <size x="100" y="500" z="0" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		<wall model="-1" texture="31" TextureX="1" TextureY="1">
+            <position x="0" y="-65" z="-600" />
+            <movement x="0" y="0" z="0" />
+            <size x="200" y="500" z="0" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		<wall model="-1" texture="31" TextureX="1" TextureY="1">
+            <position x="-100" y="-65" z="-200" />
+            <movement x="0" y="0" z="0" />
+            <size x="100" y="500" z="0" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		
+		
+		<wall model="-1" texture="31" TextureX="1" TextureY="1">
+            <position x="-100" y="-65" z="-500" />
+            <movement x="0" y="0" z="0" />
+            <size x="0" y="500" z="300" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		<wall model="-1" texture="31" TextureX="1" TextureY="1">
+            <position x="0" y="-65" z="-800" />
+            <movement x="0" y="0" z="0" />
+            <size x="0" y="500" z="200" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		<wall model="-1" texture="31" TextureX="1" TextureY="1">
+            <position x="200" y="-65" z="-600" />
+            <movement x="0" y="0" z="0" />
+            <size x="0" y="500" z="200" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		<wall model="-1" texture="31" TextureX="1" TextureY="1">
+            <position x="100" y="-65" z="-400" />
+            <movement x="0" y="0" z="0" />
+            <size x="0" y="500" z="500" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		
+		<wall model="-1" texture="31" TextureX="1" TextureY="1">
+            <position x="-200" y="-65" z="100" />
+            <movement x="0" y="0" z="0" />
+            <size x="0" y="500" z="-700" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		<wall model="-1" texture="31" TextureX="1" TextureY="1">
+            <position x="-100" y="-65" z="-600" />
+            <movement x="0" y="0" z="0" />
+            <size x="0" y="500" z="-200" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		<wall model="-1" texture="31" TextureX="1" TextureY="1">
+            <position x="0" y="-65" z="-200" />
+            <movement x="0" y="0" z="0" />
+            <size x="0" y="500" z="-300" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		
+		<wall model="-1" texture="31" TextureX="1" TextureY="1">
+            <position x="100" y="-65" z="100" />
+            <movement x="0" y="0" z="0" />
+            <size x="-300" y="500" z="0" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		<wall model="-1" texture="31" TextureX="1" TextureY="1">
+            <position x="0" y="-65" z="-500" />
+            <movement x="0" y="0" z="0" />
+            <size x="-100" y="500" z="0" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		<wall model="-1" texture="31" TextureX="1" TextureY="1">
+            <position x="200" y="-65" z="-400" />
+            <movement x="0" y="0" z="0" />
+            <size x="-100" y="500" z="0" />
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" />
+        </wall>
+		
+		
         <box model="4" texture="26" TextureX="1" TextureY="1">
-            <position x="-120" y="-55" z="-250" />
+            <position x="-190" y="-55" z="-210" />
             <movement x="0" y="0" z="0" />
-            <size x="90" y="90" z="90" />
-            <scale x="0.2" y="0.2" z="0.2" />
+            <size x="75" y="75" z="75" />
+            <scale x="0.15" y="0.15" z="0.15" />
             <rotation x="0" y="0" z="0" />
         </box>
-    </level>
-    <level time="20" number="3">
+        <box model="4" texture="26" TextureX="1" TextureY="1">
+            <position x="10" y="-55" z="-210" />
+            <movement x="0" y="0" z="0" />
+            <size x="75" y="75" z="75" />
+            <scale x="0.15" y="0.15" z="0.15" />
+            <rotation x="0" y="0" z="0" />
+        </box>
+		
+		
         <bomb model="6" texture="28" TextureX="1" TextureY="1">
-            <position x="10" y="-55" z="-650" />
+            <position x="-50" y="-55" z="-750" />
             <movement x="0" y="0" z="0" />
             <size x="100" y="100" z="100" />
             <scale x="0.5" y="0.5" z="0.5" />
             <rotation x="0" y="0" z="0" />
         </bomb>
+		
+    </level>
+    <level number="3" time="20">
+
     </level>
 </levels>
