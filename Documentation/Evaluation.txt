@@ -1,0 +1,15 @@
+All the gameplay features are working in the game. 
+The collision detection is working so you can push boxes to make a path through the level 
+but you cannot push one box into another game object (another box or wall).
+The timer works and indicates the when the game is lost and there is also an indication that the game is won 
+and then the game can be restarted. 
+
+The particles effects explosion is not working in the game this is because
+it doesn't set to the correct position.  
+
+There were some bugs that we didn't have time to fix, including the particle effects explosion,
+Also had an issue with the background music not stopping once the level was over. When you transition back into
+bush court there is a problem with the resize. 
+
+
+There are random crashes in the release version so it is best to run the project in debug mode.
