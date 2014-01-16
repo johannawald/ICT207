@@ -40,5 +40,5 @@ private:
 protected:
 	virtual void OnBeforeWin(); //*JW
 public:
-	GameControllerLevelXML(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture, float pHeight, float pWidth);
+	GameControllerLevelXML(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture, float pHeight, float pWidth, int pLevelNr);
 };

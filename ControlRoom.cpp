@@ -26,7 +26,7 @@ void ControlRoom::InitGameObjects()
 	
 	addCollisionGameObject(Vector3D(-40, GetGroundLevel()+350, 750), Vector3D(), Vector3D(60,300,50), Vector3D(0.2,0.3,0.3), Vector3D(), mLadder, GetTexture()->getTextureID(taRustyWall), 1, 1, mIndexLadder);
 	addCollisionGameObject(Vector3D(-40, GetGroundLevel()+65, 750), Vector3D(), Vector3D(60,300,50), Vector3D(0.2,0.3,0.3), Vector3D(), mLadder, GetTexture()->getTextureID(taRustyWall), 1, 1, mIndexLadder);
-	addCollisionGameObject(Vector3D(-100, GetGroundLevel()+5, -700), Vector3D(), Vector3D(200,200,100), Vector3D(0.2,0.2,0.2), Vector3D(), mConsole,  GetTexture()->getTextureID(taConsole), 1, 1, mIndexConsole);
+	addCollisionGameObject(Vector3D(-100, GetGroundLevel()+5, -700), Vector3D(), Vector3D(300,300,200), Vector3D(0.2,0.2,0.2), Vector3D(), mConsole,  GetTexture()->getTextureID(taConsole), 1, 1, mIndexConsole);
 		
 	InitWalls();
 	InitFloor();
@@ -37,7 +37,6 @@ void ControlRoom::BeforeCollision(int pIndex, float pCollisionValue)
 	GameController::BeforeCollision(pIndex, pCollisionValue);
 	if (ObjectIsConsole(pIndex))
 	{
-		std::cout << "before enter" << std::endl;
 		mNextState = new GameControllerLevelOne(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth());
 	}
 	else if (ObjectIsLadder(pIndex))
@@ -61,8 +60,6 @@ void ControlRoom::Keyboard(unsigned char key, int x, int y)
 	GameController::Keyboard(key,x,y);
 	if(key == ' ')
 		mShowConsoleScreen = !mShowConsoleScreen;
-	if(key == 'z')
-		mNextState = new ControlRoom(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth());
 }
 
 void ControlRoom::InitFloor()
@@ -72,7 +69,6 @@ void ControlRoom::InitFloor()
 	addCollisionGameObject(Vector3D(-200, GetGroundLevel(), -800), Vector3D(), Vector3D(400, 0, 200), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 1, 0.5, test);
 	//addCollisionGameObject(Vector3D(-200, GetGroundLevel(), 600), Vector3D(), Vector3D(400, 0, 200), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 1, 1, test);
 	//position, movement, size, size, scale, rotation, model, texure
-
 
 	//FLOOR			x,		y = 0,	z,		positive size
 	//RIGHTWALL		x = 0,	y,		z,		0, +ve, +ve

@@ -7,11 +7,11 @@
 
 MoveController::MoveController()
 {
-	// intialise camera values
 	mStartPosition.x = 0;
 	mStartPosition.y = 0;
 	mStartPosition.z = 0;
 	mCameraRotation = 0;
+	mScalePlayer = true;
 
 	mSpeed = 100.0; 
 	mPos.x = 0.0; 
@@ -42,7 +42,15 @@ MoveController::MoveController()
 	{
 		mSpecialKeyStates[i] = false;
 	}
-	mCameraBB.SetBoundingBox(mPos, Vector3D(75.0f, 100.0f, 75.0f));
+	if (mScalePlayer)
+		mCameraBB.SetBoundingBox(mPos, Vector3D(55.0f, 100.0f, 55.0f)); //bb of the robot
+	else 
+		mCameraBB.SetBoundingBox(mPos, Vector3D(75.0f, 100.0f, 75.0f)); //bb of the robot
+}
+
+void MoveController::SetScalePlayer(bool mScale)
+{
+	mScalePlayer = mScale;	
 }
 
 void MoveController::SetCameraPosition()
@@ -93,7 +101,11 @@ void MoveController::MoveCamera(const ModelManager& pModelManager, const Texture
 	
 	glPushAttrib(GL_CURRENT_BIT);
 		glPushMatrix();
-			glRotatef(0, 1, 0, 0);
+			//glRotatef(0, 0, 1, 0);
+			if (mScalePlayer)
+				glScalef(1.2, 1, 1.2);
+			else
+				glScalef(1.15, 1.15, 1.15);
 			pModelManager.drawModel(mRobot, pTextureManager.getTextureID(taRobot));
 			glPopMatrix();
 	glPopAttrib();
@@ -103,7 +115,6 @@ void MoveController::MoveCamera(const ModelManager& pModelManager, const Texture
 	mCameraBB.Translate(mPos);
 	mCameraBB.Move(mPosDiff);
 	glTranslated(-mPos.x, 0.0f, -mPos.z); //translate the screen to the position of our camera
-	//glTranslated(-mPos.x, -mPos.y, -mPos.z); //translate the screen to the position of our camera
 }
 
 

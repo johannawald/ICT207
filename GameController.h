@@ -55,9 +55,7 @@ protected:
 		/**
          * @brief array of ints that saves the collision boxes of the boxes
 		 */
-	int mBoxesCollisionIndex1;
-	int mBoxesCollisionIndex2;
-	int mBoxesCollisionIndex3;
+	int mBoxesCollisionIndex[10];
 		/**
          * @brief draws the current timer in the left edge of the screen
 		 * @param none

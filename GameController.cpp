@@ -21,28 +21,12 @@ void GameController::SetLevelTime(const int pValue)
 
 const bool GameController::ObjectIsBox(const int pIndex) const
 {
-	for (int i = 0; i<5; i++)
+	for (int i = 0; i<9; i++)
 	{
-		switch (i)
+		if (pIndex==mBoxesCollisionIndex[i])
 		{
-		case 0:
-			{
-				if (mBoxesCollisionIndex1==pIndex) 
-					return true;
-					break;
-			}
-		case 1:
-			{
-				if (mBoxesCollisionIndex2==pIndex) 
-					return true;
-					break;
-			}
-		case 2:
-			{
-				if (mBoxesCollisionIndex3==pIndex) 
-					return true;
-					break;
-			}
+			return true;
+			break;
 		}
 	}
 	return false;

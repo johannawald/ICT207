@@ -32,6 +32,7 @@ class DrawManager;
 class MoveController
 {
 	private:
+		bool mScalePlayer;
 		DrawManager* mDrawManager; /**< Pointer to the DrawManager*/
 		BoundingBox mCameraBB; /**< The camera bounding box for collision detection*/
 		Vector3D mPos; /**< The camera position*/
@@ -217,7 +218,6 @@ class MoveController
 			 * @return void
              */
 		void MouseMotion(int x, int y);
-
 			/**
              * @brief Returns the camera's bounding box for collision
 			 *
@@ -225,5 +225,12 @@ class MoveController
 			 * @return const BoundingBox& mCameraBB
              */
 		const BoundingBox& GetCameraBB() const;
+			/**
+             * @brief Sets the varialbe scale player
+			 *
+			 * @param bool mScale value
+			 * @return void
+             */		
+		void SetScalePlayer(bool mScale);
 };
 #endif //end of MoveController class

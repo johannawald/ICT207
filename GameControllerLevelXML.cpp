@@ -4,12 +4,15 @@
 #include <sstream>
 #include <iostream>
 
-GameControllerLevelXML::GameControllerLevelXML(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture, float pHeight, float pWidth): 
+GameControllerLevelXML::GameControllerLevelXML(AudioManager* pAudio, ModelManager* pModel, TextureManager* pTexture, float pHeight, float pWidth, int pLevelNr = -1): 
 	GameController(pAudio, pModel, pTexture, pHeight, pWidth)
 {
 	mDoc.LoadFile("levels.xml");
 	mRoot = mDoc.FirstChild("levels");
-	mLevelNr = GetCurrentLevel();
+	if (pLevelNr==-1)
+		mLevelNr = GetCurrentLevel();
+	else
+		mLevelNr = pLevelNr;
 }
 
 void GameControllerLevelXML::OnBeforeWin()
@@ -100,14 +103,9 @@ void GameControllerLevelXML::InitGameObjects()
 				else if (value=="bomb")
 					addCollisionGameObject(GetVecFromAttr(objelem, "position"), GetVecFromAttr(objelem, "movement"), GetVecFromAttr(objelem, "size"), GetVecFromAttr(objelem, "scale"), GetVecFromAttr(objelem, "rotation"), GetIntAttribute(objelem, "model"), GetIntAttribute(objelem, "texture"), GetIntAttribute(objelem, "TextureX"), GetIntAttribute(objelem, "TextureY"), mBombIndex);
 				else if (value=="box")
-				{
+				{				
+					addCollisionGameObject(GetVecFromAttr(objelem, "position"), GetVecFromAttr(objelem, "movement"), GetVecFromAttr(objelem, "size"), GetVecFromAttr(objelem, "scale"), GetVecFromAttr(objelem, "rotation"), GetIntAttribute(objelem, "model"), GetIntAttribute(objelem, "texture"), GetIntAttribute(objelem, "TextureX"), GetIntAttribute(objelem, "TextureY"), mBoxesCollisionIndex[boxes]);
 					boxes++;
-					if (boxes==0)
-						addCollisionGameObject(GetVecFromAttr(objelem, "position"), GetVecFromAttr(objelem, "movement"), GetVecFromAttr(objelem, "size"), GetVecFromAttr(objelem, "scale"), GetVecFromAttr(objelem, "rotation"), GetIntAttribute(objelem, "model"), GetIntAttribute(objelem, "texture"), GetIntAttribute(objelem, "TextureX"), GetIntAttribute(objelem, "TextureY"), mBoxesCollisionIndex1);
-					else if (boxes==1)
-						addCollisionGameObject(GetVecFromAttr(objelem, "position"), GetVecFromAttr(objelem, "movement"), GetVecFromAttr(objelem, "size"), GetVecFromAttr(objelem, "scale"), GetVecFromAttr(objelem, "rotation"), GetIntAttribute(objelem, "model"), GetIntAttribute(objelem, "texture"), GetIntAttribute(objelem, "TextureX"), GetIntAttribute(objelem, "TextureY"), mBoxesCollisionIndex1);
-					else if (boxes==2)
-						addCollisionGameObject(GetVecFromAttr(objelem, "position"), GetVecFromAttr(objelem, "movement"), GetVecFromAttr(objelem, "size"), GetVecFromAttr(objelem, "scale"), GetVecFromAttr(objelem, "rotation"), GetIntAttribute(objelem, "model"), GetIntAttribute(objelem, "texture"), GetIntAttribute(objelem, "TextureX"), GetIntAttribute(objelem, "TextureY"), mBoxesCollisionIndex1);
 				}
 				object = object->NextSibling();
 			}

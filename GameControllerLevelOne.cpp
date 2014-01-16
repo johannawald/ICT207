@@ -11,6 +11,7 @@ GameControllerLevelOne::GameControllerLevelOne(AudioManager* pAudio, ModelManage
 	GameController(pAudio, pModel, pTexture, pHeight, pWidth)
 {
 	mLevelNr=0;
+	mCamera.SetScalePlayer(false);
 }
 
 void GameControllerLevelOne::DrawObjects() 
@@ -22,7 +23,7 @@ void GameControllerLevelOne::DrawObjects()
 
 void GameControllerLevelOne::OnBeforeWin()
 {	
-	mNextState = new GameControllerLevelXML(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth());
+	mNextState = new GameControllerLevelXML(GetAudio(), GetModel(), GetTexture(), GetWindowHeight(), GetWindowWidth(), 1);
 }
 
 void GameControllerLevelOne::InitGameObjects()
@@ -30,9 +31,9 @@ void GameControllerLevelOne::InitGameObjects()
 	int test = 0;
 	addCollisionGameObject(Vector3D(10, GetGroundLevel()+10, -650), Vector3D(), Vector3D(100, 100, 100), Vector3D(0.5f, 0.5f, 0.5f), Vector3D(0, 0, 0), mBomb, GetTexture()->getTextureID(taBomb), 1, 1, mBombIndex);
 	
-	addCollisionGameObject(Vector3D(-120, GetGroundLevel()+10, -250), Vector3D(), Vector3D(90, 90, 90), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, GetTexture()->getTextureID(taBox), 1, 1, mBoxesCollisionIndex1);
-	addCollisionGameObject(Vector3D(0, GetGroundLevel()+10, -250), Vector3D(), Vector3D(90, 90, 90), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, GetTexture()->getTextureID(taBox), 1, 1, mBoxesCollisionIndex2);
-	addCollisionGameObject(Vector3D(120, GetGroundLevel()+10, -250), Vector3D(), Vector3D(90, 90, 90), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, GetTexture()->getTextureID(taBox), 1, 1, mBoxesCollisionIndex3);
+	addCollisionGameObject(Vector3D(-120, GetGroundLevel()+10, -250), Vector3D(), Vector3D(95, 95, 95), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, GetTexture()->getTextureID(taBox), 1, 1, mBoxesCollisionIndex[1]);
+	addCollisionGameObject(Vector3D(0, GetGroundLevel()+10, -250), Vector3D(), Vector3D(95, 95, 95), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, GetTexture()->getTextureID(taBox), 1, 1, mBoxesCollisionIndex[2]);
+	addCollisionGameObject(Vector3D(120, GetGroundLevel()+10, -250), Vector3D(), Vector3D(95, 95, 95), Vector3D(0.2f, 0.2f, 0.2f), Vector3D(), mBox, GetTexture()->getTextureID(taBox), 1, 1, mBoxesCollisionIndex[3]);
 	
 	//floor
 	addCollisionGameObject(Vector3D(-150, GetGroundLevel(), -450), Vector3D(), Vector3D(400, 0, 700), Vector3D(), Vector3D(), -1, GetTexture()->getTextureID(taTilefloor), 1, 1, test);
