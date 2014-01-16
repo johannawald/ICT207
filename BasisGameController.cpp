@@ -149,8 +149,7 @@ int BasisGameController::CheckCollision()
 	{
 		// Wallcollision
 		BeforeCollision(IndexCollision, COLLISIONVALUE);
-		WallCollision(IndexCollision, COLLISIONVALUE); 
-		std::cout << "test 3" << std::endl;
+		WallCollision(IndexCollision, COLLISIONVALUE);
 	}
 	return IndexCollision;
 }

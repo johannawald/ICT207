@@ -136,7 +136,7 @@ void BushCourtController::Draw()
 		glEnable (GL_TEXTURE_2D);
 		glPushMatrix();
 			// displays the welcome screen
-			if (false)
+			if (DisplayWelcome)
 			{
 				if(txtmsgtimer < 250)
 					cam.DisplayWelcomeScreen(width, height, 1, GetTexture()->getTextureID(taRoberWelcome1));
